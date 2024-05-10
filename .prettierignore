@@ -1,0 +1,9 @@
+node_modules
+public
+.editorconfig
+.eslintrc.cjs
+package.json
+package-lock.json
+README.md
+tsconfig.json
+tsconfig.node.json
