@@ -32,6 +32,21 @@ const Calendar: React.FC<Props> = ({ slots }) => {
     '17:00',
     '17:30',
     '18:00',
+    '18:30',
+    '19:00',
+    '20:00',
+    '20:30',
+    '21:00',
+    '21:30',
+    '22:00',
+    '22:30',
+    '23:00',
+    '23:30',
+    '00:00',
+    '00:30',
+    '01:00',
+    '01:30',
+    '02:00',
   ];
 
   // const getSlotStyle = (startTime: string, endTime: string) => {
@@ -48,13 +63,13 @@ const Calendar: React.FC<Props> = ({ slots }) => {
 
   return (
     <div className="relative">
-      <div className="grid grid-cols-1 md:grid-cols-12 gap-4">
-        <div className="col-span-1 md:col-span-1">
-          <div className="sticky top-0 bg-white z-10">
+      <div className="grid grid-cols-12 gap-4">
+        <div className="col-span-1">
+          <div className="mt-3 bg-white z-10">
             {times.map((time) => (
               <div
                 key={time}
-                className="h-16 flex items-center justify-end pr-2"
+                className="h-8 flex items-center justify-end pr-2"
               >
                 <span>{time}</span>
               </div>
@@ -62,18 +77,13 @@ const Calendar: React.FC<Props> = ({ slots }) => {
           </div>
         </div>
         {tables.map((table) => (
-          <div key={table} className="col-span-1 md:col-span-1">
+          <div key={table} className="col-span-1 relative h-[128rem]">
             <div className="sticky top-0 bg-white z-10 text-center font-bold">{`№${table}`}</div>
-            <div className="relative">
-              {slots
-                .filter((slot) => slot.table === table)
-                .map((slot) => (
-                  <TimeSlot
-                    key={`${slot.startTime}-${slot.table}`}
-                    slot={slot}
-                  />
-                ))}
-            </div>
+            {slots
+              .filter((slot) => slot.table === table)
+              .map((slot) => (
+                <TimeSlot key={`${slot.startTime}-${slot.table}`} slot={slot} />
+              ))}
           </div>
         ))}
       </div>
