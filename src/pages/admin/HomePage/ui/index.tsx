@@ -1,9 +1,9 @@
-import { AdminHeader } from '../../../../features/AdminHeader';
+import ScheduleTable from '../../../../widgets/scheduleTable/ui';
 
 export const AdminHomePage = () => {
   return (
     <>
-      <AdminHeader />
+      <ScheduleTable />
     </>
   );
 };
