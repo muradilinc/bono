@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+// import { UsersThree } from '@phosphor-icons/react';
 
 interface Props {
   slot: {
@@ -14,13 +15,13 @@ const TimeSlot: React.FC<Props> = ({ slot }) => {
   const { startTime, endTime, occupied } = slot;
   const start = moment(startTime, 'HH:mm');
   const end = moment(endTime, 'HH:mm');
-  const top = ((start.hours() - 10) * 2 + start.minutes() / 30) * 2; // 30 минут = 2rem
-  const height = (end.diff(start, 'minutes') / 30) * 2; // 30 минут = 2rem
+  const duration = end.diff(start, 'minutes') / 30;
+  const top = ((start.hours() - 10) * 2 + start.minutes() / 30) * 2;
 
   return (
     <div
-      className={`absolute left-0 right-0 ${occupied ? 'bg-green-500' : 'bg-gray-200'} border border-black text-center`}
-      style={{ top: `${top}rem`, height: `${height}rem` }}
+      className={`absolute ${occupied ? 'bg-green-500' : 'bg-white'} border border-black text-center`}
+      style={{ top: `${top}rem`, height: `${duration * 2}rem` }}
     >
       <p>{`${startTime} - ${endTime}`}</p>
     </div>
