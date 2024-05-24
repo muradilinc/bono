@@ -2,12 +2,15 @@ import { FC, useEffect, useState } from 'react';
 import { addDays, format, subDays } from 'date-fns';
 import moment from 'moment-timezone';
 import { ru } from 'date-fns/locale';
+import AdminCalendar from '../../../features/AdminCalendar/ui/AdminCalendar';
 
 export const Calendar: FC = () => {
   const [currentDate, setCurrentDate] = useState<Date | null>(null);
+  const [calendar, setCalendar] = useState<boolean>(false);
 
   useEffect(() => {
     const bishkekTime = moment().tz('Asia/Bishkek').toDate();
+    console.log(bishkekTime);
     setCurrentDate(bishkekTime);
   }, []);
 
@@ -35,7 +38,10 @@ export const Calendar: FC = () => {
                 alt="arrow-left"
               />
             </button>
-            <div className="font-comfortaa text-2xl font-bold leading-[26.76px] text-center px-[22px] pb-[6px] m-auto">
+            <div
+              onClick={() => setCalendar(!calendar)}
+              className="font-comfortaa text-2xl font-bold leading-[26.76px] text-center px-[22px] pb-[6px] m-auto cursor-pointer"
+            >
               {format(currentDate, 'E, dd MMMM', { locale: ru })}
             </div>
             <button onClick={goToNextDay}>
@@ -50,6 +56,13 @@ export const Calendar: FC = () => {
       ) : (
         <p>Загрузка...</p>
       )}
+      {calendar ? (
+        <AdminCalendar
+          setCurrentDate={setCurrentDate}
+          currentDate={currentDate}
+          setCalendar={setCalendar}
+        />
+      ) : null}
     </>
   );
 };
