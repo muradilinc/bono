@@ -20,7 +20,7 @@ export const links = [
     name: 'Входящие',
   },
   {
-    path: '/',
+    path: '/admin',
     name: 'СРМ система',
   },
   {

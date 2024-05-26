@@ -1,10 +1,8 @@
-import Sidebar from '../../../../components/Sidebar/Sidebar';
 import { guests } from '../config/constants';
 
 export const AdminIncomingPage = () => {
   return (
     <section className="flex h-svh">
-      <Sidebar />
       <div className="w-full h-full bg-black">
         <div className="bg-white p-[16px] flex items-center">
           <h1 className="font-semibold text-[17px] opacity-60">Admin - BONO</h1>

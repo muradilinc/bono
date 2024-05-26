@@ -3,6 +3,7 @@ import Calendar from 'react-calendar';
 import 'react-calendar/dist/Calendar.css';
 
 interface PropsType {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   setCurrentDate: any;
   currentDate: Date | null;
   setCalendar: (value: boolean) => void;
