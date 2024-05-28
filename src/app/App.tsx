@@ -1,12 +1,12 @@
 import { Route, Routes, useLocation, useRoutes } from 'react-router-dom';
 import Layout from './layout/layout';
 import AdminLayout from './layout/adminLaoyut';
-import { AdminHomePage } from '../pages/admin/HomePage';
+import { SchedulePage } from '../pages/admin/SchedulePage';
 import { HomePage } from '../pages/client/HomePage';
 import { AdminIncomingPage } from '../pages/admin/IncomingPage';
 import { AdminBannerPage } from '../pages/admin/BannerPage';
 import { AdminMenuPage } from '../pages/admin/MenuPage';
-import AdminPanel from '../pages/admin/Panel/AdminPanel';
+import { AdminPanel } from '../pages/admin/CategoryPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -16,11 +16,11 @@ const App = () => {
       element: (
         <AdminLayout>
           <Routes>
-            <Route path="/" element={<AdminHomePage />} />
+            <Route path="/" element={<AdminBannerPage />} />
+            <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/incoming" element={<AdminIncomingPage />} />
             <Route path="/menu" element={<AdminMenuPage />} />
             <Route path="/category" element={<AdminPanel />} />
-            <Route path="/banner" element={<AdminBannerPage />} />
           </Routes>
         </AdminLayout>
       ),

@@ -1,9 +1,9 @@
 import { useState } from 'react';
-import AdminAddCategories from './AdminAddCategories';
-import { ICategory } from './Type/Type';
-import AdminCategories from './AdminCategories';
+import { AdminAddCategories } from './AdminAddCategories';
+import { ICategory } from '../Type/Type';
+import { AdminCategories } from './AdminCategories';
 
-const AdminPanel = () => {
+export const AdminPanel = () => {
   const [activeBtn, setActiveBtn] = useState<string | null>('Категории');
   const [category, setCategory] = useState<ICategory[]>([]);
 
@@ -26,5 +26,3 @@ const AdminPanel = () => {
     </div>
   );
 };
-
-export default AdminPanel;

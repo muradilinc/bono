@@ -1,8 +1,11 @@
 import React, { useRef, useState } from 'react';
-import { ICategory, ICategoryProp } from './Type/Type';
-import ModalPopUp from '../../../shared/ui/ModalPopUp';
+import { ICategory, ICategoryProp } from '../Type/Type';
+import ModalPopUp from '../../../../shared/ui/ModalPopUp';
 
-const AdminAddCategories = ({ setCategory, setActiveBtn }: ICategoryProp) => {
+export const AdminAddCategories = ({
+  setCategory,
+  setActiveBtn,
+}: ICategoryProp) => {
   const refFile = useRef<HTMLInputElement>(null);
   const refName = useRef<HTMLInputElement>(null);
   const [data, setData] = useState<ICategory | null>(null);
@@ -125,5 +128,3 @@ const AdminAddCategories = ({ setCategory, setActiveBtn }: ICategoryProp) => {
     </>
   );
 };
-
-export default AdminAddCategories;

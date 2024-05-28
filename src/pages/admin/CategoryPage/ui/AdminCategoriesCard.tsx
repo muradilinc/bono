@@ -1,10 +1,10 @@
 import React, { useRef, useState } from 'react';
-import { ICategoryProp2Card } from './Type/Type';
+import { ICategoryProp2Card } from '../Type/Type';
 import { Trash } from '@phosphor-icons/react';
-import ModalDelete from '../../../shared/ui/ModalDelete';
-import ModalPopUp from '../../../shared/ui/ModalPopUp';
+import ModalDelete from '../../../../shared/ui/ModalDelete';
+import ModalPopUp from '../../../../shared/ui/ModalPopUp';
 
-const AdminCategoriesCard = ({
+export const AdminCategoriesCard = ({
   el,
   inx,
   category,
@@ -38,13 +38,14 @@ const AdminCategoriesCard = ({
       return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`;
     }
   };
+
   const handleDelete = () => {
     const newCategory = [...category];
     newCategory.splice(inx, 1);
     setCategory(newCategory);
     setActive(false);
   };
-  console.log(popUp);
+
   return (
     <>
       <div key={inx} className="flex items-center justify-between my-[20px]">
@@ -97,5 +98,3 @@ const AdminCategoriesCard = ({
     </>
   );
 };
-
-export default AdminCategoriesCard;
