@@ -1,5 +1,5 @@
 import { ICategoryProp2 } from '../Type/Type';
-import AdminCategoriesCard from './AdminCategoriesCard';
+import { AdminCategoriesCard } from './AdminCategoriesCard';
 
 export const AdminCategories = ({
   category,
