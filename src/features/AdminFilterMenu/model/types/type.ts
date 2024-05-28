@@ -3,6 +3,7 @@ export interface DataFilterCard {
 }
 
 export interface DataMenuCard {
+  id: number;
   category: string;
   img: string;
   title: string;

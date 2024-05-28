@@ -1,16 +1,24 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { DataMenuCard } from '../model/type/types';
+import ModalDelete from '../../../shared/ui/ModalDelete';
 
 export const AdminMenuCard: FC<DataMenuCard> = ({
+  id,
   img,
   title,
   text,
   gram,
   price,
+  onDelete,
 }) => {
+  const [modal, setModal] = useState<boolean>(false);
+
   return (
-    <div className="w-[379px] h-[479px] gap-[16px] bg-transparent text-white">
-      <div className="">
+    <div
+      onClick={() => setModal(true)}
+      className="w-[379px] h-[479px] gap-[16px] bg-transparent text-white cursor-pointer"
+    >
+      <div>
         <img src={img} alt="menu picture" />
       </div>
       <div className="text-2xl font-bold leading-7 pt-[10px] pb-[16px]">
@@ -23,6 +31,13 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
         {gram} Грамм
       </div>
       <div className="font-bold text-2xl">{price} сом</div>
+      {modal && (
+        <ModalDelete
+          addModal={modal}
+          setAddModal={setModal}
+          onDelete={() => onDelete(id)}
+        />
+      )}
     </div>
   );
 };
