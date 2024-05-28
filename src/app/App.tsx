@@ -4,6 +4,7 @@ import AdminLayout from './layout/adminLaoyut';
 import { AdminHomePage } from '../pages/admin/HomePage';
 import { HomePage } from '../pages/client/HomePage';
 import { AdminIncomingPage } from '../pages/admin/IncomingPage';
+import { AdminMenuPage } from '../pages/admin/MenuPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -14,9 +15,8 @@ const App = () => {
         <AdminLayout>
           <Routes>
             <Route path="/" element={<AdminHomePage />} />
-          </Routes>
-          <Routes>
             <Route path="/incoming" element={<AdminIncomingPage />} />
+            <Route path="/menu" element={<AdminMenuPage />} />
           </Routes>
         </AdminLayout>
       ),
