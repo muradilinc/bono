@@ -37,6 +37,7 @@ export interface IModal2 {
 export interface IAddModal {
   addModal: boolean;
   setAddModal: React.Dispatch<React.SetStateAction<boolean>>;
+  onDelete: () => void;
 }
 export interface IAddModal2 {
   addModal2: boolean;
@@ -47,4 +48,5 @@ export interface IAddModal2 {
 export interface IPopUp {
   popUp: boolean;
   setPopUp: (popUp: boolean) => void;
+  propText: string;
 }

@@ -1,7 +1,7 @@
 import { IAddModal } from '../types/Type';
 import { useEffect, useRef } from 'react';
 
-const ModalDelete = ({ addModal, setAddModal }: IAddModal) => {
+const ModalDelete = ({ addModal, setAddModal, onDelete }: IAddModal) => {
   const refModal = useRef<HTMLDivElement>(null);
   const refBg = useRef<HTMLDivElement>(null);
 
@@ -22,7 +22,7 @@ const ModalDelete = ({ addModal, setAddModal }: IAddModal) => {
     <>
       <div
         ref={refModal}
-        className="absolute w-[100%] flex justify-center rounded-[8px] mt-[160px] z-[100]"
+        className="absolute left-0 right-0 top-0 bottom-0 w-[100%] flex justify-center rounded-[8px] mt-[160px] z-[100]"
       >
         <div className="w-[400px] h-[272px] bg-white flex flex-col items-center rounded-[8px]">
           <div className="flex items-center justify-between bg-[#F4FAFF] py-[15px] px-[15px] w-[100%] rounded-[8px]">
@@ -42,7 +42,10 @@ const ModalDelete = ({ addModal, setAddModal }: IAddModal) => {
           >
             Отменить
           </button>
-          <button className="bg-[#F8F8F8] text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] w-[80%] duration-300 hover:bg-[rgba(87,128,235,1)] hover:text-white">
+          <button
+            onClick={onDelete}
+            className="bg-[#F8F8F8] text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] w-[80%] duration-300 hover:bg-[rgba(87,128,235,1)] hover:text-white"
+          >
             Удалить
           </button>
         </div>
