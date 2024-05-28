@@ -1,6 +1,6 @@
 export const links = [
   {
-    path: '/banner',
+    path: '/admin/banner',
     name: 'Баннер',
   },
   {
