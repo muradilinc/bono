@@ -118,7 +118,13 @@ const AddClient = ({ modal, setModal }: IModal) => {
       ref={refModal}
       className="absolute w-[100%] flex justify-center z-[101] mt-[30px]"
     >
-      {popUp ? <ModalPopUp popUp={popUp} setPopUp={setPopUp} /> : null}
+      {popUp ? (
+        <ModalPopUp
+          popUp={popUp}
+          setPopUp={setPopUp}
+          propText={'Добавлен клиент'}
+        />
+      ) : null}
       <div
         ref={refClose}
         className="w-[400px] h-[770px] mb-[30px] bg-white flex flex-col items-center rounded-[8px]"

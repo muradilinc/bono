@@ -6,6 +6,7 @@ import { HomePage } from '../pages/client/HomePage';
 import { AdminIncomingPage } from '../pages/admin/IncomingPage';
 import { AdminBannerPage } from '../pages/admin/BannerPage';
 import { AdminMenuPage } from '../pages/admin/MenuPage';
+import AdminPanel from '../pages/admin/Panel/AdminPanel';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -18,6 +19,7 @@ const App = () => {
             <Route path="/" element={<AdminHomePage />} />
             <Route path="/incoming" element={<AdminIncomingPage />} />
             <Route path="/menu" element={<AdminMenuPage />} />
+            <Route path="/category" element={<AdminPanel />} />
             <Route path="/banner" element={<AdminBannerPage />} />
           </Routes>
         </AdminLayout>

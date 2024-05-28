@@ -125,7 +125,13 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
       ref={refModal}
       className="absolute w-[100%] flex justify-center z-[100] mt-[30px]"
     >
-      {popUp ? <ModalPopUp popUp={popUp} setPopUp={setPopUp} /> : null}
+      {popUp ? (
+        <ModalPopUp
+          popUp={popUp}
+          setPopUp={setPopUp}
+          propText={'Добавлен клиент'}
+        />
+      ) : null}
       <div
         ref={refClose}
         className="w-[400px] h-[850px] mb-[30px] bg-white flex flex-col items-center rounded-[8px]"

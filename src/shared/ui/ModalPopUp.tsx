@@ -1,13 +1,13 @@
 import { useEffect } from 'react';
 import { IPopUp } from '../types/Type';
 
-const ModalPopUp = ({ popUp, setPopUp }: IPopUp) => {
+const ModalPopUp = ({ popUp, setPopUp, propText }: IPopUp) => {
   useEffect(() => {
     if (popUp) {
       const timer = setTimeout(() => {
         setPopUp(false);
       }, 3000);
-      return () => clearInterval(timer);
+      return () => clearTimeout(timer);
     }
   }, [popUp, setPopUp]);
   return (
@@ -18,7 +18,7 @@ const ModalPopUp = ({ popUp, setPopUp }: IPopUp) => {
             <span className="bg-[#8CDF7E] w-[25px] h-[25px] rounded-[50%] flex items-center justify-center text-white">
               ✓
             </span>
-            <h3 className="font-semibold ml-[5px]">Добавлен клиент</h3>
+            <h3 className="font-semibold ml-[5px]">{propText}</h3>
           </div>
         </div>
       ) : null}

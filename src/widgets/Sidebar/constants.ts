@@ -12,7 +12,7 @@ export const links = [
     name: 'Заказы',
   },
   {
-    path: '/',
+    path: '/admin/category',
     name: 'Категории',
   },
   {
