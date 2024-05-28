@@ -4,7 +4,7 @@ export const links = [
     name: 'Баннер',
   },
   {
-    path: '/menu',
+    path: '/admin/menu',
     name: 'Меню',
   },
   {
