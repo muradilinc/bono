@@ -1,7 +1,16 @@
 import { FC } from 'react';
 import { FILTERED_BTN } from '../config/constants';
 
-export const FilterButton: FC = () => {
+interface Props {
+  setAddModal: (modal: boolean) => void;
+  setModal: (modal: boolean) => void;
+  modal: boolean;
+}
+export const FilterButton: FC<Props> = ({ setAddModal, setModal, modal }) => {
+  const openModal = () => {
+    setAddModal(true);
+    setModal(!modal);
+  };
   return (
     <>
       <div className="h-[47px] px-[12px] flex items-center gap-[10px] rounded-[8px] bg-[#FDFDFD]">
@@ -28,7 +37,10 @@ export const FilterButton: FC = () => {
         />
       </div>
       <div>
-        <button className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#FDFDFD]">
+        <button
+          onClick={openModal}
+          className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#FDFDFD]"
+        >
           Добавить +
         </button>
       </div>

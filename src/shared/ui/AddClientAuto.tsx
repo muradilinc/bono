@@ -1,9 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../style/style.css';
-import { IForms, IModal } from '../types/Type';
+import { IFormsAuto, IModal2 } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
 
-const AddClient = ({ modal, setModal }: IModal) => {
+const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
   const [popUp, setPopUp] = useState<boolean>(false);
   const refModal = useRef<HTMLDivElement>(null);
   const refName = useRef<HTMLInputElement>(null);
@@ -12,15 +12,17 @@ const AddClient = ({ modal, setModal }: IModal) => {
   const refTime = useRef<HTMLInputElement>(null);
   const refComments = useRef<HTMLInputElement>(null);
   const refGuests = useRef<HTMLInputElement>(null);
+  const refTable = useRef<HTMLInputElement>(null);
   const refErr = useRef<HTMLInputElement>(null);
   const refClose = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState<IForms>({
+  const [form, setForm] = useState<IFormsAuto>({
     name: '',
     tel: '',
     timeA: '',
     time: '',
     guests: '',
     comments: '',
+    table: '',
   });
 
   const handleInputChange = (
@@ -66,6 +68,11 @@ const AddClient = ({ modal, setModal }: IModal) => {
     } else {
       refComments.current?.classList.remove('empty');
     }
+    if (refTable.current?.value.trim() === '') {
+      refTable.current.classList.add('empty');
+    } else {
+      refTable.current?.classList.remove('empty');
+    }
   };
 
   const addClient = () => {
@@ -86,13 +93,14 @@ const AddClient = ({ modal, setModal }: IModal) => {
         time: '',
         guests: '',
         comments: '',
+        table: '',
       });
       if (refClose.current) {
         refClose.current.style.display = 'none';
         setPopUp(true);
       }
       const time = setTimeout(() => {
-        setModal(false);
+        setModal2(false);
         if (refClose.current) {
           refClose.current.style.display = 'block';
         }
@@ -102,7 +110,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
   };
 
   useEffect(() => {
-    if (modal) {
+    if (modal2) {
       if (refModal.current) {
         refModal.current.style.transform = 'translateX(0)';
       }
@@ -111,24 +119,23 @@ const AddClient = ({ modal, setModal }: IModal) => {
         refModal.current.style.transform = 'translateX(-100%)';
       }
     }
-  }, [modal]);
-
+  }, [modal2]);
   return (
     <div
       ref={refModal}
-      className="absolute w-[100%] flex justify-center z-[101] mt-[30px]"
+      className="absolute w-[100%] flex justify-center z-[100] mt-[30px]"
     >
       {popUp ? <ModalPopUp popUp={popUp} setPopUp={setPopUp} /> : null}
       <div
         ref={refClose}
-        className="w-[400px] h-[770px] mb-[30px] bg-white flex flex-col items-center rounded-[8px]"
+        className="w-[400px] h-[850px] mb-[30px] bg-white flex flex-col items-center rounded-[8px]"
       >
         <div className="flex items-center justify-between bg-[#F4FAFF] py-[15px] px-[15px] w-[100%] rounded-[8px]">
           <h2 className="text-[rgba(0,0,0,0.6)] text-[17px] font-bold">
             Добавить клиента
           </h2>
           <span
-            onClick={() => setModal(false)}
+            onClick={() => setModal2(false)}
             className="text-[rgba(0,0,0,0.6)] text-[20px] cursor-pointer"
           >
             &#x2715;
@@ -219,6 +226,18 @@ const AddClient = ({ modal, setModal }: IModal) => {
               type="text"
             />
           </div>
+          <div>
+            <p className="text-[#858687] text-[14px] mb-[5px]">Номер стола</p>
+            <input
+              ref={refTable}
+              onChange={handleInputChange}
+              value={form.table}
+              name="table"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              placeholder="Стол №"
+              type="number"
+            />
+          </div>
           <p ref={refErr} className="text-[red] h-[10px]"></p>
           <button
             onClick={addClient}
@@ -227,7 +246,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
             Сохранить
           </button>
           <button
-            onClick={() => setModal(false)}
+            onClick={() => setModal2(false)}
             className="bg-[#F8F8F8] text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] duration-300 hover:bg-[rgba(87,128,235,1)] hover:text-white"
           >
             Отмена
@@ -238,4 +257,4 @@ const AddClient = ({ modal, setModal }: IModal) => {
   );
 };
 
-export default AddClient;
+export default AddClientAuto;
