@@ -7,7 +7,9 @@ export const AdminFilterMenu: FC = () => {
   const [dataMenu, setDataMenu] = useState<DataMenuCard[]>(DATA_MENU_CARD);
   const renderFilter = useMemo(() => {
     const onFiltered = (title: string) => {
-      const filteredData = DATA_MENU_CARD?.filter((item) => item.category === title);
+      const filteredData = DATA_MENU_CARD?.filter(
+        (item) => item.category === title,
+      );
       setDataMenu(filteredData);
     };
     return FILTER_DATA?.map((item, index) => (

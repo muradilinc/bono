@@ -4,6 +4,7 @@ import AdminLayout from './layout/adminLaoyut';
 import { AdminHomePage } from '../pages/admin/HomePage';
 import { HomePage } from '../pages/client/HomePage';
 import { AdminIncomingPage } from '../pages/admin/IncomingPage';
+import { AdminBannerPage } from '../pages/admin/BannerPage';
 import { AdminMenuPage } from '../pages/admin/MenuPage';
 
 const App = () => {
@@ -17,6 +18,7 @@ const App = () => {
             <Route path="/" element={<AdminHomePage />} />
             <Route path="/incoming" element={<AdminIncomingPage />} />
             <Route path="/menu" element={<AdminMenuPage />} />
+            <Route path="/banner" element={<AdminBannerPage />} />
           </Routes>
         </AdminLayout>
       ),
