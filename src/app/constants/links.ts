@@ -16,11 +16,11 @@ export const links = [
     name: 'Категории',
   },
   {
-    path: '/',
+    path: '/admin/incoming',
     name: 'Входящие',
   },
   {
-    path: '/admin',
+    path: '/admin/schedule',
     name: 'СРМ система',
   },
   {

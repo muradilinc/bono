@@ -1,6 +1,6 @@
 import ScheduleTable from '../../../../widgets/scheduleTable/ui';
 
-export const AdminHomePage = () => {
+export const SchedulePage = () => {
   return (
     <>
       <ScheduleTable />

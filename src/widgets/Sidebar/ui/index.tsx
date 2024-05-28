@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { links } from './constants';
+import { links } from '../../../app/constants/links';
 
-const Sidebar = () => {
+export const Sidebar = () => {
   return (
     <aside className="w-full max-w-[200px] flex flex-col gap-[50px]">
       <div className="bg-[#F4FAFF] p-[16px] flex items-center">
@@ -25,5 +25,3 @@ const Sidebar = () => {
     </aside>
   );
 };
-
-export default Sidebar;

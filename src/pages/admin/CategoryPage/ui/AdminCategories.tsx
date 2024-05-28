@@ -1,13 +1,11 @@
-import { useEffect } from 'react';
-import { ICategoryProp2 } from './Type/Type';
+import { ICategoryProp2 } from '../Type/Type';
 import AdminCategoriesCard from './AdminCategoriesCard';
 
-const AdminCategories = ({
+export const AdminCategories = ({
   category,
   setActiveBtn,
   setCategory,
 }: ICategoryProp2) => {
-  useEffect(() => {}, [category]);
   return (
     <>
       <header className="flex items-center justify-between w-full h-[60px] bg-[#E6F3FF] px-[20px]">
@@ -40,5 +38,3 @@ const AdminCategories = ({
     </>
   );
 };
-
-export default AdminCategories;
