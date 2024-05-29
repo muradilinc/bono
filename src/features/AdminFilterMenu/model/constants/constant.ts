@@ -2,6 +2,9 @@ import { DataFilterCard, DataMenuCard } from '../types/type';
 
 export const FILTER_DATA: DataFilterCard[] = [
   {
+    title: 'Все'
+  },
+  {
     title: 'Виски',
   },
   {
@@ -29,6 +32,7 @@ export const FILTER_DATA: DataFilterCard[] = [
 
 export const DATA_MENU_CARD: DataMenuCard[] = [
   {
+    id: 1,
     category: 'Напитки',
     img: '/images/menuPhoto.svg',
     title: 'Виски Glenfarclas',
@@ -37,6 +41,7 @@ export const DATA_MENU_CARD: DataMenuCard[] = [
     price: 1850,
   },
   {
+    id: 2,
     category: 'Напитки',
     img: '/images/menuPhoto.svg',
     title: 'Виски Glenfarclas',
@@ -45,6 +50,7 @@ export const DATA_MENU_CARD: DataMenuCard[] = [
     price: 1850,
   },
   {
+    id: 3,
     category: 'Десерты',
     img: '/images/menuPhoto.svg',
     title: 'Виски Glenfarclas',
@@ -53,6 +59,7 @@ export const DATA_MENU_CARD: DataMenuCard[] = [
     price: 1850,
   },
   {
+    id: 4,
     category: 'Японская кухня',
     img: '/images/menuPhoto.svg',
     title: 'Виски Glenfarclas',
