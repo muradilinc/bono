@@ -2,7 +2,7 @@ import { DataFilterCard, DataMenuCard } from '../types/type';
 
 export const FILTER_DATA: DataFilterCard[] = [
   {
-    title: 'Все'
+    title: 'Все',
   },
   {
     title: 'Виски',
