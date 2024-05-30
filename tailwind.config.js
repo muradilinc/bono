@@ -5,6 +5,9 @@ export default {
       spacing: {
         '128': '32rem', // 8 часов (4 * 2rem/час)
       },
+      fontFamily: {
+        comfort: ['"Comfortaa"', 'san-serif'],
+      },
     },
   },
   plugins: [],
