@@ -2,6 +2,7 @@ import { ChangeEvent, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { filesize } from 'filesize';
 import { MenuItemMutation } from '../model/types';
+import { FILTER_DATA } from '../../../../features/AdminFilterMenu/model/constants/constant';
 
 export const MenuFormPage = () => {
   const [state, setState] = useState<MenuItemMutation>({
@@ -10,14 +11,16 @@ export const MenuFormPage = () => {
     gram: '',
     image: null,
     description: '',
-    category_id: null,
+    category_id: '',
   });
   const [imageData, setImageData] = useState('');
   const imageSelect = useRef<HTMLInputElement>(null);
   const [filename, setFilename] = useState('');
 
   const changeFiled = (
-    event: ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+    event: ChangeEvent<
+      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+    >,
   ) => {
     const { name, value } = event.target;
     setState((prevState) => ({
@@ -72,11 +75,34 @@ export const MenuFormPage = () => {
               name="title"
               type="text"
               required
-              className="w-full bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+              className="w-full outline-0 bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
               placeholder="Наименование блюдо"
               value={state.title}
               onChange={changeFiled}
             />
+          </div>
+          <div>
+            <label
+              className="text-white text-[12px] font-medium"
+              htmlFor="category"
+            >
+              Категория
+            </label>
+            <select
+              name="category_id"
+              id="category"
+              required
+              value={state.category_id}
+              onChange={changeFiled}
+              className="w-full py-[10px] bg-white outline-0 rounded-[8px]"
+            >
+              <option value=""></option>
+              {FILTER_DATA.map((category) => (
+                <option key={category.title} value={category.title}>
+                  {category.title}
+                </option>
+              ))}
+            </select>
           </div>
           <div className="flex justify-between gap-x-[10px]">
             <div className="w-full">
@@ -89,10 +115,10 @@ export const MenuFormPage = () => {
               <input
                 id="price"
                 type="text"
-                name="name"
+                name="price"
                 required
                 placeholder="Введите цену"
-                className="w-full bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+                className="w-full bg-white outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
                 value={state.price}
                 onChange={changeFiled}
               />
@@ -110,7 +136,7 @@ export const MenuFormPage = () => {
                 name="gram"
                 required
                 placeholder="Информация о весе"
-                className="w-full bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+                className="w-full bg-white outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
                 value={state.gram}
                 onChange={changeFiled}
               />
@@ -167,7 +193,7 @@ export const MenuFormPage = () => {
               name="description"
               placeholder="Описаниe"
               rows={7}
-              className="w-full bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+              className="w-full outline-0 bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
               value={state.description}
               onChange={changeFiled}
             />

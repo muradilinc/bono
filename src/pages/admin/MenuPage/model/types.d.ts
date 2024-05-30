@@ -4,5 +4,5 @@ export interface MenuItemMutation {
   gram: string | number;
   image: File | null;
   description: string;
-  category_id: number | null;
+  category_id: string;
 }
