@@ -18,6 +18,7 @@ const ModalDelete = ({ addModal, setAddModal, onDelete }: IAddModal) => {
       }
     }
   }, [addModal]);
+
   return (
     <>
       <div
@@ -30,14 +31,14 @@ const ModalDelete = ({ addModal, setAddModal, onDelete }: IAddModal) => {
               Вы уверены?
             </h2>
             <span
-              onClick={() => setAddModal(false)}
+              onClick={setAddModal}
               className="text-[rgba(0,0,0,0.6)] text-[20px] cursor-pointer"
             >
               &#x2715;
             </span>
           </div>
           <button
-            onClick={() => setAddModal(false)}
+            onClick={setAddModal}
             className="bg-[#F8F8F8] text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[rgba(87,128,235,1)] hover:text-white"
           >
             Отменить

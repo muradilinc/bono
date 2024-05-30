@@ -12,10 +12,11 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
   onDelete,
 }) => {
   const [modal, setModal] = useState<boolean>(false);
+  console.log(modal);
 
   return (
     <div
-      onClick={() => setModal(true)}
+      onClick={() => setModal((prevState) => !prevState)}
       className="w-[379px] h-[479px] gap-[16px] bg-transparent text-white cursor-pointer"
     >
       <div>
@@ -34,7 +35,7 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
       {modal && (
         <ModalDelete
           addModal={modal}
-          setAddModal={setModal}
+          setAddModal={() => setModal(false)}
           onDelete={() => onDelete(id)}
         />
       )}
