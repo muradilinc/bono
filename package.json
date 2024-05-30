@@ -16,6 +16,8 @@
   "dependencies": {
     "@phosphor-icons/react": "^2.1.5",
     "date-fns": "^3.6.0",
+    "dayjs": "^1.11.11",
+    "filesize": "^10.1.2",
     "moment-timezone": "^0.5.45",
     "react": "^18.2.0",
     "react-calendar": "^5.0.0",

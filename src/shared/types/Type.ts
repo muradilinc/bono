@@ -36,7 +36,7 @@ export interface IModal2 {
 }
 export interface IAddModal {
   addModal: boolean;
-  setAddModal: React.Dispatch<React.SetStateAction<boolean>>;
+  setAddModal: () => void;
   onDelete: () => void;
 }
 export interface IAddModal2 {

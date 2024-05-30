@@ -5,7 +5,7 @@ import { SchedulePage } from '../pages/admin/SchedulePage';
 import { HomePage } from '../pages/client/HomePage';
 import { AdminIncomingPage } from '../pages/admin/IncomingPage';
 import { AdminBannerPage } from '../pages/admin/BannerPage';
-import { AdminMenuPage } from '../pages/admin/MenuPage';
+import { AdminMenuPage, MenuFormPage } from '../pages/admin/MenuPage';
 import { AdminPanel } from '../pages/admin/CategoryPage';
 
 const App = () => {
@@ -20,6 +20,7 @@ const App = () => {
             <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/incoming" element={<AdminIncomingPage />} />
             <Route path="/menu" element={<AdminMenuPage />} />
+            <Route path="/menu-submit" element={<MenuFormPage />} />
             <Route path="/category" element={<AdminPanel />} />
           </Routes>
         </AdminLayout>
