@@ -18,9 +18,6 @@ export const Sidebar = () => {
             </li>
           ))}
         </ul>
-        <Link className="p-[10px] border-t-2 opacity-70 font-medium" to="/">
-          Выйти
-        </Link>
       </div>
     </aside>
   );
