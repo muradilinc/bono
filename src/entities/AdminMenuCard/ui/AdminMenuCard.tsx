@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { DataMenuCard } from '../model/type/types';
 import ModalDelete from '../../../shared/ui/ModalDelete';
 
@@ -12,7 +12,12 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
   onDelete,
 }) => {
   const [modal, setModal] = useState<boolean>(false);
-  console.log(modal);
+  const [addModal, setAddModal] = useState<boolean>(false);
+  useEffect(() => {
+    if (modal) {
+      setAddModal(true);
+    }
+  }, [modal, addModal]);
 
   return (
     <div
@@ -34,8 +39,8 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
       <div className="font-bold text-2xl">{price} сом</div>
       {modal && (
         <ModalDelete
-          addModal={modal}
-          setAddModal={() => setModal(false)}
+          addModal={addModal}
+          setAddModal={setAddModal}
           onDelete={() => onDelete(id)}
         />
       )}

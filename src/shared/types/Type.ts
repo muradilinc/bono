@@ -36,7 +36,7 @@ export interface IModal2 {
 }
 export interface IAddModal {
   addModal: boolean;
-  setAddModal: () => void;
+  setAddModal: (value: boolean) => void;
   onDelete: () => void;
 }
 export interface IAddModal2 {
