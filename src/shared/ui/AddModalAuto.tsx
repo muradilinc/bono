@@ -45,27 +45,27 @@ const AddModalAuto = ({ addModal2, setAddModal2, refBg }: IAddModal2) => {
           ref={refModal}
           className="absolute w-[100%] flex justify-center rounded-[8px] mt-[160px] z-[100]"
         >
-          <div className="w-[400px] h-[272px] bg-white flex flex-col items-center rounded-[8px]">
-            <div className="flex items-center justify-between bg-[#F4FAFF] py-[15px] px-[15px] w-[100%] rounded-[8px]">
-              <h2 className="text-[rgba(0,0,0,0.6)] text-[17px] font-bold">
+          <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px]">
+            <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
+              <h2 className="text-white text-[17px] font-bold">
                 Выберите одну из них
               </h2>
               <span
                 onClick={() => setAddModal2(false)}
-                className="text-[rgba(0,0,0,0.6)] text-[20px] cursor-pointer"
+                className="text-white text-[20px] cursor-pointer"
               >
                 &#x2715;
               </span>
             </div>
             <button
               onClick={onClickClient}
-              className="bg-[#F8F8F8] text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[rgba(87,128,235,1)] hover:text-white"
+              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[#6BC678]"
             >
               Ручное добавление клиента
             </button>
             <button
               onClick={onClickClientAuto}
-              className="bg-[#F8F8F8] text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] w-[80%] duration-300 hover:bg-[rgba(87,128,235,1)] hover:text-white"
+              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] duration-300 hover:bg-[#6BC678]"
             >
               Автоматическое добавление клиента
             </button>

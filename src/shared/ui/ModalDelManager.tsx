@@ -1,6 +1,7 @@
 import { useRef } from 'react';
+import { INameManager } from '../types/Type';
 
-const ModalDelManager = () => {
+const ModalDelManager = ({ nameManager }: INameManager) => {
   const refModal = useRef<HTMLDivElement>(null);
   const refModal2 = useRef<HTMLDivElement | null>(null);
   const modalTime = () => {
@@ -23,21 +24,21 @@ const ModalDelManager = () => {
     <>
       <div ref={refModal} className="absolute w-[100%] top-[40%] z-10">
         <div className="flex items-center justify-center">
-          <div className="bg-white w-[440px] py-[30px] rounded-[10px] flex flex-col items-center justify-center">
-            <h2 className="font-semibold text-[17px]">
+          <div className="bg-black w-[440px] py-[30px] rounded-[10px] flex flex-col items-center justify-center text-white">
+            <h2 className="font-semibold text-[17px] text-center">
               Вы действительно хотите удалить менеджера?
             </h2>
             <div>
               <div className="flex items-center gap-[10px] mt-[20px]">
                 <button
                   onClick={modalTime}
-                  className="rounded-[50px] w-[80px] h-[40px] bg-[#F0F0F0] hover:bg-[#CEE6FC] duration-300"
+                  className="rounded-[50px] w-[80px] h-[40px] bg-[#2B2B2B] hover:bg-[#6BC678] duration-300"
                 >
                   Да
                 </button>
                 <button
                   onClick={closeModal}
-                  className="rounded-[50px] w-[80px] h-[40px] bg-[#F0F0F0] hover:bg-[#CEE6FC] duration-300"
+                  className="rounded-[50px] w-[80px] h-[40px] bg-[#2B2B2B] hover:bg-[#6BC678] duration-300"
                 >
                   Нет
                 </button>
@@ -49,13 +50,12 @@ const ModalDelManager = () => {
       <div>
         <div ref={refModal2} style={{ display: 'none' }}>
           <div className="absolute flex items-center justify-center w-[100%] top-[40%] z-10">
-            <div className="flex items-center justify-center bg-white w-[400px] h-[66px] rounded-[50px]">
+            <div className="flex items-center justify-center bg-black w-[400px] h-[66px] rounded-[50px]">
               <p className="bg-[#8CDF7E] w-[25px] h-[25px] rounded-[50%] flex items-center justify-center text-white">
                 ✓
               </p>
-              <h3 className="flex flex-col ml-[10px] leading-[20px]">
-                Менеджер Султан Султанов Б.{' '}
-                <span className="text-[#F98C8C]">удален</span>
+              <h3 className="flex flex-col ml-[10px] leading-[20px] text-white">
+                {nameManager} <span className="text-[#F98C8C]">удален</span>
               </h3>
             </div>
           </div>

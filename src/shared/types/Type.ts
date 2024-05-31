@@ -34,6 +34,10 @@ export interface IModal2 {
   modal2: boolean;
   setModal2: (modal: boolean) => void;
 }
+export interface IAddModalHead {
+  addModal: boolean;
+  setAddModal: (value: boolean) => void;
+}
 export interface IAddModal {
   addModal: boolean;
   setAddModal: (value: boolean) => void;
@@ -49,4 +53,7 @@ export interface IPopUp {
   popUp: boolean;
   setPopUp: (popUp: boolean) => void;
   propText: string;
+}
+export interface INameManager {
+  nameManager: string;
 }

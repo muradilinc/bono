@@ -134,20 +134,18 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
       ) : null}
       <div
         ref={refClose}
-        className="w-[400px] h-[850px] mb-[30px] bg-white flex flex-col items-center rounded-[8px]"
+        className="w-[400px] h-[850px] mb-[30px] bg-black flex flex-col items-center rounded-[8px]"
       >
-        <div className="flex items-center justify-between bg-[#F4FAFF] py-[15px] px-[15px] w-[100%] rounded-[8px]">
-          <h2 className="text-[rgba(0,0,0,0.6)] text-[17px] font-bold">
-            Добавить клиента
-          </h2>
+        <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
+          <h2 className="text-white text-[17px] font-bold">Добавить клиента</h2>
           <span
             onClick={() => setModal2(false)}
-            className="text-[rgba(0,0,0,0.6)] text-[20px] cursor-pointer"
+            className="text-white text-[20px] cursor-pointer"
           >
             &#x2715;
           </span>
         </div>
-        <div className="flex flex-col gap-[20px] mt-[20px]">
+        <div className="flex flex-col gap-[20px] mt-[20px] text-white">
           <div>
             <p className="text-[#858687] text-[14px] mb-[5px]">ФИО клиента</p>
             <input
@@ -155,7 +153,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               ref={refName}
               value={form.name}
               name="name"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="text"
             />
           </div>
@@ -166,7 +164,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               onChange={handleInputChange}
               value={form.tel}
               name="tel"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="number"
             />
           </div>
@@ -179,7 +177,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               onChange={handleInputChange}
               name="timeA"
               value={form.timeA}
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="text"
               list="select"
             />
@@ -196,7 +194,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               onChange={handleInputChange}
               value={form.time}
               name="time"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="time"
             />
           </div>
@@ -209,7 +207,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               onChange={handleInputChange}
               value={form.guests}
               name="guests"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="number"
               list="selectGuests"
             />
@@ -227,7 +225,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               onChange={handleInputChange}
               value={form.comments}
               name="comments"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               placeholder="Напишите комментарий"
               type="text"
             />
@@ -239,7 +237,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               onChange={handleInputChange}
               value={form.table}
               name="table"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               placeholder="Стол №"
               type="number"
             />
@@ -247,13 +245,13 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
           <p ref={refErr} className="text-[red] h-[10px]"></p>
           <button
             onClick={addClient}
-            className="bg-[#F8F8F8] duration-300 text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] hover:bg-[rgba(87,128,235,1)] hover:text-white"
+            className="bg-[#2B2B2B] duration-300 text-white h-[50px] rounded-[4px] hover:bg-[#6BC678]"
           >
             Сохранить
           </button>
           <button
             onClick={() => setModal2(false)}
-            className="bg-[#F8F8F8] text-[rgba(0,0,0,0.6)] h-[50px] rounded-[4px] duration-300 hover:bg-[rgba(87,128,235,1)] hover:text-white"
+            className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] duration-300 hover:bg-[#6BC678]"
           >
             Отмена
           </button>
