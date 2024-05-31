@@ -1,9 +1,9 @@
 const Contacts = () => {
   return (
-    <div className="bg-black px-[10px] py-[30px] text-white flex items-center xl:justify-between flex-wrap justify-center gap-[30px]">
+    <div className="bg-black px-[10px] py-[30px] text-white flex items-center xl:justify-between flex-wrap justify-start md:justify-center gap-[30px]">
       <div className="flex flex-col gap-[30px]">
         <div>
-          <h1 className="xl:text-[36px] lg:text-[32px] md:text-[28px] sm:text-[24px] text-[20px] font-semibold">
+          <h1 className="xl:text-[36px] lg:text-[32px] md:text-[28px] text-[32px] font-semibold">
             КОНТАКТЫ
           </h1>
           <p className="text-[#C1C1C1]">Как нас найти и связаться с нами</p>
