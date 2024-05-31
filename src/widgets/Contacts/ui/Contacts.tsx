@@ -1,4 +1,4 @@
-const Contacts = () => {
+export const Contacts = () => {
   return (
     <div className="bg-black px-[10px] py-[30px] text-white flex items-center xl:justify-between flex-wrap justify-start md:justify-center gap-[30px]">
       <div className="flex flex-col gap-[30px]">
@@ -56,5 +56,3 @@ const Contacts = () => {
     </div>
   );
 };
-
-export default Contacts;
