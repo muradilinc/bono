@@ -44,7 +44,7 @@ export const Contacts = () => {
       <div>
         <iframe
           className="max-sm:w-[400px] max-sm:h-[350px] max-[420px]:w-[300px] max-[420px]:h-[280px]"
-          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d4667.866854534391!2d74.62037680157663!3d42.82440658813932!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb5d88bcf6177%3A0xa89359d038c6243!2zNi3QuSDQvNC40LrRgNC-0YDQsNC50L7QvSwg0JHQuNGI0LrQtdC6!5e0!3m2!1sru!2skg!4v1717153363711!5m2!1sru!2skg"
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1329.2177074488886!2d74.62827608938792!3d42.82873124691491!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x389eb78b27e67f87%3A0x670d060864088645!2sBono!5e0!3m2!1sru!2skg!4v1717159422808!5m2!1sru!2skg"
           width="600"
           height="550"
           style={{ border: '0' }}

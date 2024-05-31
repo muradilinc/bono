@@ -8,7 +8,7 @@ export const AdminBannerPage = () => {
           <h1 className="text-[24px] font-medium">
             Фотографии Главного банера
           </h1>
-          <button className="bg-[#5780EB] px-[24px] py-[10px] rounded-lg">
+          <button className="bg-[#6BC678] px-[24px] py-[10px] rounded-lg">
             Сохранить
           </button>
         </div>
@@ -26,7 +26,7 @@ export const AdminBannerPage = () => {
                   <p>Объем фотографии: {banner.size}</p>
                 </div>
               </div>
-              <button className="bg-[#5780EB] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
+              <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
                 Загрузить фото
               </button>
             </li>
@@ -37,7 +37,7 @@ export const AdminBannerPage = () => {
         <form className="flex flex-col gap-[5px]">
           <h3 className="text-[12px] font-medium">Заголовок</h3>
           <input
-            className="w-full rounded-lg px-[24px] py-[13px] text-black"
+            className="w-full rounded-lg px-[24px] py-[13px] text-white bg-[#2B2B2B]"
             placeholder="изменение текста"
             type="text"
           />
@@ -45,7 +45,7 @@ export const AdminBannerPage = () => {
         <form className="flex flex-col gap-[5px]">
           <h3 className="text-[12px] font-medium">надзагаловок</h3>
           <input
-            className="w-full rounded-lg px-[24px] py-[13px] text-black"
+            className="w-full rounded-lg px-[24px] py-[13px] text-white bg-[#2B2B2B]"
             placeholder="Коктейльный бар и ресторан боно приглашает вас к себе "
             type="text"
           />
@@ -63,7 +63,7 @@ export const AdminBannerPage = () => {
                   <p>Длительность видео: {banners[0].time}</p>
                 </div>
               </div>
-              <button className="bg-[#5780EB] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
+              <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
                 Загрузить видео
               </button>
             </div>
@@ -82,7 +82,7 @@ export const AdminBannerPage = () => {
                   <p>Объем фотографии: {banners[0].time}</p>
                 </div>
               </div>
-              <button className="bg-[#5780EB] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
+              <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
                 Загрузить фото
               </button>
             </div>

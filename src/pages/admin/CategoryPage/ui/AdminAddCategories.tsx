@@ -72,13 +72,11 @@ export const AdminAddCategories = ({
 
   return (
     <>
-      <header className="flex items-center justify-between w-full h-[60px] bg-[#E6F3FF] px-[20px]">
-        <h1 className="text-[rgba(0,0,0,0.6)] font-semibold">
-          Добавить категорию
-        </h1>
+      <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
+        <h1 className="text-white font-semibold">Добавить категорию</h1>
         <button
           onClick={addCatalog}
-          className="font-semibold text-white bg-[rgba(87,128,235,1)] rounded-[8px] w-[125px] h-[40px]"
+          className="font-semibold text-white bg-[#6BC678] rounded-[8px] w-[125px] h-[40px]"
         >
           Сохранить
         </button>
@@ -90,7 +88,7 @@ export const AdminAddCategories = ({
         <input
           onInput={validName}
           ref={refName}
-          className="w-full h-[45px] rounded-[8px] px-[10px]"
+          className="w-full h-[45px] rounded-[8px] px-[10px] text-white bg-[#2B2B2B]"
           placeholder="Наименование блюдо"
           id="nameFood"
           type="text"
@@ -99,7 +97,7 @@ export const AdminAddCategories = ({
         <div className="flex items-center justify-between mt-[30px]">
           <div className="flex items-center">
             <img
-              className="w-[120px] h-[68px]"
+              className="w-[120px] h-[68px] rounded-[4px]"
               src={`${data ? data.url : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
               alt="no img"
             />
@@ -116,7 +114,7 @@ export const AdminAddCategories = ({
           />
           <button
             onClick={() => (refFile.current ? refFile.current.click() : null)}
-            className="text-black bg-[#ECECEC] rounded-[8px] w-[160px] h-[45px]"
+            className="text-white bg-[#2B2B2B] rounded-[8px] w-[160px] h-[45px]"
           >
             Загрузить фото
           </button>

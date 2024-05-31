@@ -17,7 +17,7 @@ export const Menu = () => {
             src={imgKuh}
             alt="no img"
           />
-          <h6 className="absolute left-0 bottom-0 right-0 bg-[rgba(23,23,23,0.6)] pl-[30px] py-[10px]">
+          <h6 className="absolute left-0 bottom-0 right-0 bg-[rgba(23,23,23,0.6)] pl-[30px] py-[10px] sm:text-[20px] text-[16px]">
             Кухня
           </h6>
         </div>
@@ -27,7 +27,7 @@ export const Menu = () => {
             src={imgBar}
             alt="no img"
           />
-          <h6 className="absolute left-0 bottom-0 right-0 bg-[rgba(23,23,23,0.6)] pl-[30px] py-[10px]">
+          <h6 className="absolute left-0 bottom-0 right-0 bg-[rgba(23,23,23,0.6)] pl-[30px] py-[10px] sm:text-[20px] text-[16px]">
             Бар
           </h6>
         </div>

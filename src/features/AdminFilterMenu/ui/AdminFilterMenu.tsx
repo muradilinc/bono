@@ -22,7 +22,7 @@ export const AdminFilterMenu: FC = () => {
       <div key={index}>
         <button
           onClick={() => onFiltered(item.title)}
-          className="py-[10px] px-[15px] duration-300 hover:bg-[#5780EB] hover:text-white rounded-[12px]"
+          className="py-[10px] px-[15px] duration-300 hover:bg-[#3D3D3D] hover:text-white rounded-[12px]"
         >
           {item.title}
         </button>
@@ -37,14 +37,14 @@ export const AdminFilterMenu: FC = () => {
 
   return (
     <>
-      <div className="w-full h-[60px] bg-[#E6F3FF] flex flex-row justify-around items-center gap-[15px] border-l border-opacity-0">
+      <div className="w-full h-[60px] bg-black text-white flex flex-row justify-around items-center gap-[15px] border-l border-opacity-0">
         {renderFilter}
       </div>
       <div className="w-full h-[677px] overflow-auto bg-black flex flex-col py-[50px] px-[30px] gap-y-3">
         <div className="flex justify-end">
           <button
             onClick={() => navigate('/admin/menu-submit')}
-            className="font-semibold text-white bg-[rgba(87,128,235,1)] rounded-[8px] w-[125px] h-[40px]"
+            className="font-semibold text-white bg-[#6BC678] rounded-[8px] w-[125px] h-[40px]"
           >
             создать
           </button>

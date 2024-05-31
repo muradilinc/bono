@@ -4,8 +4,8 @@ export const AdminIncomingPage = () => {
   return (
     <section className="flex h-svh">
       <div className="w-full h-full bg-black">
-        <div className="bg-white p-[16px] flex items-center">
-          <h1 className="font-semibold text-[17px] opacity-60">Admin - BONO</h1>
+        <div className="bg-black p-[16px] flex items-center">
+          <h1 className="font-semibold text-[17px] text-white">Admin - BONO</h1>
         </div>
         <div className="text-white font-medium p-[16px]">
           <h5 className="">Гости</h5>
