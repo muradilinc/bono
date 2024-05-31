@@ -1,5 +1,5 @@
-import Contacts from './Contacts';
-import Menu from './Menu';
+import { Contacts } from '../../../../widgets/Contacts';
+import { Menu } from '../../../../widgets/Menu';
 
 export const HomePage = () => {
   return (

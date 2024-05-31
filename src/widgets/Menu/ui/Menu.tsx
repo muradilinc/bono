@@ -1,7 +1,7 @@
-import imgKuh from '../../../../../public/images/menuKuhnya.svg';
-import imgBar from '../../../../../public/images/menuBar.svg';
+import imgKuh from '../../../../public/images/menuKuhnya.svg';
+import imgBar from '../../../../public/images/menuBar.svg';
 
-const Menu = () => {
+export const Menu = () => {
   return (
     <div className="px-[10px] py-[30px] bg-black text-white">
       <h1 className="xl:text-[36px] lg:text-[32px] md:text-[28px] text-[24px]">
@@ -35,5 +35,3 @@ const Menu = () => {
     </div>
   );
 };
-
-export default Menu;
