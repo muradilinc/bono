@@ -1,6 +1,16 @@
-import { banners } from '../config/constants';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { selectBanners } from '../../../../features/banner/model/bannerSlice';
+import { useEffect } from 'react';
+import { getBanners } from '../../../../features/banner/api/bannerThunk';
 
 export const AdminBannerPage = () => {
+  const banners = useAppSelector(selectBanners);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getBanners());
+  }, [dispatch]);
+
   return (
     <section className="bg-black text-white px-[30px] py-[18px] flex flex-col gap-[30px]">
       <div className="flex flex-col gap-[30px]">
@@ -20,10 +30,10 @@ export const AdminBannerPage = () => {
               className="flex justify-between max-h-[68px] w-full"
             >
               <div className="flex gap-[18px]">
-                <img src={banner.image} alt="" />
+                <img className="w-[120px]" src={banner.img} alt="banner" />
                 <div className="flex flex-col justify-center">
-                  <p>Дата загрузки: {banner.load_date}</p>
-                  <p>Объем фотографии: {banner.size}</p>
+                  <p>Дата загрузки: 23.23.23</p>
+                  <p>Заголоаок: {banner.title}</p>
                 </div>
               </div>
               <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
@@ -57,10 +67,10 @@ export const AdminBannerPage = () => {
           <div>
             <div className="flex justify-between max-h-[68px] w-full">
               <div className="flex gap-[18px]">
-                <img src={banners[0].image} alt="" />
+                {/*<img src={banners.image} alt="" />*/}
                 <div className="flex flex-col justify-center">
-                  <p>Дата загрузки: {banners[0].load_date}</p>
-                  <p>Длительность видео: {banners[0].time}</p>
+                  <p>Дата загрузки: 23.23.23</p>
+                  <p>Объем фотографии: 43.3KB</p>
                 </div>
               </div>
               <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
@@ -76,10 +86,10 @@ export const AdminBannerPage = () => {
           <div>
             <div className="flex justify-between max-h-[68px] w-full">
               <div className="flex gap-[18px]">
-                <img src={banners[0].image} alt="" />
+                {/*<img src={banners.image} alt="" />*/}
                 <div className="flex flex-col justify-center">
-                  <p>Дата загрузки: {banners[0].load_date}</p>
-                  <p>Объем фотографии: {banners[0].time}</p>
+                  <p>Дата загрузки: 23.23.23</p>
+                  <p>Объем фотографии: 43.3KB</p>ю
                 </div>
               </div>
               <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg text-[16px] h-max w-max self-center">
