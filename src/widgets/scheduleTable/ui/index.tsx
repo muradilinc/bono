@@ -1,4 +1,4 @@
-import { AdminHeader } from '../../AdminHeader';
+// import { AdminHeader } from '../../AdminHeader';
 import Calendar from './Calendar';
 
 const ScheduleTable = () => {
@@ -16,11 +16,19 @@ const ScheduleTable = () => {
     { startTime: '14:30', endTime: '16:30', table: 10, occupied: false },
     { startTime: '15:00', endTime: '17:00', table: 11, occupied: true },
     { startTime: '14:00', endTime: '15:00', table: 11, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 12, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 13, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 14, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 15, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 17, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 18, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 19, occupied: true },
+    { startTime: '14:00', endTime: '15:00', table: 20, occupied: true },
   ];
 
   return (
     <div className="flex flex-col">
-      <AdminHeader />
+      {/*<AdminHeader />*/}
       <Calendar slots={mockSlots} />
     </div>
   );

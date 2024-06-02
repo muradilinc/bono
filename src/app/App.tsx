@@ -17,11 +17,11 @@ const App = () => {
         <AdminLayout>
           <Routes>
             <Route path="/" element={<AdminBannerPage />} />
-            <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/incoming" element={<AdminIncomingPage />} />
             <Route path="/menu" element={<AdminMenuPage />} />
             <Route path="/menu-submit" element={<MenuFormPage />} />
             <Route path="/category" element={<AdminPanel />} />
+            <Route path="/schedule" element={<SchedulePage />} />
           </Routes>
         </AdminLayout>
       ),

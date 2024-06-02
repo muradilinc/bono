@@ -7,7 +7,9 @@ const AdminLayout: React.FC<PropsWithChildren> = ({ children }) => {
   return (
     <main className="flex w-full">
       {pathname !== '/admin/schedule' ? <Sidebar /> : null}
-      <div className="w-full">{children}</div>
+      <div className={pathname !== '/admin/schedule' ? 'w-full' : ''}>
+        {children}
+      </div>
     </main>
   );
 };
