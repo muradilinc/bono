@@ -1,6 +1,6 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../../app/axiosApi';
-import { Banners } from '../model/bannerSlice';
+import { Banners } from '../model/types';
 
 export const getBanners = createAsyncThunk<Banners[]>(
   'banner/getAll',
