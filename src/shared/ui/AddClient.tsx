@@ -1,7 +1,9 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import '../style/style.css';
 import { IForms, IModal } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
+import { useAppDispatch } from '../../app/store/hooks';
+import { createBook } from '../../features/shedule/api/scheduleThunk';
 
 const AddClient = ({ modal, setModal }: IModal) => {
   const [popUp, setPopUp] = useState<boolean>(false);
@@ -22,6 +24,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
     guests: '',
     comments: '',
   });
+  const dispatch = useAppDispatch();
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -68,7 +71,9 @@ const AddClient = ({ modal, setModal }: IModal) => {
     }
   };
 
-  const addClient = () => {
+  const addClient = async (event: FormEvent) => {
+    event.preventDefault();
+    await dispatch(createBook(form)).unwrap();
     if (
       Object.values(form).some((value) => value.trim() === '') &&
       refErr.current
@@ -138,7 +143,10 @@ const AddClient = ({ modal, setModal }: IModal) => {
             &#x2715;
           </span>
         </div>
-        <div className="flex flex-col gap-[20px] mt-[20px] text-white">
+        <form
+          onSubmit={addClient}
+          className="flex flex-col gap-[20px] mt-[20px] text-white"
+        >
           <div>
             <p className="text-[#858687] text-[14px] mb-[5px]">ФИО клиента</p>
             <input
@@ -225,7 +233,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
           </div>
           <p ref={refErr} className="text-[red] h-[10px]"></p>
           <button
-            onClick={addClient}
+            type="submit"
             className="bg-[#2B2B2B] duration-300 text-white h-[50px] rounded-[4px] hover:bg-[#6BC678]"
           >
             Сохранить
@@ -236,7 +244,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
           >
             Отмена
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
