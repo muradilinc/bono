@@ -21,7 +21,10 @@ const TimeSlot: React.FC<Props> = ({ slot }) => {
   return (
     <div
       className={`absolute ${occupied ? 'bg-green-500' : 'hidden'} rounded-[6px] flex flex-col w-full text-center`}
-      style={{ top: `${top * 2.3}rem`, height: `${(duration / 13) * 2}rem` }}
+      style={{
+        top: `${top * 2.3}rem`,
+        height: `${(duration / 12.5) * 1.9}rem`,
+      }}
     >
       <p>{`${startTime} - ${endTime}`}</p>
       <div className="flex items-center justify-center h-full">

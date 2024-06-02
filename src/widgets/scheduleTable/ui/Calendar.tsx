@@ -11,10 +11,6 @@ interface Props {
 }
 
 const Calendar: React.FC<Props> = ({ slots }) => {
-  const tables = Array.from(new Set(slots.map((slot) => slot.table))).sort(
-    (a, b) => a - b,
-  );
-
   const times = [
     '10:00',
     '30',
@@ -54,19 +50,21 @@ const Calendar: React.FC<Props> = ({ slots }) => {
   return (
     <div className="bg-[black]">
       <div className="ml-[20px] bg-[#2B2B2B] px-[10px] rounded-[4px]">
-        <div className="flex flex-col">
-          <div className="flex py-[8px] items-center">
+        <div className="flex flex-col relative">
+          <div className="flex items-center sticky top-0 z-10 bg-[#2B2B2B]">
             <h4 className="font-comfort text-white font-medium text-[14px] pr-[24px]">
               Столы/ время
             </h4>
-            {tables.map((table) => (
-              <div
-                key={table}
-                className="min-w-[124px] w-full border-l border-gray-300 text-white z-10 flex items-center justify-center text-[18px] font-comfort font-medium"
-              >
-                <span>{`№${table}`}</span>
-              </div>
-            ))}
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(
+              (table) => (
+                <div
+                  key={table}
+                  className="min-w-[124px] w-full border-l border-[#414141] text-white z-10 flex items-center justify-center text-[18px] font-comfort font-medium"
+                >
+                  <span>{`№${table}`}</span>
+                </div>
+              ),
+            )}
           </div>
           <div className="flex">
             <div className="flex gap-y-[35px] flex-col pr-[24px]">
@@ -80,18 +78,23 @@ const Calendar: React.FC<Props> = ({ slots }) => {
               ))}
             </div>
             <div className="relative flex">
-              {tables.map((table) => (
-                <div key={table} className="min-w-[124px] relative">
-                  {slots
-                    .filter((slot) => slot.table === table)
-                    .map((slot) => (
-                      <TimeSlot
-                        key={`${slot.startTime}-${slot.table}`}
-                        slot={slot}
-                      />
-                    ))}
-                </div>
-              ))}
+              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(
+                (table) => (
+                  <div
+                    key={table}
+                    className="min-w-[124px] relative border-l-[1px] border-[#414141]"
+                  >
+                    {slots
+                      .filter((slot) => slot.table === table)
+                      .map((slot) => (
+                        <TimeSlot
+                          key={`${slot.startTime}-${slot.table}`}
+                          slot={slot}
+                        />
+                      ))}
+                  </div>
+                ),
+              )}
             </div>
           </div>
         </div>
