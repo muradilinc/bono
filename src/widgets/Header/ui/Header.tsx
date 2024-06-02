@@ -10,7 +10,7 @@ export const Header: FC = () => {
         <Link to={item.link}>{item.title}</Link>
       </div>
     ));
-  }, [HEADER_DATA]);
+  }, []);
   return (
     <div className="w-full h-[128px] bg-black text-white">
       <div className="w-[90%] h-full m-auto">

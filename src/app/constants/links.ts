@@ -28,3 +28,5 @@ export const links = [
     name: 'К сайту',
   },
 ];
+
+export const API_LINK = 'http://3.87.95.146';
