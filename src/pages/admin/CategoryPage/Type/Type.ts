@@ -4,20 +4,21 @@ export interface ICategory {
   size: string;
   name: string | null;
 }
+export interface ICategory2 {
+  image: string;
+  created_at: string;
+  name: string;
+  id: number;
+}
 
 export interface ICategoryProp {
-  category: ICategory[];
-  setCategory: React.Dispatch<React.SetStateAction<ICategory[]>>;
   setActiveBtn: React.Dispatch<React.SetStateAction<string | null>>;
 }
-export interface ICategoryProp2 {
-  category: ICategory[];
-  setActiveBtn: React.Dispatch<React.SetStateAction<string | null>>;
-  setCategory: React.Dispatch<React.SetStateAction<ICategory[]>>;
-}
-export interface ICategoryProp2Card {
-  el: ICategory;
-  category: ICategory[];
-  setCategory: React.Dispatch<React.SetStateAction<ICategory[]>>;
+
+export interface ICategoryPropCard {
+  el: ICategory2;
+  // category: ICategory2[];
+  // setCategory: React.Dispatch<React.SetStateAction<ICategory2[]>>;
   inx: number;
+  handleDelete: (id: number) => void;
 }

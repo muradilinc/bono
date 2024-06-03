@@ -1,48 +1,33 @@
-import React, { useRef, useState } from 'react';
-import { ICategoryProp2Card } from '../Type/Type';
+import { useRef, useState } from 'react';
+import { ICategoryPropCard } from '../Type/Type';
 import { Trash } from '@phosphor-icons/react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 import ModalPopUp from '../../../../shared/ui/ModalPopUp';
+import axios from 'axios';
 
 export const AdminCategoriesCard = ({
   el,
   inx,
-  category,
-  setCategory,
-}: ICategoryProp2Card) => {
+  handleDelete,
+}: ICategoryPropCard) => {
   const refFile = useRef<HTMLInputElement>(null);
   const [active, setActive] = useState<boolean>(false);
   const [popUp, setPopUp] = useState<boolean>(false);
 
-  const editImg = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files ? e.target.files[0] : null;
+  const editImg = async (id: number) => {
+    const file =
+      refFile.current && refFile.current.files && refFile.current.files[0];
     if (file) {
-      const newCategory = [...category];
-      const url = URL.createObjectURL(file);
-      const date = new Date().toLocaleDateString('ru-RU');
-      const size = formatFileSize(file.size);
-      newCategory[index] = { ...newCategory[index], url, date, size };
-      setCategory(newCategory);
+      const formData = new FormData();
+      formData.append('name', el.name);
+      formData.append('image', file);
+      await axios.put(`http://3.87.95.146/category/${id}/`, formData);
       setPopUp(true);
     }
   };
 
-  const formatFileSize = (size: number) => {
-    if (size < 1024) {
-      return `${size} B`;
-    } else if (size < 1024 * 1024) {
-      return `${(size / 1024).toFixed(2)} KB`;
-    } else if (size < 1024 * 1024 * 1024) {
-      return `${(size / (1024 * 1024)).toFixed(2)} MB`;
-    } else {
-      return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`;
-    }
-  };
-
-  const handleDelete = () => {
-    const newCategory = [...category];
-    newCategory.splice(inx, 1);
-    setCategory(newCategory);
+  const handleDelete2 = async (id: number) => {
+    handleDelete(id);
     setActive(false);
   };
 
@@ -52,16 +37,19 @@ export const AdminCategoriesCard = ({
         <div className="flex items-center">
           <img
             className="w-[120px] h-[68px] rounded-[4px]"
-            src={`${el.url ? el.url : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
+            src={`${el.image ? 'http://3.87.95.146/' + el.image : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
             alt="no img"
           />
           <div className="text-white ml-[15px]">
-            <p>Дата загрузки: {el ? el.date : '...'}</p>
-            <p>Объем фотографии {el ? el.size : '...'}</p>
+            <p>Название: {el.name}</p>
+            <p>
+              Дата загрузки:{' '}
+              {el ? new Date(el.created_at).toLocaleDateString('ru-RU') : '...'}
+            </p>
           </div>
         </div>
         <input
-          onChange={(e) => editImg(e, inx)}
+          onChange={() => editImg(el.id)}
           ref={refFile}
           type="file"
           style={{ display: 'none' }}
@@ -85,7 +73,7 @@ export const AdminCategoriesCard = ({
         <ModalDelete
           addModal={active}
           setAddModal={setActive}
-          onDelete={handleDelete}
+          onDelete={() => handleDelete2(el.id)}
         />
       ) : null}
       {popUp ? (
