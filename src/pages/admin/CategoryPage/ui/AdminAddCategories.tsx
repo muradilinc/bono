@@ -1,14 +1,17 @@
 import React, { useRef, useState } from 'react';
 import { ICategory, ICategoryProp } from '../Type/Type';
 import ModalPopUp from '../../../../shared/ui/ModalPopUp';
+import axios from 'axios';
 
-export const AdminAddCategories = ({
-  setCategory,
-  setActiveBtn,
-}: ICategoryProp) => {
+export const AdminAddCategories = ({ setActiveBtn }: ICategoryProp) => {
   const refFile = useRef<HTMLInputElement>(null);
   const refName = useRef<HTMLInputElement>(null);
-  const [data, setData] = useState<ICategory | null>(null);
+  const [data, setData] = useState<ICategory>({
+    url: '',
+    date: '',
+    size: '',
+    name: null,
+  });
   const [popUp, setPopUp] = useState<boolean>(false);
 
   const AddImg = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -49,11 +52,27 @@ export const AdminAddCategories = ({
       validName();
     } else {
       setPopUp(true);
-      const time = setTimeout(() => {
-        if (data && refName.current) {
-          setCategory((prevData) => [...prevData, data]);
+      const time = setTimeout(async () => {
+        if (
+          data &&
+          refName.current &&
+          refFile.current &&
+          refFile.current.files
+        ) {
+          const formData = new FormData();
+          formData.append('name', refName.current.value);
+          formData.append('image', refFile.current.files[0]);
+          await axios.post(
+            `http://3.87.95.146/category/list_or_create/`,
+            formData,
+          );
           refName.current.value = '';
-          setData(null);
+          setData({
+            url: '',
+            date: '',
+            size: '',
+            name: null,
+          });
           setActiveBtn('Категории');
         }
       }, 3000);
@@ -69,7 +88,6 @@ export const AdminAddCategories = ({
       }
     }
   };
-
   return (
     <>
       <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
@@ -98,12 +116,12 @@ export const AdminAddCategories = ({
           <div className="flex items-center">
             <img
               className="w-[120px] h-[68px] rounded-[4px]"
-              src={`${data ? data.url : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
+              src={`${data.url ? data.url : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
               alt="no img"
             />
             <div className="text-white ml-[15px]">
-              <p>Дата загрузки: {data ? data.date : '...'}</p>
-              <p>Объем фотографии {data ? data.size : '...'}</p>
+              <p>Дата загрузки: {data.date ? data.date : '...'}</p>
+              <p>Объем фотографии {data.size ? data.size : '...'}</p>
             </div>
           </div>
           <input
