@@ -1,10 +1,9 @@
-export interface ICategory {
-  url: string;
-  date: string;
-  size: string;
-  name: string | null;
+export interface CategoryMutation {
+  name: string;
+  image: File | null;
 }
-export interface ICategory2 {
+
+export interface Category {
   image: string;
   created_at: string;
   name: string;
@@ -13,12 +12,4 @@ export interface ICategory2 {
 
 export interface ICategoryProp {
   setActiveBtn: React.Dispatch<React.SetStateAction<string | null>>;
-}
-
-export interface ICategoryPropCard {
-  el: ICategory2;
-  // category: ICategory2[];
-  // setCategory: React.Dispatch<React.SetStateAction<ICategory2[]>>;
-  inx: number;
-  handleDelete: (id: number) => void;
 }

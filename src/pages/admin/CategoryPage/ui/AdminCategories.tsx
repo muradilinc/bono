@@ -1,22 +1,17 @@
-import { ICategory2, ICategoryProp } from '../Type/Type';
+import { ICategoryProp } from '../Type/Type';
 import { AdminCategoriesCard } from './AdminCategoriesCard';
-import { useEffect, useState } from 'react';
-import axios from 'axios';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { getCategories } from '../../../../features/category/categoryThunk';
+import { selectCategories } from '../../../../features/category/categorySlice';
 
 export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
-  const [category, setCategory] = useState<ICategory2[]>([]);
-  const getCategories = async () => {
-    const url = await axios.get(`http://3.87.95.146/category/list_or_create/`);
-    setCategory(url.data);
-  };
-  useEffect(() => {
-    getCategories();
-  }, []);
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector(selectCategories);
 
-  const handleDelete = async (id: number) => {
-    await axios.delete(`http://3.87.95.146/category/${id}/`);
-    // setCategory(prevCategory => prevCategory.filter(el => el.id !== id));
-  };
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
 
   return (
     <>
@@ -32,14 +27,9 @@ export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
 
       <section className="bg-black w-full min-h-[635px] py-[30px] px-[20px]">
         <div>
-          {category.length > 0 ? (
-            category.map((el, inx) => (
-              <AdminCategoriesCard
-                el={el}
-                inx={inx}
-                key={inx}
-                handleDelete={handleDelete}
-              />
+          {categories.length > 0 ? (
+            categories.map((category) => (
+              <AdminCategoriesCard category={category} key={category.id} />
             ))
           ) : (
             <p className="text-white">Пусто</p>

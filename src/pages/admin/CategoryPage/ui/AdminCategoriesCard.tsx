@@ -1,62 +1,139 @@
-import { useRef, useState } from 'react';
-import { ICategoryPropCard } from '../Type/Type';
+import React, { ChangeEvent, useRef, useState } from 'react';
+import { Category, CategoryMutation } from '../Type/Type';
 import { Trash } from '@phosphor-icons/react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 import ModalPopUp from '../../../../shared/ui/ModalPopUp';
-import axios from 'axios';
+import { useAppDispatch } from '../../../../app/store/hooks';
+import {
+  changeCategory,
+  deleteCategory,
+  getCategories,
+} from '../../../../features/category/categoryThunk';
 
-export const AdminCategoriesCard = ({
-  el,
-  inx,
-  handleDelete,
-}: ICategoryPropCard) => {
-  const refFile = useRef<HTMLInputElement>(null);
+interface Props {
+  category: Category;
+}
+
+export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
+  const dispatch = useAppDispatch();
+  const [state, setState] = useState<CategoryMutation>({
+    name: '',
+    image: null,
+  });
   const [active, setActive] = useState<boolean>(false);
   const [popUp, setPopUp] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const imageSelect = useRef<HTMLInputElement>(null);
+  const [imageData, setImageData] = useState('');
 
-  const editImg = async (id: number) => {
-    const file =
-      refFile.current && refFile.current.files && refFile.current.files[0];
-    if (file) {
-      const formData = new FormData();
-      formData.append('name', el.name);
-      formData.append('image', file);
-      await axios.put(`http://3.87.95.146/category/${id}/`, formData);
-      setPopUp(true);
+  const changeField = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const changeImageFiled = async (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = event.target;
+    if (files && files[0]) {
+      const imageUrl = URL.createObjectURL(files[0]);
+      setImageData(imageUrl);
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+      await dispatch(
+        changeCategory({
+          id: category.id,
+          category: { name: state.name, image: state.image },
+        }),
+      ).unwrap();
+      await dispatch(getCategories()).unwrap();
     }
   };
 
-  const handleDelete2 = async (id: number) => {
-    handleDelete(id);
+  const selectImage = () => {
+    if (imageSelect.current) {
+      imageSelect.current.click();
+    }
+  };
+
+  const clickChangeCategory = (category: { name: string }) => {
+    setState((prevState) => ({
+      ...prevState,
+      ...category,
+    }));
+    setIsEdit(true);
+  };
+
+  const saveCategory = async () => {
+    await dispatch(
+      changeCategory({
+        id: category.id,
+        category: { name: state.name, image: state.image },
+      }),
+    ).unwrap();
+    await dispatch(getCategories()).unwrap();
+    setIsEdit(false);
+  };
+
+  const handleDelete = async (id: number) => {
+    await dispatch(deleteCategory(id)).unwrap();
+    await dispatch(getCategories()).unwrap();
     setActive(false);
   };
 
   return (
     <>
-      <div key={inx} className="flex items-center justify-between my-[20px]">
+      <div className="flex items-center justify-between my-[20px]">
         <div className="flex items-center">
           <img
             className="w-[120px] h-[68px] rounded-[4px]"
-            src={`${el.image ? 'http://3.87.95.146/' + el.image : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
+            src={
+              !imageData ? 'http://3.87.95.146/' + category.image : imageData
+            }
             alt="no img"
           />
           <div className="text-white ml-[15px]">
-            <p>Название: {el.name}</p>
+            {isEdit ? (
+              <div className="flex items-center gap-x-3">
+                <input
+                  value={state.name}
+                  name="name"
+                  onChange={changeField}
+                  type="text"
+                  className="bg-black border-b border-white"
+                />
+                <button onClick={saveCategory}>save</button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-x-3">
+                <p>Название: {category.name}</p>
+                <button
+                  onClick={() => clickChangeCategory({ name: category.name })}
+                >
+                  change
+                </button>
+              </div>
+            )}
             <p>
               Дата загрузки:{' '}
-              {el ? new Date(el.created_at).toLocaleDateString('ru-RU') : '...'}
+              {category
+                ? new Date(category.created_at).toLocaleDateString('ru-RU')
+                : '...'}
             </p>
           </div>
         </div>
         <input
-          onChange={() => editImg(el.id)}
-          ref={refFile}
+          ref={imageSelect}
           type="file"
-          style={{ display: 'none' }}
+          onChange={changeImageFiled}
+          className="hidden"
         />
         <div className="flex items-center">
           <button
-            onClick={() => (refFile.current ? refFile.current.click() : null)}
+            onClick={selectImage}
             className="text-white bg-[#2B2B2B] rounded-[8px] w-[160px] h-[45px]"
           >
             Загрузить фото
@@ -73,7 +150,7 @@ export const AdminCategoriesCard = ({
         <ModalDelete
           addModal={active}
           setAddModal={setActive}
-          onDelete={() => handleDelete2(el.id)}
+          onDelete={() => handleDelete(category.id)}
         />
       ) : null}
       {popUp ? (

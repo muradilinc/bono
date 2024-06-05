@@ -1,143 +1,117 @@
-import React, { useRef, useState } from 'react';
-import { ICategory, ICategoryProp } from '../Type/Type';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+import { CategoryMutation, ICategoryProp } from '../Type/Type';
 import ModalPopUp from '../../../../shared/ui/ModalPopUp';
-import axios from 'axios';
+import bonoPlaceHolder from '../../../../../public/images/placeholder.jpeg';
+import { useAppDispatch } from '../../../../app/store/hooks';
+import {
+  createCategory,
+  getCategories,
+} from '../../../../features/category/categoryThunk';
 
 export const AdminAddCategories = ({ setActiveBtn }: ICategoryProp) => {
-  const refFile = useRef<HTMLInputElement>(null);
-  const refName = useRef<HTMLInputElement>(null);
-  const [data, setData] = useState<ICategory>({
-    url: '',
-    date: '',
-    size: '',
-    name: null,
+  const [category, setCategory] = useState<CategoryMutation>({
+    name: '',
+    image: null,
   });
+  const imageSelect = useRef<HTMLInputElement>(null);
+  const [imageData, setImageData] = useState('');
   const [popUp, setPopUp] = useState<boolean>(false);
+  const dispatch = useAppDispatch();
 
-  const AddImg = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      const url = URL.createObjectURL(file);
-      const date = new Date().toLocaleDateString('ru-RU');
-      const size = formatFileSize(file.size);
-      const name = refName.current && refName.current.value;
-      const newData = {
-        url: url,
-        date: date,
-        size: size,
-        name: name,
-      };
-      setData(newData);
+  const changeField = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setCategory((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const selectImage = () => {
+    if (imageSelect.current) {
+      imageSelect.current.click();
     }
   };
-  const formatFileSize = (size: number) => {
-    if (size < 1024) {
-      return `${size} B`;
-    } else if (size < 1024 * 1024) {
-      return `${(size / 1024).toFixed(2)} KB`;
-    } else if (size < 1024 * 1024 * 1024) {
-      return `${(size / (1024 * 1024)).toFixed(2)} MB`;
-    } else {
-      return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+
+  const changeImageFiled = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = event.target;
+    if (files && files[0]) {
+      const imageUrl = URL.createObjectURL(files[0]);
+      setImageData(imageUrl);
+      setCategory((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
     }
   };
-  const addCatalog = () => {
-    if (
-      !refFile.current ||
-      !refFile.current.files ||
-      !refFile.current.files[0] ||
-      (refName.current && refName.current.value.trim() === '')
-    ) {
-      alert('Пожалуйста,заполните все поле');
-      validName();
-    } else {
-      setPopUp(true);
-      const time = setTimeout(async () => {
-        if (
-          data &&
-          refName.current &&
-          refFile.current &&
-          refFile.current.files
-        ) {
-          const formData = new FormData();
-          formData.append('name', refName.current.value);
-          formData.append('image', refFile.current.files[0]);
-          await axios.post(
-            `http://3.87.95.146/category/list_or_create/`,
-            formData,
-          );
-          refName.current.value = '';
-          setData({
-            url: '',
-            date: '',
-            size: '',
-            name: null,
-          });
-          setActiveBtn('Категории');
-        }
-      }, 3000);
-      return () => clearTimeout(time);
+
+  const addCategoryHandle = async (event: FormEvent) => {
+    event.preventDefault();
+    setPopUp(true);
+    await dispatch(createCategory(category)).unwrap();
+    await dispatch(getCategories()).unwrap();
+    setCategory({
+      name: '',
+      image: null,
+    });
+    setImageData('');
+    if (imageSelect.current) {
+      imageSelect.current.value = '';
     }
+    setActiveBtn('Категории');
   };
-  const validName = () => {
-    if (refName.current && refName.current.value.trim() === '') {
-      return (refName.current.style.border = '2px solid red');
-    } else {
-      if (refName.current) {
-        return (refName.current.style.border = '1px solid #ccc');
-      }
-    }
-  };
+
   return (
     <>
-      <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
-        <h1 className="text-white font-semibold">Добавить категорию</h1>
-        <button
-          onClick={addCatalog}
-          className="font-semibold text-white bg-[#6BC678] rounded-[8px] w-[125px] h-[40px]"
-        >
-          Сохранить
-        </button>
-      </header>
-      <section className="bg-black w-full min-h-[635px] py-[30px] px-[20px]">
-        <p className="text-[rgba(255,255,255,0.8)] text-[14px] mb-[5px]">
-          Название
-        </p>
-        <input
-          onInput={validName}
-          ref={refName}
-          className="w-full h-[45px] rounded-[8px] px-[10px] text-white bg-[#2B2B2B]"
-          placeholder="Наименование блюдо"
-          id="nameFood"
-          type="text"
-        />
-
-        <div className="flex items-center justify-between mt-[30px]">
-          <div className="flex items-center">
-            <img
-              className="w-[120px] h-[68px] rounded-[4px]"
-              src={`${data.url ? data.url : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
-              alt="no img"
-            />
-            <div className="text-white ml-[15px]">
-              <p>Дата загрузки: {data.date ? data.date : '...'}</p>
-              <p>Объем фотографии {data.size ? data.size : '...'}</p>
-            </div>
-          </div>
-          <input
-            onChange={AddImg}
-            ref={refFile}
-            type="file"
-            style={{ display: 'none' }}
-          />
+      <form onSubmit={addCategoryHandle}>
+        <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
+          <h1 className="text-white font-semibold">Добавить категорию</h1>
           <button
-            onClick={() => (refFile.current ? refFile.current.click() : null)}
-            className="text-white bg-[#2B2B2B] rounded-[8px] w-[160px] h-[45px]"
+            type="submit"
+            className="font-semibold text-white bg-[#6BC678] rounded-[8px] w-[125px] h-[40px]"
           >
-            Загрузить фото
+            Сохранить
           </button>
-        </div>
-      </section>
+        </header>
+        <section className="bg-black w-full min-h-[635px] py-[30px] px-[20px]">
+          <p className="text-[rgba(255,255,255,0.8)] text-[14px] mb-[5px]">
+            Название
+          </p>
+          <input
+            value={category.name}
+            name="name"
+            onChange={changeField}
+            required
+            className="w-full h-[45px] rounded-[8px] px-[10px] text-white bg-[#2B2B2B]"
+            placeholder="Наименование категории"
+            type="text"
+          />
+
+          <div className="flex items-center justify-between mt-[30px]">
+            <div className="flex items-center">
+              <img
+                className="w-[120px] h-[68px] rounded-[4px]"
+                src={imageData ? imageData : bonoPlaceHolder}
+                alt="no img"
+              />
+            </div>
+            <input
+              onChange={changeImageFiled}
+              ref={imageSelect}
+              type="file"
+              name="image"
+              className="hidden"
+              required
+            />
+            <button
+              type="button"
+              onClick={selectImage}
+              className="text-white bg-[#2B2B2B] rounded-[8px] w-[160px] h-[45px]"
+            >
+              Загрузить фото
+            </button>
+          </div>
+        </section>
+      </form>
       {popUp ? (
         <ModalPopUp popUp={popUp} setPopUp={setPopUp} propText={'Добавлен'} />
       ) : null}
