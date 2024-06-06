@@ -2,51 +2,46 @@ import { DataFilterCard, DataMenuCard } from '../types/type';
 
 export const FILTER_DATA: DataFilterCard[] = [
   {
-    title: 'Все',
+    title: 'Завтраки',
   },
   {
-    title: 'Виски',
+    title: 'Закуски',
   },
   {
-    title: 'Десерты',
+    title: 'Паста',
+  },
+  {
+    title: 'Супы',
+  },
+  {
+    title: 'Пицца',
+  },
+  {
+    title: 'Основные блюда',
   },
   {
     title: 'Японская кухня',
   },
   {
-    title: 'Напитки',
-  },
-  {
-    title: 'Вино',
-  },
-  {
-    title: 'Завтрак',
-  },
-  {
-    title: 'Напитки',
-  },
-  {
-    title: 'Вино',
+    title: 'Десерты',
   },
 ];
 
 export const DATA_MENU_CARD: DataMenuCard[] = [
   {
     id: 1,
-    category: 'Напитки',
-    img: '/images/menuPhoto.svg',
-    title: 'Виски Glenfarclas',
+    category: 'Паста',
+    img: '/images/menuKuhnya.svg',
+    title: 'Арабьята',
     text: 'Виски «Гленфарклас» производится по старинному семейному рецепту из отборных сортов ячменя, выращиваемого в легендарном шотландском регионе Спейсайд  Виски «Гленфарклас» са... ещё',
-    gram: 800,
     price: 1850,
   },
   {
     id: 2,
-    category: 'Напитки',
-    img: '/images/menuPhoto.svg',
-    title: 'Виски Glenfarclas',
+    category: 'Паста',
+    img: '/images/menuPhoto2.svg',
+    title: 'Арабьята',
     text: 'Виски «Гленфарклас» производится по старинному семейному рецепту из отборных сортов ячменя, выращиваемого в легендарном шотландском регионе Спейсайд  Виски «Гленфарклас» са... ещё',
-    gram: 800,
     price: 1850,
   },
   {
@@ -55,7 +50,6 @@ export const DATA_MENU_CARD: DataMenuCard[] = [
     img: '/images/menuPhoto.svg',
     title: 'Виски Glenfarclas',
     text: 'Виски «Гленфарклас» производится по старинному семейному рецепту из отборных сортов ячменя, выращиваемого в легендарном шотландском регионе Спейсайд  Виски «Гленфарклас» са... ещё',
-    gram: 800,
     price: 1850,
   },
   {
@@ -64,7 +58,14 @@ export const DATA_MENU_CARD: DataMenuCard[] = [
     img: '/images/menuPhoto.svg',
     title: 'Виски Glenfarclas',
     text: 'Виски «Гленфарклас» производится по старинному семейному рецепту из отборных сортов ячменя, выращиваемого в легендарном шотландском регионе Спейсайд  Виски «Гленфарклас» са... ещё',
-    gram: 800,
+    price: 1850,
+  },
+  {
+    id: 5,
+    category: 'Завтраки',
+    img: '/images/menuPhoto2.svg',
+    title: 'Виски Glenfarclas',
+    text: 'Виски «Гленфарклас» производится по старинному семейному рецепту из отборных сортов ячменя, выращиваемого в легендарном шотландском регионе Спейсайд  Виски «Гленфарклас» са... ещё',
     price: 1850,
   },
 ];

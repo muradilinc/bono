@@ -23,10 +23,10 @@ const ModalDelete = ({ addModal, setAddModal, onDelete }: IAddModal) => {
     <>
       <div
         ref={refModal}
-        className="absolute left-0 right-0 top-0 bottom-0 w-[100%] flex justify-center rounded-[8px] mt-[160px] z-[100]"
+        className="fixed left-0 right-0 top-0 bottom-0 flex justify-center items-center z-[100] transition-transform duration-300 transform -translate-x-full"
       >
         <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px]">
-          <div className="flex items-center justify-between  py-[15px] px-[15px] w-[100%] rounded-[8px]">
+          <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
             <h2 className="text-white text-[17px] font-bold">Вы уверены?</h2>
             <span
               onClick={() => setAddModal(false)}
@@ -51,7 +51,7 @@ const ModalDelete = ({ addModal, setAddModal, onDelete }: IAddModal) => {
       </div>
       <div
         ref={refBg}
-        className="fixed bg-[#00000050] left-0 right-0 bottom-0 top-0 w-full z-[99]"
+        className="fixed bg-[#00000050] left-0 right-0 bottom-0 top-0 w-full z-[99] hidden"
       ></div>
     </>
   );

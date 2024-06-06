@@ -8,6 +8,11 @@ export interface DataMenuCard {
   img: string;
   title: string;
   text: string;
-  gram: number;
   price: number;
+}
+
+export interface CategoryItemType {
+  id: number,
+  name: string,
+  parent: string
 }

@@ -57,3 +57,9 @@ export interface IPopUp {
 export interface INameManager {
   nameManager: string;
 }
+
+export interface AdminButtonType {
+  title: string,
+  icon: string,
+  onSubmit: () => void,
+}
