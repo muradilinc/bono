@@ -9,6 +9,7 @@ import {
   deleteCategory,
   getCategories,
 } from '../../../../features/category/categoryThunk';
+import dayjs from 'dayjs';
 
 interface Props {
   category: Category;
@@ -122,7 +123,7 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
             <p>
               Дата загрузки:{' '}
               {category
-                ? new Date(category.created_at).toLocaleDateString('ru-RU')
+                ? dayjs(category.created_at).format('DD.MM.YYYY')
                 : '...'}
             </p>
           </div>
