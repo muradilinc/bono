@@ -1,6 +1,6 @@
 import React, { ChangeEvent, useRef, useState } from 'react';
 import { Category, CategoryMutation } from '../Type/Type';
-import { Trash } from '@phosphor-icons/react';
+import { Check, Pen, Trash } from '@phosphor-icons/react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 import ModalPopUp from '../../../../shared/ui/ModalPopUp';
 import { useAppDispatch } from '../../../../app/store/hooks';
@@ -9,6 +9,7 @@ import {
   deleteCategory,
   getCategories,
 } from '../../../../features/category/categoryThunk';
+import dayjs from 'dayjs';
 
 interface Props {
   category: Category;
@@ -38,7 +39,6 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
     const { name, files } = event.target;
     if (files && files[0]) {
       const imageUrl = URL.createObjectURL(files[0]);
-      setImageData(imageUrl);
       setState((prevState) => ({
         ...prevState,
         [name]: files[0],
@@ -46,10 +46,11 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
       await dispatch(
         changeCategory({
           id: category.id,
-          category: { name: state.name, image: state.image },
+          category: { name: state.name, image: files[0] },
         }),
       ).unwrap();
       await dispatch(getCategories()).unwrap();
+      setImageData(imageUrl);
     }
   };
 
@@ -105,7 +106,9 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
                   type="text"
                   className="bg-black border-b border-white"
                 />
-                <button onClick={saveCategory}>save</button>
+                <button onClick={saveCategory}>
+                  <Check size={22} />
+                </button>
               </div>
             ) : (
               <div className="flex items-center gap-x-3">
@@ -113,14 +116,14 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
                 <button
                   onClick={() => clickChangeCategory({ name: category.name })}
                 >
-                  change
+                  <Pen size={22} />
                 </button>
               </div>
             )}
             <p>
               Дата загрузки:{' '}
               {category
-                ? new Date(category.created_at).toLocaleDateString('ru-RU')
+                ? dayjs(category.created_at).format('DD.MM.YYYY')
                 : '...'}
             </p>
           </div>
