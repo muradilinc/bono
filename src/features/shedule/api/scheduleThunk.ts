@@ -15,7 +15,7 @@ export const createBook = createAsyncThunk<void, IForms>(
     await axiosApi.post('/book/create/book/', {
       title: 'Amount',
       user_name: book.name,
-      phone_number: '+' + book.tel,
+      phone_number: book.tel,
       time_stamp: book.time,
       will_come: dayjs(new Date()).format('YYYY-MM-DD'),
       start_time: book.time,
