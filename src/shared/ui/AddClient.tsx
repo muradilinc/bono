@@ -14,8 +14,8 @@ const AddClient = ({ modal, setModal }: IModal) => {
   const refTime = useRef<HTMLInputElement>(null);
   const refComments = useRef<HTMLInputElement>(null);
   const refGuests = useRef<HTMLInputElement>(null);
-  const refErr = useRef<HTMLInputElement>(null);
-  const refClose = useRef<HTMLInputElement>(null);
+  const refErr = useRef<HTMLParagraphElement>(null);
+  const refClose = useRef<HTMLDivElement>(null);
   const [form, setForm] = useState<IForms>({
     name: '',
     tel: '',
@@ -73,7 +73,6 @@ const AddClient = ({ modal, setModal }: IModal) => {
 
   const addClient = async (event: FormEvent) => {
     event.preventDefault();
-    await dispatch(createBook(form)).unwrap();
     if (
       Object.values(form).some((value) => value.trim() === '') &&
       refErr.current
@@ -81,6 +80,18 @@ const AddClient = ({ modal, setModal }: IModal) => {
       refErr.current.textContent = 'Заполните все поле';
       validation();
     } else {
+      let formattedTel = form.tel;
+      if (formattedTel.startsWith('9960')) {
+        formattedTel = `+996${formattedTel.slice(5)}`;
+      } else if (formattedTel.startsWith('996')) {
+        formattedTel = `+996${formattedTel.slice(4)}`;
+      } else if (formattedTel.startsWith('0')) {
+        formattedTel = `+996${formattedTel.slice(1)}`;
+      } else if (!formattedTel.startsWith('996')) {
+        formattedTel = `+996${formattedTel}`;
+      }
+      const updatedForm = { ...form, tel: formattedTel };
+      await dispatch(createBook(updatedForm)).unwrap();
       if (refErr.current) {
         refErr.current.textContent = '';
       }
@@ -195,7 +206,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
               onChange={handleInputChange}
               value={form.time}
               name="time"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black inputIcon"
               type="time"
             />
           </div>

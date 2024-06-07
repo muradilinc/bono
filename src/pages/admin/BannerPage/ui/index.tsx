@@ -12,7 +12,7 @@ export const AdminBannerPage = () => {
   }, [dispatch]);
 
   return (
-    <section className="bg-black text-white px-[30px] py-[18px] flex flex-col gap-[30px]">
+    <section className="bg-black text-white px-[30px] py-[18px] flex flex-col gap-[30px] min-h-[700px]">
       <div className="flex flex-col gap-[30px]">
         <div className="flex justify-between">
           <h1 className="text-[24px] font-medium">

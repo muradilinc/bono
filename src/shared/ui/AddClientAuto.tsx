@@ -194,7 +194,7 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
               onChange={handleInputChange}
               value={form.time}
               name="time"
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black inputIcon"
               type="time"
             />
           </div>
