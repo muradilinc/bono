@@ -4,6 +4,7 @@ export default {
     extend: {
       fontFamily: {
         comfort: ['"Comfortaa"', 'san-serif'],
+        room: ['"Room"', 'san-serif'],
       },
     },
   },

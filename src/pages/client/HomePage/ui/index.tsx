@@ -1,3 +1,4 @@
+import { Atmosphere } from '../../../../widgets/Atmosphere';
 import { Banner } from '../../../../widgets/Banner';
 import { Contacts } from '../../../../widgets/Contacts';
 import { Footer } from '../../../../widgets/Footer';
@@ -9,6 +10,7 @@ export const HomePage = () => {
     <div className="text-white">
       <Header />
       <Banner />
+      <Atmosphere />
       <Menu />
       <Contacts />
       <Footer />

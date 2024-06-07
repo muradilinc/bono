@@ -1,0 +1,65 @@
+@font-face {
+    font-family: 'Room';
+    src: url('Room-Light.eot');
+    src: local('Room Light'), local('Room-Light'),
+        url('Room-Light.eot?#iefix') format('embedded-opentype'),
+        url('Room-Light.woff2') format('woff2'),
+        url('Room-Light.woff') format('woff'),
+        url('Room-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Room';
+    src: url('Room-Medium.eot');
+    src: local('Room Medium'), local('Room-Medium'),
+        url('Room-Medium.eot?#iefix') format('embedded-opentype'),
+        url('Room-Medium.woff2') format('woff2'),
+        url('Room-Medium.woff') format('woff'),
+        url('Room-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Room';
+    src: url('Room-Black.eot');
+    src: local('Room Black'), local('Room-Black'),
+        url('Room-Black.eot?#iefix') format('embedded-opentype'),
+        url('Room-Black.woff2') format('woff2'),
+        url('Room-Black.woff') format('woff'),
+        url('Room-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Room';
+    src: url('Room.eot');
+    src: local('Room'),
+        url('Room.eot?#iefix') format('embedded-opentype'),
+        url('Room.woff2') format('woff2'),
+        url('Room.woff') format('woff'),
+        url('Room.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Room';
+    src: url('Room-Thin.eot');
+    src: local('Room Thin'), local('Room-Thin'),
+        url('Room-Thin.eot?#iefix') format('embedded-opentype'),
+        url('Room-Thin.woff2') format('woff2'),
+        url('Room-Thin.woff') format('woff'),
+        url('Room-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+}
+
