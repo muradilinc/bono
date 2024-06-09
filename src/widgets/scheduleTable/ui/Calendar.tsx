@@ -1,5 +1,6 @@
 import React from 'react';
 import TimeSlot from './TimeSlot';
+import BtnTable from './BtnTable';
 
 interface Props {
   slots: {
@@ -49,6 +50,7 @@ const Calendar: React.FC<Props> = ({ slots }) => {
 
   return (
     <div className="bg-[black]">
+      <BtnTable />
       <div className="ml-[20px] bg-[#2B2B2B] px-[10px] rounded-[4px]">
         <div className="flex flex-col relative">
           <div className="flex items-center sticky top-0 z-10 bg-[#2B2B2B]">
