@@ -19,6 +19,7 @@ const AdminCalendar: FC<PropsType> = ({
   return (
     <div className="p-4 absolute top-14 left-0 z-30">
       <Calendar
+        className="bg-[#2B2B2B] text-white"
         onChange={setCurrentDate}
         value={currentDate}
         onClickDay={() => setCalendar(false)}

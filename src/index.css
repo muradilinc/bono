@@ -1,5 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&display=swap');
+@import url('/fonts/Room/stylesheet.css');
 
 @tailwind base;
 @tailwind components;
@@ -13,4 +14,10 @@
 }
 input {
   outline: none;
+}
+
+.swiper-pagination {
+  bottom: 100px !important;
+  left: 5% !important;
+  width: max-content !important;
 }
