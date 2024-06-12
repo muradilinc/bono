@@ -2,8 +2,12 @@ import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import '../style/style.css';
 import { IForms, IModal } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
-import { useAppDispatch } from '../../app/store/hooks';
-import { createBook } from '../../features/shedule/api/scheduleThunk';
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
+import {
+  createBook,
+  getSchedules,
+} from '../../features/shedule/api/scheduleThunk';
+import { selectCreateBookLoading } from '../../features/shedule/model/scheduleSlice';
 
 const AddClient = ({ modal, setModal }: IModal) => {
   const [popUp, setPopUp] = useState<boolean>(false);
@@ -23,8 +27,10 @@ const AddClient = ({ modal, setModal }: IModal) => {
     time: '',
     guests: '',
     comments: '',
+    table: '',
   });
   const dispatch = useAppDispatch();
+  const createLoading = useAppSelector(selectCreateBookLoading);
 
   const handleInputChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>,
@@ -80,18 +86,19 @@ const AddClient = ({ modal, setModal }: IModal) => {
       refErr.current.textContent = 'Заполните все поле';
       validation();
     } else {
-      let formattedTel = form.tel;
-      if (formattedTel.startsWith('9960')) {
-        formattedTel = `+996${formattedTel.slice(5)}`;
-      } else if (formattedTel.startsWith('996')) {
-        formattedTel = `+996${formattedTel.slice(4)}`;
-      } else if (formattedTel.startsWith('0')) {
-        formattedTel = `+996${formattedTel.slice(1)}`;
-      } else if (!formattedTel.startsWith('996')) {
-        formattedTel = `+996${formattedTel}`;
-      }
-      const updatedForm = { ...form, tel: formattedTel };
+      // let formattedTel = form.tel;
+      // if (formattedTel.startsWith('9960')) {
+      //   formattedTel = `+996${formattedTel.slice(5)}`;
+      // } else if (formattedTel.startsWith('996')) {
+      //   formattedTel = `+996${formattedTel.slice(4)}`;
+      // } else if (formattedTel.startsWith('0')) {
+      //   formattedTel = `+996${formattedTel.slice(1)}`;
+      // } else if (!formattedTel.startsWith('996')) {
+      //   formattedTel = `+996${formattedTel}`;
+      // }
+      const updatedForm = { ...form };
       await dispatch(createBook(updatedForm)).unwrap();
+      await dispatch(getSchedules()).unwrap();
       if (refErr.current) {
         refErr.current.textContent = '';
       }
@@ -102,6 +109,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
         time: '',
         guests: '',
         comments: '',
+        table: '',
       });
       if (refClose.current) {
         refClose.current.style.display = 'none';
@@ -143,7 +151,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
       ) : null}
       <div
         ref={refClose}
-        className="w-[400px] h-[770px] mb-[30px] bg-black flex flex-col items-center rounded-[8px]"
+        className="w-[400px] py-5 mb-[30px] bg-black flex flex-col items-center rounded-[8px]"
       >
         <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
           <h2 className="text-white text-[17px] font-bold">Добавить клиента</h2>
@@ -165,6 +173,16 @@ const AddClient = ({ modal, setModal }: IModal) => {
               ref={refName}
               value={form.name}
               name="name"
+              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+              type="text"
+            />
+          </div>
+          <div>
+            <p className="text-[#858687] text-[14px] mb-[5px]">Номер столика</p>
+            <input
+              onChange={handleInputChange}
+              value={form.table}
+              name="table"
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="text"
             />
@@ -245,9 +263,10 @@ const AddClient = ({ modal, setModal }: IModal) => {
           <p ref={refErr} className="text-[red] h-[10px]"></p>
           <button
             type="submit"
+            disabled={createLoading}
             className="bg-[#2B2B2B] duration-300 text-white h-[50px] rounded-[4px] hover:bg-[#6BC678]"
           >
-            Сохранить
+            {createLoading ? 'Loading' : 'Сохранить'}
           </button>
           <button
             onClick={() => setModal(false)}
