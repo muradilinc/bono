@@ -4,9 +4,9 @@ import ModalDelete from '../../../shared/ui/ModalDelete';
 
 export const AdminMenuCard: FC<DataMenuCard> = ({
   id,
-  img,
+  image,
   title,
-  text,
+  description,
   price,
   onDelete,
 }) => {
@@ -21,17 +21,17 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
         <div className="w-full h-full">
           <img
             className="w-full h-full object-cover"
-            src={img}
+            src={image}
             alt="menu picture"
           />
         </div>
         <div className="w-full h-[81px] absolute bottom-0 bg-[#17171799] backdrop-blur-sm px-[8px] py-[8px]">
           <div className="flex justify-between text-[16px] font-bold leading-7">
-            <div>{title.toLocaleUpperCase()}</div>
+            <div>{title}</div>
             <div className="font-bold text-[16px]">{price} с</div>
           </div>
           <div className="text-[12px] font-normal leading-5 text-left pb-[15px]">
-            {text}
+            {description}
           </div>
         </div>
       </div>

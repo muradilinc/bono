@@ -1,3 +1,5 @@
+export const API_LINK = 'http://3.87.95.146';
+
 export const links = [
   {
     path: '/admin/',
@@ -6,10 +8,6 @@ export const links = [
   {
     path: '/admin/menu',
     name: 'Меню',
-  },
-  {
-    path: '/',
-    name: 'Заказы',
   },
   {
     path: '/admin/category',
@@ -28,5 +26,3 @@ export const links = [
     name: 'К сайту',
   },
 ];
-
-export const API_LINK = 'http://3.87.95.146';

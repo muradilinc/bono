@@ -1,74 +1,142 @@
-import React, { useRef, useState } from 'react';
-import { ICategoryProp2Card } from '../Type/Type';
-import { Trash } from '@phosphor-icons/react';
+import React, { ChangeEvent, useRef, useState } from 'react';
+import { Category, CategoryMutation } from '../Type/Type';
+import { Check, Pen, Trash } from '@phosphor-icons/react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 import ModalPopUp from '../../../../shared/ui/ModalPopUp';
+import { useAppDispatch } from '../../../../app/store/hooks';
+import {
+  changeCategory,
+  deleteCategory,
+  getCategories,
+} from '../../../../features/category/categoryThunk';
+import dayjs from 'dayjs';
 
-export const AdminCategoriesCard = ({
-  el,
-  inx,
-  category,
-  setCategory,
-}: ICategoryProp2Card) => {
-  const refFile = useRef<HTMLInputElement>(null);
+interface Props {
+  category: Category;
+}
+
+export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
+  const dispatch = useAppDispatch();
+  const [state, setState] = useState<CategoryMutation>({
+    name: '',
+    image: null,
+  });
   const [active, setActive] = useState<boolean>(false);
   const [popUp, setPopUp] = useState<boolean>(false);
+  const [isEdit, setIsEdit] = useState(false);
+  const imageSelect = useRef<HTMLInputElement>(null);
+  const [imageData, setImageData] = useState('');
 
-  const editImg = (e: React.ChangeEvent<HTMLInputElement>, index: number) => {
-    const file = e.target.files ? e.target.files[0] : null;
-    if (file) {
-      const newCategory = [...category];
-      const url = URL.createObjectURL(file);
-      const date = new Date().toLocaleDateString('ru-RU');
-      const size = formatFileSize(file.size);
-      newCategory[index] = { ...newCategory[index], url, date, size };
-      setCategory(newCategory);
-      setPopUp(true);
+  const changeField = (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
+  };
+
+  const changeImageFiled = async (event: ChangeEvent<HTMLInputElement>) => {
+    const { name, files } = event.target;
+    if (files && files[0]) {
+      const imageUrl = URL.createObjectURL(files[0]);
+      setState((prevState) => ({
+        ...prevState,
+        [name]: files[0],
+      }));
+      await dispatch(
+        changeCategory({
+          id: category.id,
+          category: { name: state.name, image: files[0] },
+        }),
+      ).unwrap();
+      await dispatch(getCategories()).unwrap();
+      setImageData(imageUrl);
     }
   };
 
-  const formatFileSize = (size: number) => {
-    if (size < 1024) {
-      return `${size} B`;
-    } else if (size < 1024 * 1024) {
-      return `${(size / 1024).toFixed(2)} KB`;
-    } else if (size < 1024 * 1024 * 1024) {
-      return `${(size / (1024 * 1024)).toFixed(2)} MB`;
-    } else {
-      return `${(size / (1024 * 1024 * 1024)).toFixed(2)} GB`;
+  const selectImage = () => {
+    if (imageSelect.current) {
+      imageSelect.current.click();
     }
   };
 
-  const handleDelete = () => {
-    const newCategory = [...category];
-    newCategory.splice(inx, 1);
-    setCategory(newCategory);
+  const clickChangeCategory = (category: { name: string }) => {
+    setState((prevState) => ({
+      ...prevState,
+      ...category,
+    }));
+    setIsEdit(true);
+  };
+
+  const saveCategory = async () => {
+    await dispatch(
+      changeCategory({
+        id: category.id,
+        category: { name: state.name, image: state.image },
+      }),
+    ).unwrap();
+    await dispatch(getCategories()).unwrap();
+    setIsEdit(false);
+  };
+
+  const handleDelete = async (id: number) => {
+    await dispatch(deleteCategory(id)).unwrap();
+    await dispatch(getCategories()).unwrap();
     setActive(false);
   };
 
   return (
     <>
-      <div key={inx} className="flex items-center justify-between my-[20px]">
+      <div className="flex items-center justify-between my-[20px]">
         <div className="flex items-center">
           <img
             className="w-[120px] h-[68px] rounded-[4px]"
-            src={`${el.url ? el.url : 'https://st.depositphotos.com/2934765/53192/v/450/depositphotos_531920820-stock-illustration-photo-available-vector-icon-default.jpg'}`}
+            src={
+              !imageData ? 'http://3.87.95.146/' + category.image : imageData
+            }
             alt="no img"
           />
           <div className="text-white ml-[15px]">
-            <p>Дата загрузки: {el ? el.date : '...'}</p>
-            <p>Объем фотографии {el ? el.size : '...'}</p>
+            {isEdit ? (
+              <div className="flex items-center gap-x-3">
+                <input
+                  value={state.name}
+                  name="name"
+                  onChange={changeField}
+                  type="text"
+                  className="bg-black border-b border-white"
+                />
+                <button onClick={saveCategory}>
+                  <Check size={22} />
+                </button>
+              </div>
+            ) : (
+              <div className="flex items-center gap-x-3">
+                <p>Название: {category.name}</p>
+                <button
+                  onClick={() => clickChangeCategory({ name: category.name })}
+                >
+                  <Pen size={22} />
+                </button>
+              </div>
+            )}
+            <p>
+              Дата загрузки:{' '}
+              {category
+                ? dayjs(category.created_at).format('DD.MM.YYYY')
+                : '...'}
+            </p>
           </div>
         </div>
         <input
-          onChange={(e) => editImg(e, inx)}
-          ref={refFile}
+          ref={imageSelect}
           type="file"
-          style={{ display: 'none' }}
+          onChange={changeImageFiled}
+          className="hidden"
         />
         <div className="flex items-center">
           <button
-            onClick={() => (refFile.current ? refFile.current.click() : null)}
+            onClick={selectImage}
             className="text-white bg-[#2B2B2B] rounded-[8px] w-[160px] h-[45px]"
           >
             Загрузить фото
@@ -85,7 +153,7 @@ export const AdminCategoriesCard = ({
         <ModalDelete
           addModal={active}
           setAddModal={setActive}
-          onDelete={handleDelete}
+          onDelete={() => handleDelete(category.id)}
         />
       ) : null}
       {popUp ? (

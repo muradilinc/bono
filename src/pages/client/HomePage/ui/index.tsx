@@ -5,7 +5,7 @@ import { Menu } from '../../../../widgets/Menu';
 
 export const HomePage = () => {
   return (
-    <div className='text-white'>
+    <div className="text-white">
       <h1>Bono restaurant!</h1>
       <Header />
       <Menu />

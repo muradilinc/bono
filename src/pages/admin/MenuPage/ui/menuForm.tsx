@@ -3,6 +3,10 @@ import dayjs from 'dayjs';
 import { filesize } from 'filesize';
 import { MenuItemMutation } from '../model/types';
 import { FILTER_DATA } from '../../../../features/AdminFilterMenu/model/constants/constant';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { createMenu } from '../api/MenuThunk';
+import { selectCategories } from '../../../../features/category/categorySlice';
+import { selectSubcategory } from '../../../../features/AdminFilterMenu/model/slice/SubcategorySlice';
 
 export const MenuFormPage = () => {
   const [state, setState] = useState<MenuItemMutation>({
@@ -16,6 +20,9 @@ export const MenuFormPage = () => {
   const [imageData, setImageData] = useState('');
   const imageSelect = useRef<HTMLInputElement>(null);
   const [filename, setFilename] = useState('');
+  const category = useAppSelector(selectCategories);
+  const subcategory = useAppSelector(selectSubcategory);
+  const dispatch = useAppDispatch();
 
   const changeFiled = (
     event: ChangeEvent<
@@ -48,6 +55,10 @@ export const MenuFormPage = () => {
     }
   };
 
+  const onSubmit = () => {
+    dispatch(createMenu(state));
+  };
+
   return (
     <div className="w-full h-screen bg-black">
       <form>
@@ -56,6 +67,7 @@ export const MenuFormPage = () => {
             <h2>Добавить меню</h2>
             <button
               type="submit"
+              onClick={onSubmit}
               className="font-medium text-[16px] text-white bg-[rgba(87,128,235,1)] rounded-[8px] px-[10px] py-[10px]"
             >
               Добавить

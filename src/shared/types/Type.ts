@@ -59,7 +59,19 @@ export interface INameManager {
 }
 
 export interface AdminButtonType {
-  title: string,
-  icon: string,
-  onSubmit: () => void,
+  title: string;
+  icon: string;
+  onSubmit: () => void;
+}
+
+export interface AdminSlideType {
+  id: number;
+  name: string;
+  image: string;
+  created_at: string;
+}
+
+export interface AdminSliderProps {
+  items: AdminSlideType[];
+  onCategoryChange: (id: number) => void;
 }

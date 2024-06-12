@@ -1,11 +1,18 @@
-import { ICategoryProp2 } from '../Type/Type';
+import { ICategoryProp } from '../Type/Type';
 import { AdminCategoriesCard } from './AdminCategoriesCard';
+import { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { getCategories } from '../../../../features/category/categoryThunk';
+import { selectCategories } from '../../../../features/category/categorySlice';
 
-export const AdminCategories = ({
-  category,
-  setActiveBtn,
-  setCategory,
-}: ICategoryProp2) => {
+export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
+  const dispatch = useAppDispatch();
+  const categories = useAppSelector(selectCategories);
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
   return (
     <>
       <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
@@ -20,15 +27,9 @@ export const AdminCategories = ({
 
       <section className="bg-black w-full min-h-[635px] py-[30px] px-[20px]">
         <div>
-          {category.length > 0 ? (
-            category.map((el, inx) => (
-              <AdminCategoriesCard
-                el={el}
-                inx={inx}
-                key={inx}
-                category={category}
-                setCategory={setCategory}
-              />
+          {categories.length > 0 ? (
+            categories.map((category) => (
+              <AdminCategoriesCard category={category} key={category.id} />
             ))
           ) : (
             <p className="text-white">Пусто</p>

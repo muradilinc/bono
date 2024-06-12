@@ -1,3 +1,17 @@
 .empty {
   border: 2px solid red;
 }
+
+.swiper-button-next:after, .swiper-button-prev:after {
+  font-size: 18px;
+}
+
+.swiper-button-next {
+  --swiper-navigation-color: #fff;
+  padding-left: 20px;
+}
+
+.swiper-button-prev {
+  --swiper-navigation-color: #fff;
+  padding-right: 20px;
+}

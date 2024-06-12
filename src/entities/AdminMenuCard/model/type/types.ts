@@ -1,9 +1,8 @@
 export interface DataMenuCard {
   id: number;
-  category: string;
-  img: string;
   title: string;
-  text: string;
   price: number;
+  image: string;
+  description: string | null;
   onDelete: (id: number) => void;
 }
