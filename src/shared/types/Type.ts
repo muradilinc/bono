@@ -7,6 +7,7 @@ export interface IForms {
   time: string;
   guests: string;
   comments: string;
+  table: string;
 }
 export interface IFormsTable {
   table: string;
