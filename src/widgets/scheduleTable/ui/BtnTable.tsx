@@ -21,14 +21,14 @@ const BtnTable = () => {
         ))}
       </div>
       <div className="flex items-center gap-[30px] h-[50px]">
-        <button className="flex items-center justify-center">
-          <canvas className="bg-[#6BC678] w-[12px] h-[12px] rounded-[50%] mr-[5px]"></canvas>
-          Занят
-        </button>
-        <button className="flex items-center justify-center">
-          <canvas className="bg-[#ECA356] w-[12px] h-[12px] rounded-[50%] mr-[5px]"></canvas>
-          Забронирован
-        </button>
+        <div className="flex items-center gap-x-[5px]">
+          <div className="bg-orange-700 w-[12px] h-[12px] rounded-[50px]" />
+          <button>Занят</button>
+        </div>
+        <div className="flex gap-x-[5px] items-center">
+          <div className="bg-green-700 w-[12px] h-[12px] rounded-[50px]" />
+          <button>Забронирован</button>
+        </div>
       </div>
     </div>
   );
