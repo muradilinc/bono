@@ -13,7 +13,7 @@ const ModalPopUp = ({ popUp, setPopUp, propText }: IPopUp) => {
   return (
     <>
       {popUp ? (
-        <div className="absolute right-0 top-5 mr-5 z-100">
+        <div className="fixed right-0 top-5 mr-5 z-100">
           <div className="bg-[white] rounded-[50px] flex items-center justify-center py-[12px] w-[350px]">
             <span className="bg-[#8CDF7E] w-[25px] h-[25px] rounded-[50%] flex items-center justify-center text-white">
               ✓

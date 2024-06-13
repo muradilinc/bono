@@ -23,7 +23,7 @@ const ModalDelete = ({ addModal, setAddModal, onDelete }: IAddModal) => {
     <>
       <div
         ref={refModal}
-        className="absolute left-0 right-0 top-0 bottom-0 w-[100%] flex justify-center rounded-[8px] mt-[160px] z-[100]"
+        className="fixed left-0 right-0 top-0 bottom-0 w-[100%] flex justify-center rounded-[8px] mt-[160px] z-[100]"
       >
         <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px]">
           <div className="flex items-center justify-between  py-[15px] px-[15px] w-[100%] rounded-[8px]">
