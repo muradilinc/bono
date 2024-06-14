@@ -1,11 +1,24 @@
+import { btns } from '../constants/btns';
+import { useState } from 'react';
+
 const BtnTable = () => {
+  const [activeButton, setActiveButton] = useState<number | null>(null);
+
+  const clickBtn = (index: number) => {
+    setActiveButton(index);
+  };
   return (
     <div className="text-white px-[20px] py-[20px]">
       <div className="flex items-center gap-[30px] h-[50px]">
-        <button className="hover:border-b-2 border-white">Все</button>
-        <button className="hover:border-b-2 border-white">Занят</button>
-        <button className="hover:border-b-2 border-white">Свободен</button>
-        <button className="hover:border-b-2 border-white">Забронирован</button>
+        {btns.map((label, inx) => (
+          <button
+            key={inx}
+            onClick={() => clickBtn(inx)}
+            className={`hover:border-b-2 border-white ${activeButton === inx ? 'border-b-2 border-white' : ''}`}
+          >
+            {label}
+          </button>
+        ))}
       </div>
       <div className="flex items-center gap-[30px] h-[50px]">
         <div className="flex items-center gap-x-[5px]">

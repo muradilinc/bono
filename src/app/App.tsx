@@ -7,6 +7,7 @@ import { AdminIncomingPage } from '../pages/admin/IncomingPage';
 import { AdminBannerPage } from '../pages/admin/BannerPage';
 import { AdminMenuPage, MenuFormPage } from '../pages/admin/MenuPage';
 import { AdminPanel } from '../pages/admin/CategoryPage';
+import BannerCrud from '../pages/admin/BannerPage/ui/BannerCrud';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -22,6 +23,7 @@ const App = () => {
             <Route path="/menu-submit" element={<MenuFormPage />} />
             <Route path="/category" element={<AdminPanel />} />
             <Route path="/schedule" element={<SchedulePage />} />
+            <Route path="/banner/:id" element={<BannerCrud />} />
           </Routes>
         </AdminLayout>
       ),
