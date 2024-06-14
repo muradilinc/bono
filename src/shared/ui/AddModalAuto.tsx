@@ -17,6 +17,12 @@ const AddModalAuto = ({ addModal2, setAddModal2, refBg }: IAddModal2) => {
     setModal2(true);
     setAddModal2(false);
   };
+  const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === refBg.current) {
+      setAddModal2(false);
+    }
+  };
+
   useEffect(() => {
     if (addModal2) {
       if (refModal.current && refBg.current) {
@@ -43,9 +49,14 @@ const AddModalAuto = ({ addModal2, setAddModal2, refBg }: IAddModal2) => {
       {!modal && !modal2 && (
         <div
           ref={refModal}
-          className="absolute w-[100%] flex justify-center rounded-[8px] mt-[160px] z-[100]"
+          className="fixed w-full h-full flex justify-center items-center rounded-[8px] z-[100]"
         >
-          <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px]">
+          <div
+            ref={refBg}
+            onClick={onClickBg}
+            className="fixed bg-[#00000050] left-0 right-0 bottom-0 top-0 w-full z-[99]"
+          ></div>
+          <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px] z-[100]">
             <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
               <h2 className="text-white text-[17px] font-bold">
                 Выберите одну из них

@@ -5,6 +5,7 @@ import ModalPopUp from './ModalPopUp';
 
 const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
   const [popUp, setPopUp] = useState<boolean>(false);
+  const refBg = useRef<HTMLDivElement>(null);
   const refModal = useRef<HTMLDivElement>(null);
   const refName = useRef<HTMLInputElement>(null);
   const refTel = useRef<HTMLInputElement>(null);
@@ -120,6 +121,12 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
       }
     }
   }, [modal2]);
+
+  const onClickBg = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (e.target === refBg.current) {
+      setModal2(false);
+    }
+  };
   return (
     <div
       ref={refModal}
@@ -133,8 +140,13 @@ const AddClientAuto = ({ modal2, setModal2 }: IModal2) => {
         />
       ) : null}
       <div
+        ref={refBg}
+        onClick={onClickBg}
+        className="fixed bg-transparent left-0 right-0 bottom-0 top-0 w-full z-[99]"
+      ></div>
+      <div
         ref={refClose}
-        className="w-[400px] h-[850px] mb-[30px] bg-black flex flex-col items-center rounded-[8px]"
+        className="w-[400px] h-[850px] mb-[30px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
       >
         <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
           <h2 className="text-white text-[17px] font-bold">Добавить клиента</h2>
