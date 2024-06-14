@@ -12,6 +12,9 @@
   box-sizing: border-box;
   font-family: 'Comfortaa', sans-serif;
 }
+html {
+  scroll-behavior: smooth;
+}
 input {
   outline: none;
 }

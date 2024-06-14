@@ -7,7 +7,7 @@ export const Header: FC = () => {
   const renderTitle = useMemo(() => {
     return HEADER_DATA.map((item) => (
       <div key={item.title}>
-        <Link to={item.link}>{item.title}</Link>
+        <a href={item.link}>{item.title}</a>
       </div>
     ));
   }, []);
@@ -17,7 +17,7 @@ export const Header: FC = () => {
         <div className="hidden lg:flex h-1/2 items-center justify-end">
           <div className="flex gap-1 pr-[24px]">
             <img className="pb-1" src="/images/iconPhone.svg" alt="phone" />
-            <span>+996 505 04 62 56</span>
+            <Link to="tel:+996505046256">+996 505 04 62 56</Link>
           </div>
           <div className="flex gap-1">
             <img src="/images/iconEmail.svg" alt="email" />
@@ -38,19 +38,25 @@ export const Header: FC = () => {
           </div>
           <div className="hidden lg:flex gap-[44px]">{renderTitle}</div>
           <div className="hidden lg:flex">
-            <a className="flex items-center" href="https://www.instagram.com/">
+            <Link
+              target="_blank"
+              className="flex items-center"
+              to="https://www.instagram.com/bono.bar.bishkek"
+            >
               <img
                 className="pr-[16px]"
                 src="/images/iconInsta.svg"
                 alt="insta"
               />
-            </a>
+            </Link>
             <img
               className="pr-[7px] align-middle"
               src="/images/iconLocation.svg"
               alt="location"
             />
-            <span>2 Gis</span>
+            <Link to="https://go.2gis.com/6174t" target="_blank">
+              2 Gis
+            </Link>
           </div>
           <div className="lg:hidden">
             {!isOpen ? (

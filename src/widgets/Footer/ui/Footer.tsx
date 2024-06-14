@@ -1,7 +1,15 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import { Link } from 'react-router-dom';
+import { HEADER_DATA } from '../../Header/constant/constant';
 
 export const Footer: FC = () => {
+  const renderTitle = useMemo(() => {
+    return HEADER_DATA.map((item) => (
+      <div key={item.title}>
+        <a href={item.link}>{item.title}</a>
+      </div>
+    ));
+  }, []);
   return (
     <div className="w-full h-[540px] lg:h-[300px] bg-[#070606] lg:pt-[50px]">
       <div className="w-[90%] m-auto pt-[36px] lg:pt-[0px]">
@@ -17,44 +25,34 @@ export const Footer: FC = () => {
               </Link>
             </div>
             <div className="flex gap-[8px]">
-              <a href="https://www.instagram.com/">
+              <Link
+                target="_blank"
+                to="https://www.instagram.com/bono.bar.bishkek"
+              >
                 <img
                   className="w-[24px] h-[24px]"
                   src="/images/iconInsta.svg"
                   alt="Instagram"
                 />
-              </a>
-              <a href="https://web.telegram.org/a/">
+              </Link>
+              <Link target="_blank" to="https://t.me/+996505046256">
                 <img
                   className="w-[24px] h-[24px]"
                   src="/images/iconTelegram.svg"
                   alt="Telegram"
                 />
-              </a>
-              <a href="https://web.whatsapp.com/">
+              </Link>
+              <Link target="_blank" to="https://wa.me/+996505046256">
                 <img
                   className="w-[24px] h-[24px]"
                   src="/images/iconWhs.svg"
                   alt="whatsApp"
                 />
-              </a>
+              </Link>
             </div>
           </div>
 
-          <div className="flex flex-col gap-[12px]">
-            <div>
-              <Link to={'/'}>Главная</Link>
-            </div>
-            <div>
-              <Link to={'/'}>Кухня</Link>
-            </div>
-            <div>
-              <Link to={'/'}>Бар</Link>
-            </div>
-            <div>
-              <Link to={'/'}>Контакты</Link>
-            </div>
-          </div>
+          <div className="flex flex-col gap-[12px]">{renderTitle}</div>
           <div className="flex flex-col gap-[16px]">
             <div>
               <p>улица Сухэ-Батора,17</p>
@@ -72,7 +70,7 @@ export const Footer: FC = () => {
                 src="/images/iconPhone.svg"
                 alt="phone"
               />
-              <span>+996 505 04 62 56</span>
+              <Link to="tel:+996505046256">+996 505 04 62 56</Link>
             </div>
             <div className="flex">
               <img

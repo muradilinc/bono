@@ -3,7 +3,7 @@ import imgBar from '../../../../public/images/menuBar.svg';
 
 export const Menu = () => {
   return (
-    <div className="px-[10px] py-[30px] bg-black text-white">
+    <div className="px-[10px] py-[30px] bg-[#070606] text-white">
       <h1 className="xl:text-[36px] lg:text-[32px] md:text-[28px] text-[24px]">
         Меню
       </h1>
