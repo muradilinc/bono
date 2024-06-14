@@ -7,6 +7,7 @@ import BannerCard from './BannerCard';
 import { Link } from 'react-router-dom';
 import { selectGallery } from '../../../../features/gallery/model/gallerySlice';
 import { getGallery } from '../../../../features/gallery/api/galleryThunk';
+import GalleryMain from './Gallery';
 
 export const AdminBannerPage = () => {
   const banners = useAppSelector(selectBanners);
@@ -15,9 +16,9 @@ export const AdminBannerPage = () => {
 
   useEffect(() => {
     dispatch(getBanners());
-    dispatch(getGallery);
+    dispatch(getGallery());
   }, [dispatch]);
-  console.log(galleries);
+
   return (
     <section className="bg-black text-white px-[30px] py-[18px] flex flex-col gap-[30px] min-h-[700px]">
       <div className="flex items-center justify-between">
@@ -45,6 +46,13 @@ export const AdminBannerPage = () => {
         <h1 className="text-[20px] font-medium mt-[10px]">
           ФОТОГРАФИИ РЕСТОРАНА
         </h1>
+        <div>
+          {galleries.length > 0 ? (
+            <GalleryMain galleries={galleries} />
+          ) : (
+            <h1 className="mt-[30px]">Нету данных...</h1>
+          )}
+        </div>
       </div>
     </section>
   );

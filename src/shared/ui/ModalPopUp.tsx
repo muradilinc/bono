@@ -18,7 +18,7 @@ const ModalPopUp = ({ popUp, setPopUp, propText }: IPopUp) => {
             <span className="bg-[#8CDF7E] w-[25px] h-[25px] rounded-[50%] flex items-center justify-center text-white">
               ✓
             </span>
-            <h3 className="font-semibold ml-[5px]">{propText}</h3>
+            <h3 className="font-semibold ml-[5px] text-black">{propText}</h3>
           </div>
         </div>
       ) : null}
