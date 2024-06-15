@@ -93,6 +93,7 @@ const BannerCrud = () => {
       );
       dispatch(getBannersTopik());
       setSelectedImageId(null);
+      setPopUp(true);
     }
   };
   const handleDeleteId = (idImg: string) => {
