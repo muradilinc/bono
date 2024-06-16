@@ -8,6 +8,9 @@ import { AdminBannerPage } from '../pages/admin/BannerPage';
 import { AdminMenuPage, MenuFormPage } from '../pages/admin/MenuPage';
 import { AdminPanel } from '../pages/admin/CategoryPage';
 import BannerCrud from '../pages/admin/BannerPage/ui/BannerCrud';
+import MainMenu from '../widgets/Menu/ui/MainMenu';
+import { Header } from '../widgets/Header';
+import { Footer } from '../widgets/Footer';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -36,9 +39,12 @@ const App = () => {
         adminRoutes
       ) : (
         <Layout>
+          <Header />
           <Routes>
             <Route path="/" element={<HomePage />} />
+            <Route path="/kitchen" element={<MainMenu />} />
           </Routes>
+          <Footer />
         </Layout>
       )}
     </>

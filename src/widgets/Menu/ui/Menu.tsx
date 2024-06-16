@@ -1,9 +1,10 @@
 import imgKuh from '../../../../public/images/menuKuhnya.svg';
 import imgBar from '../../../../public/images/menuBar.svg';
+import { Link } from 'react-router-dom';
 
 export const Menu = () => {
   return (
-    <div className="px-[10px] py-[30px] bg-[#070606] text-white">
+    <div className="w-[90%] m-auto py-[30px] bg-[#070606] text-white">
       <h1 className="xl:text-[36px] lg:text-[32px] md:text-[28px] text-[24px]">
         Меню
       </h1>
@@ -17,9 +18,11 @@ export const Menu = () => {
             src={imgKuh}
             alt="no img"
           />
-          <h6 className="absolute left-0 bottom-0 right-0 bg-[rgba(23,23,23,0.6)] pl-[30px] py-[10px] sm:text-[20px] text-[16px]">
-            Кухня
-          </h6>
+          <Link to={'/kitchen'}>
+            <h6 className="absolute left-0 bottom-0 right-0 bg-[rgba(23,23,23,0.6)] pl-[30px] py-[10px] sm:text-[20px] text-[16px]">
+              Кухня
+            </h6>
+          </Link>
         </div>
         <div className="relative">
           <img

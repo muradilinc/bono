@@ -15,6 +15,6 @@ export const HEADER_DATA: HeaderTitle[] = [
   },
   {
     title: 'Контакты',
-    link: '#contacts',
+    link: '/#contacts',
   },
 ];
