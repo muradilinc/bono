@@ -9,11 +9,16 @@ import { Pagination } from 'swiper/modules';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { useEffect } from 'react';
 import { getBanners } from '../../../features/banner/api/bannerThunk';
-import { selectBanners } from '../../../features/banner/model/bannerSlice';
+import {
+  selectBanners,
+  selectBannersLoading,
+} from '../../../features/banner/model/bannerSlice';
+import Loading from '../../../shared/ui/Loading';
 
 export const Slider = () => {
   const dispatch = useAppDispatch();
   const banners = useAppSelector(selectBanners);
+  const loading = useAppSelector(selectBannersLoading);
 
   const pagination = {
     clickable: true,
@@ -28,6 +33,10 @@ export const Slider = () => {
   useEffect(() => {
     dispatch(getBanners());
   }, [dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <Swiper

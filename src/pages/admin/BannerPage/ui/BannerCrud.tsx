@@ -5,8 +5,6 @@ import {
 } from '../../../../features/banner/model/bannerSlice';
 import React, { ChangeEvent, useEffect, useRef, useState } from 'react';
 import {
-  addBannersTopik,
-  deleteBannersTopik,
   getBannersId,
   getBannersTopik,
   updateBannersId,
@@ -15,8 +13,6 @@ import {
 import { useNavigate, useParams } from 'react-router-dom';
 import { BannerCardsForm } from '../types/type';
 import ModalPopUp from '../../../../shared/ui/ModalPopUp';
-import { Trash } from '@phosphor-icons/react';
-import ModalDelete from '../../../../shared/ui/ModalDelete';
 
 const BannerCrud = () => {
   const banners = useAppSelector(selectBannersId);
@@ -31,9 +27,6 @@ const BannerCrud = () => {
   });
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
   const [popUp, setPopUp] = useState<boolean>(false);
-  const [modalDelete, setModalDelete] = useState<boolean>(false);
-  const refAddTopik = useRef<HTMLInputElement>(null);
-  const [idDeleteTopik, setIdDeleteTopik] = useState<string | null>(null);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -96,30 +89,6 @@ const BannerCrud = () => {
       setPopUp(true);
     }
   };
-  const handleDeleteId = (idImg: string) => {
-    setModalDelete(true);
-    setIdDeleteTopik(idImg);
-  };
-
-  const handleDelete = async () => {
-    await dispatch(deleteBannersTopik({ id: idDeleteTopik })).unwrap();
-    dispatch(getBannersTopik());
-  };
-
-  const addTopik = async (e: ChangeEvent<HTMLInputElement>) => {
-    if (bannersTopik.length >= 3) {
-      alert('Вы можете создать только 3 картинки банера');
-    } else {
-      const { files } = e.target;
-      if (files && files.length > 0) {
-        const formData = new FormData();
-        formData.append('img', files[0]);
-        setPopUp(true);
-        await dispatch(addBannersTopik({ formData: formData })).unwrap();
-        dispatch(getBannersTopik());
-      }
-    }
-  };
 
   return (
     <form onSubmit={handleSumbit}>
@@ -158,19 +127,6 @@ const BannerCrud = () => {
             <h1 className="text-[20px] font-medium">
               ФОТОГРАФИЯ ГЛАВНОГО БАННЕРА
             </h1>
-            <input
-              onChange={addTopik}
-              ref={refAddTopik}
-              className="hidden"
-              type="file"
-            />
-            <button
-              onClick={() => refAddTopik.current?.click()}
-              type="button"
-              className="bg-[#6BC678] px-[24px] py-[10px] rounded-lg flex items-center"
-            >
-              + Добавить
-            </button>
           </div>
 
           <div className="mt-[30px]">
@@ -199,13 +155,6 @@ const BannerCrud = () => {
                   >
                     Загрузить фото
                   </button>
-                  <button
-                    onClick={() => handleDeleteId(String(img.id))}
-                    type="button"
-                    className="flex items-center justify-center text-white bg-[#ff0000ab] rounded-[8px] w-[40px] h-[45px] ml-[10px]"
-                  >
-                    <Trash size={32} />
-                  </button>
                 </div>
               </div>
             ))}
@@ -217,13 +166,6 @@ const BannerCrud = () => {
           popUp={popUp}
           setPopUp={setPopUp}
           propText={'Изменение сохранены'}
-        />
-      )}
-      {modalDelete && (
-        <ModalDelete
-          addModal={modalDelete}
-          setAddModal={setModalDelete}
-          onDelete={handleDelete}
         />
       )}
     </form>
