@@ -1,9 +1,21 @@
 import { Link } from 'react-router-dom';
 import { links } from '../../../app/constants/links';
 import { useState } from 'react';
+import { useAppSelector } from '../../../app/store/hooks';
+import { selectBannersLoading } from '../../../features/banner/model/bannerSlice';
+import Loading from '../../../shared/ui/Loading';
+import { selectCategoriesLoading } from '../../../features/category/categorySlice';
 
 export const Sidebar = () => {
   const [active, setActive] = useState<number | null>(null);
+  const loadingBanner = useAppSelector(selectBannersLoading);
+  const loadingCatalog = useAppSelector(selectCategoriesLoading);
+  if (loadingBanner) {
+    return <Loading />;
+  }
+  if (loadingCatalog) {
+    return <Loading />;
+  }
   return (
     <aside className="w-full max-w-[200px] flex flex-col gap-[50px] bg-[#2B2B2B]">
       <div className="bg-[#2B2B2B] p-[16px] flex items-center">
