@@ -1,0 +1,3 @@
+npm run lint
+npx run typecheck
+npm run format:check
