@@ -6,6 +6,10 @@ export default {
         comfort: ['"Comfortaa"', 'san-serif'],
         room: ['"Room"', 'san-serif'],
       },
+      flex: {
+        '50': '1 1 20%',
+        '100': '1 1 45%',
+      },
     },
   },
   plugins: [],
