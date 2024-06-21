@@ -18,8 +18,6 @@ const ScheduleTable = () => {
     dispatch(getSchedules());
   }, [dispatch]);
 
-  console.log(schedules);
-
   const slots = schedules.map((book) => {
     return {
       id: book.id,
