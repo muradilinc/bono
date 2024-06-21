@@ -27,3 +27,8 @@ input {
   left: 5% !important;
   width: max-content !important;
 }
+
+.swiper-button-prev,
+.swiper-button-next {
+  color: #fff;
+}

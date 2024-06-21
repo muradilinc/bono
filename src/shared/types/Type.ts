@@ -58,3 +58,21 @@ export interface IPopUp {
 export interface INameManager {
   nameManager: string;
 }
+
+export interface AdminSlideType {
+  id: number;
+  name: string;
+  image?: string;
+  created_at?: string;
+}
+
+export interface AdminSliderProps {
+  items: AdminSlideType[];
+  onCategoryChange: (id: number) => void;
+}
+
+export interface IconButtonProps {
+  text: string;
+  iconUrl: string;
+  onClick: () => void;
+}

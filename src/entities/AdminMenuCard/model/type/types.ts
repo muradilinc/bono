@@ -1,10 +1,11 @@
 export interface DataMenuCard {
   id: number;
-  category: string;
-  img: string;
+  // created_at: string,
   title: string;
-  text: string;
-  gram: number;
   price: number;
+  image: string;
+  description: string | null;
+  // category: number;
+  // subcategory: number;
   onDelete: (id: number) => void;
 }
