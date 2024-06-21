@@ -1,14 +1,16 @@
 import React from 'react';
 
-export interface IForms {
+export interface FormComeMutation {
   name: string;
-  tel: string;
-  timeA: string;
+  phone: string;
+  date: string;
+  countPerson: string;
   time: string;
-  guests: string;
-  comments: string;
+  timeSpend: string;
+  comment: string;
   table: string;
 }
+
 export interface IFormsTable {
   table: string;
   floor: string;
