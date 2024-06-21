@@ -22,6 +22,10 @@ input {
   outline: none;
 }
 
+.container {
+  @apply w-[90%] h-full mx-auto;
+}
+
 .swiper-pagination {
   bottom: 100px !important;
   left: 5% !important;
