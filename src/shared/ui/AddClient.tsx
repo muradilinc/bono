@@ -1,6 +1,6 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import '../style/style.css';
-import { IForms, IModal } from '../types/Type';
+import { FormComeMutation, IModal } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import {
@@ -21,13 +21,14 @@ const AddClient = ({ modal, setModal }: IModal) => {
   const refGuests = useRef<HTMLInputElement>(null);
   const refErr = useRef<HTMLParagraphElement>(null);
   const refClose = useRef<HTMLDivElement>(null);
-  const [form, setForm] = useState<IForms>({
+  const [form, setForm] = useState<FormComeMutation>({
     name: '',
-    tel: '',
-    timeA: '',
+    phone: '',
+    date: '',
     time: '',
-    guests: '',
-    comments: '',
+    timeSpend: '',
+    countPerson: '',
+    comment: '',
     table: '',
   });
   const dispatch = useAppDispatch();
@@ -87,16 +88,6 @@ const AddClient = ({ modal, setModal }: IModal) => {
       refErr.current.textContent = 'Заполните все поле';
       validation();
     } else {
-      // let formattedTel = form.tel;
-      // if (formattedTel.startsWith('9960')) {
-      //   formattedTel = `+996${formattedTel.slice(5)}`;
-      // } else if (formattedTel.startsWith('996')) {
-      //   formattedTel = `+996${formattedTel.slice(4)}`;
-      // } else if (formattedTel.startsWith('0')) {
-      //   formattedTel = `+996${formattedTel.slice(1)}`;
-      // } else if (!formattedTel.startsWith('996')) {
-      //   formattedTel = `+996${formattedTel}`;
-      // }
       const updatedForm = { ...form };
       await dispatch(createBook(updatedForm)).unwrap();
       await dispatch(getSchedules()).unwrap();
@@ -105,11 +96,12 @@ const AddClient = ({ modal, setModal }: IModal) => {
       }
       setForm({
         name: '',
-        tel: '',
-        timeA: '',
+        phone: '',
+        date: '',
         time: '',
-        guests: '',
-        comments: '',
+        timeSpend: '',
+        countPerson: '',
+        comment: '',
         table: '',
       });
       if (refClose.current) {
@@ -203,8 +195,8 @@ const AddClient = ({ modal, setModal }: IModal) => {
             <input
               ref={refTel}
               onChange={handleInputChange}
-              value={form.tel}
-              name="tel"
+              value={form.phone}
+              name="phone"
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="number"
             />
@@ -216,8 +208,8 @@ const AddClient = ({ modal, setModal }: IModal) => {
             <input
               ref={refTimeA}
               onChange={handleInputChange}
-              name="timeA"
-              value={form.timeA}
+              name="timeSpend"
+              value={form.timeSpend}
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="text"
               list="select"
@@ -246,8 +238,8 @@ const AddClient = ({ modal, setModal }: IModal) => {
             <input
               ref={refGuests}
               onChange={handleInputChange}
-              value={form.guests}
-              name="guests"
+              value={form.countPerson}
+              name="countPerson"
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="number"
               list="selectGuests"
@@ -264,8 +256,8 @@ const AddClient = ({ modal, setModal }: IModal) => {
             <input
               ref={refComments}
               onChange={handleInputChange}
-              value={form.comments}
-              name="comments"
+              value={form.comment}
+              name="comment"
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               placeholder="Напишите комментарий"
               type="text"
