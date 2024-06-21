@@ -1,14 +1,16 @@
 import React from 'react';
 
-export interface IForms {
+export interface FormComeMutation {
   name: string;
-  tel: string;
-  timeA: string;
+  phone: string;
+  date: string;
+  countPerson: string;
   time: string;
-  guests: string;
-  comments: string;
+  timeSpend: string;
+  comment: string;
   table: string;
 }
+
 export interface IFormsTable {
   table: string;
   floor: string;
@@ -57,4 +59,22 @@ export interface IPopUp {
 }
 export interface INameManager {
   nameManager: string;
+}
+
+export interface AdminSlideType {
+  id: number;
+  name: string;
+  image?: string;
+  created_at?: string;
+}
+
+export interface AdminSliderProps {
+  items: AdminSlideType[];
+  onCategoryChange: (id: number) => void;
+}
+
+export interface IconButtonProps {
+  text: string;
+  iconUrl: string;
+  onClick: () => void;
 }
