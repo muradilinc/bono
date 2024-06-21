@@ -4,10 +4,9 @@ import ModalDelete from '../../../shared/ui/ModalDelete';
 
 export const AdminMenuCard: FC<DataMenuCard> = ({
   id,
-  img,
+  image,
   title,
-  text,
-  gram,
+  description,
   price,
   onDelete,
 }) => {
@@ -20,28 +19,36 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
   }, [modal, addModal]);
 
   return (
-    <div
-      onClick={() => setModal((prevState) => !prevState)}
-      className="w-[379px] h-[479px] gap-[16px] bg-transparent text-white cursor-pointer"
-    >
-      <div>
-        <img src={img} alt="menu picture" />
+    <div className="relative">
+      <div
+        onClick={() => setModal(true)}
+        className="w-[355px] h-[270px] rounded-[4px] text-white cursor-pointer relative overflow-hidden"
+      >
+        <div className="w-full h-full">
+          <img
+            className="w-full h-full object-cover"
+            src={image}
+            alt="menu picture"
+          />
+        </div>
+        <div className="w-full h-[81px] absolute bottom-0 bg-[#17171799] backdrop-blur-sm px-[8px] py-[8px]">
+          <div className="flex justify-between text-[16px] font-bold leading-7">
+            <div>{title}</div>
+            <div className="font-bold text-[16px]">{price} с</div>
+          </div>
+          <div className="text-[12px] font-normal leading-5 text-left pb-[15px]">
+            {description}
+          </div>
+        </div>
       </div>
-      <div className="text-2xl font-bold leading-7 pt-[10px] pb-[16px]">
-        {title}
-      </div>
-      <div className="text-base font-normal leading-5 text-left pb-[15px]">
-        {text}
-      </div>
-      <div className="text-base font-normal leading-5 text-left pb-[8px]">
-        {gram} Грамм
-      </div>
-      <div className="font-bold text-2xl">{price} сом</div>
       {modal && (
         <ModalDelete
-          addModal={addModal}
-          setAddModal={setAddModal}
-          onDelete={() => onDelete(id)}
+          addModal={modal}
+          setAddModal={setModal}
+          onDelete={() => {
+            onDelete(id);
+            setModal(false);
+          }}
         />
       )}
     </div>

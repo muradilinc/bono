@@ -1,69 +1,140 @@
-import { FC, useMemo, useState } from 'react';
-import { DATA_MENU_CARD, FILTER_DATA } from '../model/constants/constant';
-import { DataMenuCard } from '../model/types/type';
+import { FC, useEffect, useState } from 'react';
 import { AdminMenuCard } from '../../../entities/AdminMenuCard';
 import { useNavigate } from 'react-router-dom';
+import AdminSlider from '../../../shared/ui/AdminSlide';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import {
+  selectSubcategory,
+  selectSubcategoryLoading,
+} from '../model/SubcategorySlice';
+import { getSubcategory } from '../api/SubcategoryThunk';
+import {
+  selectCategories,
+  selectCategoriesLoading,
+} from '../../category/categorySlice';
+import { getCategories } from '../../category/categoryThunk';
+import { selectMenu, selectMenuLoading } from '../model/MenuSlica';
+import { deleteMenu, getMenu } from '../api/MenuThunk';
+import AdminIconButton from '../../../shared/ui/AdminIconButton';
 
 export const AdminFilterMenu: FC = () => {
-  const [dataMenu, setDataMenu] = useState<DataMenuCard[]>(DATA_MENU_CARD);
+  const dispatch = useAppDispatch();
+
+  const categories = useAppSelector(selectCategories);
+  const categoryLoading = useAppSelector(selectCategoriesLoading);
+
+  const subcategories = useAppSelector(selectSubcategory);
+  const subcategoriesLoading = useAppSelector(selectSubcategoryLoading);
+
+  const menu = useAppSelector(selectMenu);
+  const menuLoading = useAppSelector(selectMenuLoading);
+
+  const [currentCategory, setCurrentCategory] = useState<number | null>(null);
+  const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(
+    null,
+  );
+
   const navigate = useNavigate();
-  const renderFilter = useMemo(() => {
-    const onFiltered = (title: string) => {
-      if (title === 'Все') {
-        setDataMenu(DATA_MENU_CARD);
-      } else {
-        const filteredData = DATA_MENU_CARD?.filter(
-          (item) => item.category === title,
-        );
-        setDataMenu(filteredData);
-      }
-    };
-    return FILTER_DATA?.map((item, index) => (
-      <div key={index}>
-        <button
-          onClick={() => onFiltered(item.title)}
-          className="py-[10px] px-[15px] duration-300 hover:bg-[#3D3D3D] hover:text-white rounded-[12px]"
-        >
-          {item.title}
-        </button>
-      </div>
-    ));
-  }, []);
 
   const onDelete = (id: number) => {
-    const deleteData = dataMenu?.filter((item) => item.id !== id);
-    setDataMenu(deleteData);
+    dispatch(deleteMenu(id));
   };
+
+  useEffect(() => {
+    dispatch(getCategories());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (categories.length > 0 && currentCategory) {
+      dispatch(getSubcategory(currentCategory));
+    }
+  }, [categories, currentCategory, dispatch]);
+
+  useEffect(() => {
+    if (subcategories.length > 0) {
+      dispatch(getMenu());
+    }
+  }, [dispatch, subcategories.length]);
+
+  if (!subcategoriesLoading) {
+    console.log(subcategories);
+  }
+
+  if (categoryLoading) {
+    return '...Loading';
+  }
+
+  if (!categoryLoading) {
+    console.log(categories);
+  }
+
+  if (!menuLoading) {
+    console.log(menu);
+  }
+
+  console.log(currentCategory);
+  console.log(currentSubcategory);
 
   return (
     <>
-      <div className="w-full h-[60px] bg-black text-white flex flex-row justify-around items-center gap-[15px] border-l border-opacity-0">
-        {renderFilter}
+      <div className="flex flex-col items-center justify-center gap-[24px] pt-[40px]">
+        <div className="flex gap-[16px]">
+          <AdminIconButton
+            text={'Добавить'}
+            iconUrl="/images/iconPlus.svg"
+            onClick={() => navigate('/admin/menu-submit')}
+          />
+          <AdminIconButton
+            text={'Редактировать'}
+            iconUrl="/images/iconEdit.svg"
+            onClick={() => console.log('modal')}
+          />
+          <AdminIconButton
+            text={'Удалить'}
+            iconUrl="/images/iconDelete.svg"
+            onClick={() => console.log('Modal')}
+          />
+        </div>
+        <div className="w-[184px] h-[60px] text-white flex flex-row justify-around items-center gap-[15px]">
+          <AdminSlider
+            items={categories}
+            onCategoryChange={setCurrentCategory}
+          />
+        </div>
+      </div>
+      <div className="text-white w-full h-[88px] flex items-center justify-around">
+        {subcategories?.map((item) => (
+          <div key={item.id}>
+            <button
+              onClick={() => setCurrentSubcategory(item.id)}
+              className="hover:underline"
+            >
+              {item.name}
+            </button>
+          </div>
+        ))}
       </div>
       <div className="w-full h-[677px] overflow-auto bg-black flex flex-col py-[50px] px-[30px] gap-y-3">
-        <div className="flex justify-end">
-          <button
-            onClick={() => navigate('/admin/menu-submit')}
-            className="font-semibold text-white bg-[#6BC678] rounded-[8px] w-[125px] h-[40px]"
-          >
-            создать
-          </button>
-        </div>
         <div className="flex flex-wrap gap-x-[16px] gap-y-[30px] justify-between">
-          {dataMenu.length ? (
-            dataMenu.map((item) => (
-              <AdminMenuCard
-                key={item.id}
-                id={item.id}
-                category={item.category}
-                img={item.img}
-                title={item.title}
-                text={item.text}
-                gram={item.gram}
-                price={item.price}
-                onDelete={onDelete}
-              />
-            ))
+          {menu?.length ? (
+            menu
+              ?.filter((item) => {
+                return (
+                  item.category === currentCategory &&
+                  item.subcategory === currentSubcategory
+                );
+              })
+              .map((item) => (
+                <AdminMenuCard
+                  key={item.id}
+                  id={item.id}
+                  image={item.image}
+                  title={item.title}
+                  description={item.description}
+                  price={item.price}
+                  onDelete={onDelete}
+                />
+              ))
           ) : (
             <div className="text-white w-full text-center">
               Такого меню нет.
