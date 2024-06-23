@@ -14,3 +14,18 @@ export const deleteMenu = createAsyncThunk(
     return response.data;
   },
 );
+
+export const createMenu = createAsyncThunk(
+  'menu/create',
+  async (formData: FormData) => {
+    try {
+      const response = await axiosApi.post<MenuType>(
+        `/menu/list_or_create/`,
+        formData,
+      );
+      return response.data;
+    } catch (error) {
+      console.log(error);
+    }
+  },
+);

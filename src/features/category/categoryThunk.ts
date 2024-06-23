@@ -3,6 +3,7 @@ import axiosApi from '../../app/axiosApi';
 import {
   Category,
   CategoryMutation,
+  CategorySubcategory,
 } from '../../pages/admin/CategoryPage/Type/Type';
 
 export const createCategory = createAsyncThunk<void, CategoryMutation>(
@@ -50,5 +51,15 @@ export const deleteCategory = createAsyncThunk<void, number>(
   'category/deleteCategory',
   async (id) => {
     await axiosApi.delete(`/category/${id}/`);
+  },
+);
+
+export const getCategory_Subcategory = createAsyncThunk<CategorySubcategory[]>(
+  'category_subcategory/getAll',
+  async () => {
+    const response = await axiosApi.get<CategorySubcategory[]>(
+      '/category/category_subcategory_list/',
+    );
+    return response.data;
   },
 );
