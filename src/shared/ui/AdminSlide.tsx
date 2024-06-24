@@ -16,16 +16,6 @@ const AdminSlider: React.FC<AdminSliderProps> = ({
   const prevRef = useRef<HTMLDivElement>(null);
   const nextRef = useRef<HTMLDivElement>(null);
 
-  const right = () => {
-    swiper?.slideNext();
-    console.log(nextRef);
-  };
-
-  const left = () => {
-    swiper?.slidePrev();
-    console.log(prevRef);
-  };
-
   useEffect(() => {
     if (
       swiper &&
@@ -66,7 +56,7 @@ const AdminSlider: React.FC<AdminSliderProps> = ({
         }}
         className="mySwiper"
       >
-        <div ref={prevRef} className="swiper-button-prev" onClick={left}></div>
+        <div ref={prevRef} className="swiper-button-prev"></div>
         {items.map((item) => (
           <SwiperSlide
             key={item.id}
@@ -75,7 +65,7 @@ const AdminSlider: React.FC<AdminSliderProps> = ({
             <h3>{item.name}</h3>
           </SwiperSlide>
         ))}
-        <div ref={nextRef} className="swiper-button-next" onClick={right}></div>
+        <div ref={nextRef} className="swiper-button-next"></div>
       </Swiper>
     </>
   );

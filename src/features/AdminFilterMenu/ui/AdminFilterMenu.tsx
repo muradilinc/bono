@@ -107,9 +107,11 @@ export const AdminFilterMenu: FC = () => {
           <div key={item.id}>
             <button
               onClick={() => setCurrentSubcategory(item.id)}
-              className="focus:border-b-[1px] focust:border-white"
+              className="focus:border-b-[2px] focus:border-white gap-y-2"
             >
-              {item.name}
+              <p className="text-[16px] font-normal leading-[24px] pb-[8px]">
+                {item.name}
+              </p>
             </button>
           </div>
         ))}
