@@ -86,10 +86,10 @@ export const MenuFormPage = () => {
       formData.append('image', state.image);
     }
     try {
-      const res = await dispatch(createMenu(formData)).unwrap();
-      console.log('Response:', res);
-
+      await dispatch(createMenu(formData)).unwrap();
       setState(initialState);
+      setImageData('');
+      setFilename('');
       setCurrentCategory(0);
       setCurrentSubcategory(0);
     } catch (error) {
@@ -195,24 +195,6 @@ export const MenuFormPage = () => {
                 onChange={changeFiled}
               />
             </div>
-            {/* <div className="w-full">
-              <label
-                className="text-white text-[12px] font-medium"
-                htmlFor="gram"
-              >
-                Грамм
-              </label>
-              <input
-                id="gram"
-                type="text"
-                name="gram"
-                required
-                placeholder="Информация о весе"
-                className="w-full bg-white outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
-                value={state.gram}
-                onChange={changeFiled}
-              />
-            </div> */}
           </div>
           <div>
             <input
