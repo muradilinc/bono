@@ -14,6 +14,7 @@ export const store = configureStore({
     gallery: galleryReducer,
     menu: menuReducer,
     subcategory: subcategoryReducer,
+    categorySubcategory: categoryReducer,
   },
 });
 

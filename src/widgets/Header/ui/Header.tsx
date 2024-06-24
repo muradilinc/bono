@@ -12,7 +12,9 @@ export const Header: FC = () => {
     ));
   }, []);
   return (
-    <div className="w-full h-[128px] text-white absolute z-10">
+    <div
+      className={`w-full h-[128px] text-white absolute z-10 ${isOpen && 'bg-[#070606]'}`}
+    >
       <div className="w-[90%] h-full m-auto">
         <div className="hidden lg:flex h-1/2 items-center justify-end">
           <div className="flex gap-1 pr-[24px]">
