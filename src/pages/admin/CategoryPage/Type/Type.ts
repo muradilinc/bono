@@ -13,3 +13,9 @@ export interface Category {
 export interface ICategoryProp {
   setActiveBtn: React.Dispatch<React.SetStateAction<string | null>>;
 }
+
+export interface CategorySubcategory {
+  id: number;
+  name: string;
+  subcategories: { id: number; name: string }[];
+}

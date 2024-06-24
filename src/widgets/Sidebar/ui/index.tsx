@@ -17,7 +17,7 @@ export const Sidebar = () => {
     return <Loading />;
   }
   return (
-    <aside className="w-full max-w-[200px] flex flex-col gap-[50px] bg-[#2B2B2B]">
+    <aside className="w-full max-w-[210px] flex flex-col gap-[50px] bg-[#2B2B2B]">
       <div className="bg-[#2B2B2B] p-[16px] flex items-center">
         <h6 className="font-semibold text-[17px] text-white">Админ. панель</h6>
       </div>

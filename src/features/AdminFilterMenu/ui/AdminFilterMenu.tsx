@@ -36,8 +36,8 @@ export const AdminFilterMenu: FC = () => {
 
   const navigate = useNavigate();
 
-  const onDelete = (id: number) => {
-    dispatch(deleteMenu(id));
+  const onDelete = async (id: number) => {
+    await dispatch(deleteMenu(id));
   };
 
   useEffect(() => {
@@ -107,7 +107,7 @@ export const AdminFilterMenu: FC = () => {
           <div key={item.id}>
             <button
               onClick={() => setCurrentSubcategory(item.id)}
-              className="hover:underline"
+              className="focus:border-b-[1px] focust:border-white"
             >
               {item.name}
             </button>
@@ -115,7 +115,7 @@ export const AdminFilterMenu: FC = () => {
         ))}
       </div>
       <div className="w-full h-[677px] overflow-auto bg-black flex flex-col py-[50px] px-[30px] gap-y-3">
-        <div className="flex flex-wrap gap-x-[16px] gap-y-[30px] justify-between">
+        <div className="flex flex-wrap gap-x-[24px] gap-y-[24px]">
           {menu?.length ? (
             menu
               ?.filter((item) => {

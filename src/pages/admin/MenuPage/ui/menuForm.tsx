@@ -2,20 +2,32 @@ import { ChangeEvent, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { filesize } from 'filesize';
 import { MenuItemMutation } from '../model/types';
-import { FILTER_DATA } from '../../../../features/AdminFilterMenu/model/constants/constant';
+import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { selectCategories } from '../../../../features/category/categorySlice';
+import { selectSubcategory } from '../../../../features/AdminFilterMenu/model/SubcategorySlice';
+import { getSubcategory } from '../../../../features/AdminFilterMenu/api/SubcategoryThunk';
+import { createMenu } from '../../../../features/AdminFilterMenu/api/MenuThunk';
 
 export const MenuFormPage = () => {
-  const [state, setState] = useState<MenuItemMutation>({
+  const initialState: MenuItemMutation = {
     title: '',
-    price: '',
-    gram: '',
-    image: null,
+    price: 0,
     description: '',
-    category_id: '',
-  });
+    subcategory: 0,
+    category: 0,
+    image: null,
+  };
+  const [state, setState] = useState<MenuItemMutation>(initialState);
   const [imageData, setImageData] = useState('');
   const imageSelect = useRef<HTMLInputElement>(null);
   const [filename, setFilename] = useState('');
+
+  const [currentSubcategory, setCurrentSubcategory] = useState<number>(0);
+  const [currentCategory, setCurrentCategory] = useState<number>(0);
+
+  const categories = useAppSelector(selectCategories);
+  const subcategories = useAppSelector(selectSubcategory);
+  const dispatch = useAppDispatch();
 
   const changeFiled = (
     event: ChangeEvent<
@@ -27,6 +39,20 @@ export const MenuFormPage = () => {
       ...prevState,
       [name]: value,
     }));
+    console.log(name, value);
+    if (name === 'category') {
+      const categoryID = categories.find((item) => item.name === value);
+      if (categoryID) {
+        dispatch(getSubcategory(categoryID.id));
+        setCurrentCategory(categoryID.id);
+      }
+    }
+    if (name === 'subcategory') {
+      const subcategoryID = subcategories.find((item) => item.name === value);
+      if (subcategoryID) {
+        setCurrentSubcategory(subcategoryID?.id);
+      }
+    }
   };
 
   const selectImage = () => {
@@ -48,9 +74,32 @@ export const MenuFormPage = () => {
     }
   };
 
+  const onSubmit = async (e: React.FormEvent) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append('title', state.title);
+    formData.append('price', state.price.toString());
+    formData.append('description', state.description);
+    formData.append('category', currentCategory.toString());
+    formData.append('subcategory', currentSubcategory.toString());
+    if (state.image) {
+      formData.append('image', state.image);
+    }
+    try {
+      const res = await dispatch(createMenu(formData)).unwrap();
+      console.log('Response:', res);
+
+      setState(initialState);
+      setCurrentCategory(0);
+      setCurrentSubcategory(0);
+    } catch (error) {
+      console.error('Failed to submit:', error);
+    }
+  };
+
   return (
     <div className="w-full h-screen bg-black">
-      <form>
+      <form onSubmit={onSubmit}>
         <div className="w-full py-[10px] bg-[#E6F3FF] border-l border-opacity-0">
           <div className="container mx-auto flex flex-row justify-between  items-center">
             <h2>Добавить меню</h2>
@@ -89,17 +138,40 @@ export const MenuFormPage = () => {
               Категория
             </label>
             <select
-              name="category_id"
+              name="category"
               id="category"
               required
-              value={state.category_id}
+              value={state.category}
               onChange={changeFiled}
               className="w-full py-[10px] bg-white outline-0 rounded-[8px]"
             >
               <option value=""></option>
-              {FILTER_DATA.map((category) => (
-                <option key={category.title} value={category.title}>
-                  {category.title}
+              {categories?.map((category) => (
+                <option key={category?.id} value={category?.name}>
+                  {category?.name}
+                </option>
+              ))}
+            </select>
+          </div>
+          <div>
+            <label
+              className="text-white text-[12px] font-medium"
+              htmlFor="subcategory"
+            >
+              Под Категория
+            </label>
+            <select
+              name="subcategory"
+              id="subcategory"
+              required
+              value={state.subcategory}
+              onChange={changeFiled}
+              className="w-full py-[10px] bg-white outline-0 rounded-[8px]"
+            >
+              <option value=""></option>
+              {subcategories?.map((subcategory) => (
+                <option key={subcategory?.id} value={subcategory?.name}>
+                  {subcategory?.name}
                 </option>
               ))}
             </select>
@@ -123,7 +195,7 @@ export const MenuFormPage = () => {
                 onChange={changeFiled}
               />
             </div>
-            <div className="w-full">
+            {/* <div className="w-full">
               <label
                 className="text-white text-[12px] font-medium"
                 htmlFor="gram"
@@ -140,7 +212,7 @@ export const MenuFormPage = () => {
                 value={state.gram}
                 onChange={changeFiled}
               />
-            </div>
+            </div> */}
           </div>
           <div>
             <input

@@ -1,8 +1,8 @@
 export interface MenuItemMutation {
   title: string;
-  price: string | number;
-  gram: string | number;
-  image: File | null;
+  price: number;
   description: string;
-  category_id: string;
+  image: File | null;
+  subcategory: number;
+  category: number;
 }
