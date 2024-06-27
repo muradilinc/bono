@@ -16,7 +16,6 @@ interface Props {
 }
 
 const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
-  console.log(slot);
   const { startTime, endTime, occupied, is_come } = slot;
   const start = moment(startTime, 'HH:mm');
   const end = moment(endTime, 'HH:mm');
