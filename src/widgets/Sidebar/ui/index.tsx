@@ -7,7 +7,7 @@ import Loading from '../../../shared/ui/Loading';
 import { selectCategoriesLoading } from '../../../features/category/categorySlice';
 
 export const Sidebar = () => {
-  const [active, setActive] = useState<number | null>(null);
+  const [active, setActive] = useState<number>(0);
   const loadingBanner = useAppSelector(selectBannersLoading);
   const loadingCatalog = useAppSelector(selectCategoriesLoading);
   if (loadingBanner) {

@@ -54,7 +54,10 @@ export const FormCome = () => {
       onSubmit={handleSubmit}
       className="display flex justify-center flex-col items-center my-[170px]"
     >
-      <div className="border border-white p-12 flex flex-col gap-y-8">
+      <div
+        id="reservationForm"
+        className="border border-white p-12 flex flex-col gap-y-8"
+      >
         <div className="text-center">
           <h2 className="text-[36px] font-medium font-comfort">
             Бронь столика

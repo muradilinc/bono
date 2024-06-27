@@ -11,9 +11,13 @@ import BannerCrud from '../pages/admin/BannerPage/ui/BannerCrud';
 import MainMenu from '../widgets/Menu/ui/MainMenu';
 import { Header } from '../widgets/Header';
 import { Footer } from '../widgets/Footer';
+import { useEffect } from 'react';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
   const adminRoutes = useRoutes([
     {
       path: '/admin/*',
