@@ -56,9 +56,11 @@ export const Slider = () => {
                   {banner.title}
                 </h1>
               </div>
-              <button className="bg-[#111111] px-[34px] py-[17px] border-[1px] border-[#D0A666] w-max">
-                Забронировать стол
-              </button>
+              <a href="/#reservationForm">
+                <button className="bg-[#111111] px-[34px] py-[17px] border-[1px] border-[#D0A666] w-max">
+                  Забронировать стол
+                </button>
+              </a>
             </div>
           </SwiperSlide>
         )),

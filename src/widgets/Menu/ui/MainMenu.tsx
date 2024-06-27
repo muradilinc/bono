@@ -2,6 +2,8 @@ import { BTN_MENU } from '../constants/constants';
 import { useState } from 'react';
 import MenuCardMob from './MenuCardMob';
 import MenuCard from './MenuCard';
+import KitchenHelmet from '../../../app/helmet/KitchenHelmet';
+import kitchenSchema from '../../../app/schema/kitchenSchema';
 
 const MainMenu = () => {
   const [btn, setBtn] = useState<number>(0);
@@ -24,6 +26,10 @@ const MainMenu = () => {
       </h1>
       <MenuCard />
       <MenuCardMob />
+      <KitchenHelmet />
+      <script type="application/ld+json">
+        {JSON.stringify(kitchenSchema)}
+      </script>
     </div>
   );
 };
