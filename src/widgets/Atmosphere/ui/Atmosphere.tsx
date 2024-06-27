@@ -12,8 +12,6 @@ export const Atmosphere = () => {
     dispatch(getGallery());
   }, [dispatch]);
 
-  console.log(gallery);
-
   return (
     <section className="bg-[#070606] py-[30px] flex flex-col gap-[50px] h-svh container my-[200px]">
       <div className="flex flex-col gap-[16px]">
