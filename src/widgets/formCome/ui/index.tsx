@@ -2,6 +2,7 @@ import { ChangeEvent, FormEvent, useState } from 'react';
 import { createBook } from '../../../features/shedule/api/scheduleThunk';
 import { useAppDispatch } from '../../../app/store/hooks';
 import { FormComeMutation } from '../../../shared/types/Type';
+import { toast } from 'react-toastify';
 
 export const FormCome = () => {
   const [state, setState] = useState<FormComeMutation>({
@@ -12,7 +13,6 @@ export const FormCome = () => {
     time: '',
     timeSpend: '',
     comment: '',
-    table: '',
   });
   const dispatch = useAppDispatch();
 
@@ -42,10 +42,10 @@ export const FormCome = () => {
         time: '',
         timeSpend: '',
         comment: '',
-        table: '',
       });
+      toast.success('Заявка отправлена!');
     } catch (error) {
-      console.log(error);
+      toast.error('Что-то пошло не так!');
     }
   };
 
@@ -118,15 +118,6 @@ export const FormCome = () => {
             type="number"
             name="timeSpend"
             placeholder="Длительность посещения"
-            className="bg-transparent border-b border-white p-[10px]"
-            required
-          />
-          <input
-            value={state.table}
-            onChange={changeField}
-            type="text"
-            name="table"
-            placeholder="№ столик"
             className="bg-transparent border-b border-white p-[10px]"
             required
           />

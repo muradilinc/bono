@@ -5,6 +5,8 @@ import { categoryReducer } from '../../features/category/categorySlice';
 import { galleryReducer } from '../../features/gallery/model/gallerySlice';
 import { menuReducer } from '../../features/AdminFilterMenu/model/MenuSlica';
 import { subcategoryReducer } from '../../features/AdminFilterMenu/model/SubcategorySlice';
+import { tableReducer } from '../../features/tables/model/tableSlice';
+import { floorsReducer } from '../../features/floors/model/floorSlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,6 +17,8 @@ export const store = configureStore({
     menu: menuReducer,
     subcategory: subcategoryReducer,
     categorySubcategory: categoryReducer,
+    table: tableReducer,
+    floor: floorsReducer,
   },
 });
 

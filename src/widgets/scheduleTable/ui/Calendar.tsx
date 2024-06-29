@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TimeSlot from './TimeSlot';
 import BtnTable from './BtnTable';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
@@ -11,59 +11,34 @@ import {
   selectDeleteBookLoading,
   selectUpdateBookLoading,
 } from '../../../features/shedule/model/scheduleSlice';
+import { times } from '../constants/times';
+import { getTables } from '../../../features/tables/api/tablesThunk';
+import { selectTables } from '../../../features/tables/model/tableSlice';
+
+interface Slot {
+  id: number;
+  startTime: string;
+  endTime: string;
+  table: number;
+  occupied: boolean;
+  is_come: boolean;
+}
 
 interface Props {
-  slots: {
-    id: number;
-    startTime: string;
-    endTime: string;
-    table: number;
-    occupied: boolean;
-    is_come: boolean;
-  }[];
+  slots: Slot[];
 }
 
 const Calendar: React.FC<Props> = ({ slots }) => {
-  const times = [
-    '10:00',
-    '30',
-    '11:00',
-    '30',
-    '12:00',
-    '30',
-    '13:00',
-    '30',
-    '14:00',
-    '30',
-    '15:00',
-    '30',
-    '16:00',
-    '30',
-    '17:00',
-    '30',
-    '18:00',
-    '30',
-    '19:00',
-    '30',
-    '20:00',
-    '30',
-    '21:00',
-    '30',
-    '22:00',
-    '30',
-    '23:00',
-    '30',
-    '00:00',
-    '30',
-    '01:00',
-    '30',
-    '02:00',
-  ];
   const [modal, setModal] = useState<boolean>(false);
   const [selectClient, setSelectClient] = useState<number>(0);
   const updateLoading = useAppSelector(selectUpdateBookLoading);
   const deleteLoading = useAppSelector(selectDeleteBookLoading);
+  const tables = useAppSelector(selectTables);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getTables());
+  }, [dispatch]);
 
   const handleDeleteBook = async (id: number) => {
     await dispatch(deleteBook(id)).unwrap();
@@ -86,16 +61,14 @@ const Calendar: React.FC<Props> = ({ slots }) => {
             <h4 className="font-comfort text-white font-medium text-[14px] pr-[24px]">
               Столы/ время
             </h4>
-            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(
-              (table) => (
-                <div
-                  key={table}
-                  className="min-w-[124px] w-full border-l border-[#414141] text-white z-10 flex items-center justify-center text-[18px] font-comfort font-medium"
-                >
-                  <span>{`№${table}`}</span>
-                </div>
-              ),
-            )}
+            {tables.map((table) => (
+              <div
+                key={table}
+                className="min-w-[124px] w-full border-l border-[#414141] text-white z-10 flex items-center justify-center text-[18px] font-comfort font-medium"
+              >
+                <span>{`№${table}`}</span>
+              </div>
+            ))}
           </div>
           <div className="flex">
             <div className="flex gap-y-[35px] flex-col pr-[24px]">
@@ -109,25 +82,23 @@ const Calendar: React.FC<Props> = ({ slots }) => {
               ))}
             </div>
             <div className="relative flex">
-              {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16].map(
-                (table) => (
-                  <div
-                    key={table}
-                    className="min-w-[124px] relative border-l-[1px] border-[#414141]"
-                  >
-                    {slots
-                      .filter((slot) => slot.table === table)
-                      .map((slot) => (
-                        <TimeSlot
-                          key={`${slot.startTime}-${slot.table}`}
-                          onOpen={() => setModal(true)}
-                          client={(id: number) => setSelectClient(id)}
-                          slot={slot}
-                        />
-                      ))}
-                  </div>
-                ),
-              )}
+              {tables.map((table) => (
+                <div
+                  key={table}
+                  className="min-w-[124px] relative border-l-[1px] border-[#414141]"
+                >
+                  {slots
+                    .filter((slot) => slot.table === table)
+                    .map((slot) => (
+                      <TimeSlot
+                        key={`${slot.startTime}-${slot.table}`}
+                        onOpen={() => setModal(true)}
+                        client={(id: number) => setSelectClient(id)}
+                        slot={slot}
+                      />
+                    ))}
+                </div>
+              ))}
             </div>
           </div>
         </div>

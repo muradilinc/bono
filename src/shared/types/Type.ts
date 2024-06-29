@@ -8,10 +8,10 @@ export interface FormComeMutation {
   time: string;
   timeSpend: string;
   comment: string;
-  table: string;
+  table?: string;
 }
 
-export interface IFormsTable {
+export interface FormTable {
   table: string;
   floor: string;
 }
