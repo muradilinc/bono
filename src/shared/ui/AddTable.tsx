@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import '../style/style.css';
-import { IFormsTable, IModalTable } from '../types/Type';
+import { FormTable, IModalTable } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
+import { useAppDispatch } from '../../app/store/hooks';
+import { initTable } from '../../features/tables/api/tablesThunk';
 
 const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
   const [popUp, setPopUp] = useState<boolean>(false);
@@ -10,10 +12,11 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
   const refFloor = useRef<HTMLInputElement>(null);
   const refErr = useRef<HTMLInputElement>(null);
   const refClose = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState<IFormsTable>({
+  const [form, setForm] = useState<FormTable>({
     table: '',
     floor: '',
   });
+  const dispatch = useAppDispatch();
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -38,7 +41,7 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
     }
   };
 
-  const addTable = () => {
+  const addTable = async () => {
     if (
       Object.values(form).some((value) => value.trim() === '') &&
       refErr.current
@@ -49,6 +52,7 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
       if (refErr.current) {
         refErr.current.textContent = '';
       }
+      await dispatch(initTable(form)).unwrap();
       setForm({
         table: '',
         floor: '',

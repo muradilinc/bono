@@ -1,4 +1,4 @@
-export const API_LINK = 'http://3.87.95.146';
+export const API_LINK = 'https://bono-bar.com/api';
 
 export const links = [
   {
