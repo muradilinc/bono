@@ -5,14 +5,17 @@ import { FormTable } from '../../../shared/types/Type';
 export const initTable = createAsyncThunk<void, FormTable>(
   'tables/create',
   async ({ table, floor }) => {
-    await axiosApi.post('/table/list/table/', {
+    await axiosApi.post('/table/create/table/', {
       number_table: parseInt(table),
       floor: parseInt(floor),
     });
   },
 );
 
-export const getTables = createAsyncThunk('tables/getAll', async () => {
-  const response = await axiosApi.get('/table/list/table/');
-  return response.data;
-});
+export const getTables = createAsyncThunk<Table[]>(
+  'tables/getAll',
+  async () => {
+    const response = await axiosApi.get<Table[]>('/table/list/table/');
+    return response.data;
+  },
+);

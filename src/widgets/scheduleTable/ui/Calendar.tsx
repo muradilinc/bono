@@ -57,16 +57,18 @@ const Calendar: React.FC<Props> = ({ slots }) => {
       <BtnTable />
       <div className="ml-[20px] bg-[#2B2B2B] px-[10px] rounded-[4px]">
         <div className="flex flex-col relative">
-          <div className="flex items-center sticky top-0 z-10 bg-[#2B2B2B]">
-            <h4 className="font-comfort text-white font-medium text-[14px] pr-[24px]">
-              Столы/ время
-            </h4>
+          <div className="flex  items-center sticky top-0 z-10 bg-[#2B2B2B]">
+            <div className="w-[85px] text-wrap">
+              <h4 className="font-comfort  text-white font-medium text-[14px]">
+                Столы / время
+              </h4>
+            </div>
             {tables.map((table) => (
               <div
-                key={table}
-                className="min-w-[124px] w-full border-l border-[#414141] text-white z-10 flex items-center justify-center text-[18px] font-comfort font-medium"
+                key={table.id}
+                className="min-w-[124px] border-l border-[#414141] text-white z-10 flex items-center justify-center text-[18px] font-comfort font-medium"
               >
-                <span>{`№${table}`}</span>
+                <span>{`№${table.number_table}`}</span>
               </div>
             ))}
           </div>
@@ -84,11 +86,11 @@ const Calendar: React.FC<Props> = ({ slots }) => {
             <div className="relative flex">
               {tables.map((table) => (
                 <div
-                  key={table}
+                  key={table.id}
                   className="min-w-[124px] relative border-l-[1px] border-[#414141]"
                 >
                   {slots
-                    .filter((slot) => slot.table === table)
+                    .filter((slot) => slot.table === table.number_table)
                     .map((slot) => (
                       <TimeSlot
                         key={`${slot.startTime}-${slot.table}`}

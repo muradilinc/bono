@@ -46,76 +46,35 @@ const AddClient = ({ modal, setModal }: IModal) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  const validation = () => {
-    if (refName.current?.value.trim() === '') {
-      refName.current.classList.add('empty');
-    } else {
-      refName.current?.classList.remove('empty');
-    }
-    if (refTel.current?.value.trim() === '') {
-      refTel.current.classList.add('empty');
-    } else {
-      refTel.current?.classList.remove('empty');
-    }
-    if (refTimeA.current?.value.trim() === '') {
-      refTimeA.current.classList.add('empty');
-    } else {
-      refTimeA.current?.classList.remove('empty');
-    }
-    if (refTime.current?.value.trim() === '') {
-      refTime.current.classList.add('empty');
-    } else {
-      refTime.current?.classList.remove('empty');
-    }
-    if (refGuests.current?.value.trim() === '') {
-      refGuests.current.classList.add('empty');
-    } else {
-      refGuests.current?.classList.remove('empty');
-    }
-    if (refComments.current?.value.trim() === '') {
-      refComments.current.classList.add('empty');
-    } else {
-      refComments.current?.classList.remove('empty');
-    }
-  };
-
   const addClient = async (event: FormEvent) => {
     event.preventDefault();
-    if (
-      Object.values(form).some((value) => value.trim() === '') &&
-      refErr.current
-    ) {
-      refErr.current.textContent = 'Заполните все поле';
-      validation();
-    } else {
-      const updatedForm = { ...form };
-      await dispatch(createBook(updatedForm)).unwrap();
-      await dispatch(getSchedules()).unwrap();
-      if (refErr.current) {
-        refErr.current.textContent = '';
-      }
-      setForm({
-        name: '',
-        phone: '',
-        date: '',
-        time: '',
-        timeSpend: '',
-        countPerson: '',
-        comment: '',
-        table: '',
-      });
-      if (refClose.current) {
-        refClose.current.style.display = 'none';
-        setPopUp(true);
-      }
-      const time = setTimeout(() => {
-        setModal(false);
-        if (refClose.current) {
-          refClose.current.style.display = 'block';
-        }
-      }, 3000);
-      return () => clearTimeout(time);
+    const updatedForm = { ...form };
+    await dispatch(createBook(updatedForm)).unwrap();
+    await dispatch(getSchedules()).unwrap();
+    if (refErr.current) {
+      refErr.current.textContent = '';
     }
+    setForm({
+      name: '',
+      phone: '',
+      date: '',
+      time: '',
+      timeSpend: '',
+      countPerson: '',
+      comment: '',
+      table: '',
+    });
+    if (refClose.current) {
+      refClose.current.style.display = 'none';
+      setPopUp(true);
+    }
+    const time = setTimeout(() => {
+      setModal(false);
+      if (refClose.current) {
+        refClose.current.style.display = 'block';
+      }
+    }, 3000);
+    return () => clearTimeout(time);
   };
 
   useEffect(() => {
@@ -170,7 +129,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
           className="flex flex-col gap-[20px] mt-[20px] text-white"
         >
           <div>
-            <p className="text-[#858687] text-[14px] mb-[5px]">ФИО клиента</p>
+            <p className="text-[#858687] text-[14px] mb-[5px]">Имя клиента</p>
             <input
               onChange={handleInputChange}
               ref={refName}
