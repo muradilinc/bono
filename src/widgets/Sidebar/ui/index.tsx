@@ -5,15 +5,16 @@ import { useAppSelector } from '../../../app/store/hooks';
 import { selectBannersLoading } from '../../../features/banner/model/bannerSlice';
 import Loading from '../../../shared/ui/Loading';
 import { selectCategoriesLoading } from '../../../features/category/categorySlice';
+import { selectMenuLoading } from '../../../features/AdminFilterMenu/model/MenuSlica';
 
 export const Sidebar = () => {
-  const [active, setActive] = useState<number>(0);
+  const [active, setActive] = useState<number | null>(null);
   const loadingBanner = useAppSelector(selectBannersLoading);
   const loadingCatalog = useAppSelector(selectCategoriesLoading);
-  if (loadingBanner) {
-    return <Loading />;
-  }
-  if (loadingCatalog) {
+  const loadingMenu = useAppSelector(selectMenuLoading);
+
+  const isLoading = loadingBanner || loadingCatalog || loadingMenu;
+  if (isLoading) {
     return <Loading />;
   }
   return (
