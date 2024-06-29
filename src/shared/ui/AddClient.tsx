@@ -46,39 +46,6 @@ const AddClient = ({ modal, setModal }: IModal) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  // const validation = () => {
-  //   if (refName.current?.value.trim() === '') {
-  //     refName.current.classList.add('empty');
-  //   } else {
-  //     refName.current?.classList.remove('empty');
-  //   }
-  //   if (refTel.current?.value.trim() === '') {
-  //     refTel.current.classList.add('empty');
-  //   } else {
-  //     refTel.current?.classList.remove('empty');
-  //   }
-  //   if (refTimeA.current?.value.trim() === '') {
-  //     refTimeA.current.classList.add('empty');
-  //   } else {
-  //     refTimeA.current?.classList.remove('empty');
-  //   }
-  //   if (refTime.current?.value.trim() === '') {
-  //     refTime.current.classList.add('empty');
-  //   } else {
-  //     refTime.current?.classList.remove('empty');
-  //   }
-  //   if (refGuests.current?.value.trim() === '') {
-  //     refGuests.current.classList.add('empty');
-  //   } else {
-  //     refGuests.current?.classList.remove('empty');
-  //   }
-  //   if (refComments.current?.value.trim() === '') {
-  //     refComments.current.classList.add('empty');
-  //   } else {
-  //     refComments.current?.classList.remove('empty');
-  //   }
-  // };
-
   const addClient = async (event: FormEvent) => {
     event.preventDefault();
     const updatedForm = { ...form };

@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { FilterButton } from './FilterButton';
 import { Calendar } from './Calendar';
 import AddModal from '../../../shared/ui/AddModal';
@@ -6,7 +6,7 @@ import AddModal from '../../../shared/ui/AddModal';
 export const AdminHeader: FC = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [addModal, setAddModal] = useState<boolean>(false);
-  useEffect(() => {}, [modal, addModal]);
+
   return (
     <>
       <div className="w-full flex justify-b items-center bg-[black] p-4">
