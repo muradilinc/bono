@@ -3,7 +3,7 @@ import '../style/style.css';
 import { FormTable, IModalTable } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
 import { useAppDispatch } from '../../app/store/hooks';
-import { initTable } from '../../features/tables/api/tablesThunk';
+import { getTables, initTable } from '../../features/tables/api/tablesThunk';
 
 const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
   const [popUp, setPopUp] = useState<boolean>(false);
@@ -57,6 +57,7 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
         table: '',
         floor: '',
       });
+      await dispatch(getTables()).unwrap();
       if (refClose.current) {
         refClose.current.style.display = 'none';
         setPopUp(true);

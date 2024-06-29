@@ -9,11 +9,16 @@ import { RootState } from '../../../app/store/store';
 
 export interface Schedule {
   id: number;
+  user_name: string;
+  phone_number: string;
   time_stamp: string;
   start_time: string;
   end_time: string;
   table: number;
   is_come: boolean;
+  comment: string;
+  amount_guest: number;
+  will_come: string;
 }
 
 interface ScheduleState {

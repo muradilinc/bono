@@ -1,9 +1,9 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import { getTables } from '../api/tablesThunk';
 import { RootState } from '../../../app/store/store';
 
 interface TableState {
-  tables: [];
+  tables: Table[];
   tablesLoading: boolean;
 }
 
@@ -20,10 +20,13 @@ const tableSlice = createSlice({
     builder.addCase(getTables.pending, (state) => {
       state.tablesLoading = true;
     });
-    builder.addCase(getTables.fulfilled, (state, { payload: tables }) => {
-      state.tablesLoading = false;
-      state.tables = tables;
-    });
+    builder.addCase(
+      getTables.fulfilled,
+      (state, { payload: tables }: PayloadAction<Table[]>) => {
+        state.tablesLoading = false;
+        state.tables = tables;
+      },
+    );
     builder.addCase(getTables.rejected, (state) => {
       state.tablesLoading = false;
     });
