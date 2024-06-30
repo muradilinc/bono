@@ -15,6 +15,7 @@ import {
   selectSubCategories,
   selectSubCategoriesLoading,
 } from '../../../pages/admin/SubCategoryPage/model/subCategorySlice';
+import { getFilterSubcategories } from '../../../pages/admin/SubCategoryPage/api/subCategoryThunk';
 
 export const AdminFilterMenu: FC = () => {
   const dispatch = useAppDispatch();
@@ -29,9 +30,9 @@ export const AdminFilterMenu: FC = () => {
   const menuLoading = useAppSelector(selectMenuLoading);
 
   const [currentCategory, setCurrentCategory] = useState<number | null>(null);
-  // const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(
-  //   null,
-  // );
+  const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(
+    null,
+  );
 
   const navigate = useNavigate();
 
@@ -45,7 +46,7 @@ export const AdminFilterMenu: FC = () => {
 
   useEffect(() => {
     if (categories.length > 0 && currentCategory) {
-      // dispatch(getSubcategory(currentCategory));
+      dispatch(getFilterSubcategories(currentCategory));
     }
   }, [categories, currentCategory, dispatch]);
 
@@ -102,18 +103,18 @@ export const AdminFilterMenu: FC = () => {
         </div>
       </div>
       <div className="text-white w-full h-[88px] flex items-center justify-around">
-        {/*{subcategories?.map((item) => (*/}
-        {/*  <div key={item.id}>*/}
-        {/*    <button*/}
-        {/*      onClick={() => setCurrentSubcategory(item.id)}*/}
-        {/*      className="focus:border-b-[2px] focus:border-white gap-y-2"*/}
-        {/*    >*/}
-        {/*      <p className="text-[16px] font-normal leading-[24px] pb-[8px]">*/}
-        {/*        {item.name}*/}
-        {/*      </p>*/}
-        {/*    </button>*/}
-        {/*  </div>*/}
-        {/*))}*/}
+        {subcategories?.map((item) => (
+          <div key={item.id}>
+            <button
+              onClick={() => setCurrentSubcategory(item.id)}
+              className="focus:border-b-[2px] focus:border-white gap-y-2"
+            >
+              <p className="text-[16px] font-normal leading-[24px] pb-[8px]">
+                {item.name}
+              </p>
+            </button>
+          </div>
+        ))}
       </div>
       <div className="w-full h-[677px] overflow-auto bg-black flex flex-col py-[50px] px-[30px] gap-y-3">
         <div className="flex flex-wrap gap-x-[24px] gap-y-[24px]">
@@ -121,8 +122,8 @@ export const AdminFilterMenu: FC = () => {
             menu
               ?.filter((item) => {
                 return (
-                  item.category === currentCategory
-                  // item.subcategory === currentSubcategory
+                  item.category === currentCategory &&
+                  item.subcategory === currentSubcategory
                 );
               })
               .map((item) => (

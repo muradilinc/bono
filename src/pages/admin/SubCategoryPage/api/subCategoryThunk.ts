@@ -19,6 +19,16 @@ export const getSubCategories = createAsyncThunk<SubCategory[]>(
   },
 );
 
+export const getFilterSubcategories = createAsyncThunk(
+  'subcategory/getById',
+  async (id: number) => {
+    const response = await axiosApi.get(
+      `/category/subcategory_list/?category_id=${id}`,
+    );
+    return response.data;
+  },
+);
+
 export const deleteSubCategory = createAsyncThunk<void, number>(
   'subCategory/delete',
   async (id) => {
