@@ -1,5 +1,8 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getSubCategories } from '../api/subCategoryThunk';
+import {
+  getFilterSubcategories,
+  getSubCategories,
+} from '../api/subCategoryThunk';
 import { RootState } from '../../../../app/store/store';
 import { SubCategory } from './sub-category';
 
@@ -29,6 +32,19 @@ const subCategorySlice = createSlice({
       },
     );
     builder.addCase(getSubCategories.rejected, (state) => {
+      state.subCategoriesLoading = false;
+    });
+    builder.addCase(getFilterSubcategories.pending, (state) => {
+      state.subCategoriesLoading = true;
+    });
+    builder.addCase(
+      getFilterSubcategories.fulfilled,
+      (state, { payload: subCategories }: PayloadAction<SubCategory[]>) => {
+        state.subCategoriesLoading = false;
+        state.subCategories = subCategories;
+      },
+    );
+    builder.addCase(getFilterSubcategories.rejected, (state) => {
       state.subCategoriesLoading = false;
     });
   },

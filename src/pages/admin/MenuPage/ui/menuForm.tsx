@@ -6,6 +6,7 @@ import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectCategories } from '../../../../features/category/categorySlice';
 import { createMenu } from '../../../../features/AdminFilterMenu/api/MenuThunk';
 import { selectSubCategories } from '../../SubCategoryPage/model/subCategorySlice';
+import { getFilterSubcategories } from '../../SubCategoryPage/api/subCategoryThunk';
 
 export const MenuFormPage = () => {
   const initialState: MenuItemMutation = {
@@ -42,14 +43,14 @@ export const MenuFormPage = () => {
     if (name === 'category') {
       const categoryID = categories.find((item) => item.name === value);
       if (categoryID) {
-        // dispatch(getSubcategory(categoryID.id));
+        dispatch(getFilterSubcategories(categoryID.id));
         setCurrentCategory(categoryID.id);
       }
     }
     if (name === 'subcategory') {
       const subcategoryID = subcategories.find((item) => item.name === value);
       if (subcategoryID) {
-        // setCurrentSubcategory(subcategoryID?.id);
+        setCurrentSubcategory(subcategoryID?.id);
       }
     }
   };

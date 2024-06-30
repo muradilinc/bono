@@ -1,10 +1,9 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectSubCategories } from '../model/subCategorySlice';
-import { getSubCategories } from '../api/subCategoryThunk';
+import { deleteSubCategory, getSubCategories } from '../api/subCategoryThunk';
 import { Link } from 'react-router-dom';
 import { Trash } from '@phosphor-icons/react';
-import { deleteCategory } from '../../../../features/category/categoryThunk';
 import { toast } from 'react-toastify';
 
 export const SubCategoriesPage = () => {
@@ -17,7 +16,7 @@ export const SubCategoriesPage = () => {
 
   const handleDeleteCategory = async (id: number) => {
     try {
-      await dispatch(deleteCategory(id)).unwrap();
+      await dispatch(deleteSubCategory(id)).unwrap();
       toast.success('Удалено!');
     } catch (error) {
       toast.error('Что-то пошло не так!');
