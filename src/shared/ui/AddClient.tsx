@@ -97,7 +97,7 @@ const AddClient = ({ modal, setModal }: IModal) => {
   return (
     <div
       ref={refModal}
-      className="absolute w-[100%] flex justify-center z-[101] mt-[30px]"
+      className="absolute top-0 w-[100%] flex justify-center z-[101] mt-[30px]"
     >
       {popUp ? (
         <ModalPopUp
