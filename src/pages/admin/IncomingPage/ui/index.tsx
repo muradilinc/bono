@@ -83,11 +83,7 @@ export const AdminIncomingPage = () => {
           )}
         </div>
       </section>
-      {modal ? (
-        <div className="absolute top-[0px] left-[50%]">
-          <AddClient modal={modal} setModal={setModal} />
-        </div>
-      ) : null}
+      {modal && <AddClient modal={modal} setModal={setModal} />}
     </div>
   );
 };
