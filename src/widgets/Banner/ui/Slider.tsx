@@ -48,7 +48,11 @@ export const Slider = () => {
       {banners.flatMap((banner) =>
         banner.topik_baner.map((el) => (
           <SwiperSlide key={el.id} className="h-full relative">
-            <img className="w-full h-full object-cover" src={el.img} alt="" />
+            <img
+              className="w-full h-full object-cover"
+              src={el.img}
+              alt="imgBanner"
+            />
             <div className="absolute z-20 top-1/2 translate-y-[-40%] left-[5%] max-w-[830px] flex flex-col gap-[42px]">
               <div className="flex flex-col gap-[10px]">
                 <p className="text-[24px] font-normal">{banner.subtitle}</p>

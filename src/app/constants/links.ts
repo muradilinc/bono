@@ -1,4 +1,4 @@
-export const API_LINK = 'https://backend.bono-bar.com/';
+export const API_LINK = 'https://backend.bono-bar.com/api';
 
 export const links = [
   {
