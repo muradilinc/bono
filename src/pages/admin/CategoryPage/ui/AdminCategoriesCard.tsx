@@ -92,7 +92,9 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
           <img
             className="w-[120px] h-[68px] rounded-[4px]"
             src={
-              !imageData ? 'http://3.87.95.146/' + category.image : imageData
+              !imageData
+                ? 'https://backend.bono-bar.com' + category.image
+                : imageData
             }
             alt="no img"
           />
