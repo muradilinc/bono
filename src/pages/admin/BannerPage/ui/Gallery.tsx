@@ -6,6 +6,7 @@ import {
   updateGallery,
 } from '../../../../features/gallery/api/galleryThunk';
 import { useAppDispatch } from '../../../../app/store/hooks';
+import { API_LINK } from '../../../../app/constants/links';
 
 const GalleryMain = ({ galleries }: GalleryProps) => {
   const dispatch = useAppDispatch();
@@ -44,7 +45,7 @@ const GalleryMain = ({ galleries }: GalleryProps) => {
           <div className="flex items-center">
             <img
               className="w-[120px] h-[68px] rounded-[4px]"
-              src={'http://3.87.95.146/' + el.image_set[0].image}
+              src={API_LINK.slice(0, -4) + el.image_set[0].image}
               alt="no img"
             />
             <div className="ml-[10px]">

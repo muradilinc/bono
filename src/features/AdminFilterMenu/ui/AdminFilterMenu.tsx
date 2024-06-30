@@ -4,11 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import AdminSlider from '../../../shared/ui/AdminSlide';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import {
-  selectSubcategory,
-  selectSubcategoryLoading,
-} from '../model/SubcategorySlice';
-import { getSubcategory } from '../api/SubcategoryThunk';
-import {
   selectCategories,
   selectCategoriesLoading,
 } from '../../category/categorySlice';
@@ -16,6 +11,11 @@ import { getCategories } from '../../category/categoryThunk';
 import { selectMenu, selectMenuLoading } from '../model/MenuSlica';
 import { deleteMenu, getMenu } from '../api/MenuThunk';
 import AdminIconButton from '../../../shared/ui/AdminIconButton';
+import {
+  selectSubCategories,
+  selectSubCategoriesLoading,
+} from '../../../pages/admin/SubCategoryPage/model/subCategorySlice';
+import { getFilterSubcategories } from '../../../pages/admin/SubCategoryPage/api/subCategoryThunk';
 
 export const AdminFilterMenu: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,8 +23,8 @@ export const AdminFilterMenu: FC = () => {
   const categories = useAppSelector(selectCategories);
   const categoryLoading = useAppSelector(selectCategoriesLoading);
 
-  const subcategories = useAppSelector(selectSubcategory);
-  const subcategoriesLoading = useAppSelector(selectSubcategoryLoading);
+  const subcategories = useAppSelector(selectSubCategories);
+  const subcategoriesLoading = useAppSelector(selectSubCategoriesLoading);
 
   const menu = useAppSelector(selectMenu);
   const menuLoading = useAppSelector(selectMenuLoading);
@@ -46,7 +46,7 @@ export const AdminFilterMenu: FC = () => {
 
   useEffect(() => {
     if (categories.length > 0 && currentCategory) {
-      dispatch(getSubcategory(currentCategory));
+      dispatch(getFilterSubcategories(currentCategory));
     }
   }, [categories, currentCategory, dispatch]);
 
@@ -72,8 +72,8 @@ export const AdminFilterMenu: FC = () => {
     console.log(menu);
   }
 
-  console.log(currentCategory);
-  console.log(currentSubcategory);
+  // console.log(currentCategory);
+  // console.log(currentSubcategory);
 
   return (
     <>

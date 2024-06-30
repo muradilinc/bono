@@ -1,4 +1,4 @@
-export const API_LINK = 'http://3.87.95.146';
+export const API_LINK = 'https://backend.bono-bar.com/api';
 
 export const links = [
   {
@@ -12,6 +12,10 @@ export const links = [
   {
     path: '/admin/category',
     name: 'Категории',
+  },
+  {
+    path: '/admin/sub-category',
+    name: 'Под категории',
   },
   {
     path: '/admin/incoming',

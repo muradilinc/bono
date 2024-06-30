@@ -22,7 +22,9 @@ export const AdminBannerPage = () => {
   return (
     <section className="bg-black text-white px-[30px] py-[18px] flex flex-col gap-[30px] min-h-[700px]">
       <div className="flex items-center justify-between">
-        <h1 className="text-[24px] font-medium">Баннер</h1>
+        <h1 className="font-bold text-[24px] text-white font-comfort">
+          Баннер
+        </h1>
         <Link to="/admin/banner/1">
           <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg flex items-center">
             <PencilSimple size={24} className="mr-[5px]" />

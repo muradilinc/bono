@@ -3,6 +3,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { getGallery } from '../../../features/gallery/api/galleryThunk';
 import { selectGallery } from '../../../features/gallery/model/gallerySlice';
 import { Slider } from './Slider';
+import { API_LINK } from '../../../app/constants/links';
 
 export const Atmosphere = () => {
   const dispatch = useAppDispatch();
@@ -35,7 +36,7 @@ export const Atmosphere = () => {
             >
               <img
                 className={`object-cover w-full h-full max-h-[375px]`}
-                src={'http://3.87.95.146/' + img.image_set[0].image}
+                src={API_LINK.slice(0, -4) + img.image_set[0].image}
                 alt=""
               />
             </div>
