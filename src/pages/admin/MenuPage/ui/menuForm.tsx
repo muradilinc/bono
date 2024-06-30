@@ -4,9 +4,8 @@ import { filesize } from 'filesize';
 import { MenuItemMutation } from '../model/types';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectCategories } from '../../../../features/category/categorySlice';
-import { selectSubcategory } from '../../../../features/AdminFilterMenu/model/SubcategorySlice';
-import { getSubcategory } from '../../../../features/AdminFilterMenu/api/SubcategoryThunk';
 import { createMenu } from '../../../../features/AdminFilterMenu/api/MenuThunk';
+import { selectSubCategories } from '../../SubCategoryPage/model/subCategorySlice';
 
 export const MenuFormPage = () => {
   const initialState: MenuItemMutation = {
@@ -26,7 +25,7 @@ export const MenuFormPage = () => {
   const [currentCategory, setCurrentCategory] = useState<number>(0);
 
   const categories = useAppSelector(selectCategories);
-  const subcategories = useAppSelector(selectSubcategory);
+  const subcategories = useAppSelector(selectSubCategories);
   const dispatch = useAppDispatch();
 
   const changeFiled = (
@@ -39,18 +38,18 @@ export const MenuFormPage = () => {
       ...prevState,
       [name]: value,
     }));
-    console.log(name, value);
+
     if (name === 'category') {
       const categoryID = categories.find((item) => item.name === value);
       if (categoryID) {
-        dispatch(getSubcategory(categoryID.id));
+        // dispatch(getSubcategory(categoryID.id));
         setCurrentCategory(categoryID.id);
       }
     }
     if (name === 'subcategory') {
       const subcategoryID = subcategories.find((item) => item.name === value);
       if (subcategoryID) {
-        setCurrentSubcategory(subcategoryID?.id);
+        // setCurrentSubcategory(subcategoryID?.id);
       }
     }
   };
@@ -172,8 +171,8 @@ export const MenuFormPage = () => {
             >
               <option value=""></option>
               {subcategories?.map((subcategory) => (
-                <option key={subcategory?.id} value={subcategory?.name}>
-                  {subcategory?.name}
+                <option key={subcategory.id} value={subcategory.name}>
+                  {subcategory.name}
                 </option>
               ))}
             </select>

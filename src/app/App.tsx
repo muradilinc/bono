@@ -13,6 +13,10 @@ import { Header } from '../widgets/Header';
 import { Footer } from '../widgets/Footer';
 import { useEffect } from 'react';
 import { ToastContainer } from 'react-toastify';
+import {
+  SubCategoriesPage,
+  SubCategoryForm,
+} from '../pages/admin/SubCategoryPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -32,6 +36,8 @@ const App = () => {
             <Route path="/menu" element={<AdminMenuPage />} />
             <Route path="/menu-submit" element={<MenuFormPage />} />
             <Route path="/category" element={<AdminPanel />} />
+            <Route path="/sub-category" element={<SubCategoriesPage />} />
+            <Route path="/sub-category-submit" element={<SubCategoryForm />} />
             <Route path="/schedule" element={<SchedulePage />} />
             <Route path="/banner/:id" element={<BannerCrud />} />
           </Routes>

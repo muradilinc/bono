@@ -4,11 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import AdminSlider from '../../../shared/ui/AdminSlide';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import {
-  selectSubcategory,
-  selectSubcategoryLoading,
-} from '../model/SubcategorySlice';
-import { getSubcategory } from '../api/SubcategoryThunk';
-import {
   selectCategories,
   selectCategoriesLoading,
 } from '../../category/categorySlice';
@@ -16,6 +11,10 @@ import { getCategories } from '../../category/categoryThunk';
 import { selectMenu, selectMenuLoading } from '../model/MenuSlica';
 import { deleteMenu, getMenu } from '../api/MenuThunk';
 import AdminIconButton from '../../../shared/ui/AdminIconButton';
+import {
+  selectSubCategories,
+  selectSubCategoriesLoading,
+} from '../../../pages/admin/SubCategoryPage/model/subCategorySlice';
 
 export const AdminFilterMenu: FC = () => {
   const dispatch = useAppDispatch();
@@ -23,16 +22,16 @@ export const AdminFilterMenu: FC = () => {
   const categories = useAppSelector(selectCategories);
   const categoryLoading = useAppSelector(selectCategoriesLoading);
 
-  const subcategories = useAppSelector(selectSubcategory);
-  const subcategoriesLoading = useAppSelector(selectSubcategoryLoading);
+  const subcategories = useAppSelector(selectSubCategories);
+  const subcategoriesLoading = useAppSelector(selectSubCategoriesLoading);
 
   const menu = useAppSelector(selectMenu);
   const menuLoading = useAppSelector(selectMenuLoading);
 
   const [currentCategory, setCurrentCategory] = useState<number | null>(null);
-  const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(
-    null,
-  );
+  // const [currentSubcategory, setCurrentSubcategory] = useState<number | null>(
+  //   null,
+  // );
 
   const navigate = useNavigate();
 
@@ -46,7 +45,7 @@ export const AdminFilterMenu: FC = () => {
 
   useEffect(() => {
     if (categories.length > 0 && currentCategory) {
-      dispatch(getSubcategory(currentCategory));
+      // dispatch(getSubcategory(currentCategory));
     }
   }, [categories, currentCategory, dispatch]);
 
@@ -72,8 +71,8 @@ export const AdminFilterMenu: FC = () => {
     console.log(menu);
   }
 
-  console.log(currentCategory);
-  console.log(currentSubcategory);
+  // console.log(currentCategory);
+  // console.log(currentSubcategory);
 
   return (
     <>
@@ -103,18 +102,18 @@ export const AdminFilterMenu: FC = () => {
         </div>
       </div>
       <div className="text-white w-full h-[88px] flex items-center justify-around">
-        {subcategories?.map((item) => (
-          <div key={item.id}>
-            <button
-              onClick={() => setCurrentSubcategory(item.id)}
-              className="focus:border-b-[2px] focus:border-white gap-y-2"
-            >
-              <p className="text-[16px] font-normal leading-[24px] pb-[8px]">
-                {item.name}
-              </p>
-            </button>
-          </div>
-        ))}
+        {/*{subcategories?.map((item) => (*/}
+        {/*  <div key={item.id}>*/}
+        {/*    <button*/}
+        {/*      onClick={() => setCurrentSubcategory(item.id)}*/}
+        {/*      className="focus:border-b-[2px] focus:border-white gap-y-2"*/}
+        {/*    >*/}
+        {/*      <p className="text-[16px] font-normal leading-[24px] pb-[8px]">*/}
+        {/*        {item.name}*/}
+        {/*      </p>*/}
+        {/*    </button>*/}
+        {/*  </div>*/}
+        {/*))}*/}
       </div>
       <div className="w-full h-[677px] overflow-auto bg-black flex flex-col py-[50px] px-[30px] gap-y-3">
         <div className="flex flex-wrap gap-x-[24px] gap-y-[24px]">
@@ -122,8 +121,8 @@ export const AdminFilterMenu: FC = () => {
             menu
               ?.filter((item) => {
                 return (
-                  item.category === currentCategory &&
-                  item.subcategory === currentSubcategory
+                  item.category === currentCategory
+                  // item.subcategory === currentSubcategory
                 );
               })
               .map((item) => (

@@ -4,9 +4,9 @@ import { scheduleReducer } from '../../features/shedule/model/scheduleSlice';
 import { categoryReducer } from '../../features/category/categorySlice';
 import { galleryReducer } from '../../features/gallery/model/gallerySlice';
 import { menuReducer } from '../../features/AdminFilterMenu/model/MenuSlica';
-import { subcategoryReducer } from '../../features/AdminFilterMenu/model/SubcategorySlice';
 import { tableReducer } from '../../features/tables/model/tableSlice';
 import { floorsReducer } from '../../features/floors/model/floorSlice';
+import { subCategoryReducer } from '../../pages/admin/SubCategoryPage/model/subCategorySlice';
 
 export const store = configureStore({
   reducer: {
@@ -15,10 +15,10 @@ export const store = configureStore({
     category: categoryReducer,
     gallery: galleryReducer,
     menu: menuReducer,
-    subcategory: subcategoryReducer,
     categorySubcategory: categoryReducer,
     table: tableReducer,
     floor: floorsReducer,
+    subCategories: subCategoryReducer,
   },
 });
 
