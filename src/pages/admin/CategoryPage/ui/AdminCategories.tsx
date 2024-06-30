@@ -16,7 +16,9 @@ export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
   return (
     <>
       <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
-        <h1 className="text-white font-semibold">КАТЕГОРИИ</h1>
+        <h1 className="font-bold text-[20px] text-white font-comfort">
+          Категории
+        </h1>
         <button
           onClick={() => setActiveBtn('Добавить категорию')}
           className="font-semibold text-white bg-[#6BC678] rounded-[8px] w-[125px] h-[40px]"

@@ -98,16 +98,18 @@ export const MenuFormPage = () => {
   };
 
   return (
-    <div className="w-full h-screen bg-black">
+    <div className="w-full h-screen bg-black text-white">
       <form onSubmit={onSubmit}>
-        <div className="w-full py-[10px] bg-[#E6F3FF] border-l border-opacity-0">
+        <div className="w-full py-[10px] border-opacity-0">
           <div className="container mx-auto flex flex-row justify-between  items-center">
-            <h2>Добавить меню</h2>
+            <h2 className="font-bold text-[20px] text-white font-comfort">
+              Добавить меню
+            </h2>
             <button
               type="submit"
-              className="font-medium text-[16px] text-white bg-[rgba(87,128,235,1)] rounded-[8px] px-[10px] py-[10px]"
+              className="font-medium text-[16px] text-white bg-[#6BC678] rounded-[8px] px-[10px] py-[10px]"
             >
-              Добавить
+              Сохранить
             </button>
           </div>
         </div>
@@ -124,7 +126,7 @@ export const MenuFormPage = () => {
               name="title"
               type="text"
               required
-              className="w-full outline-0 bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+              className="w-full outline-0 bg-[#2B2B2B] px-[24px] py-[10px] rounded-[8px] placeholder:text-white/70 placeholder:font-normal placeholder:text-[16px]"
               placeholder="Наименование блюдо"
               value={state.title}
               onChange={changeFiled}
@@ -143,7 +145,7 @@ export const MenuFormPage = () => {
               required
               value={state.category}
               onChange={changeFiled}
-              className="w-full py-[10px] bg-white outline-0 rounded-[8px]"
+              className="w-full py-[10px] bg-[#2B2B2B] outline-0 rounded-[8px]"
             >
               <option value=""></option>
               {categories?.map((category) => (
@@ -166,7 +168,7 @@ export const MenuFormPage = () => {
               required
               value={state.subcategory}
               onChange={changeFiled}
-              className="w-full py-[10px] bg-white outline-0 rounded-[8px]"
+              className="w-full py-[10px] bg-[#2B2B2B] outline-0 rounded-[8px]"
             >
               <option value=""></option>
               {subcategories?.map((subcategory) => (
@@ -190,7 +192,7 @@ export const MenuFormPage = () => {
                 name="price"
                 required
                 placeholder="Введите цену"
-                className="w-full bg-white outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+                className="w-full bg-[#2B2B2B] outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
                 value={state.price}
                 onChange={changeFiled}
               />
@@ -247,7 +249,7 @@ export const MenuFormPage = () => {
               name="description"
               placeholder="Описаниe"
               rows={7}
-              className="w-full outline-0 bg-white px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+              className="w-full outline-0 bg-[#2B2B2B] px-[24px] py-[10px] rounded-[8px] placeholder:text-white/70 placeholder:font-normal placeholder:text-[16px]"
               value={state.description}
               onChange={changeFiled}
             />
