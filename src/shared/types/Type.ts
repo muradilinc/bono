@@ -15,6 +15,9 @@ export interface FormTable {
   table: string;
   floor: string;
 }
+export interface FormFloor {
+  floor: string;
+}
 export interface IFormsAuto {
   name: string;
   tel: string;
