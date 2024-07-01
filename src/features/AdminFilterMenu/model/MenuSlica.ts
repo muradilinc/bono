@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { MenuType } from './types/type';
-import { getMenu } from '../api/MenuThunk';
+import { getMenu, getMenuByCategoryAndSubcategory } from '../api/MenuThunk';
 import { RootState } from '../../../app/store/store';
 
 interface MenuState {
@@ -26,6 +26,19 @@ export const menuSlice = createSlice({
       state.menu = action.payload;
     });
     builder.addCase(getMenu.rejected, (state) => {
+      state.menuLoading = false;
+    });
+    builder.addCase(getMenuByCategoryAndSubcategory.pending, (state) => {
+      state.menuLoading = true;
+    });
+    builder.addCase(
+      getMenuByCategoryAndSubcategory.fulfilled,
+      (state, action) => {
+        state.menuLoading = false;
+        state.menu = action.payload;
+      },
+    );
+    builder.addCase(getMenuByCategoryAndSubcategory.rejected, (state) => {
       state.menuLoading = false;
     });
   },
