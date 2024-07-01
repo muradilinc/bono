@@ -1,4 +1,3 @@
-// import { guests } from '../config/constants';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectSchedules } from '../../../../features/shedule/model/scheduleSlice';
 import { useEffect, useState } from 'react';
@@ -15,7 +14,7 @@ export const AdminIncomingPage = () => {
     dispatch(getSchedules());
   }, [dispatch]);
 
-  console.log(modal);
+  const filterBook = books.filter((book) => book.table === null);
 
   return (
     <div className="relative">
@@ -49,7 +48,7 @@ export const AdminIncomingPage = () => {
               Удалить
             </button>
           </div>
-          {books.length > 0 ? (
+          {filterBook.length > 0 ? (
             <div className="text-white font-medium mt-[30px]">
               <table className="table-auto w-full text-center">
                 <thead className="border-b border-white">
@@ -64,13 +63,18 @@ export const AdminIncomingPage = () => {
                   </tr>
                 </thead>
                 <tbody>
-                  {books.map((book) => (
+                  {filterBook.map((book) => (
                     <tr>
                       <td className="p-5">{book.id}</td>
                       <td>{book.user_name}</td>
                       <td>{book.phone_number}</td>
-                      <td>{book.will_come}</td>
-                      <td>{book.time_stamp}</td>
+                      <td className="flex flex-col items-center justify-center">
+                        <p>{book.will_come}</p>
+                        <p>{book.time_stamp}</p>
+                      </td>
+                      <td>
+                        {parseInt(book.end_time) - parseInt(book.start_time)}
+                      </td>
                       <td>{book.amount_guest}</td>
                       <td>{book.comment}</td>
                     </tr>
