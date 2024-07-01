@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import '../style/style.css';
 import { FormTable, IModalTable } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
@@ -8,9 +8,6 @@ import { getTables, initTable } from '../../features/tables/api/tablesThunk';
 const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
   const [popUp, setPopUp] = useState<boolean>(false);
   const refModal = useRef<HTMLDivElement>(null);
-  const refTable = useRef<HTMLInputElement>(null);
-  const refFloor = useRef<HTMLInputElement>(null);
-  const refErr = useRef<HTMLInputElement>(null);
   const refClose = useRef<HTMLInputElement>(null);
   const [form, setForm] = useState<FormTable>({
     table: '',
@@ -28,30 +25,9 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  const validation = () => {
-    if (refTable.current?.value.trim() === '') {
-      refTable.current.classList.add('empty');
-    } else {
-      refTable.current?.classList.remove('empty');
-    }
-    if (refFloor.current?.value.trim() === '') {
-      refFloor.current.classList.add('empty');
-    } else {
-      refFloor.current?.classList.remove('empty');
-    }
-  };
-
-  const addTable = async () => {
-    if (
-      Object.values(form).some((value) => value.trim() === '') &&
-      refErr.current
-    ) {
-      refErr.current.textContent = 'Заполните все поле';
-      validation();
-    } else {
-      if (refErr.current) {
-        refErr.current.textContent = '';
-      }
+  const addTable = async (e: FormEvent) => {
+    e.preventDefault();
+    try {
       await dispatch(initTable(form)).unwrap();
       setForm({
         table: '',
@@ -69,6 +45,8 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
         }
       }, 3000);
       return () => clearTimeout(time);
+    } catch (err) {
+      console.log(err);
     }
   };
 
@@ -95,7 +73,7 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
   return (
     <div
       ref={refModal}
-      className="absolute w-[100%] flex justify-center z-[101] mt-[30px]"
+      className="fixed w-[100%] h-full flex justify-center z-[101] pt-40"
     >
       {popUp ? (
         <ModalPopUp
@@ -107,11 +85,11 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
       <div
         ref={refBg}
         onClick={onClickBg}
-        className="fixed bg-transparent left-0 right-0 bottom-0 top-0 w-full z-[99]"
+        className="fixed bg-[#00000050] left-0 right-0 bottom-0 top-0 w-full z-[99]"
       ></div>
       <div
         ref={refClose}
-        className="w-[400px] h-[430px] mb-[30px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
+        className="w-[400px] h-[410px] mb-[30px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
       >
         <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
           <h2 className="text-white text-[17px] font-bold">Добавить стол</h2>
@@ -122,17 +100,20 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
             &#x2715;
           </span>
         </div>
-        <div className="flex flex-col gap-[20px] mt-[20px] text-white">
+        <form
+          onSubmit={addTable}
+          className="flex flex-col gap-[20px] mt-[20px] text-white"
+        >
           <div>
             <p className="text-[#858687] text-[14px] mb-[5px]">Номер стола</p>
             <input
-              ref={refTable}
               onChange={handleInputChange}
               name="table"
               value={form.table}
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="text"
               list="select"
+              required
             />
             <datalist id="select">
               <option value="1й стол">1й стол</option>
@@ -143,13 +124,13 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
           <div>
             <p className="text-[#858687] text-[14px] mb-[5px]">Какой этаж</p>
             <input
-              ref={refFloor}
               onChange={handleInputChange}
               value={form.floor}
               name="floor"
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="text"
               list="selectGuests"
+              required
             />
             <datalist id="selectGuests">
               <option value="1й этаж">1й этаж</option>
@@ -158,9 +139,8 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
               <option value="4й этаж">4й этаж</option>
             </datalist>
           </div>
-          <p ref={refErr} className="text-[red] h-[10px]"></p>
           <button
-            onClick={addTable}
+            type="submit"
             className="bg-[#2B2B2B] duration-300 text-white h-[50px] rounded-[4px] hover:bg-[#6BC678]"
           >
             Добавить
@@ -171,7 +151,7 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
           >
             Отмена
           </button>
-        </div>
+        </form>
       </div>
     </div>
   );
