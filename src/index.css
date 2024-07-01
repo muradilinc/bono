@@ -32,7 +32,12 @@ input {
   width: max-content !important;
 }
 
+:root {
+  --swiper-navigation-size: 20px;
+}
+
 .swiper-button-prev,
 .swiper-button-next {
   color: #fff;
+  font-size: var(--swiper-navigation-size);
 }
