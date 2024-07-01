@@ -12,6 +12,22 @@ export const initTable = createAsyncThunk<void, FormTable>(
   },
 );
 
+interface FilterTable {
+  date: string;
+  number: string;
+  name: string;
+}
+
+export const getFilterTable = createAsyncThunk<void, FilterTable>(
+  'tables/getByFilter',
+  async ({ date, number, name }) => {
+    const response = await axiosApi.get(
+      `/table/filters_by_date_status_floor/?date=${date}&search_form=${number ? number : name}`,
+    );
+    return response.data;
+  },
+);
+
 export const getTables = createAsyncThunk<Table[]>(
   'tables/getAll',
   async () => {

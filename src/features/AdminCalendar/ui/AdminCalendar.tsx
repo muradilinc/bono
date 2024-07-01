@@ -14,8 +14,6 @@ const AdminCalendar: FC<PropsType> = ({
   currentDate,
   setCalendar,
 }) => {
-  console.log(currentDate);
-
   return (
     <div className="p-4 absolute top-14 left-0 z-30">
       <Calendar

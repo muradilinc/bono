@@ -1,16 +1,15 @@
 import React, { FormEvent, useEffect, useRef, useState } from 'react';
 import '../style/style.css';
-import { FormTable, IModalTable } from '../types/Type';
+import { IModalTable } from '../types/Type';
 import ModalPopUp from './ModalPopUp';
 import { useAppDispatch } from '../../app/store/hooks';
-import { getTables, initTable } from '../../features/tables/api/tablesThunk';
+import { getFloors, initFloor } from '../../features/floors/api/floorThunk';
 
-const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
+const AddFloor = ({ modalTable, setModalTable, refBg }: IModalTable) => {
   const [popUp, setPopUp] = useState<boolean>(false);
   const refModal = useRef<HTMLDivElement>(null);
   const refClose = useRef<HTMLInputElement>(null);
-  const [form, setForm] = useState<FormTable>({
-    table: '',
+  const [form, setForm] = useState<{ floor: string }>({
     floor: '',
   });
   const dispatch = useAppDispatch();
@@ -25,15 +24,14 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
     setForm((prevForm) => ({ ...prevForm, [name]: value }));
   };
 
-  const addTable = async (e: FormEvent) => {
+  const addFloor = async (e: FormEvent) => {
     e.preventDefault();
     try {
-      await dispatch(initTable(form)).unwrap();
+      await dispatch(initFloor(form)).unwrap();
       setForm({
-        table: '',
         floor: '',
       });
-      await dispatch(getTables()).unwrap();
+      await dispatch(getFloors()).unwrap();
       if (refClose.current) {
         refClose.current.style.display = 'none';
         setPopUp(true);
@@ -89,10 +87,10 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
       ></div>
       <div
         ref={refClose}
-        className="w-[400px] h-[410px] mb-[30px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
+        className="w-[400px] h-[320px] mb-[30px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
       >
         <div className="flex items-center justify-between py-[15px] px-[15px] w-[100%] rounded-[8px]">
-          <h2 className="text-white text-[17px] font-bold">Добавить стол</h2>
+          <h2 className="text-white text-[17px] font-bold">Добавить этаж</h2>
           <span
             onClick={() => setModalTable(false)}
             className="text-white text-[20px] cursor-pointer"
@@ -101,32 +99,15 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
           </span>
         </div>
         <form
-          onSubmit={addTable}
+          onSubmit={addFloor}
           className="flex flex-col gap-[20px] mt-[20px] text-white"
         >
           <div>
-            <p className="text-[#858687] text-[14px] mb-[5px]">Номер стола</p>
+            <p className="text-[#858687] text-[14px] mb-[5px]">Номер этажа</p>
             <input
               onChange={handleInputChange}
-              name="table"
-              value={form.table}
-              className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
-              type="text"
-              list="select"
-              required
-            />
-            <datalist id="select">
-              <option value="1й стол">1й стол</option>
-              <option value="2й стол">2й стол</option>
-              <option value="3й стол">3й стол</option>
-            </datalist>
-          </div>
-          <div>
-            <p className="text-[#858687] text-[14px] mb-[5px]">Какой этаж</p>
-            <input
-              onChange={handleInputChange}
-              value={form.floor}
               name="floor"
+              value={form.floor}
               className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
               type="text"
               list="selectGuests"
@@ -157,4 +138,4 @@ const AddTable = ({ modalTable, setModalTable, refBg }: IModalTable) => {
   );
 };
 
-export default AddTable;
+export default AddFloor;

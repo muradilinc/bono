@@ -12,7 +12,7 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
       user_name: book.name,
       phone_number: '+' + book.phone,
       time_stamp: book.time, // кол-во время проведения с эскорт
-      will_come: dayjs(new Date()).format('YYYY-MM-DD'), // дата когда гость прибудет
+      will_come: dayjs(book.date).format('YYYY-MM-DD'), // дата когда гость прибудет
       start_time: book.time,
       end_time: endTime.toString() + ':00',
       amount_guest: book.countPerson,

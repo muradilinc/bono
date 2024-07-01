@@ -1,4 +1,5 @@
 import React from 'react';
+import { X } from '@phosphor-icons/react';
 
 interface Props extends React.PropsWithChildren {
   show: boolean;
@@ -12,22 +13,17 @@ const Modal: React.FC<Props> = ({ show, title, children, onClose }) => {
   // };
 
   return (
-    <>
-      <div
-        className="w-[400px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
-        style={{ display: show ? 'block' : 'none' }}
-        onClick={onClose}
-      >
-        <div className="modal-dialog">
-          <div className="modal-content">
-            <div className="modal-header">
-              <h1 className="modal-title fs-5">{title}</h1>
-            </div>
-            {children}
-          </div>
-        </div>
+    <div
+      className="absolute top-[50%] left-[30%] max-w-[570px] bg-black flex flex-col items-center rounded-[4px] z-[100] p-[20px]"
+      style={{ display: show ? 'block' : 'none' }}
+      onClick={onClose}
+    >
+      <div className="flex justify-between items-center mb-[20px]">
+        <h2 className="font-bold text-[16px] font-comfort">{title}</h2>
+        <X size={24} onClick={onClose} className="cursor-pointer" />
       </div>
-    </>
+      {children}
+    </div>
   );
 };
 

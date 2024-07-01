@@ -27,7 +27,7 @@ export const AdminMenuCard: FC<DataMenuCard> = ({
         <div className="w-full h-full">
           <img
             className="w-full h-full object-cover"
-            src={`http://3.87.95.146${image}`}
+            src={`https://backend.bono-bar.com${image}`}
             alt="menu picture"
           />
         </div>
