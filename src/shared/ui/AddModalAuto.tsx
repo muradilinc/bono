@@ -2,12 +2,14 @@ import AddClient from './AddClient';
 import { useEffect, useRef, useState } from 'react';
 import AddClientAuto from './AddClientAuto';
 import { IAddModal2 } from '../types/Type';
+import Clients from './clients';
 
 const AddModalAuto = ({ addModal2, setAddModal2, refBg }: IAddModal2) => {
   // const [addModal, setAddModal] = useState<boolean>(true);
   const refModal = useRef<HTMLDivElement>(null);
   const [modal, setModal] = useState<boolean>(false);
   const [modal2, setModal2] = useState<boolean>(false);
+  const [modal3, setModal3] = useState<boolean>(false);
 
   const onClickClient = () => {
     setModal(true);
@@ -44,6 +46,7 @@ const AddModalAuto = ({ addModal2, setAddModal2, refBg }: IAddModal2) => {
   return (
     <>
       {modal && <AddClient modal={modal} setModal={setModal} />}
+      {modal && <Clients modal={modal3} setModal={setModal3} />}
       {modal2 && <AddClientAuto modal2={modal2} setModal2={setModal2} />}
 
       {!modal && !modal2 && (
