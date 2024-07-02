@@ -11,10 +11,10 @@ export const Menu = () => {
       <p className="text-[#C1C1C1] md:text-[15px] text-[14px]">
         Наслаждайтесь гармонией вкусов в каждом блюде
       </p>
-      <div className="flex xl:items-start xl:justify-between mt-[30px] flex-wrap items-center justify-center gap-[30px]">
-        <div className="relative">
+      <div className="flex mt-[30px] flex-wrap gap-[30px]">
+        <div className="relative flex-auto h-[435px] max-h-[435px]">
           <img
-            className="rounded-[4px] w-[596px] h-[434px] max-sm:w-[343px] max-sm:max-h-[242px] max-[360px]:w-[300px] bg-center"
+            className="rounded-[4px] w-full h-full object-cover"
             src={imgKuh}
             alt="no img"
           />
@@ -24,9 +24,9 @@ export const Menu = () => {
             </h6>
           </Link>
         </div>
-        <div className="relative">
+        <div className="relative flex-auto h-[435px] max-h-[435px]">
           <img
-            className="rounded-[4px] w-[596px] h-[434px] max-sm:w-[343px] max-sm:max-h-[242px] max-[360px]:w-[300px]"
+            className="rounded-[4px] w-full h-full object-cover"
             src={imgBar}
             alt="no img"
           />

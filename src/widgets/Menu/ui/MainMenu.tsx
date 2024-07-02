@@ -10,6 +10,7 @@ import { selectSubCategories } from '../../../pages/admin/SubCategoryPage/model/
 import { getFilterSubcategories } from '../../../pages/admin/SubCategoryPage/api/subCategoryThunk';
 import { getMenuByCategoryAndSubcategory } from '../../../features/AdminFilterMenu/api/MenuThunk';
 import { selectMenu } from '../../../features/AdminFilterMenu/model/MenuSlica';
+import { MENU_PASTA } from '../constants/constants';
 
 const MainMenu = () => {
   const [btn, setBtn] = useState<number>(0);
@@ -65,7 +66,11 @@ const MainMenu = () => {
       <h1 className="lg:text-[36px] md:text-[32px] sm:text-[27px] text-[24px] mt-[30px]">
         {nameSubcategory}
       </h1>
-      {menu.length > 0 ? <MenuCard menu={menu} /> : 'Меню нет'}
+      {menu.length > 0 ? (
+        <MenuCard menu={menu} />
+      ) : (
+        <MenuCard menu={MENU_PASTA} />
+      )}
       <MenuCardMob />
       <KitchenHelmet />
       <script type="application/ld+json">
