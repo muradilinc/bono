@@ -41,3 +41,10 @@ input {
   color: #fff;
   font-size: var(--swiper-navigation-size);
 }
+
+.text-wrap {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}

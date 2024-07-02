@@ -14,15 +14,16 @@ const MenuCard: FC<{ menu: MenuType[] }> = ({ menu }) => {
             >
               <img
                 className="w-full h-full object-cover"
-                src={`https://backend.bono-bar.com${item.image}`}
+                // src={`https://backend.bono-bar.com${item.image}`}
+                src={item.image}
                 alt=""
               />
-              <div className="absolute bottom-0 bg-[rgba(23,23,23,0.6)] px-[10px]">
+              <div className="absolute bottom-0 bg-[rgba(23,23,23,0.6)] p-[10px]">
                 <div className="flex items-center justify-between">
                   <h3 className="text-[16px] font-semibold">{item.title}</h3>
                   <h3 className="text-[16px] font-semibold">{item.price} с</h3>
                 </div>
-                <p className="text-[12px]">{item.description}</p>
+                <p className="text-[12px] text-wrap">{item.description}</p>
               </div>
             </div>
           ) : (
