@@ -8,7 +8,7 @@ export interface FormComeMutation {
   start_time: string;
   time_stamp: string;
   comment: string;
-  table: string;
+  table?: string;
 }
 
 export interface FormTable {

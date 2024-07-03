@@ -7,12 +7,12 @@ import Modal from '../../../shared/ui/Modal';
 
 export const FormCome = () => {
   const [state, setState] = useState<FormComeMutation>({
-    name: '',
-    phone: '',
-    date: '',
-    countPerson: '',
-    time: '',
-    timeSpend: '',
+    user_name: '',
+    phone_number: '',
+    will_come: '',
+    amount_guest: '',
+    start_time: '',
+    time_stamp: '',
     comment: '',
   });
   const [showModal, setShowModal] = useState(false);
@@ -44,12 +44,12 @@ export const FormCome = () => {
 
   const handleCloseModal = () => {
     setState({
-      name: '',
-      phone: '',
-      date: '',
-      countPerson: '',
-      time: '',
-      timeSpend: '',
+      user_name: '',
+      phone_number: '',
+      will_come: '',
+      amount_guest: '',
+      start_time: '',
+      time_stamp: '',
       comment: '',
     });
     setShowModal(false);
@@ -75,55 +75,55 @@ export const FormCome = () => {
           </div>
           <div className="flex flex-col gap-y-5">
             <input
-              value={state.name}
+              value={state.user_name}
               onChange={changeField}
               type="text"
-              name="name"
+              name="user_name"
               placeholder="Имя"
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
             <input
-              value={state.phone}
+              value={state.phone_number}
               onChange={changeField}
               type="number"
-              name="phone"
+              name="phone_number"
               placeholder="Номер телефона"
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
             <input
-              value={state.date}
+              value={state.will_come}
               onChange={changeField}
               type="date"
-              name="date"
+              name="will_come"
               placeholder="Дата"
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
             <input
-              value={state.countPerson}
+              value={state.amount_guest}
               onChange={changeField}
               type="number"
-              name="countPerson"
+              name="amount_guest"
               placeholder="Количество персон"
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
             <input
-              value={state.time}
+              value={state.start_time}
               onChange={changeField}
               type="time"
-              name="time"
+              name="start_time"
               placeholder="Время"
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
             <input
-              value={state.timeSpend}
+              value={state.time_stamp}
               onChange={changeField}
               type="number"
-              name="timeSpend"
+              name="time_stamp"
               placeholder="Длительность посещения"
               className="bg-transparent border-b border-white p-[10px]"
               required
@@ -155,14 +155,14 @@ export const FormCome = () => {
           </p>
           <ul>
             <li className="font-medium text-[14px] text-white">
-              <span className="text-[#C1C1C1]">Дата:</span> {state.date}
+              <span className="text-[#C1C1C1]">Дата:</span> {state.will_come}
             </li>
             <li className="font-medium text-[14px] text-white">
-              <span className="text-[#C1C1C1]">Время:</span> {state.time}
+              <span className="text-[#C1C1C1]">Время:</span> {state.start_time}
             </li>
             <li className="font-medium text-[14px] text-white">
               <span className="text-[#C1C1C1]">Количество гостей:</span>{' '}
-              {state.countPerson}
+              {state.amount_guest}
             </li>
           </ul>
           <p className="font-medium text-white text-[14px]">
