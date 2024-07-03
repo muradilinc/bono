@@ -18,7 +18,7 @@ const MenuCard: FC<{ menu: MenuType[] }> = ({ menu }) => {
                 // src={item.image}
                 alt=""
               />
-              <div className="absolute bottom-0 bg-[rgba(23,23,23,0.6)] p-[10px]">
+              <div className="absolute w-full bottom-0 bg-[rgba(23,23,23,0.6)] p-[10px]">
                 <div className="flex items-center justify-between">
                   <h3 className="text-[16px] font-semibold">{item.title}</h3>
                   <h3 className="text-[16px] font-semibold">{item.price} с</h3>
