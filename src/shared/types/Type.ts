@@ -1,14 +1,14 @@
 import React from 'react';
 
 export interface FormComeMutation {
-  name: string;
-  phone: string;
-  date: string;
-  countPerson: string;
-  time: string;
-  timeSpend: string;
+  user_name: string;
+  phone_number: string;
+  will_come: string;
+  amount_guest: string;
+  start_time: string;
+  time_stamp: string;
   comment: string;
-  table?: string;
+  table: string;
 }
 
 export interface FormTable {
@@ -16,7 +16,7 @@ export interface FormTable {
   floor: string;
 }
 export interface FormFloor {
-  floor: string;
+  title: string;
 }
 export interface IFormsAuto {
   name: string;

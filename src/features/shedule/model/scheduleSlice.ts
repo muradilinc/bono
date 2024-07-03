@@ -1,11 +1,13 @@
-import { createSlice } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 import {
   createBook,
   deleteBook,
   getSchedules,
+  getSingleBook,
   updateBook,
 } from '../api/scheduleThunk';
 import { RootState } from '../../../app/store/store';
+import { FormComeMutation } from '../../../shared/types/Type';
 
 export interface Schedule {
   id: number;
@@ -23,6 +25,8 @@ export interface Schedule {
 
 interface ScheduleState {
   schedules: Schedule[];
+  book: FormComeMutation | null;
+  bookLoading: boolean;
   schedulesLoading: boolean;
   createLoading: boolean;
   updateLoading: boolean;
@@ -31,6 +35,8 @@ interface ScheduleState {
 
 const initialState: ScheduleState = {
   schedules: [],
+  book: null,
+  bookLoading: false,
   schedulesLoading: false,
   createLoading: false,
   updateLoading: false,
@@ -61,6 +67,19 @@ const scheduleSlice = createSlice({
     builder.addCase(getSchedules.rejected, (state) => {
       state.schedulesLoading = false;
     });
+    builder.addCase(getSingleBook.pending, (state) => {
+      state.bookLoading = false;
+    });
+    builder.addCase(
+      getSingleBook.fulfilled,
+      (state, { payload: book }: PayloadAction<FormComeMutation>) => {
+        state.bookLoading = false;
+        state.book = book;
+      },
+    );
+    builder.addCase(getSingleBook.rejected, (state) => {
+      state.bookLoading = false;
+    });
     builder.addCase(updateBook.pending, (state) => {
       state.updateLoading = true;
     });
@@ -84,6 +103,9 @@ const scheduleSlice = createSlice({
 
 export const scheduleReducer = scheduleSlice.reducer;
 export const selectSchedules = (state: RootState) => state.schedule.schedules;
+export const selectBook = (state: RootState) => state.schedule.book;
+export const selectBookLoading = (state: RootState) =>
+  state.schedule.bookLoading;
 export const selectCreateBookLoading = (state: RootState) =>
   state.schedule.createLoading;
 export const selectSchedulesLoading = (state: RootState) =>

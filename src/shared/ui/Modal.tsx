@@ -8,9 +8,9 @@ interface Props extends React.PropsWithChildren {
 }
 
 const Modal: React.FC<Props> = ({ show, title, children, onClose }) => {
-  // const onInnerClick = (event: React.MouseEvent) => {
-  //   event.stopPropagation();
-  // };
+  const onInnerClick = (event: React.MouseEvent) => {
+    event.stopPropagation();
+  };
 
   return (
     <div
@@ -18,11 +18,19 @@ const Modal: React.FC<Props> = ({ show, title, children, onClose }) => {
       style={{ display: show ? 'block' : 'none' }}
       onClick={onClose}
     >
-      <div className="flex justify-between items-center mb-[20px]">
-        <h2 className="font-bold text-[16px] font-comfort">{title}</h2>
-        <X size={24} onClick={onClose} className="cursor-pointer" />
+      <div onClick={onInnerClick}>
+        <div className="flex justify-between items-center mb-[20px]">
+          <h2 className="font-bold text-[16px] font-comfort text-white">
+            {title}
+          </h2>
+          <X
+            size={24}
+            onClick={onClose}
+            className="cursor-pointer text-white"
+          />
+        </div>
+        {children}
       </div>
-      {children}
     </div>
   );
 };
