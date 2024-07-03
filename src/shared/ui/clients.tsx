@@ -2,14 +2,22 @@ import React from 'react';
 import { useAppSelector } from '../../app/store/hooks';
 import { selectSchedules } from '../../features/shedule/model/scheduleSlice';
 
-const Clients: React.FC = () => {
+interface Props {
+  currentClient: (id: number) => void;
+}
+
+const Clients: React.FC<Props> = ({ currentClient }) => {
   const books = useAppSelector(selectSchedules);
   const filterBook = books.filter((book) => book.table === null);
 
   return (
-    <>
+    <div className="flex flex-col gap-y-5">
       {filterBook.map((client) => (
-        <div key={client.id} className="flex gap-x-3 text-white">
+        <div
+          key={client.id}
+          onClick={() => currentClient(client.id)}
+          className="flex gap-x-3 text-white px-[15px] py-[10px] border border-white cursor-pointer"
+        >
           <p>{client.user_name}</p>
           <p>{client.phone_number}</p>
           <p>{client.will_come}</p>
@@ -18,7 +26,7 @@ const Clients: React.FC = () => {
           <p>{client.time_stamp}</p>
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

@@ -3,15 +3,24 @@ import { FilterButton } from './FilterButton';
 import { Calendar } from './Calendar';
 import Modal from '../../../shared/ui/Modal';
 import Clients from '../../../shared/ui/clients';
+import AddTable from '../../../shared/ui/AddTable';
+import AddFloor from '../../../shared/ui/AddFloor';
+import AddClient from '../../../shared/ui/AddClient';
 
 export const AdminHeader: FC = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
+  const [client, setClient] = useState<number | null>(null);
 
   const closeModal = () => {
     setShowModal(false);
     setStep('A');
+  };
+
+  const selectClient = (id: number) => {
+    setClient(id);
+    setStep('K');
   };
 
   return (
@@ -50,7 +59,10 @@ export const AdminHeader: FC = () => {
           </div>
         ) : step === 'B' ? (
           <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px] z-[100]">
-            <button className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[#6BC678]">
+            <button
+              onClick={() => setStep('M')}
+              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[#6BC678]"
+            >
               Ручное добавление клиента
             </button>
             <button
@@ -61,15 +73,15 @@ export const AdminHeader: FC = () => {
             </button>
           </div>
         ) : step === 'C' ? (
-          <div>
-            <h4>form table</h4>
-          </div>
+          <AddTable onClose={closeModal} />
         ) : step === 'D' ? (
-          <div>
-            <h4>floor form</h4>
-          </div>
+          <AddFloor onCLose={closeModal} />
         ) : step === 'E' ? (
-          <Clients />
+          <Clients currentClient={(id: number) => selectClient(id)} />
+        ) : step === 'M' ? (
+          <AddClient onClose={closeModal} />
+        ) : step === 'K' ? (
+          <AddClient onClose={closeModal} id={client!} />
         ) : null}
       </Modal>
     </div>

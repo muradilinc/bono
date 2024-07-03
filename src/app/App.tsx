@@ -18,6 +18,8 @@ import {
   SubCategoryForm,
 } from '../pages/admin/SubCategoryPage';
 
+import 'react-toastify/dist/ReactToastify.css';
+
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
 
