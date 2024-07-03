@@ -1,12 +1,12 @@
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectSchedules } from '../../../../features/shedule/model/scheduleSlice';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { getSchedules } from '../../../../features/shedule/api/scheduleThunk';
 import { Pen, Plus, Trash } from '@phosphor-icons/react';
-import AddClient from '../../../../shared/ui/AddClient';
+// import AddClient from '../../../../shared/ui/AddClient';
 
 export const AdminIncomingPage = () => {
-  const [modal, setModal] = useState<boolean>(false);
+  // const [modal, setModal] = useState<boolean>(false);
   const books = useAppSelector(selectSchedules);
   const dispatch = useAppDispatch();
 
@@ -27,21 +27,21 @@ export const AdminIncomingPage = () => {
           </div>
           <div className="flex justify-between flex-row gap-x-3 items-center">
             <button
-              onClick={() => setModal(true)}
+              // onClick={() => setModal(true)}
               className="font-medium text-[16px] bg-[#2B2B2B] text-white w-full py-8 rounded-[4px] flex justify-center items-center gap-x-3"
             >
               <Plus size={20} />
               Добавить
             </button>
             <button
-              onClick={() => setModal(true)}
+              // onClick={() => setModal(true)}
               className="font-medium text-[16px] bg-[#2B2B2B] text-white w-full py-8 rounded-[4px] flex justify-center items-center gap-x-3"
             >
               <Pen size={20} />
               Редактировать
             </button>
             <button
-              onClick={() => setModal(true)}
+              // onClick={() => setModal(true)}
               className="font-medium text-[16px] bg-[#2B2B2B] text-white w-full py-8 rounded-[4px] flex justify-center items-center gap-x-3"
             >
               <Trash size={20} />
@@ -87,7 +87,7 @@ export const AdminIncomingPage = () => {
           )}
         </div>
       </section>
-      {modal && <AddClient modal={modal} setModal={setModal} />}
+      {/*{modal && <AddClient modal={modal} setModal={setModal} />}*/}
     </div>
   );
 };
