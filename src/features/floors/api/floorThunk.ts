@@ -5,10 +5,8 @@ import { FormFloor } from '../../../shared/types/Type';
 
 export const initFloor = createAsyncThunk<void, FormFloor>(
   'tables/create',
-  async ({ floor }) => {
-    await axiosApi.post('/table/create/table/', {
-      floor: parseInt(floor),
-    });
+  async ({ title }) => {
+    await axiosApi.post('/floors/create/floor/', { title });
   },
 );
 
