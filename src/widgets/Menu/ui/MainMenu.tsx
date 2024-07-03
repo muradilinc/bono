@@ -8,7 +8,10 @@ import { getCategories } from '../../../features/category/categoryThunk';
 import { selectCategories } from '../../../features/category/categorySlice';
 import { selectSubCategories } from '../../../pages/admin/SubCategoryPage/model/subCategorySlice';
 import { getFilterSubcategories } from '../../../pages/admin/SubCategoryPage/api/subCategoryThunk';
-import { getMenuByCategoryAndSubcategory } from '../../../features/AdminFilterMenu/api/MenuThunk';
+import {
+  getMenu,
+  getMenuByCategoryAndSubcategory,
+} from '../../../features/AdminFilterMenu/api/MenuThunk';
 import { selectMenu } from '../../../features/AdminFilterMenu/model/MenuSlica';
 import { MENU_PASTA } from '../constants/constants';
 import { SubCategory } from '../../../pages/admin/SubCategoryPage/model/sub-category';
@@ -24,6 +27,7 @@ const MainMenu = () => {
 
   useEffect(() => {
     dispatch(getCategories());
+    dispatch(getMenu());
   }, [dispatch]);
 
   useEffect(() => {
@@ -50,7 +54,7 @@ const MainMenu = () => {
     setNameSubcategory(item.name);
   };
 
-  console.log(subcategories);
+  // console.log(subcategories);
   console.log(menu);
 
   return (
