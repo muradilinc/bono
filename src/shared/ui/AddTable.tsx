@@ -59,7 +59,7 @@ const AddTable: React.FC<Props> = ({ onClose }) => {
           value={form.table}
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
-          list="select"
+          required
         />
       </div>
       <div>
@@ -68,6 +68,7 @@ const AddTable: React.FC<Props> = ({ onClose }) => {
           name="floor"
           onChange={changeFields}
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+          required
         >
           <option value="">select</option>
           {floors.map((floor) => (

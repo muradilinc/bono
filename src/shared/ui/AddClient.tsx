@@ -84,6 +84,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           name="user_name"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
+          required
         />
       </div>
       <div>
@@ -94,6 +95,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           name="table"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
+          required
         />
       </div>
       <div>
@@ -115,6 +117,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           name="phone_number"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
+          required
         />
       </div>
       <div>
@@ -125,6 +128,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           value={form.time_stamp}
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
+          required
         />
       </div>
       <div>
@@ -134,6 +138,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           value={form.start_time}
           name="start_time"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+          required
         >
           <option value="">select</option>
           {form.start_time ? (
@@ -153,6 +158,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="number"
           list="selectGuests"
+          required
         />
         <datalist id="selectGuests">
           <option value="1">1 гость</option>

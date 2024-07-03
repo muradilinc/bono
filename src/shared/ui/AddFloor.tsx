@@ -50,7 +50,7 @@ const AddFloor: React.FC<Props> = ({ onCLose }) => {
             value={form.title}
             className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
             type="text"
-            list="select"
+            required
           />
         </div>
         <button
