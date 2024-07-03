@@ -27,7 +27,7 @@ export const AdminIncomingPage = () => {
           </div>
           <div className="flex justify-between flex-row gap-x-3 items-center">
             <button
-              // onClick={() => setModal(true)}
+              onClick={() => setModal(true)}
               className="font-medium text-[16px] bg-[#2B2B2B] text-white w-full py-8 rounded-[4px] flex justify-center items-center gap-x-3"
             >
               <Plus size={20} />
