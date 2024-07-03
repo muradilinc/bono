@@ -86,7 +86,7 @@ export const FormCome = () => {
             <input
               value={state.phone_number}
               onChange={changeField}
-              type="number"
+              type="text"
               name="phone_number"
               placeholder="Номер телефона"
               className="bg-transparent border-b border-white p-[10px]"
