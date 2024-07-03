@@ -1,3 +1,5 @@
+import { MenuType } from '../../../features/AdminFilterMenu/model/types/type';
+
 export const BTN_MENU = [
   'Завтраки',
   'Закуски',
@@ -9,85 +11,149 @@ export const BTN_MENU = [
   'Десерты',
 ];
 
-export const MENU_PASTA = [
+export const MENU_PASTA: MenuType[] = [
   {
     id: 1,
-    img: 'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 2,
-    img: 'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 3,
-    img: 'https://i.ytimg.com/vi/0jRxAf7GpUs/maxresdefault.jpg',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 4,
-    img: 'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 5,
-    img: 'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 6,
-    img: 'https://i.ytimg.com/vi/0jRxAf7GpUs/maxresdefault.jpg',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 7,
-    img: 'https://i.ytimg.com/vi/0jRxAf7GpUs/maxresdefault.jpg',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 8,
-    img: 'https://i.ytimg.com/vi/0jRxAf7GpUs/maxresdefault.jpg',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 9,
-    img: 'https://i.ytimg.com/vi/0jRxAf7GpUs/maxresdefault.jpg',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
   {
     id: 10,
-    img: 'https://i.ytimg.com/vi/0jRxAf7GpUs/maxresdefault.jpg',
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
     title: 'Арабьята',
     description:
       'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
-    price: '500',
+    category: 1,
+    subcategory: 1,
+    price: 500,
+  },
+  {
+    id: 11,
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
+    title: 'Арабьята',
+    description:
+      'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
+    category: 1,
+    subcategory: 1,
+    price: 500,
+  },
+  {
+    id: 12,
+    created_at: '',
+    image:
+      'https://freshday.ru/image/cache/catalog/raznye-vidy-italyanskoy-pasty-1152x768.webp',
+    title: 'Арабьята',
+    description:
+      'макароны пенне, помидоры, чеснок, острый красный перец чили, оливковое масло, свежая петрушка, тертый пармезан (по желанию).',
+    category: 1,
+    subcategory: 1,
+    price: 500,
   },
 ];

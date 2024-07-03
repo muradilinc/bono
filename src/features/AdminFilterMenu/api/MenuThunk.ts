@@ -29,3 +29,19 @@ export const createMenu = createAsyncThunk(
     }
   },
 );
+
+export const getMenuByCategoryAndSubcategory = createAsyncThunk(
+  'menu/getById',
+  async ({
+    categoryId,
+    subcategoryId,
+  }: {
+    categoryId: number;
+    subcategoryId: number;
+  }) => {
+    const response = await axiosApi.get<MenuType[]>(
+      `menu/menu_list_by_category_subcategory/?category=${categoryId}&subcategory=${subcategoryId}`,
+    );
+    return response.data;
+  },
+);
