@@ -8,7 +8,7 @@ const MenuCardMob = () => {
           <div key={item.id} className="w-[343px] relative">
             <img
               className="w-[343px] h-[240px] rounded-[4px]"
-              src={item.img}
+              src={item.image}
               alt=""
             />
             <div className="absolute bottom-0 bg-[rgba(23,23,23,0.6)] px-[10px]">
