@@ -23,7 +23,8 @@ export const FormCome = () => {
 
   const changeField = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const phoneNumberPattern = /^\d{0,9}$/;
+    const phoneNumberPattern = /^(\+996[1-9]\d{8}|0[1-9]\d{8}|\d{9})$/;
+
     if (name == 'phone_number') {
       if (value === '' || phoneNumberPattern.test(value)) {
         setState((prevState) => ({
@@ -31,14 +32,8 @@ export const FormCome = () => {
           [name]: value,
         }));
       }
-      setIsValid(value.length === 9);
+      setIsValid(phoneNumberPattern.test(value));
     }
-    // if (name === 'phone') {
-    //   setState((prevState) => ({
-    //     ...prevState,
-    //     phone: value.toString(),
-    //   }));
-    // }
     setState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -103,12 +98,12 @@ export const FormCome = () => {
                 type="text"
                 name="phone_number"
                 placeholder="Номер телефона"
-                className={`w-full bg-transparent border-b py-[10px] pr-[10px] pl-[50px] ${isValid ? 'border-white' : 'border-red-500'}`}
+                className={`w-full bg-transparent border-b py-[10px] px-[10px] ${isValid ? 'border-white' : 'border-red-500'}`}
                 required
               />
-              <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
+              {/* <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
                 +996
-              </span>
+              </span> */}
             </div>
             <input
               value={state.will_come}
