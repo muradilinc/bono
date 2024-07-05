@@ -6,6 +6,9 @@ import { toast } from 'react-toastify';
 import Modal from '../../../shared/ui/Modal';
 
 export const FormCome = () => {
+  const [isValid, setIsValid] = useState<boolean>(false);
+  console.log(isValid);
+
   const [state, setState] = useState<FormComeMutation>({
     user_name: '',
     phone_number: '',
@@ -20,12 +23,22 @@ export const FormCome = () => {
 
   const changeField = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    if (name === 'phone') {
-      setState((prevState) => ({
-        ...prevState,
-        phone: value.toString(),
-      }));
+    const phoneNumberPattern = /^\d{0,9}$/;
+    if (name == 'phone_number') {
+      if (value === '' || phoneNumberPattern.test(value)) {
+        setState((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      }
+      setIsValid(value.length === 9);
     }
+    // if (name === 'phone') {
+    //   setState((prevState) => ({
+    //     ...prevState,
+    //     phone: value.toString(),
+    //   }));
+    // }
     setState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -83,22 +96,27 @@ export const FormCome = () => {
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
-            <input
-              value={state.phone_number}
-              onChange={changeField}
-              type="text"
-              name="phone_number"
-              placeholder="Номер телефона"
-              className="bg-transparent border-b border-white p-[10px]"
-              required
-            />
+            <div className="relative w-full">
+              <input
+                value={state.phone_number}
+                onChange={changeField}
+                type="text"
+                name="phone_number"
+                placeholder="Номер телефона"
+                className={`w-full bg-transparent border-b py-[10px] pr-[10px] pl-[50px] ${isValid ? 'border-white' : 'border-red-500'}`}
+                required
+              />
+              <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
+                +996
+              </span>
+            </div>
             <input
               value={state.will_come}
               onChange={changeField}
               type="date"
               name="will_come"
               placeholder="Дата"
-              className="bg-transparent border-b border-white p-[10px]"
+              className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
             <input
@@ -107,8 +125,9 @@ export const FormCome = () => {
               type="number"
               name="amount_guest"
               placeholder="Количество персон"
-              className="bg-transparent border-b border-white p-[10px]"
+              className={`bg-transparent border-b ${Number(state.amount_guest) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
               required
+              min="1"
             />
             <input
               value={state.start_time}
@@ -116,7 +135,7 @@ export const FormCome = () => {
               type="time"
               name="start_time"
               placeholder="Время"
-              className="bg-transparent border-b border-white p-[10px]"
+              className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
             <input
@@ -125,8 +144,9 @@ export const FormCome = () => {
               type="number"
               name="time_stamp"
               placeholder="Длительность посещения"
-              className="bg-transparent border-b border-white p-[10px]"
+              className={`bg-transparent border-b ${Number(state.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
               required
+              min="1"
             />
             <input
               value={state.comment}
@@ -138,7 +158,10 @@ export const FormCome = () => {
               required
             />
           </div>
-          <button className="border-white border py-[10px] my-[30px]">
+          <button
+            disabled={!isValid}
+            className="border-white border py-[10px] my-[30px]"
+          >
             Забронировать стол
           </button>
         </div>
