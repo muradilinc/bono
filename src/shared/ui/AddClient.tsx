@@ -20,6 +20,7 @@ interface Props {
 }
 
 const AddClient: React.FC<Props> = ({ onClose, id }) => {
+  const [isValid, setIsValid] = useState<boolean>(false);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: '',
     phone_number: '',
@@ -30,6 +31,9 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
     comment: '',
     table: '',
   });
+
+  console.log(form);
+
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
@@ -53,6 +57,17 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
+    const phoneNumberPattern = /^\d{0,9}$/;
+    if (name == 'phone_number') {
+      if (value === '' || phoneNumberPattern.test(value)) {
+        setForm((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      }
+      setIsValid(value.length === 9);
+    }
+
     setForm((prevState) => ({
       ...prevState,
       [name]: value,
@@ -94,8 +109,9 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           value={form.table}
           name="table"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
-          type="text"
+          type="number"
           required
+          min="1"
         />
       </div>
       <div>
@@ -111,14 +127,20 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       </div>
       <div>
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер клиента</p>
-        <input
-          onChange={changeFields}
-          value={form.phone_number}
-          name="phone_number"
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
-          type="text"
-          required
-        />
+        <div className="relative">
+          <input
+            onChange={changeFields}
+            value={form.phone_number}
+            name="phone_number"
+            className={`w-[340px] h-[40px] pr-[10px] pl-[50px] rounded-[4px] border-2 bg-black ${isValid ? '' : 'border-red-500'}`}
+            type="text"
+            required
+          />
+          <span className="absolute left-[10px] top-[50%] translate-y-[-45%]">
+            +996
+          </span>
+        </div>
+        {!isValid && <p style={{ color: 'red' }}>Invalid phone number</p>}
       </div>
       <div>
         <p className="text-[#858687] text-[14px] mb-[5px]">Время нахождения</p>
@@ -127,7 +149,8 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           name="time_stamp"
           value={form.time_stamp}
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
-          type="text"
+          type="number"
+          min="1"
           required
         />
       </div>
@@ -157,6 +180,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           name="amount_guest"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="number"
+          min="1"
           list="selectGuests"
           required
         />
@@ -180,7 +204,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       </div>
       <button
         type="submit"
-        disabled={createLoading}
+        disabled={createLoading || !isValid}
         className="bg-[#2B2B2B] duration-300 text-white h-[50px] rounded-[4px] hover:bg-[#6BC678]"
       >
         {createLoading ? 'Loading' : 'Сохранить'}

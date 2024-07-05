@@ -19,6 +19,7 @@ import {
 } from '../pages/admin/SubCategoryPage';
 
 import 'react-toastify/dist/ReactToastify.css';
+import BarMenu from '../widgets/Menu/ui/BarMenu';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -59,6 +60,7 @@ const App = () => {
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/kitchen" element={<MainMenu />} />
+            <Route path="/bar" element={<BarMenu />} />
           </Routes>
           <Footer />
         </Layout>

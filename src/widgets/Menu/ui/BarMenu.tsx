@@ -19,7 +19,7 @@ import { selectMenu } from '../../../features/AdminFilterMenu/model/MenuSlica';
 import { MENU_PASTA } from '../constants/constants';
 import { SubCategory } from '../../../pages/admin/SubCategoryPage/model/sub-category';
 
-const MainMenu = () => {
+const BarMenu = () => {
   const [btn, setBtn] = useState<number>(0);
   const [categoryId, setCategoryId] = useState<number | null>(null);
   const [nameSubcategory, setNameSubcategory] = useState<string>('');
@@ -35,8 +35,7 @@ const MainMenu = () => {
   }, [dispatch]);
 
   useEffect(() => {
-    const category = categories?.find((item) => item.name === 'Кухня');
-
+    const category = categories?.find((item) => item.name === 'Бар');
     if (category) {
       setCategoryId(category.id);
       dispatch(getFilterSubcategories(category.id));
@@ -59,7 +58,7 @@ const MainMenu = () => {
   const handleSubCategories = (item: SubCategory) => {
     setBtn(item.id);
     setNameSubcategory(item.name);
-    const id = categories.find((item) => item.name === 'Кухня')?.id;
+    const id = categories.find((item) => item.name === 'Бар')?.id;
     setCategoryId(id ?? null);
   };
 
@@ -103,4 +102,4 @@ const MainMenu = () => {
   );
 };
 
-export default MainMenu;
+export default BarMenu;
