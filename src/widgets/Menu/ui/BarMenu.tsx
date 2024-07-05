@@ -15,9 +15,12 @@ import {
   getMenu,
   getMenuByCategoryAndSubcategory,
 } from '../../../features/AdminFilterMenu/api/MenuThunk';
-import { selectMenu } from '../../../features/AdminFilterMenu/model/MenuSlica';
-import { MENU_PASTA } from '../constants/constants';
+import {
+  selectMenu,
+  selectMenuLoading,
+} from '../../../features/AdminFilterMenu/model/MenuSlica';
 import { SubCategory } from '../../../pages/admin/SubCategoryPage/model/sub-category';
+import Loading from '../../../shared/ui/Loading';
 
 const BarMenu = () => {
   const [btn, setBtn] = useState<number>(0);
@@ -27,6 +30,7 @@ const BarMenu = () => {
   const categories = useAppSelector(selectCategories);
   const subcategories = useAppSelector(selectSubCategories);
   const menu = useAppSelector(selectMenu);
+  const loading = useAppSelector(selectMenuLoading);
 
   useEffect(() => {
     dispatch(getCategories());
@@ -89,9 +93,15 @@ const BarMenu = () => {
         {nameSubcategory}
       </h1>
       {menu.length > 0 ? (
-        <MenuCard menu={menu.filter((item) => item.category === categoryId)} />
+        loading ? (
+          <MenuCard
+            menu={menu.filter((item) => item.category === categoryId)}
+          />
+        ) : (
+          <Loading />
+        )
       ) : (
-        <MenuCard menu={MENU_PASTA} />
+        <p>произошла ошибка</p>
       )}
       <MenuCardMob />
       <KitchenHelmet />

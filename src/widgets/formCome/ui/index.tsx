@@ -116,7 +116,7 @@ export const FormCome = () => {
               type="date"
               name="will_come"
               placeholder="Дата"
-              className="bg-transparent border-b border-white p-[10px]"
+              className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
             <input
@@ -135,7 +135,7 @@ export const FormCome = () => {
               type="time"
               name="start_time"
               placeholder="Время"
-              className="bg-transparent border-b border-white p-[10px]"
+              className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
             <input

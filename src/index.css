@@ -21,17 +21,6 @@ body {
 input {
   outline: none;
 }
-input[type='date']::-webkit-calendar-picker-indicator {
-  color: #fff;
-  opacity: 1;
-  background-image: url('/images/calendar.svg');
-  background-repeat: no-repeat;
-  background-position: 100% center;
-  background-size: 20px;
-  /* background: #fff; */
-  cursor: pointer;
-}
-
 .container {
   @apply w-[90%] h-full mx-auto;
 }

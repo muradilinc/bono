@@ -121,7 +121,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           type="date"
           name="will_come"
           placeholder="Дата"
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black inputIcon"
           required
         />
       </div>
