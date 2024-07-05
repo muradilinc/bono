@@ -5,9 +5,10 @@ import { getSchedules } from '../../../../features/shedule/api/scheduleThunk';
 import '../style/style.css';
 import AdminIncomingTbody from './AdminIncomingTbody';
 import FormAddClient from '../../../../shared/ui/FormAddClient';
+import { AdminIncomingType } from '../../../../shared/types/Type';
 
 export const AdminIncomingPage = () => {
-  const books = useAppSelector(selectSchedules);
+  const books = useAppSelector(selectSchedules) as AdminIncomingType[];
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
 

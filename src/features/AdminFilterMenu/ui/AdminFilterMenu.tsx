@@ -116,7 +116,7 @@ export const AdminFilterMenu: FC = () => {
           </div>
         ))}
       </div>
-      <div className="w-full h-[677px] overflow-auto bg-black flex flex-col py-[50px] px-[30px] gap-y-3">
+      <div className="w-full overflow-auto bg-black flex flex-col py-[50px] px-[30px] gap-y-3">
         <div className="flex flex-wrap gap-x-[24px] gap-y-[24px]">
           {menu?.length ? (
             menu
