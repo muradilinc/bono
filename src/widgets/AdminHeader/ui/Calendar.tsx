@@ -1,32 +1,27 @@
-import { FC, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { format } from 'date-fns';
 import moment from 'moment-timezone';
 import { ru } from 'date-fns/locale';
 import AdminCalendar from '../../../features/AdminCalendar/ui/AdminCalendar';
 import { CaretDown, CaretUp } from '@phosphor-icons/react';
-import { useAppDispatch } from '../../../app/store/hooks';
-import { getFilterTable } from '../../../features/tables/api/tablesThunk';
-import dayjs from 'dayjs';
 
-export const Calendar: FC = () => {
-  const [currentDate, setCurrentDate] = useState<Date | null>(null);
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
+
+interface Props {
+  setDate: (date: Value) => void;
+}
+
+export const Calendar: React.FC<Props> = ({ setDate }) => {
+  const [currentDate, setCurrentDate] = useState<Value>(null);
   const [calendar, setCalendar] = useState<boolean>(false);
-  const dispatch = useAppDispatch();
 
   useEffect(() => {
     const bishkekTime = moment().tz('Asia/Bishkek').toDate();
     setCurrentDate(bishkekTime);
-  }, []);
-
-  useEffect(() => {
-    dispatch(
-      getFilterTable({
-        date: dayjs(currentDate).format('YYYY-MM-DD'),
-        name: '',
-        number: '996999770451',
-      }),
-    );
-  }, [currentDate, dispatch]);
+    setDate(bishkekTime);
+  }, [setDate]);
 
   return (
     <>
@@ -38,10 +33,10 @@ export const Calendar: FC = () => {
               className="font-comfortaa text-2xl font-bold leading-[26.76px] text-center px-[22px] pb-[6px] m-auto cursor-pointer"
             >
               <h1 className="text-[16px] uppercase">
-                {format(currentDate, 'EEEE', { locale: ru })}
+                {format(currentDate.toString(), 'EEEE', { locale: ru })}
               </h1>
               <h1 className="text-[#C1C1C1] text-[15px]">
-                {format(currentDate, 'dd MMMM', { locale: ru })}
+                {format(currentDate.toString(), 'dd MMMM', { locale: ru })}
               </h1>
             </div>
             {calendar ? (
@@ -67,6 +62,7 @@ export const Calendar: FC = () => {
           setCurrentDate={setCurrentDate}
           currentDate={currentDate}
           setCalendar={setCalendar}
+          setFilterDate={setDate}
         />
       ) : null}
     </>

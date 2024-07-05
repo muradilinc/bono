@@ -1,36 +1,38 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useState } from 'react';
 import { CaretLeft, CaretRight, MagnifyingGlass } from '@phosphor-icons/react';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
-import { getFloors } from '../../../features/floors/api/floorThunk';
+import { useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
 
 interface Props {
   setAddModal: (modal: boolean) => void;
   setModal: (modal: boolean) => void;
   modal: boolean;
+  setCurrentFloor: (floor: number) => void;
 }
 
-export const FilterButton: FC<Props> = ({ setAddModal, setModal, modal }) => {
+export const FilterButton: FC<Props> = ({
+  setAddModal,
+  setModal,
+  modal,
+  setCurrentFloor,
+}) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const openModal = () => {
     setAddModal(true);
     setModal(!modal);
   };
   const floors = useAppSelector(selectFloors);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getFloors());
-  }, [dispatch]);
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % floors.length);
+    setCurrentFloor(currentIndex);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + floors.length) % floors.length,
     );
+    setCurrentFloor(currentIndex);
   };
 
   return (

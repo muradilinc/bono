@@ -21,7 +21,6 @@ body {
 input {
   outline: none;
 }
-
 .container {
   @apply w-[90%] h-full mx-auto;
 }

@@ -1,6 +1,9 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../../app/axiosApi';
-import { FormComeMutation } from '../../../shared/types/Type';
+import {
+  AdminIncomingType,
+  FormComeMutation,
+} from '../../../shared/types/Type';
 
 export const createBook = createAsyncThunk<void, FormComeMutation>(
   'schedule/createBook',
@@ -10,7 +13,7 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
       ...book,
       title: 'amount',
       time_stamp: '12:00',
-      phone_number: '+' + book.phone_number,
+      phone_number: '+996' + book.phone_number,
       end_time: endTime.toString() + ':00',
     });
   },
@@ -35,6 +38,13 @@ export const updateBook = createAsyncThunk<void, number>(
     await axiosApi.patch(`/book/update/book/${id}/`, { is_come: true });
   },
 );
+
+export const updateBookIncoming = createAsyncThunk<
+  void,
+  { id: number; data: AdminIncomingType }
+>('schedule/updateStatusId', async ({ id, data }) => {
+  await axiosApi.patch(`/book/update/book/${id}/`, { data });
+});
 
 export const deleteBook = createAsyncThunk<void, number>(
   'schedule/deleteBook',

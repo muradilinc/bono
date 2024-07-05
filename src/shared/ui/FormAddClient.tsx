@@ -1,15 +1,19 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
-import { createBook } from '../../../features/shedule/api/scheduleThunk';
-import { useAppDispatch } from '../../../app/store/hooks';
-import { FormComeMutation } from '../../../shared/types/Type';
+import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
+import '../style/style.css';
+import { FormComeMutation } from '../types/Type';
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
+import { selectBook } from '../../features/shedule/model/scheduleSlice';
+import { createBook } from '../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
-import Modal from '../../../shared/ui/Modal';
+import Modal from './Modal';
 
-export const FormCome = () => {
-  const [isValid, setIsValid] = useState<boolean>(false);
-  console.log(isValid);
+interface Props {
+  onClose: () => void;
+  id?: number;
+}
 
-  const [state, setState] = useState<FormComeMutation>({
+const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
+  const [form, setForm] = useState<FormComeMutation>({
     user_name: '',
     phone_number: '',
     will_come: '',
@@ -18,28 +22,24 @@ export const FormCome = () => {
     time_stamp: '',
     comment: '',
   });
-  const [showModal, setShowModal] = useState(false);
   const dispatch = useAppDispatch();
+  const book = useAppSelector(selectBook);
+  const [showModal, setShowModal] = useState(false);
 
-  const changeField = (event: ChangeEvent<HTMLInputElement>) => {
-    const { name, value } = event.target;
-    const phoneNumberPattern = /^\d{0,9}$/;
-    if (name == 'phone_number') {
-      if (value === '' || phoneNumberPattern.test(value)) {
-        setState((prevState) => ({
-          ...prevState,
-          [name]: value,
-        }));
-      }
-      setIsValid(value.length === 9);
+  useEffect(() => {
+    if (id && book) {
+      setForm((prevState) => ({
+        ...prevState,
+        ...book,
+      }));
     }
-    // if (name === 'phone') {
-    //   setState((prevState) => ({
-    //     ...prevState,
-    //     phone: value.toString(),
-    //   }));
-    // }
-    setState((prevState) => ({
+  }, [book, id]);
+
+  const changeField = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
+    const { name, value } = event.target;
+    setForm((prevState) => ({
       ...prevState,
       [name]: value,
     }));
@@ -48,7 +48,7 @@ export const FormCome = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      await dispatch(createBook(state)).unwrap();
+      await dispatch(createBook(form)).unwrap();
       setShowModal(true);
     } catch (error) {
       toast.error('Что-то пошло не так!');
@@ -56,7 +56,7 @@ export const FormCome = () => {
   };
 
   const handleCloseModal = () => {
-    setState({
+    setForm({
       user_name: '',
       phone_number: '',
       will_come: '',
@@ -69,26 +69,23 @@ export const FormCome = () => {
   };
 
   return (
-    <div className="relative">
+    <>
       <form
         onSubmit={handleSubmit}
-        className="display flex justify-center flex-col items-center my-[170px]"
+        className="absolute top-0 left-0 right-0 bottom-0 display flex justify-center flex-col items-center text-white bg-[#000000a6]"
       >
         <div
           id="reservationForm"
-          className="border border-white p-12 flex flex-col gap-y-8"
+          className="border border-white p-12 flex flex-col w-[500px] bg-black"
         >
           <div className="text-center">
-            <h2 className="text-[36px] font-medium font-comfort">
+            <h2 className="text-[32px] font-medium font-comfort">
               Бронь столика
             </h2>
-            <p className="text-[16px] font-medium font-comfort">
-              Ваш столик ждет вас – забронируйте прямо сейчас
-            </p>
           </div>
-          <div className="flex flex-col gap-y-5">
+          <div className="flex flex-col gap-y-4">
             <input
-              value={state.user_name}
+              value={form.user_name}
               onChange={changeField}
               type="text"
               name="user_name"
@@ -96,60 +93,53 @@ export const FormCome = () => {
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
-            <div className="relative w-full">
-              <input
-                value={state.phone_number}
-                onChange={changeField}
-                type="text"
-                name="phone_number"
-                placeholder="Номер телефона"
-                className={`w-full bg-transparent border-b py-[10px] pr-[10px] pl-[50px] ${isValid ? 'border-white' : 'border-red-500'}`}
-                required
-              />
-              <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
-                +996
-              </span>
-            </div>
             <input
-              value={state.will_come}
+              value={form.phone_number}
+              onChange={changeField}
+              type="text"
+              name="phone_number"
+              placeholder="Номер телефона"
+              className="bg-transparent border-b border-white p-[10px]"
+              required
+            />
+            <input
+              value={form.will_come}
               onChange={changeField}
               type="date"
               name="will_come"
               placeholder="Дата"
-              className="bg-transparent border-b border-white p-[10px] inputIcon"
+              className="bg-transparent border-b border-white p-[10px]"
               required
             />
             <input
-              value={state.amount_guest}
+              value={form.amount_guest}
               onChange={changeField}
               type="number"
               name="amount_guest"
               placeholder="Количество персон"
-              className={`bg-transparent border-b ${Number(state.amount_guest) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
+              className="bg-transparent border-b border-white p-[10px]"
               required
-              min="1"
             />
             <input
-              value={state.start_time}
+              value={form.start_time}
               onChange={changeField}
               type="time"
               name="start_time"
               placeholder="Время"
-              className="bg-transparent border-b border-white p-[10px] inputIcon"
+              className="bg-transparent border-b border-white p-[10px]"
               required
             />
             <input
-              value={state.time_stamp}
+              value={form.time_stamp}
               onChange={changeField}
               type="number"
               name="time_stamp"
               placeholder="Длительность посещения"
-              className={`bg-transparent border-b ${Number(state.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
+              className="bg-transparent border-b border-white p-[10px]"
               required
-              min="1"
             />
             <input
-              value={state.comment}
+              value={form.comment}
               onChange={changeField}
               type="text"
               name="comment"
@@ -158,11 +148,15 @@ export const FormCome = () => {
               required
             />
           </div>
-          <button
-            disabled={!isValid}
-            className="border-white border py-[10px] my-[30px]"
-          >
+          <button className="border-white border py-[10px] my-[20px]">
             Забронировать стол
+          </button>
+          <button
+            onClick={onClose}
+            type="button"
+            className="border-white border py-[10px]"
+          >
+            Отменить
           </button>
         </div>
       </form>
@@ -178,14 +172,14 @@ export const FormCome = () => {
           </p>
           <ul>
             <li className="font-medium text-[14px] text-white">
-              <span className="text-[#C1C1C1]">Дата:</span> {state.will_come}
+              <span className="text-[#C1C1C1]">Дата:</span> {form.will_come}
             </li>
             <li className="font-medium text-[14px] text-white">
-              <span className="text-[#C1C1C1]">Время:</span> {state.start_time}
+              <span className="text-[#C1C1C1]">Время:</span> {form.start_time}
             </li>
             <li className="font-medium text-[14px] text-white">
               <span className="text-[#C1C1C1]">Количество гостей:</span>{' '}
-              {state.amount_guest}
+              {form.amount_guest}
             </li>
           </ul>
           <p className="font-medium text-white text-[14px]">
@@ -197,6 +191,8 @@ export const FormCome = () => {
           </p>
         </div>
       </Modal>
-    </div>
+    </>
   );
 };
+
+export default FormAddClient;
