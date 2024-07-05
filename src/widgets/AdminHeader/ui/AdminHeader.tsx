@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { FilterButton } from './FilterButton';
 import { Calendar } from './Calendar';
 import Modal from '../../../shared/ui/Modal';
@@ -6,12 +6,25 @@ import Clients from '../../../shared/ui/clients';
 import AddTable from '../../../shared/ui/AddTable';
 import AddFloor from '../../../shared/ui/AddFloor';
 import AddClient from '../../../shared/ui/AddClient';
+import { getFilterTable } from '../../../features/tables/api/tablesThunk';
+import dayjs from 'dayjs';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { selectFloors } from '../../../features/floors/model/floorSlice';
+import { getFloors } from '../../../features/floors/api/floorThunk';
+
+type ValuePiece = Date | null;
+
+type Value = ValuePiece | [ValuePiece, ValuePiece];
 
 export const AdminHeader: FC = () => {
   const [modal, setModal] = useState<boolean>(false);
+  const [currentDate, setCurrentDate] = useState<Value>(null);
+  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
   const [client, setClient] = useState<number | null>(null);
+  const floors = useAppSelector(selectFloors);
+  const dispatch = useAppDispatch();
 
   const closeModal = () => {
     setShowModal(false);
@@ -23,15 +36,31 @@ export const AdminHeader: FC = () => {
     setStep('K');
   };
 
+  useEffect(() => {
+    dispatch(getFloors());
+  }, [dispatch]);
+
+  useEffect(() => {
+    if (floors.length > 0) {
+      dispatch(
+        getFilterTable({
+          date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
+          floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
+        }),
+      );
+    }
+  }, [currentDate, currentIndex, dispatch, floors]);
+
   return (
     <div className="relative">
       <div className="w-full flex justify-b items-center bg-[black] p-4">
         <div className="w-full flex gap-[30px] items-center justify-b">
-          <Calendar />
+          <Calendar setDate={setCurrentDate} />
           <FilterButton
             setAddModal={setShowModal}
             setModal={setModal}
             modal={modal}
+            setCurrentFloor={setCurrentIndex}
           />
         </div>
       </div>
