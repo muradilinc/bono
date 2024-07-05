@@ -13,7 +13,7 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
       ...book,
       title: 'amount',
       time_stamp: '12:00',
-      phone_number: '+' + book.phone_number,
+      phone_number: '+996' + book.phone_number,
       end_time: endTime.toString() + ':00',
     });
   },

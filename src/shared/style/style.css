@@ -4,6 +4,7 @@
 .inputIcon::-webkit-calendar-picker-indicator {
   background-color: white;
   filter: invert(1);
+  cursor: pointer;
 }
 
 .loader {

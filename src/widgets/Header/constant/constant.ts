@@ -11,7 +11,7 @@ export const HEADER_DATA: HeaderTitle[] = [
   },
   {
     title: 'Бар',
-    link: '/',
+    link: '/bar',
   },
   {
     title: 'Контакты',

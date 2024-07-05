@@ -45,3 +45,12 @@ export const getMenuByCategoryAndSubcategory = createAsyncThunk(
     return response.data;
   },
 );
+export const getMenuByCategory = createAsyncThunk(
+  'menu/getById',
+  async ({ categoryId }: { categoryId: number }) => {
+    const response = await axiosApi.get<MenuType[]>(
+      `category/subcategory_list/?category_${categoryId}`,
+    );
+    return response.data;
+  },
+);

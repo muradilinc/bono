@@ -18,7 +18,7 @@ export const updateGallery = createAsyncThunk<
   { id: string | null; data: FormData }
 >('gallery/updateOne', async ({ id, data }) => {
   const res = await axiosApi.put<GalleryId>(
-    `http://3.87.95.146/gallery/gallery_detail/${id}/`,
+    `https://backend.bono-bar.com/api/gallery/gallery_detail/${id}/`,
     data,
   );
   return res.data;
