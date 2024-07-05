@@ -101,9 +101,6 @@ export const FormCome = () => {
                 className={`w-full bg-transparent border-b py-[10px] px-[10px] ${isValid ? 'border-white' : 'border-red-500'}`}
                 required
               />
-              {/* <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
-                +996
-              </span> */}
             </div>
             <input
               value={state.will_come}
