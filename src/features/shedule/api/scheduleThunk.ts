@@ -43,7 +43,7 @@ export const updateBookIncoming = createAsyncThunk<
   void,
   { id: number; data: AdminIncomingType }
 >('schedule/updateStatusId', async ({ id, data }) => {
-  await axiosApi.patch(`/book/update/book/${id}/`, { data });
+  await axiosApi.patch(`/book/update/book/${id}/`, data);
 });
 
 export const deleteBook = createAsyncThunk<void, number>(

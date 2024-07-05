@@ -10,9 +10,12 @@ import ModalDelete from '../../../../shared/ui/ModalDelete';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { AdminIncomingType } from '../../../../shared/types/Type';
 
-// eslint-disable-next-line @typescript-eslint/ban-ts-comment
-// @ts-expect-error
-const AdminIncomingTbody = ({ book, inx }) => {
+interface Props {
+  book: AdminIncomingType;
+  inx: number;
+}
+
+const AdminIncomingTbody = ({ book, inx }: Props) => {
   const [addModal, setAddModal] = useState<boolean>(false);
   const [id, setId] = useState<number | null>(null);
   const dispatch = useAppDispatch();
@@ -54,10 +57,8 @@ const AdminIncomingTbody = ({ book, inx }) => {
     }));
   };
   const saveIncoming = async () => {
-    const data = state;
     try {
-      console.log(data);
-      await dispatch(updateBookIncoming({ id: book.id, data: data })).unwrap();
+      await dispatch(updateBookIncoming({ id: book.id, data: state })).unwrap();
       await dispatch(getSchedules()).unwrap();
       setIsEdit(false);
       toast.success('Успешно сохранено!');
