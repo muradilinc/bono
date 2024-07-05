@@ -6,6 +6,7 @@ import { selectBook } from '../../features/shedule/model/scheduleSlice';
 import { createBook } from '../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
 import Modal from './Modal';
+import '../style/style.css';
 
 interface Props {
   onClose: () => void;
@@ -25,6 +26,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
   const dispatch = useAppDispatch();
   const book = useAppSelector(selectBook);
   const [showModal, setShowModal] = useState(false);
+  const [isValid, setIsValid] = useState<boolean>(false);
 
   useEffect(() => {
     if (id && book) {
@@ -39,6 +41,17 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
+    const phoneNumberPattern = /^\d{0,9}$/;
+    if (name == 'phone_number') {
+      if (value === '' || phoneNumberPattern.test(value)) {
+        setForm((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      }
+      setIsValid(value.length === 9);
+    }
+
     setForm((prevState) => ({
       ...prevState,
       [name]: value,
@@ -78,9 +91,9 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
           id="reservationForm"
           className="border border-white p-12 flex flex-col w-[500px] bg-black"
         >
-          <div className="text-center">
-            <h2 className="text-[32px] font-medium font-comfort">
-              Бронь столика
+          <div className="text-center mb-[10px]">
+            <h2 className="text-[24px] font-medium font-comfort">
+              Добавить клиента
             </h2>
           </div>
           <div className="flex flex-col gap-y-4">
@@ -93,22 +106,27 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
-            <input
-              value={form.phone_number}
-              onChange={changeField}
-              type="text"
-              name="phone_number"
-              placeholder="Номер телефона"
-              className="bg-transparent border-b border-white p-[10px]"
-              required
-            />
+            <div className="relative w-full">
+              <input
+                value={form.phone_number}
+                onChange={changeField}
+                type="text"
+                name="phone_number"
+                placeholder="Номер телефона"
+                className={`w-full bg-transparent border-b py-[10px] pr-[10px] pl-[50px] ${isValid ? 'border-white' : 'border-red-500'}`}
+                required
+              />
+              <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
+                +996
+              </span>
+            </div>
             <input
               value={form.will_come}
               onChange={changeField}
               type="date"
               name="will_come"
               placeholder="Дата"
-              className="bg-transparent border-b border-white p-[10px]"
+              className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
             <input
@@ -117,8 +135,9 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               type="number"
               name="amount_guest"
               placeholder="Количество персон"
-              className="bg-transparent border-b border-white p-[10px]"
+              className={`bg-transparent border-b ${Number(form.amount_guest) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
               required
+              min="1"
             />
             <input
               value={form.start_time}
@@ -126,7 +145,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               type="time"
               name="start_time"
               placeholder="Время"
-              className="bg-transparent border-b border-white p-[10px]"
+              className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
             <input
@@ -135,8 +154,9 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               type="number"
               name="time_stamp"
               placeholder="Длительность посещения"
-              className="bg-transparent border-b border-white p-[10px]"
+              className={`bg-transparent border-b ${Number(form.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
               required
+              min="1"
             />
             <input
               value={form.comment}
@@ -149,7 +169,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
             />
           </div>
           <button className="border-white border py-[10px] my-[20px]">
-            Забронировать стол
+            Добавить
           </button>
           <button
             onClick={onClose}

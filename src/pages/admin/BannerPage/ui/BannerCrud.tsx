@@ -12,7 +12,7 @@ import {
 } from '../../../../features/banner/api/bannerThunk';
 import { useNavigate, useParams } from 'react-router-dom';
 import { BannerCardsForm } from '../types/type';
-import ModalPopUp from '../../../../shared/ui/ModalPopUp';
+import { toast } from 'react-toastify';
 
 const BannerCrud = () => {
   const banners = useAppSelector(selectBannersId);
@@ -26,7 +26,6 @@ const BannerCrud = () => {
     subtitle: '',
   });
   const [selectedImageId, setSelectedImageId] = useState<string | null>(null);
-  const [popUp, setPopUp] = useState<boolean>(false);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -62,14 +61,18 @@ const BannerCrud = () => {
         formData.subtitle.trim() === '' ? banners?.subtitle : formData.subtitle,
       topik_baner: banners?.topik_baner.map((item) => item.id),
     };
-    await dispatch(
-      updateBannersId({ id: id as string, data: updatedFormData }),
-    ).unwrap();
-    setPopUp(true);
-    const time = setTimeout(() => {
-      nav('/admin/');
-    }, 3000);
-    return () => clearTimeout(time);
+    try {
+      await dispatch(
+        updateBannersId({ id: id as string, data: updatedFormData }),
+      ).unwrap();
+      toast.success('Изменение сохранены!');
+      const time = setTimeout(() => {
+        nav('/admin/');
+      }, 3000);
+      return () => clearTimeout(time);
+    } catch (err) {
+      toast.success('Что то пошло не так!');
+    }
   };
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -86,7 +89,7 @@ const BannerCrud = () => {
       );
       dispatch(getBannersTopik());
       setSelectedImageId(null);
-      setPopUp(true);
+      toast.success('Изменение сохранены!');
     }
   };
 
@@ -161,13 +164,6 @@ const BannerCrud = () => {
           </div>
         </div>
       </section>
-      {popUp && (
-        <ModalPopUp
-          popUp={popUp}
-          setPopUp={setPopUp}
-          propText={'Изменение сохранены'}
-        />
-      )}
     </form>
   );
 };
