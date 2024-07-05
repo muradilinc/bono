@@ -34,7 +34,7 @@ export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
               <AdminCategoriesCard category={category} key={category.id} />
             ))
           ) : (
-            <p className="text-white">Пусто</p>
+            <h4 className="text-white text-center mt-60">Нету категории</h4>
           )}
         </div>
       </section>
