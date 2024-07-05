@@ -22,8 +22,6 @@ export const Calendar: FC = () => {
     dispatch(
       getFilterTable({
         date: dayjs(currentDate).format('YYYY-MM-DD'),
-        name: '',
-        number: '996999770451',
       }),
     );
   }, [currentDate, dispatch]);
