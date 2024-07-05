@@ -94,7 +94,7 @@ const MainMenu = () => {
         {nameSubcategory}
       </h1>
       {menu.length > 0 ? (
-        loading ? (
+        !loading ? (
           <MenuCard
             menu={menu.filter((item) => item.category === categoryId)}
           />

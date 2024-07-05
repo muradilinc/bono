@@ -22,7 +22,7 @@ export const menuSlice = createSlice({
       state.menuLoading = true;
     });
     builder.addCase(getMenu.fulfilled, (state, action) => {
-      state.menuLoading = true;
+      state.menuLoading = false;
       state.menu = action.payload;
     });
     builder.addCase(getMenu.rejected, (state) => {
@@ -34,7 +34,7 @@ export const menuSlice = createSlice({
     builder.addCase(
       getMenuByCategoryAndSubcategory.fulfilled,
       (state, action) => {
-        state.menuLoading = true;
+        state.menuLoading = false;
         state.menu = action.payload;
       },
     );
