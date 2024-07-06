@@ -38,7 +38,7 @@ export const AdminBannerPage = () => {
         <h1 className="font-bold text-[24px] text-white font-comfort">
           Баннер
         </h1>
-        <Link to="/admin/banner/1">
+        <Link to="/admin/banner/3">
           <button className="bg-[#2B2B2B] px-[24px] py-[10px] rounded-lg flex items-center">
             <PencilSimple size={24} className="mr-[5px]" />
             Редактировать

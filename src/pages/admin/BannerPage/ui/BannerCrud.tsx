@@ -81,15 +81,19 @@ const BannerCrud = () => {
 
   const handleChangeFile = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    if (files && files.length > 0) {
-      const formData = new FormData();
-      formData.append('img', files[0]);
-      await dispatch(
-        updateBannersTopikId({ id: selectedImageId, data: formData }),
-      );
-      dispatch(getBannersTopik());
-      setSelectedImageId(null);
-      toast.success('Изменение сохранены!');
+    try {
+      if (files && files.length > 0) {
+        const formData = new FormData();
+        formData.append('img', files[0]);
+        await dispatch(
+          updateBannersTopikId({ id: selectedImageId, data: formData }),
+        );
+        dispatch(getBannersTopik());
+        setSelectedImageId(null);
+        toast.success('Изменение сохранены!');
+      }
+    } catch (err) {
+      toast.error('Что то пошло не так!');
     }
   };
 
