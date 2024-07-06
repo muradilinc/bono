@@ -55,7 +55,7 @@ const Calendar: React.FC<Props> = ({ slots }) => {
   return (
     <div className="bg-[black] relative">
       <BtnTable />
-      <div className="ml-[20px] bg-[#2B2B2B] px-[10px] rounded-[4px]">
+      <div className="ml-[20px] bg-[#2B2B2B] px-[10px] rounded-[4px]  ">
         <div className="flex flex-col relative">
           <div className="flex  items-center sticky top-0 z-10 bg-[#2B2B2B]">
             <div className="w-[85px] text-wrap">

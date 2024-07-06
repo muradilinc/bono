@@ -7,7 +7,6 @@ import Modal from '../../../shared/ui/Modal';
 
 export const FormCome = () => {
   const [isValid, setIsValid] = useState<boolean>(false);
-  console.log(isValid);
 
   const [state, setState] = useState<FormComeMutation>({
     user_name: '',
@@ -98,9 +97,12 @@ export const FormCome = () => {
                 type="text"
                 name="phone_number"
                 placeholder="Номер телефона"
-                className={`w-full bg-transparent border-b py-[10px] px-[10px] ${isValid ? 'border-white' : 'border-red-500'}`}
+                className={`w-full bg-transparent border-b p-[10px] ${isValid ? 'border-white' : 'border-red-500'}`}
                 required
               />
+              <p className="pl-[10px] pt-[10px] text-[#C1C1C1] text-[14px]">
+                Пример: 0559******
+              </p>
             </div>
             <input
               value={state.will_come}
@@ -111,16 +113,21 @@ export const FormCome = () => {
               className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
-            <input
-              value={state.amount_guest}
-              onChange={changeField}
-              type="number"
-              name="amount_guest"
-              placeholder="Количество персон"
-              className={`bg-transparent border-b ${Number(state.amount_guest) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
-              required
-              min="1"
-            />
+            <div className="w-full">
+              <input
+                value={state.amount_guest}
+                onChange={changeField}
+                type="number"
+                name="amount_guest"
+                placeholder="Количество персон (только цифра)"
+                className={`w-full bg-transparent border-b ${Number(state.amount_guest) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
+                required
+                min="1"
+              />
+              <p className="pl-[10px] pt-[10px] text-[#C1C1C1] text-[14px]">
+                Пример: 3
+              </p>
+            </div>
             <input
               value={state.start_time}
               onChange={changeField}
@@ -130,16 +137,21 @@ export const FormCome = () => {
               className="bg-transparent border-b border-white p-[10px] inputIcon"
               required
             />
-            <input
-              value={state.time_stamp}
-              onChange={changeField}
-              type="number"
-              name="time_stamp"
-              placeholder="Длительность посещения"
-              className={`bg-transparent border-b ${Number(state.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
-              required
-              min="1"
-            />
+            <div className="w-full">
+              <input
+                value={state.time_stamp}
+                onChange={changeField}
+                type="number"
+                name="time_stamp"
+                placeholder="Длительность посещения (только цифра))"
+                className={`w-full bg-transparent border-b ${Number(state.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
+                required
+                min="1"
+              />
+              <p className="pl-[10px] pt-[10px] text-[#C1C1C1] text-[14px]">
+                Пример: 2 (в часах)
+              </p>
+            </div>
             <input
               value={state.comment}
               onChange={changeField}
