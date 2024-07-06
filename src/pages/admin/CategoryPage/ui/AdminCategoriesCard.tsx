@@ -2,7 +2,6 @@ import React, { ChangeEvent, useRef, useState } from 'react';
 import { Category, CategoryMutation } from '../Type/Type';
 import { Check, Pen, Trash } from '@phosphor-icons/react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
-import ModalPopUp from '../../../../shared/ui/ModalPopUp';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import {
   changeCategory,
@@ -10,6 +9,7 @@ import {
   getCategories,
 } from '../../../../features/category/categoryThunk';
 import dayjs from 'dayjs';
+import { toast } from 'react-toastify';
 
 interface Props {
   category: Category;
@@ -22,7 +22,6 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
     image: null,
   });
   const [active, setActive] = useState<boolean>(false);
-  const [popUp, setPopUp] = useState<boolean>(false);
   const [isEdit, setIsEdit] = useState(false);
   const imageSelect = useRef<HTMLInputElement>(null);
   const [imageData, setImageData] = useState('');
@@ -69,14 +68,19 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
   };
 
   const saveCategory = async () => {
-    await dispatch(
-      changeCategory({
-        id: category.id,
-        category: { name: state.name, image: state.image },
-      }),
-    ).unwrap();
-    await dispatch(getCategories()).unwrap();
-    setIsEdit(false);
+    try {
+      await dispatch(
+        changeCategory({
+          id: category.id,
+          category: { name: state.name, image: state.image },
+        }),
+      ).unwrap();
+      await dispatch(getCategories()).unwrap();
+      toast.success('Изменения сохранены!');
+      setIsEdit(false);
+    } catch (err) {
+      toast.error('Что то пошло не так!');
+    }
   };
 
   const handleDelete = async (id: number) => {
@@ -156,13 +160,6 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
           addModal={active}
           setAddModal={setActive}
           onDelete={() => handleDelete(category.id)}
-        />
-      ) : null}
-      {popUp ? (
-        <ModalPopUp
-          popUp={popUp}
-          setPopUp={setPopUp}
-          propText={'Изменения сохранены'}
         />
       ) : null}
     </>
