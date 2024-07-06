@@ -36,20 +36,25 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
 
   const changeImageFiled = async (event: ChangeEvent<HTMLInputElement>) => {
     const { name, files } = event.target;
-    if (files && files[0]) {
-      const imageUrl = URL.createObjectURL(files[0]);
-      setState((prevState) => ({
-        ...prevState,
-        [name]: files[0],
-      }));
-      await dispatch(
-        changeCategory({
-          id: category.id,
-          category: { name: state.name, image: files[0] },
-        }),
-      ).unwrap();
-      await dispatch(getCategories()).unwrap();
-      setImageData(imageUrl);
+    try {
+      if (files && files[0]) {
+        const imageUrl = URL.createObjectURL(files[0]);
+        setState((prevState) => ({
+          ...prevState,
+          [name]: files[0],
+        }));
+        await dispatch(
+          changeCategory({
+            id: category.id,
+            category: { name: state.name, image: files[0] },
+          }),
+        ).unwrap();
+        await dispatch(getCategories()).unwrap();
+        setImageData(imageUrl);
+        toast.success('Фото изменено!');
+      }
+    } catch (err) {
+      toast.error('Что то пошло не так!');
     }
   };
 
@@ -84,9 +89,14 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
   };
 
   const handleDelete = async (id: number) => {
-    await dispatch(deleteCategory(id)).unwrap();
-    await dispatch(getCategories()).unwrap();
-    setActive(false);
+    try {
+      await dispatch(deleteCategory(id)).unwrap();
+      await dispatch(getCategories()).unwrap();
+      toast.success('Удалено!');
+      setActive(false);
+    } catch (err) {
+      toast.error('Что то пошло не так!');
+    }
   };
 
   return (

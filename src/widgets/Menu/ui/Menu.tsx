@@ -22,7 +22,10 @@ export const Menu = () => {
       <div className="flex mt-[30px] flex-wrap gap-[30px]">
         {categories
           .map((item) => (
-            <div className="relative flex-auto h-[435px] max-h-[435px]">
+            <div
+              key={item.id}
+              className="relative flex-auto h-[435px] max-h-[435px]"
+            >
               <img
                 className="rounded-[4px] w-full h-full object-cover"
                 src={'https://backend.bono-bar.com' + item.image}
