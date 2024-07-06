@@ -15,8 +15,12 @@ export const getGallery = createAsyncThunk<Gallery[]>(
 
 export const updateGallery = createAsyncThunk<
   GalleryId,
-  { id: string | null; data: FormData }
+  { id: string | null; data: File }
 >('gallery/updateOne', async ({ id, data }) => {
+  const formData = new FormData();
+  formData.append('images', data);
+  formData.append('title', 'Ресторан');
+  formData.append('description', 'Фото');
   const res = await axiosApi.put<GalleryId>(
     `https://backend.bono-bar.com/api/gallery/gallery_detail/${id}/`,
     data,

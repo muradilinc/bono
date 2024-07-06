@@ -1,6 +1,7 @@
 import { BannerCardsProps } from '../types/type';
 import dayjs from 'dayjs';
 import { Link } from 'react-router-dom';
+import { PencilSimple } from '@phosphor-icons/react';
 
 const BannerCard = ({ banner }: BannerCardsProps) => {
   return (
@@ -21,8 +22,9 @@ const BannerCard = ({ banner }: BannerCardsProps) => {
       </div>
       <Link to={`/admin/banner/${banner.id}`}>
         {' '}
-        <button className="bg-[#2B2B2B] px-[16px] py-[12px] rounded-[4px]">
-          Загрузить фото
+        <button className="flex items-center bg-[#2B2B2B] px-[16px] py-[12px] rounded-[4px]">
+          <PencilSimple size={24} className="mr-[5px]" />
+          Редактировать
         </button>
       </Link>
     </div>

@@ -1,18 +1,17 @@
 import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import { GalleryProps } from '../types/type';
-import ModalPopUp from '../../../../shared/ui/ModalPopUp';
 import {
   getGallery,
   updateGallery,
 } from '../../../../features/gallery/api/galleryThunk';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { API_LINK } from '../../../../app/constants/links';
+import { toast } from 'react-toastify';
 
 const GalleryMain = ({ galleries }: GalleryProps) => {
   const dispatch = useAppDispatch();
   const refFile = useRef<HTMLInputElement>(null);
   const [id, setId] = useState<string | null>(null);
-  const [popUp, setPopUp] = useState<boolean>(false);
 
   useEffect(() => {}, [id]);
 
@@ -24,14 +23,15 @@ const GalleryMain = ({ galleries }: GalleryProps) => {
   };
   const editImg = async (e: ChangeEvent<HTMLInputElement>) => {
     const { files } = e.target;
-    if (files && files.length > 0) {
-      const formData = new FormData();
-      formData.append('images', files[0]);
-      formData.append('title', 'Ресторан');
-      formData.append('description', 'Фото');
-      await dispatch(updateGallery({ id: id, data: formData }));
-      await dispatch(getGallery());
-      setPopUp(true);
+    try {
+      if (files && files.length > 0) {
+        const file = files[0];
+        await dispatch(updateGallery({ id: id, data: file }));
+        await dispatch(getGallery());
+        toast.success('Фото успешно обновлено!');
+      }
+    } catch (err) {
+      toast.error('Что то пошло не так!');
     }
   };
 
@@ -68,13 +68,6 @@ const GalleryMain = ({ galleries }: GalleryProps) => {
           </button>
         </div>
       ))}
-      {popUp && (
-        <ModalPopUp
-          popUp={popUp}
-          setPopUp={setPopUp}
-          propText={'Фото успешно заменен'}
-        />
-      )}
     </div>
   );
 };
