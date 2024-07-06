@@ -4,6 +4,7 @@ import { useAppDispatch } from '../../../app/store/hooks';
 import { FormComeMutation } from '../../../shared/types/Type';
 import { toast } from 'react-toastify';
 import Modal from '../../../shared/ui/Modal';
+import { times } from '../../scheduleTable/constants/times';
 
 export const FormCome = () => {
   const [state, setState] = useState<FormComeMutation>({
@@ -19,7 +20,9 @@ export const FormCome = () => {
   const [isValid, setIsValid] = useState(false);
   const dispatch = useAppDispatch();
 
-  const changeField = (event: ChangeEvent<HTMLInputElement>) => {
+  const changeField = (
+    event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
+  ) => {
     const { name, value } = event.target;
     setState((prevState) => ({
       ...prevState,
@@ -122,15 +125,26 @@ export const FormCome = () => {
               <p className="text-[12px] text-[#9ca3af] pl-[10px]">
                 Время бронирования
               </p>
-              <input
+              <select
+                name="start_time"
                 value={state.start_time}
                 onChange={changeField}
-                type="time"
-                name="start_time"
-                placeholder="Время"
-                className={`bg-transparent border-b w-full p-[10px] inputIcon ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}
-                required
-              />
+                className="bg-transparent border-b w-full p-[10px] border-white"
+              >
+                <option value="">select</option>
+                {times.map((time) => (
+                  <option value={time}>{time}</option>
+                ))}
+              </select>
+              {/*<input*/}
+              {/*  value={state.start_time}*/}
+              {/*  onChange={changeField}*/}
+              {/*  type="time"*/}
+              {/*  name="start_time"*/}
+              {/*  placeholder="Время"*/}
+              {/*  className={`bg-transparent border-b w-full p-[10px] inputIcon ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}*/}
+              {/*  required*/}
+              {/*/>*/}
             </div>
             <div>
               <p className="text-[12px] text-[#9ca3af] pl-[10px]">
