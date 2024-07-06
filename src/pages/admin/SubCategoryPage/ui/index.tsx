@@ -6,7 +6,7 @@ import {
 } from '../model/subCategorySlice';
 import { deleteSubCategory, getSubCategories } from '../api/subCategoryThunk';
 import { Link } from 'react-router-dom';
-import { Trash } from '@phosphor-icons/react';
+import { Pen, Trash } from '@phosphor-icons/react';
 import { toast } from 'react-toastify';
 import Loading from '../../../../shared/ui/Loading';
 
@@ -59,12 +59,20 @@ export const SubCategoriesPage = () => {
                     </div>
                   </div>
                 </div>
-                <button
-                  onClick={() => handleDeleteCategory(subCategory.id)}
-                  className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
-                >
-                  <Trash size={20} />
-                </button>
+                <div className="flex gap-x-3">
+                  <Link
+                    className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
+                    to={`/admin/sub-category-submit/${subCategory.id}`}
+                  >
+                    <Pen size={24} />
+                  </Link>
+                  <button
+                    onClick={() => handleDeleteCategory(subCategory.id)}
+                    className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
+                  >
+                    <Trash size={20} />
+                  </button>
+                </div>
               </div>
             ))
           ) : (

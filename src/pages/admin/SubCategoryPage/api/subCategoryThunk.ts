@@ -19,6 +19,14 @@ export const getSubCategories = createAsyncThunk<SubCategory[]>(
   },
 );
 
+export const getSingleSubCategory = createAsyncThunk<SubCategory, string>(
+  'subcategory/getSingle',
+  async (id) => {
+    const response = await axiosApi.get(`/category/subcategories/${id}/`);
+    return response.data;
+  },
+);
+
 export const getFilterSubcategories = createAsyncThunk(
   'subcategory/getById',
   async (id: number) => {
@@ -26,6 +34,20 @@ export const getFilterSubcategories = createAsyncThunk(
       `/category/subcategory_list/?category_id=${id}`,
     );
     return response.data;
+  },
+);
+
+interface UpdateSubCategory {
+  subCategory: SubCategoryMutation;
+  id: string;
+}
+
+export const updateSubCategory = createAsyncThunk<void, UpdateSubCategory>(
+  'subcategory/update',
+  async ({ id, subCategory }) => {
+    await axiosApi.put(`/category/subcategories/${id}/`, {
+      ...subCategory,
+    });
   },
 );
 
