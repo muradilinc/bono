@@ -30,7 +30,7 @@ export const AdminIncomingPage = () => {
   return (
     <>
       <div className="relative">
-        <section className="flex h-svh">
+        <section className="flex">
           <div className="w-full h-full bg-black p-8">
             <div className="bg-black p-[16px] flex items-center justify-between">
               <h1 className="font-bold text-[20px] text-white font-comfort">
