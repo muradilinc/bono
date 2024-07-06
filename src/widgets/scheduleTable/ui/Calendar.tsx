@@ -4,9 +4,11 @@ import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import {
   deleteBook,
   getSchedules,
+  getSingleBook,
   updateBook,
 } from '../../../features/shedule/api/scheduleThunk';
 import {
+  selectBook,
   selectDeleteBookLoading,
   selectUpdateBookLoading,
 } from '../../../features/shedule/model/scheduleSlice';
@@ -33,11 +35,18 @@ const Calendar: React.FC<Props> = ({ slots }) => {
   const updateLoading = useAppSelector(selectUpdateBookLoading);
   const deleteLoading = useAppSelector(selectDeleteBookLoading);
   const tables = useAppSelector(selectTables);
+  const clientApi = useAppSelector(selectBook);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getTables());
   }, [dispatch]);
+
+  useEffect(() => {
+    if (selectClient) {
+      dispatch(getSingleBook(selectClient));
+    }
+  }, [dispatch, selectClient]);
 
   const handleDeleteBook = async (id: number) => {
     await dispatch(deleteBook(id)).unwrap();
@@ -91,7 +100,7 @@ const Calendar: React.FC<Props> = ({ slots }) => {
                     .filter((slot) => slot.table === table.number_table)
                     .map((slot) => (
                       <TimeSlot
-                        key={`${slot.startTime}-${slot.table}`}
+                        key={slot.id}
                         onOpen={() => setModal(true)}
                         client={(id: number) => setSelectClient(id)}
                         slot={slot}
@@ -116,6 +125,13 @@ const Calendar: React.FC<Props> = ({ slots }) => {
               >
                 &#x2715;
               </span>
+            </div>
+            <div className="text-white">
+              <p>Имя: {clientApi?.user_name}</p>
+              <p>
+                Время: {clientApi?.start_time} - {clientApi?.end_time}
+              </p>
+              <p>Телефон: {clientApi?.phone_number}</p>
             </div>
             <div className="flex flex-col gap-y-3 w-full">
               <button

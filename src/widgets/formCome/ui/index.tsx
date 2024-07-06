@@ -142,7 +142,7 @@ export const FormCome = () => {
               {/*  type="time"*/}
               {/*  name="start_time"*/}
               {/*  placeholder="Время"*/}
-              {/*  className={`bg-transparent border-b w-full p-[10px] inputIcon ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}*/}
+              {/*  className=`bg-transparent border-b w-full p-[10px] inputIcon ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}*/}
               {/*  required*/}
               {/*/>*/}
             </div>
