@@ -1,13 +1,18 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
-import { selectSubCategories } from '../model/subCategorySlice';
+import {
+  selectSubCategories,
+  selectSubCategoriesLoading,
+} from '../model/subCategorySlice';
 import { deleteSubCategory, getSubCategories } from '../api/subCategoryThunk';
 import { Link } from 'react-router-dom';
 import { Trash } from '@phosphor-icons/react';
 import { toast } from 'react-toastify';
+import Loading from '../../../../shared/ui/Loading';
 
 export const SubCategoriesPage = () => {
   const subCategories = useAppSelector(selectSubCategories);
+  const loading = useAppSelector(selectSubCategoriesLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -22,6 +27,10 @@ export const SubCategoriesPage = () => {
       toast.error('Что-то пошло не так!');
     }
   };
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

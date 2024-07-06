@@ -106,29 +106,34 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               className="bg-transparent border-b border-white p-[10px]"
               required
             />
-            <div className="relative w-full">
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Например: 996 505 04 62 56
+              </p>
               <input
                 value={form.phone_number}
                 onChange={changeField}
                 type="text"
                 name="phone_number"
                 placeholder="Номер телефона"
-                className={`w-full bg-transparent border-b py-[10px] pr-[10px] pl-[50px] ${isValid ? 'border-white' : 'border-red-500'}`}
+                className={`w-full bg-transparent border-b p-[10px] ${isValid ? 'border-white' : 'border-red-500'}`}
                 required
               />
-              <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
-                +996
-              </span>
             </div>
-            <input
-              value={form.will_come}
-              onChange={changeField}
-              type="date"
-              name="will_come"
-              placeholder="Дата"
-              className="bg-transparent border-b border-white p-[10px] inputIcon"
-              required
-            />
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Дата бронирования
+              </p>
+              <input
+                value={form.will_come}
+                onChange={changeField}
+                type="date"
+                name="will_come"
+                placeholder="Дата"
+                className="bg-transparent border-b border-white p-[10px] w-full inputIcon"
+                required
+              />
+            </div>
             <input
               value={form.amount_guest}
               onChange={changeField}
@@ -139,25 +144,36 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               required
               min="1"
             />
-            <input
-              value={form.start_time}
-              onChange={changeField}
-              type="time"
-              name="start_time"
-              placeholder="Время"
-              className="bg-transparent border-b border-white p-[10px] inputIcon"
-              required
-            />
-            <input
-              value={form.time_stamp}
-              onChange={changeField}
-              type="number"
-              name="time_stamp"
-              placeholder="Длительность посещения"
-              className={`bg-transparent border-b ${Number(form.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
-              required
-              min="1"
-            />
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Время бронирования
+              </p>
+              <input
+                value={form.start_time}
+                onChange={changeField}
+                type="time"
+                name="start_time"
+                placeholder="Время"
+                className="bg-transparent border-b border-white w-full p-[10px] inputIcon"
+                required
+              />
+            </div>
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Например: 2 часа
+              </p>
+              <input
+                value={form.time_stamp}
+                onChange={changeField}
+                type="number"
+                name="time_stamp"
+                placeholder="Длительность посещения"
+                className={`bg-transparent border-b w-full ${Number(form.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
+                required
+                min="1"
+              />
+            </div>
+
             <input
               value={form.comment}
               onChange={changeField}
