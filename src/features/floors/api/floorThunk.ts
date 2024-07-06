@@ -17,3 +17,25 @@ export const getFloors = createAsyncThunk<Floor[]>(
     return response.data;
   },
 );
+
+export const getSingleFloor = createAsyncThunk<Floor, string>(
+  'floors/getSingle',
+  async (id) => {
+    const response = await axiosApi.get(`/floors/detail/floor/${id}/`);
+    return response.data;
+  },
+);
+
+export const updateFloor = createAsyncThunk<void, Floor>(
+  'floors/update',
+  async ({ title, id }) => {
+    await axiosApi.put(`/floors/update/floor/${id}/`, { title });
+  },
+);
+
+export const deleteFloor = createAsyncThunk<void, number>(
+  'floors/delete',
+  async (id) => {
+    await axiosApi.delete(`/floors/delete/floor/${id}/`);
+  },
+);
