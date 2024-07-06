@@ -1,43 +1,39 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
+import { selectFloors } from '../../../../features/floors/model/floorSlice';
 import {
-  selectSubCategories,
-  selectSubCategoriesLoading,
-} from '../model/subCategorySlice';
-import { deleteSubCategory, getSubCategories } from '../api/subCategoryThunk';
+  deleteFloor,
+  getFloors,
+} from '../../../../features/floors/api/floorThunk';
 import { Link } from 'react-router-dom';
-import { Pen, Trash } from '@phosphor-icons/react';
+import { Pencil, Trash } from '@phosphor-icons/react';
 import { toast } from 'react-toastify';
-import Loading from '../../../../shared/ui/Loading';
 
-export const SubCategoriesPage = () => {
-  const subCategories = useAppSelector(selectSubCategories);
-  const loading = useAppSelector(selectSubCategoriesLoading);
+export const FloorPanel = () => {
+  const floors = useAppSelector(selectFloors);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getSubCategories());
+    dispatch(getFloors());
   }, [dispatch]);
 
-  const handleDeleteCategory = async (id: number) => {
+  const handleDeleteFloor = async (id: number) => {
     try {
-      await dispatch(deleteSubCategory(id)).unwrap();
-      toast.success('Удалено!');
+      await dispatch(deleteFloor(id)).unwrap();
+      await dispatch(getFloors()).unwrap();
+      toast.success('Отдел успешно удален!');
     } catch (error) {
+      console.log(error);
       toast.error('Что-то пошло не так!');
     }
   };
 
-  if (loading) {
-    return <Loading />;
-  }
-
   return (
     <>
       <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
-        <h1 className="text-white font-semibold">Под Категории</h1>
+        <h1 className="text-white font-semibold">Отделы</h1>
         <Link
-          to="/admin/sub-category-submit"
+          to="/admin/department-submit"
           className="font-semibold text-white bg-[#6BC678] rounded-[8px] py-[10px] px-[15px]"
         >
           + Добавить
@@ -46,28 +42,28 @@ export const SubCategoriesPage = () => {
 
       <section className="bg-black w-full min-h-[635px] py-[30px] px-[20px]">
         <div>
-          {subCategories.length > 0 ? (
-            subCategories.map((subCategory) => (
+          {floors.length > 0 ? (
+            floors.map((floor) => (
               <div
-                key={subCategory.id}
+                key={floor.id}
                 className="flex items-center justify-between my-[20px]"
               >
                 <div className="flex items-center">
                   <div className="text-white ml-[15px]">
                     <div className="flex items-center gap-x-3">
-                      <p>Название: {subCategory.name}</p>
+                      <p>Название: {floor.title}</p>
                     </div>
                   </div>
                 </div>
                 <div className="flex gap-x-3">
                   <Link
                     className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
-                    to={`/admin/sub-category-submit/${subCategory.id}`}
+                    to={`/admin/department-submit/${floor.id}`}
                   >
-                    <Pen size={24} />
+                    <Pencil size={24} />
                   </Link>
                   <button
-                    onClick={() => handleDeleteCategory(subCategory.id)}
+                    onClick={() => handleDeleteFloor(floor.id)}
                     className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
                   >
                     <Trash size={20} />
