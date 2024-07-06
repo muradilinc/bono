@@ -11,6 +11,9 @@ import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
 import { getFloors } from '../../../features/floors/api/floorThunk';
+import BtnTable from '../../scheduleTable/ui/BtnTable';
+import { ArrowLeft } from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
 
 type ValuePiece = Date | null;
 
@@ -53,8 +56,14 @@ export const AdminHeader: FC = () => {
 
   return (
     <div className="relative">
-      <div className="w-full flex justify-b items-center bg-[black] p-4">
-        <div className="w-full flex gap-[30px] items-center justify-b">
+      <div className="flex flex-col bg-[black] p-4">
+        <div className="w-full flex gap-[30px] items-center justify-between">
+          <Link
+            to={'/admin/'}
+            className="px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
+          >
+            <ArrowLeft size={24} />
+          </Link>
           <Calendar setDate={setCurrentDate} />
           <FilterButton
             setAddModal={setShowModal}
