@@ -11,6 +11,9 @@ import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
 import { getFloors } from '../../../features/floors/api/floorThunk';
+import BtnTable from '../../scheduleTable/ui/BtnTable';
+import { ArrowLeft } from '@phosphor-icons/react';
+import { Link } from 'react-router-dom';
 
 type ValuePiece = Date | null;
 
@@ -19,6 +22,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 export const AdminHeader: FC = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [currentDate, setCurrentDate] = useState<Value>(null);
+  const [activeButton, setActiveButton] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
@@ -46,15 +50,22 @@ export const AdminHeader: FC = () => {
         getFilterTable({
           date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
           floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
+          status: activeButton,
         }),
       );
     }
-  }, [currentDate, currentIndex, dispatch, floors]);
+  }, [activeButton, currentDate, currentIndex, dispatch, floors]);
 
   return (
     <div className="relative">
-      <div className="w-full flex justify-b items-center bg-[black] p-4">
-        <div className="w-full flex gap-[30px] items-center justify-b">
+      <div className="flex flex-col bg-[black] p-4">
+        <div className="flex gap-[30px] items-center justify-between">
+          <Link
+            to={'/admin/'}
+            className="px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
+          >
+            <ArrowLeft size={24} />
+          </Link>
           <Calendar setDate={setCurrentDate} />
           <FilterButton
             setAddModal={setShowModal}
@@ -63,6 +74,7 @@ export const AdminHeader: FC = () => {
             setCurrentFloor={setCurrentIndex}
           />
         </div>
+        <BtnTable setActive={(index: number) => setActiveButton(index)} />
       </div>
       <Modal show={showModal} title="Добавить" onClose={closeModal}>
         {step === 'A' ? (

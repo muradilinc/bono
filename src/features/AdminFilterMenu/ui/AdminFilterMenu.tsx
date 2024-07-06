@@ -79,7 +79,7 @@ export const AdminFilterMenu: FC = () => {
   return (
     <>
       <div className="flex flex-col items-center justify-center gap-[24px] pt-[40px]">
-        <div className="flex gap-[16px]">
+        <div className="flex flex-wrap justify-center gap-[16px] px-[30px]">
           <AdminIconButton
             text={'Добавить'}
             iconUrl="/images/iconPlus.svg"
@@ -103,7 +103,7 @@ export const AdminFilterMenu: FC = () => {
           />
         </div>
       </div>
-      <div className="text-white w-full h-[88px] flex items-center justify-around">
+      <div className="text-white w-full h-[88px] flex items-center justify-center gap-x-[40px] gap-y-[20px] px-[30px] flex-wrap">
         {subcategories?.map((item) => (
           <div key={item.id}>
             <button
