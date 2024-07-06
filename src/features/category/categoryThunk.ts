@@ -22,7 +22,7 @@ export const getCategories = createAsyncThunk<Category[]>(
   'category/getAll',
   async () => {
     const response = await axiosApi.get<Category[]>(
-      '/category/category_subcategory_list/',
+      '/category/list_or_create/',
     );
     return response.data;
   },

@@ -11,7 +11,7 @@ const Clients: React.FC<Props> = ({ currentClient }) => {
   const filterBook = books.filter((book) => book.table === null);
 
   return (
-    <div className="flex flex-col gap-y-5">
+    <div className="flex flex-col gap-y-5 max-h-[550px] overflow-y-scroll">
       {filterBook.map((client) => (
         <div
           key={client.id}
