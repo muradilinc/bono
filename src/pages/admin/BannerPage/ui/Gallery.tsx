@@ -25,11 +25,8 @@ const GalleryMain = ({ galleries }: GalleryProps) => {
     const { files } = e.target;
     try {
       if (files && files.length > 0) {
-        const formData = new FormData();
-        formData.append('images', files[0]);
-        formData.append('title', 'Ресторан');
-        formData.append('description', 'Фото');
-        await dispatch(updateGallery({ id: id, data: formData }));
+        const file = files[0];
+        await dispatch(updateGallery({ id: id, data: file }));
         await dispatch(getGallery());
         toast.success('Фото успешно обновлено!');
       }

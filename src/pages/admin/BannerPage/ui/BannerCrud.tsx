@@ -83,10 +83,9 @@ const BannerCrud = () => {
     const { files } = e.target;
     try {
       if (files && files.length > 0) {
-        const formData = new FormData();
-        formData.append('img', files[0]);
+        const file = files[0];
         await dispatch(
-          updateBannersTopikId({ id: selectedImageId, data: formData }),
+          updateBannersTopikId({ id: selectedImageId, data: file }),
         );
         dispatch(getBannersTopik());
         setSelectedImageId(null);
