@@ -3,15 +3,24 @@ import { AdminCategoriesCard } from './AdminCategoriesCard';
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { getCategories } from '../../../../features/category/categoryThunk';
-import { selectCategories } from '../../../../features/category/categorySlice';
+import {
+  selectCategories,
+  selectCategoriesLoading,
+} from '../../../../features/category/categorySlice';
+import Loading from '../../../../shared/ui/Loading';
 
 export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectCategories);
+  const loading = useAppSelector(selectCategoriesLoading);
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

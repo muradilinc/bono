@@ -32,3 +32,5 @@ export const gallerySlice = createSlice({
 
 export const galleryReducer = gallerySlice.reducer;
 export const selectGallery = (state: RootState) => state.gallery.galleries;
+export const selectGalleryLoading = (state: RootState) =>
+  state.gallery.galleryLoaded;
