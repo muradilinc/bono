@@ -11,8 +11,6 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
     const endTime = parseInt(book.start_time) + parseInt(book.time_stamp);
     await axiosApi.post('/book/create/book/', {
       ...book,
-      title: 'amount',
-      time_stamp: '12:00',
       phone_number: '+996' + book.phone_number,
       end_time: endTime.toString() + ':00',
     });

@@ -6,9 +6,6 @@ import { toast } from 'react-toastify';
 import Modal from '../../../shared/ui/Modal';
 
 export const FormCome = () => {
-  const [isValid, setIsValid] = useState<boolean>(false);
-  console.log(isValid);
-
   const [state, setState] = useState<FormComeMutation>({
     user_name: '',
     phone_number: '',
@@ -19,26 +16,11 @@ export const FormCome = () => {
     comment: '',
   });
   const [showModal, setShowModal] = useState(false);
+  const [isValid, setIsValid] = useState(false);
   const dispatch = useAppDispatch();
 
   const changeField = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
-    const phoneNumberPattern = /^\d{0,9}$/;
-    if (name == 'phone_number') {
-      if (value === '' || phoneNumberPattern.test(value)) {
-        setState((prevState) => ({
-          ...prevState,
-          [name]: value,
-        }));
-      }
-      setIsValid(value.length === 9);
-    }
-    // if (name === 'phone') {
-    //   setState((prevState) => ({
-    //     ...prevState,
-    //     phone: value.toString(),
-    //   }));
-    // }
     setState((prevState) => ({
       ...prevState,
       [name]: value,
@@ -65,6 +47,7 @@ export const FormCome = () => {
       time_stamp: '',
       comment: '',
     });
+    setIsValid(false);
     setShowModal(false);
   };
 
@@ -78,7 +61,7 @@ export const FormCome = () => {
           id="reservationForm"
           className="border border-white p-12 flex flex-col gap-y-8"
         >
-          <div className="text-center">
+          <div className="text-center mb-[10px]">
             <h2 className="text-[36px] font-medium font-comfort">
               Бронь столика
             </h2>
@@ -93,74 +76,91 @@ export const FormCome = () => {
               type="text"
               name="user_name"
               placeholder="Имя"
-              className="bg-transparent border-b border-white p-[10px]"
+              className={`bg-transparent border-b p-[10px] ${isValid && state.user_name.trim() === '' ? 'border-[red]' : 'border-white'}`}
               required
             />
-            <div className="relative w-full">
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Например: 996 505 04 62 56
+              </p>
               <input
                 value={state.phone_number}
                 onChange={changeField}
-                type="text"
+                type="number"
+                min={0}
                 name="phone_number"
                 placeholder="Номер телефона"
-                className={`w-full bg-transparent border-b py-[10px] pr-[10px] pl-[50px] ${isValid ? 'border-white' : 'border-red-500'}`}
+                className={`w-full bg-transparent border-b p-[10px] ${isValid && state.phone_number.trim() === '' ? 'border-[red]' : 'border-white'}`}
                 required
               />
-              <span className="absolute left-[10px] top-[50%] translate-y-[-50%]">
-                +996
-              </span>
             </div>
-            <input
-              value={state.will_come}
-              onChange={changeField}
-              type="date"
-              name="will_come"
-              placeholder="Дата"
-              className="bg-transparent border-b border-white p-[10px] inputIcon"
-              required
-            />
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Дата бронирования
+              </p>
+              <input
+                value={state.will_come}
+                onChange={changeField}
+                type="date"
+                name="will_come"
+                placeholder="Дата"
+                className={`bg-transparent border-b p-[10px] w-full inputIcon ${isValid && state.will_come.trim() === '' ? 'border-[red]' : 'border-white'}`}
+                required
+              />
+            </div>
             <input
               value={state.amount_guest}
               onChange={changeField}
               type="number"
               name="amount_guest"
               placeholder="Количество персон"
-              className={`bg-transparent border-b ${Number(state.amount_guest) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
+              className={`bg-transparent border-b p-[10px] ${isValid && state.amount_guest.trim() === '' ? 'border-[red]' : 'border-white'}`}
               required
               min="1"
             />
-            <input
-              value={state.start_time}
-              onChange={changeField}
-              type="time"
-              name="start_time"
-              placeholder="Время"
-              className="bg-transparent border-b border-white p-[10px] inputIcon"
-              required
-            />
-            <input
-              value={state.time_stamp}
-              onChange={changeField}
-              type="number"
-              name="time_stamp"
-              placeholder="Длительность посещения"
-              className={`bg-transparent border-b ${Number(state.time_stamp) < 1 ? 'border-red-500' : 'border-white'} p-[10px]`}
-              required
-              min="1"
-            />
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Время бронирования
+              </p>
+              <input
+                value={state.start_time}
+                onChange={changeField}
+                type="time"
+                name="start_time"
+                placeholder="Время"
+                className={`bg-transparent border-b w-full p-[10px] inputIcon ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}
+                required
+              />
+            </div>
+            <div>
+              <p className="text-[12px] text-[#9ca3af] pl-[10px]">
+                Например: 2 часа
+              </p>
+              <input
+                value={state.time_stamp}
+                onChange={changeField}
+                type="number"
+                name="time_stamp"
+                placeholder="Длительность посещения"
+                className={`bg-transparent border-b w-full p-[10px] ${isValid && state.time_stamp.trim() === '' ? 'border-[red]' : 'border-white'}`}
+                required
+                min="1"
+              />
+            </div>
+
             <input
               value={state.comment}
               onChange={changeField}
               type="text"
               name="comment"
               placeholder="Комментарий"
-              className="bg-transparent border-b border-white p-[10px]"
+              className={`bg-transparent border-b p-[10px] ${isValid && state.comment.trim() === '' ? 'border-[red]' : 'border-white'}`}
               required
             />
           </div>
           <button
-            disabled={!isValid}
-            className="border-white border py-[10px] my-[30px]"
+            onClick={() => setIsValid(true)}
+            className="border-white border py-[10px] my-[20px]"
           >
             Забронировать стол
           </button>
