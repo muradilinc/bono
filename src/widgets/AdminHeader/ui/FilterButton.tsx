@@ -61,7 +61,7 @@ export const FilterButton: FC<Props> = ({
       <div>
         <button
           onClick={openModal}
-          className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
+          className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white text-nowrap"
         >
           Добавить +
         </button>
