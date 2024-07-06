@@ -13,6 +13,7 @@ import {
 } from '../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
 import { times } from '../../widgets/scheduleTable/constants/times';
+import { selectTables } from '../../features/tables/model/tableSlice';
 
 interface Props {
   onClose: () => void;
@@ -32,11 +33,10 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
     table: '',
   });
 
-  console.log(form);
-
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
+  const tables = useAppSelector(selectTables);
 
   useEffect(() => {
     if (id) {
@@ -104,15 +104,18 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       </div>
       <div>
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер столика</p>
-        <input
+        <select
           onChange={changeFields}
           value={form.table}
           name="table"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
-          type="number"
           required
-          min="1"
-        />
+        >
+          <option value="">select</option>
+          {tables.map((table) => (
+            <option value={table.id}>{table.number_table}</option>
+          ))}
+        </select>
       </div>
       <div>
         <input
