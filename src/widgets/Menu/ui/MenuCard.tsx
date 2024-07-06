@@ -5,12 +5,12 @@ import { MenuType } from '../../../features/AdminFilterMenu/model/types/type';
 const MenuCard: FC<{ menu: MenuType[] }> = ({ menu }) => {
   return (
     <div className="mt-[30px]">
-      <div className="flex flex-wrap gap-[20px] max-xl:justify-center max-md:hidden">
+      <div className="flex flex-wrap gap-[20px] max-xl:justify-center">
         {menu?.map((item: MenuType, inx: number) =>
           inx % 6 === 0 || inx % 6 === 1 || inx % 6 === 4 || inx % 6 === 5 ? (
             <div
               key={item.id}
-              className={`relative max-h-[465px] ${inx % 6 === 0 || inx % 6 === 1 || inx % 6 === 4 || inx % 6 === 5 ? 'flex-50' : 'flex-100'}`}
+              className={`relative max-h-[465px] ${inx % 6 === 0 || inx % 6 === 1 || inx % 6 === 4 || inx % 6 === 5 ? 'md:flex-50' : 'md:flex-100'} flex-auto`}
             >
               <img
                 className="w-full h-full object-cover"
