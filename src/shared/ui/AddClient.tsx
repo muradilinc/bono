@@ -7,6 +7,7 @@ import {
   selectCreateBookLoading,
 } from '../../features/shedule/model/scheduleSlice';
 import {
+  createBook,
   getSchedules,
   getSingleBook,
   updateTableBook,
@@ -77,7 +78,11 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
   const addClient = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      await dispatch(updateTableBook({ id: id!, book: form })).unwrap();
+      if (id) {
+        await dispatch(updateTableBook({ id: id!, book: form })).unwrap();
+      } else {
+        await dispatch(createBook(form)).unwrap();
+      }
       await dispatch(getSchedules()).unwrap();
       toast.success('Забронировано!');
       onClose();
