@@ -18,6 +18,10 @@ export const links = [
     name: 'Под категории',
   },
   {
+    path: '/admin/department',
+    name: 'Отделы',
+  },
+  {
     path: '/admin/incoming',
     name: 'Входящие',
   },
