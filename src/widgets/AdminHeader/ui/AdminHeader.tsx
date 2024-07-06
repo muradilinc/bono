@@ -53,7 +53,7 @@ export const AdminHeader: FC = () => {
 
   return (
     <div className="relative">
-      <div className="w-full flex justify-b items-center bg-[black] p-4">
+      <div className=" flex justify-b items-center bg-[black] p-4">
         <div className="w-full flex gap-[30px] items-center justify-b">
           <Calendar setDate={setCurrentDate} />
           <FilterButton
