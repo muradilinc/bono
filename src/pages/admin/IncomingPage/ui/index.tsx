@@ -1,13 +1,19 @@
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
-import { selectSchedules } from '../../../../features/shedule/model/scheduleSlice';
+import {
+  selectSchedules,
+  selectSchedulesLoading,
+} from '../../../../features/shedule/model/scheduleSlice';
 import { useEffect, useState } from 'react';
 import { getSchedules } from '../../../../features/shedule/api/scheduleThunk';
 import '../style/style.css';
 import AdminIncomingTbody from './AdminIncomingTbody';
 import FormAddClient from '../../../../shared/ui/FormAddClient';
+import { AdminIncomingType } from '../../../../shared/types/Type';
+import Loading from '../../../../shared/ui/Loading';
 
 export const AdminIncomingPage = () => {
-  const books = useAppSelector(selectSchedules);
+  const books = useAppSelector(selectSchedules) as AdminIncomingType[];
+  const loading = useAppSelector(selectSchedulesLoading);
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -16,6 +22,10 @@ export const AdminIncomingPage = () => {
   }, [dispatch]);
 
   const filterBook = books.filter((book) => book.table === null);
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>

@@ -1,23 +1,36 @@
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
-import { selectBanners } from '../../../../features/banner/model/bannerSlice';
+import {
+  selectBanners,
+  selectBannersLoading,
+} from '../../../../features/banner/model/bannerSlice';
 import { useEffect } from 'react';
 import { getBanners } from '../../../../features/banner/api/bannerThunk';
 import { PencilSimple } from '@phosphor-icons/react';
 import BannerCard from './BannerCard';
 import { Link } from 'react-router-dom';
-import { selectGallery } from '../../../../features/gallery/model/gallerySlice';
+import {
+  selectGallery,
+  selectGalleryLoading,
+} from '../../../../features/gallery/model/gallerySlice';
 import { getGallery } from '../../../../features/gallery/api/galleryThunk';
 import GalleryMain from './Gallery';
+import Loading from '../../../../shared/ui/Loading';
 
 export const AdminBannerPage = () => {
   const banners = useAppSelector(selectBanners);
+  const loadingBanner = useAppSelector(selectBannersLoading);
   const galleries = useAppSelector(selectGallery);
+  const loadingGalleries = useAppSelector(selectGalleryLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(getBanners());
     dispatch(getGallery());
   }, [dispatch]);
+
+  if (loadingBanner || loadingGalleries) {
+    return <Loading />;
+  }
 
   return (
     <section className="bg-black text-white px-[30px] py-[18px] flex flex-col gap-[30px]">

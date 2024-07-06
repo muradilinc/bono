@@ -16,6 +16,7 @@ import {
   selectSubCategoriesLoading,
 } from '../../../pages/admin/SubCategoryPage/model/subCategorySlice';
 import { getFilterSubcategories } from '../../../pages/admin/SubCategoryPage/api/subCategoryThunk';
+import Loading from '../../../shared/ui/Loading';
 
 export const AdminFilterMenu: FC = () => {
   const dispatch = useAppDispatch();
@@ -61,7 +62,7 @@ export const AdminFilterMenu: FC = () => {
   }
 
   if (categoryLoading) {
-    return '...Loading';
+    return <Loading />;
   }
 
   if (!categoryLoading) {
