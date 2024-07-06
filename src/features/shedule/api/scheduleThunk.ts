@@ -5,33 +5,16 @@ import {
   FormComeMutation,
 } from '../../../shared/types/Type';
 
-// Функция для очистки номера телефона
-const formatPhoneNumber = (phoneNumber: string) => {
-  // Удалить ведущий ноль и код страны +996
-  let cleanedPhoneNumber = phoneNumber.replace(/^0/, ''); // Удаляет ведущий ноль
-  cleanedPhoneNumber = cleanedPhoneNumber.replace(/^\+996/, ''); // Удаляет +996
-  // Возвращает номер с кодом страны +996
-  return '+996' + cleanedPhoneNumber;
-};
-
-// Функция для вычисления end_time
-const calculateEndTime = (startTime: string, timeStamp: string) => {
-  const endTime = parseInt(startTime) + parseInt(timeStamp);
-  return endTime.toString().padStart(2, '0') + ':00'; // Форматирует время в виде "HH:00"
-};
-
 export const createBook = createAsyncThunk<void, FormComeMutation>(
   'schedule/createBook',
   async (book) => {
-    const formattedPhoneNumber = formatPhoneNumber(book.phone_number);
-    const formattedEndTime = calculateEndTime(book.start_time, book.time_stamp);
-
+    const endTime = parseInt(book.start_time) + parseInt(book.time_stamp);
     await axiosApi.post('/book/create/book/', {
       ...book,
       title: 'amount',
-      time_stamp: parseInt(book.time_stamp),
-      phone_number: formattedPhoneNumber,
-      end_time: formattedEndTime,
+      time_stamp: '12:00',
+      phone_number: '+996' + book.phone_number,
+      end_time: endTime.toString() + ':00',
     });
   },
 );

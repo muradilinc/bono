@@ -34,7 +34,7 @@ const ScheduleTable = () => {
   }
 
   return (
-    <div className="flex flex-col w-[98vw]">
+    <div className="flex flex-col">
       <AdminHeader />
       <Calendar slots={slots} />
     </div>

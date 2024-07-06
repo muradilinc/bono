@@ -14,7 +14,7 @@ export const Sidebar = () => {
           {links.map((link, idx) => (
             <Link to={link.path} key={idx}>
               <li
-                className={`${Object.values(params)[0] === link.path.split('/')[2] ? 'border-b-2 border-white' : ''} p-[10px] hover:bg-[#3D3D3D] hover:opacity-100 rounded-[8px] font-medium opacity-90 text-white`}
+                className={`${Object.values(params)[0] === link.path.split('/')[2] ? 'border-b-2 border-white' : ''} p-[10px] hover:bg-[#3D3D3D] hover:opacity-100 rounded-[8px] duration-300 font-medium opacity-90 text-white`}
               >
                 {link.name}
               </li>
