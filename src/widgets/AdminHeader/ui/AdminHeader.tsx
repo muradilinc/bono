@@ -22,6 +22,7 @@ type Value = ValuePiece | [ValuePiece, ValuePiece];
 export const AdminHeader: FC = () => {
   const [modal, setModal] = useState<boolean>(false);
   const [currentDate, setCurrentDate] = useState<Value>(null);
+  const [activeButton, setActiveButton] = useState<number>(0);
   const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
@@ -49,10 +50,11 @@ export const AdminHeader: FC = () => {
         getFilterTable({
           date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
           floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
+          status: activeButton,
         }),
       );
     }
-  }, [currentDate, currentIndex, dispatch, floors]);
+  }, [activeButton, currentDate, currentIndex, dispatch, floors]);
 
   return (
     <div className="relative">
@@ -72,6 +74,7 @@ export const AdminHeader: FC = () => {
             setCurrentFloor={setCurrentIndex}
           />
         </div>
+        <BtnTable setActive={(index: number) => setActiveButton(index)} />
       </div>
       <Modal show={showModal} title="Добавить" onClose={closeModal}>
         {step === 'A' ? (
