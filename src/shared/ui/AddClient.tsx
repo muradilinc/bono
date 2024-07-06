@@ -8,7 +8,6 @@ import {
 } from '../../features/shedule/model/scheduleSlice';
 import {
   createBook,
-  getSchedules,
   getSingleBook,
   updateTableBook,
 } from '../../features/shedule/api/scheduleThunk';
@@ -83,7 +82,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       } else {
         await dispatch(createBook(form)).unwrap();
       }
-      await dispatch(getSchedules()).unwrap();
+      // await dispatch(getSchedules()).unwrap();
       toast.success('Забронировано!');
       onClose();
     } catch (error) {
@@ -118,7 +117,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
         >
           <option value="">select</option>
           {tables.map((table) => (
-            <option value={table.number_table}>{table.number_table}</option>
+            <option value={table.id}>{table.number_table}</option>
           ))}
         </select>
       </div>

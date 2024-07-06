@@ -13,7 +13,7 @@ import {
   selectUpdateBookLoading,
 } from '../../../features/shedule/model/scheduleSlice';
 import { times } from '../constants/times';
-import { getTables } from '../../../features/tables/api/tablesThunk';
+// import { getTables } from '../../../features/tables/api/tablesThunk';
 import { selectTables } from '../../../features/tables/model/tableSlice';
 
 interface Slot {
@@ -38,9 +38,9 @@ const Calendar: React.FC<Props> = ({ slots }) => {
   const clientApi = useAppSelector(selectBook);
   const dispatch = useAppDispatch();
 
-  useEffect(() => {
-    dispatch(getTables());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getTables());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (selectClient) {

@@ -1,22 +1,22 @@
 import { AdminHeader } from '../../AdminHeader';
 import Calendar from './Calendar';
-import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
+import { useAppSelector } from '../../../app/store/hooks';
 import {
   selectSchedules,
-  selectSchedulesLoading,
+  // selectSchedulesLoading,
 } from '../../../features/shedule/model/scheduleSlice';
-import { useEffect } from 'react';
-import { getSchedules } from '../../../features/shedule/api/scheduleThunk';
-import Loading from '../../../shared/ui/Loading';
+// import { useEffect } from 'react';
+// import { getSchedules, getSchedulesByFilter } from '../../../features/shedule/api/scheduleThunk';
+// import Loading from '../../../shared/ui/Loading';
 
 const ScheduleTable = () => {
   const schedules = useAppSelector(selectSchedules);
-  const loading = useAppSelector(selectSchedulesLoading);
-  const dispatch = useAppDispatch();
-
-  useEffect(() => {
-    dispatch(getSchedules());
-  }, [dispatch]);
+  // const loading = useAppSelector(selectSchedulesLoading);
+  // const dispatch = useAppDispatch();
+  //
+  // useEffect(() => {
+  //   dispatch(getSchedulesByFilter());
+  // }, [dispatch]);
 
   const slots = schedules.map((book) => {
     return {
@@ -29,9 +29,9 @@ const ScheduleTable = () => {
     };
   });
 
-  if (loading) {
-    return <Loading />;
-  }
+  // if (loading) {
+  //   return <Loading />;
+  // }
 
   return (
     <div className="flex flex-col w-[98vw]">

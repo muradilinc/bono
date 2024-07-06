@@ -6,7 +6,6 @@ import Clients from '../../../shared/ui/clients';
 import AddTable from '../../../shared/ui/AddTable';
 import AddFloor from '../../../shared/ui/AddFloor';
 import AddClient from '../../../shared/ui/AddClient';
-import { getFilterTable } from '../../../features/tables/api/tablesThunk';
 import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
@@ -14,6 +13,8 @@ import { getFloors } from '../../../features/floors/api/floorThunk';
 import BtnTable from '../../scheduleTable/ui/BtnTable';
 import { ArrowLeft } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
+import { getSchedules } from '../../../features/shedule/api/scheduleThunk';
+import { getTables } from '../../../features/tables/api/tablesThunk';
 
 type ValuePiece = Date | null;
 
@@ -47,11 +48,14 @@ export const AdminHeader: FC = () => {
   useEffect(() => {
     if (floors.length > 0) {
       dispatch(
-        getFilterTable({
+        getSchedules({
           date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
           floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
           status: activeButton,
         }),
+      );
+      dispatch(
+        getTables(floors[currentIndex].id ? floors[currentIndex].id : 0),
       );
     }
   }, [activeButton, currentDate, currentIndex, dispatch, floors]);
