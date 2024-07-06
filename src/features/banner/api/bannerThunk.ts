@@ -55,8 +55,10 @@ export const updateBannersId = createAsyncThunk<
 
 export const updateBannersTopikId = createAsyncThunk<
   BannersTopik,
-  { id: string | null; data: FormData }
+  { id: string | null; data: File }
 >('bannerTopik/updateOne', async ({ id, data }) => {
+  const formData = new FormData();
+  formData.append('img', data);
   const response = await axiosApi.patch<BannersTopik>(
     `/banner/update/banner/topik/${id}/`,
     data,

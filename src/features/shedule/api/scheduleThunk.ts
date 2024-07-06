@@ -55,6 +55,18 @@ export const updateBook = createAsyncThunk<void, number>(
   },
 );
 
+interface UpdateBook {
+  id: number;
+  book: FormComeMutation;
+}
+
+export const updateTableBook = createAsyncThunk<void, UpdateBook>(
+  'schedule/updateTable',
+  async ({ id, book }) => {
+    await axiosApi.put(`/book/update/book/${id}/`, book);
+  },
+);
+
 export const updateBookIncoming = createAsyncThunk<
   void,
   { id: number; data: AdminIncomingType }
