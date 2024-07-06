@@ -32,6 +32,7 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
     table: book.table,
     comment: book.comment,
     is_come: book.is_come,
+    created_at: book.created_at,
   });
 
   const deleteId = (id: number) => {
@@ -65,7 +66,6 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
       toast.error('Ошибка при сохранении!');
     }
   };
-
   return (
     <>
       {isEdit ? (
@@ -161,9 +161,9 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
           <td>{book.phone_number}</td>
           <td className="flex flex-col items-center justify-center">
             <p>{book.will_come}</p>
-            <p>{book.start_time}</p>
+            <p>{book.time_stamp}</p>
           </td>
-          <td>{book.time_stamp}</td>
+          <td>{parseInt(book.end_time) - parseInt(book.start_time)}</td>
           <td>{book.amount_guest}</td>
           <td className="max-w-[100px]">{book.comment}</td>
           <td>
