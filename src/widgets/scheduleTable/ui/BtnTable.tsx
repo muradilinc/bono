@@ -1,20 +1,14 @@
 import { btns } from '../constants/btns';
-import React, { useState } from 'react';
+import { useState } from 'react';
 
-interface Props {
-  setActive: (index: number) => void;
-}
-
-const BtnTable: React.FC<Props> = ({ setActive }) => {
-  const [activeButton, setActiveButton] = useState<number | null>(0);
+const BtnTable = () => {
+  const [activeButton, setActiveButton] = useState<number | null>(null);
 
   const clickBtn = (index: number) => {
     setActiveButton(index);
-    setActive(index);
   };
-
   return (
-    <div className="text-white py-[15px]">
+    <div className="text-white px-[20px] py-[20px]">
       <div className="flex items-center gap-[30px] h-[50px]">
         {btns.map((label, inx) => (
           <button

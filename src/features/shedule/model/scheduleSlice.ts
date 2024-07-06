@@ -13,7 +13,7 @@ export interface Schedule {
   id: number;
   user_name: string;
   phone_number: string;
-  time_stamp: number;
+  time_stamp: string;
   start_time: string;
   end_time: string;
   table: number;

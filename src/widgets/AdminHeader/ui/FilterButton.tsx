@@ -1,10 +1,5 @@
 import { FC, useState } from 'react';
-import {
-  CaretLeft,
-  CaretRight,
-  MagnifyingGlass,
-  Plus,
-} from '@phosphor-icons/react';
+import { CaretLeft, CaretRight, MagnifyingGlass } from '@phosphor-icons/react';
 import { useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
 
@@ -68,7 +63,7 @@ export const FilterButton: FC<Props> = ({
           onClick={openModal}
           className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
         >
-          <Plus size={24} />
+          Добавить +
         </button>
       </div>
     </>

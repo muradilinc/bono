@@ -17,14 +17,13 @@ interface FilterTable {
   number?: string;
   name?: string;
   floor?: number;
-  status?: number;
 }
 
 export const getFilterTable = createAsyncThunk<void, FilterTable>(
   'tables/getByFilter',
-  async ({ date, floor, status }) => {
+  async ({ date, floor }) => {
     const response = await axiosApi.get(
-      `/table/filters_by_date_status_floor/?date=${date}&floor=${floor}&status=${status}`,
+      `/table/filters_by_date_status_floor/?date=${date}&floor=${floor}`,
     );
     return response.data;
   },

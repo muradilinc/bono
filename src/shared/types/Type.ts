@@ -87,11 +87,12 @@ export interface AdminIncomingType {
   user_name: string;
   phone_number: string;
   will_come: string;
-  time_stamp: number;
+  time_stamp: string;
   start_time: string;
   end_time: string;
   amount_guest: number;
   table: number | null;
   comment: string;
   is_come: boolean;
+  created_at: string;
 }
