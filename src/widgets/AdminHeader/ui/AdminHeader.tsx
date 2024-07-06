@@ -59,7 +59,7 @@ export const AdminHeader: FC = () => {
   return (
     <div className="relative">
       <div className="flex flex-col bg-[black] p-4">
-        <div className="w-full flex gap-[30px] items-center justify-between">
+        <div className="flex gap-[30px] items-center justify-between">
           <Link
             to={'/admin/'}
             className="px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
