@@ -1,5 +1,10 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import { getFloors, getSingleFloor, initFloor } from '../api/floorThunk';
+import {
+  getFloors,
+  getSingleFloor,
+  initFloor,
+  ValidationError,
+} from '../api/floorThunk';
 import { RootState } from '../../../app/store/store';
 import { Floor } from './floors';
 
@@ -8,6 +13,7 @@ interface FloorState {
   floor: Floor | null;
   floorsLoading: boolean;
   floorInitLoading: boolean;
+  floorInitError: ValidationError | null;
   floorSingleLoading: boolean;
 }
 
@@ -16,6 +22,7 @@ const initialState: FloorState = {
   floor: null,
   floorsLoading: false,
   floorInitLoading: false,
+  floorInitError: null,
   floorSingleLoading: false,
 };
 
@@ -30,8 +37,9 @@ const floorSlice = createSlice({
     builder.addCase(initFloor.fulfilled, (state) => {
       state.floorInitLoading = false;
     });
-    builder.addCase(initFloor.rejected, (state) => {
+    builder.addCase(initFloor.rejected, (state, { payload: error }) => {
       state.floorInitLoading = false;
+      state.floorInitError = error || null;
     });
     builder.addCase(getFloors.pending, (state) => {
       state.floorsLoading = true;
@@ -66,6 +74,8 @@ export const floorsReducer = floorSlice.reducer;
 export const selectFloors = (state: RootState) => state.floor.floors;
 export const selectFloorsLoading = (state: RootState) =>
   state.floor.floorsLoading;
+export const selectFloorInitError = (state: RootState) =>
+  state.floor.floorInitError;
 export const selectFloor = (state: RootState) => state.floor.floor;
 export const selectFloorLoading = (state: RootState) =>
   state.floor.floorSingleLoading;
