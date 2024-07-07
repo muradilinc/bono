@@ -2,13 +2,31 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../../app/axiosApi';
 import { Floor } from '../model/floors';
 import { FormFloor } from '../../../shared/types/Type';
+import { isAxiosError } from 'axios';
 
-export const initFloor = createAsyncThunk<void, FormFloor>(
-  'tables/create',
-  async ({ title }) => {
+export interface ValidationError {
+  title: string[];
+}
+
+export const initFloor = createAsyncThunk<
+  void,
+  FormFloor,
+  { rejectValue: ValidationError }
+>('tables/create', async ({ title }, { rejectWithValue }) => {
+  try {
     await axiosApi.post('/floors/create/floor/', { title });
-  },
-);
+  } catch (error) {
+    if (
+      isAxiosError(error) &&
+      error.response &&
+      error.response.status === 400
+    ) {
+      return rejectWithValue(error.response.data);
+    }
+
+    throw error;
+  }
+});
 
 export const getFloors = createAsyncThunk<Floor[]>(
   'floors/getAll',

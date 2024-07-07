@@ -10,6 +10,7 @@ import {
 import { toast } from 'react-toastify';
 import {
   selectFloor,
+  selectFloorInitError,
   selectFloorLoading,
 } from '../../../../features/floors/model/floorSlice';
 import Loading from '../../../../shared/ui/Loading';
@@ -24,6 +25,7 @@ export const FloorForm = () => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const { id } = useParams() as { id: string };
+  const initError = useAppSelector(selectFloorInitError);
 
   useEffect(() => {
     if (id) {
@@ -70,6 +72,8 @@ export const FloorForm = () => {
       console.log(error);
     }
   };
+
+  console.log(initError);
 
   if (floorApiLoading) {
     return <Loading />;
