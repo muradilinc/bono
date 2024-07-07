@@ -6,14 +6,14 @@ import {
 } from '../../../shared/types/Type';
 import { Schedule } from '../model/scheduleSlice';
 
-// Функция для очистки номера телефона
-const formatPhoneNumber = (phoneNumber: string) => {
-  // Удалить ведущий ноль и код страны +996
-  let cleanedPhoneNumber = phoneNumber.replace(/^0/, ''); // Удаляет ведущий ноль
-  cleanedPhoneNumber = cleanedPhoneNumber.replace(/^\+996/, ''); // Удаляет +996
-  // Возвращает номер с кодом страны +996
-  return '+996' + cleanedPhoneNumber;
-};
+// // Функция для очистки номера телефона
+// const formatPhoneNumber = (phoneNumber: string) => {
+//   // Удалить ведущий ноль и код страны +996
+//   let cleanedPhoneNumber = phoneNumber.replace(/^0/, ''); // Удаляет ведущий ноль
+//   cleanedPhoneNumber = cleanedPhoneNumber.replace(/^\+996/, ''); // Удаляет +996
+//   // Возвращает номер с кодом страны +996
+//   return '+996' + cleanedPhoneNumber;
+// };
 
 // Функция для вычисления end_time
 const calculateEndTime = (startTime: string, timeStamp: string) => {
@@ -24,11 +24,11 @@ const calculateEndTime = (startTime: string, timeStamp: string) => {
 export const createBook = createAsyncThunk<void, FormComeMutation>(
   'schedule/createBook',
   async (book) => {
-    const formattedPhoneNumber = formatPhoneNumber(book.phone_number);
+    // const formattedPhoneNumber = formatPhoneNumber(book.phone_number);
     const formattedEndTime = calculateEndTime(book.start_time, book.time_stamp);
     await axiosApi.post('/book/create/book/', {
       ...book,
-      phone_number: formattedPhoneNumber,
+      phone_number: book.phone_number,
       end_time: formattedEndTime,
     });
   },

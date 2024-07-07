@@ -58,7 +58,8 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
-    const phoneNumberPattern = /^\d{0,9}$/;
+    const phoneNumberPattern = /^(\+996\d{9}|0\d{9}|\+7\d{10}|(?!0)\d{9})$/;
+
     if (name == 'phone_number') {
       if (value === '' || phoneNumberPattern.test(value)) {
         setForm((prevState) => ({
@@ -66,7 +67,8 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           [name]: value,
         }));
       }
-      setIsValid(value.length === 9);
+
+      setIsValid(value === '' || phoneNumberPattern.test(value));
     }
 
     setForm((prevState) => ({
@@ -140,13 +142,10 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
             onChange={changeFields}
             value={form.phone_number}
             name="phone_number"
-            className={`w-[340px] h-[40px] pr-[10px] pl-[50px] rounded-[4px] border-2 bg-black ${isValid ? '' : 'border-red-500'}`}
+            className={`w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black ${isValid ? '' : 'border-red-500'}`}
             type="text"
             required
           />
-          <span className="absolute left-[10px] top-[50%] translate-y-[-45%]">
-            +996
-          </span>
         </div>
         {!isValid && <p style={{ color: 'red' }}>Invalid phone number</p>}
       </div>

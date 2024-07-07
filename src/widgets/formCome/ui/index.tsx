@@ -17,17 +17,38 @@ export const FormCome = () => {
     comment: '',
   });
   const [showModal, setShowModal] = useState(false);
-  const [isValid, setIsValid] = useState(false);
+  const [isValid, setIsValid] = useState<boolean>(true);
   const dispatch = useAppDispatch();
 
   const changeField = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
+
+    const phoneNumberPattern = /^(\+996\d{9}|0\d{9}|\+7\d{10}|(?!0)\d{9})$/;
+
+    if (name == 'phone_number') {
+      if (value === '' || phoneNumberPattern.test(value)) {
+        setState((prevState) => ({
+          ...prevState,
+          [name]: value,
+        }));
+      }
+
+      setIsValid(value === '' || phoneNumberPattern.test(value));
+    }
+
     setState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const allowedChars = /^[0-9+ ]*$/;
+    if (!allowedChars.test(event.key)) {
+      event.preventDefault();
+    }
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -50,7 +71,7 @@ export const FormCome = () => {
       time_stamp: '',
       comment: '',
     });
-    setIsValid(false);
+    setIsValid(true);
     setShowModal(false);
   };
 
@@ -79,7 +100,7 @@ export const FormCome = () => {
               type="text"
               name="user_name"
               placeholder="Имя"
-              className={`bg-transparent border-b p-[10px] ${isValid && state.user_name.trim() === '' ? 'border-[red]' : 'border-white'}`}
+              className="bg-transparent border-b p-[10px] border-white"
               required
             />
             <div>
@@ -89,11 +110,12 @@ export const FormCome = () => {
               <input
                 value={state.phone_number}
                 onChange={changeField}
-                type="number"
-                min={0}
+                type="text"
+                onKeyPress={handleKeyPress}
+                // min={0}
                 name="phone_number"
                 placeholder="Номер телефона"
-                className={`w-full bg-transparent border-b p-[10px] ${isValid && state.phone_number.trim() === '' ? 'border-[red]' : 'border-white'}`}
+                className={`w-full bg-transparent border-b p-[10px] ${!isValid ? 'border-[red]' : 'border-white'}`}
                 required
               />
             </div>
@@ -107,7 +129,7 @@ export const FormCome = () => {
                 type="date"
                 name="will_come"
                 placeholder="Дата"
-                className={`bg-transparent border-b p-[10px] w-full inputIcon ${isValid && state.will_come.trim() === '' ? 'border-[red]' : 'border-white'}`}
+                className="bg-transparent border-b p-[10px] w-full inputIcon border-white"
                 required
               />
             </div>
@@ -117,7 +139,7 @@ export const FormCome = () => {
               type="number"
               name="amount_guest"
               placeholder="Количество персон"
-              className={`bg-transparent border-b p-[10px] ${isValid && state.amount_guest.trim() === '' ? 'border-[red]' : 'border-white'}`}
+              className="bg-transparent border-b p-[10px] border-white"
               required
               min="1"
             />
@@ -129,7 +151,7 @@ export const FormCome = () => {
                 name="start_time"
                 value={state.start_time}
                 onChange={changeField}
-                className={`bg-transparent border-b w-full p-[10px] ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}
+                className="bg-transparent border-b w-full p-[10px] border-white"
               >
                 <option className="bg-black" disabled value="">
                   select
@@ -160,7 +182,7 @@ export const FormCome = () => {
                 type="number"
                 name="time_stamp"
                 placeholder="Длительность посещения"
-                className={`bg-transparent border-b w-full p-[10px] ${isValid && state.time_stamp.trim() === '' ? 'border-[red]' : 'border-white'}`}
+                className="bg-transparent border-b w-full p-[10px] border-white"
                 required
                 min="1"
               />
@@ -172,7 +194,7 @@ export const FormCome = () => {
               type="text"
               name="comment"
               placeholder="Комментарий"
-              className={`bg-transparent border-b p-[10px] ${isValid && state.comment.trim() === '' ? 'border-[red]' : 'border-white'}`}
+              className="bg-transparent border-b p-[10px] border-white"
               required
             />
           </div>
