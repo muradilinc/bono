@@ -118,7 +118,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
         >
           <option value="">select</option>
           {tables.map((table) => (
-            <option value={table.number_table}>{table.number_table}</option>
+            <option value={table.id}>{table.number_table}</option>
           ))}
         </select>
       </div>

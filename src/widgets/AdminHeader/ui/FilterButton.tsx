@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   CaretLeft,
   CaretRight,
@@ -13,6 +13,7 @@ interface Props {
   setModal: (modal: boolean) => void;
   modal: boolean;
   setCurrentFloor: (floor: number) => void;
+  setQueryText: (text: string) => void;
 }
 
 export const FilterButton: FC<Props> = ({
@@ -20,24 +21,32 @@ export const FilterButton: FC<Props> = ({
   setModal,
   modal,
   setCurrentFloor,
+  setQueryText,
 }) => {
   const [currentIndex, setCurrentIndex] = useState<number>(0);
+  const [text, setText] = useState('');
   const openModal = () => {
     setAddModal(true);
     setModal(!modal);
   };
   const floors = useAppSelector(selectFloors);
 
+  useEffect(() => {
+    setCurrentFloor(currentIndex);
+  }, [currentIndex, setCurrentFloor]);
+
+  useEffect(() => {
+    setQueryText(text);
+  }, [setQueryText, text]);
+
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % floors.length);
-    setCurrentFloor(currentIndex);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + floors.length) % floors.length,
     );
-    setCurrentFloor(currentIndex);
   };
 
   return (
@@ -59,6 +68,8 @@ export const FilterButton: FC<Props> = ({
         <MagnifyingGlass className="w-[20px] h-[20px] text-white ml-[10px]" />
         <input
           type="text"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
           placeholder="Поиск"
           className="w-[90%] py-[10px] outline-none bg-[#2B2B2B] rounded-[8px] text-white pl-[5px]"
         />
