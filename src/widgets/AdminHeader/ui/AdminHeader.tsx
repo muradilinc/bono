@@ -143,9 +143,24 @@ export const AdminHeader: FC = () => {
         ) : step === 'E' ? (
           <Clients currentClient={(id: number) => selectClient(id)} />
         ) : step === 'M' ? (
-          <AddClient onClose={closeModal} />
+          <AddClient
+            filter={{
+              date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
+              floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
+              status: activeButton,
+            }}
+            onClose={closeModal}
+          />
         ) : step === 'K' ? (
-          <AddClient onClose={closeModal} id={client!} />
+          <AddClient
+            filter={{
+              date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
+              floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
+              status: activeButton,
+            }}
+            onClose={closeModal}
+            id={client!}
+          />
         ) : null}
       </Modal>
     </div>
