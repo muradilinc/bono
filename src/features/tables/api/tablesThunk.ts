@@ -12,28 +12,12 @@ export const initTable = createAsyncThunk<void, FormTable>(
   },
 );
 
-interface FilterTable {
-  date?: string;
-  number?: string;
-  name?: string;
-  floor?: number;
-  status?: number;
-}
-
-export const getFilterTable = createAsyncThunk<void, FilterTable>(
-  'tables/getByFilter',
-  async ({ date, floor, status }) => {
-    const response = await axiosApi.get(
-      `/table/filters_by_date_status_floor/?date=${date}&floor=${floor}&status=${status}`,
-    );
-    return response.data;
-  },
-);
-
-export const getTables = createAsyncThunk<Table[]>(
+export const getTables = createAsyncThunk<Table[], number | undefined>(
   'tables/getAll',
-  async () => {
-    const response = await axiosApi.get<Table[]>('/table/list/table/');
+  async (floor) => {
+    const response = await axiosApi.get<Table[]>(
+      `/table/list/table${floor ? `?floor=${floor}` : ''}`,
+    );
     return response.data;
   },
 );

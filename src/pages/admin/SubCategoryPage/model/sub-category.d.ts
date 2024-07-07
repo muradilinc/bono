@@ -6,5 +6,8 @@ export interface SubCategory {
 
 export interface SubCategoryMutation {
   name: '';
-  parent: number | null;
+  parent_details: {
+    id: number;
+    name: string;
+  } | null;
 }

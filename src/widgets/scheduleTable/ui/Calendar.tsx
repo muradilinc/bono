@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import TimeSlot from './TimeSlot';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import {
@@ -10,11 +10,14 @@ import {
 import {
   selectBook,
   selectDeleteBookLoading,
+  selectSchedules,
+  selectSchedulesLoading,
   selectUpdateBookLoading,
 } from '../../../features/shedule/model/scheduleSlice';
 import { times } from '../constants/times';
-import { getTables } from '../../../features/tables/api/tablesThunk';
+// import { getTables } from '../../../features/tables/api/tablesThunk';
 import { selectTables } from '../../../features/tables/model/tableSlice';
+import Loading from '../../../shared/ui/Loading';
 
 interface Slot {
   id: number;
@@ -25,11 +28,8 @@ interface Slot {
   is_come: boolean;
 }
 
-interface Props {
-  slots: Slot[];
-}
-
-const Calendar: React.FC<Props> = ({ slots }) => {
+const Calendar = () => {
+  const schedules = useAppSelector(selectSchedules);
   const [modal, setModal] = useState<boolean>(false);
   const [selectClient, setSelectClient] = useState<number>(0);
   const updateLoading = useAppSelector(selectUpdateBookLoading);
@@ -37,10 +37,11 @@ const Calendar: React.FC<Props> = ({ slots }) => {
   const tables = useAppSelector(selectTables);
   const clientApi = useAppSelector(selectBook);
   const dispatch = useAppDispatch();
+  const loading = useAppSelector(selectSchedulesLoading);
 
-  useEffect(() => {
-    dispatch(getTables());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(getTables());
+  // }, [dispatch]);
 
   useEffect(() => {
     if (selectClient) {
@@ -59,6 +60,21 @@ const Calendar: React.FC<Props> = ({ slots }) => {
     await dispatch(getSchedules()).unwrap();
     setModal(false);
   };
+
+  const slots: Slot[] = schedules.map((book) => {
+    return {
+      id: book.id,
+      startTime: book.start_time,
+      endTime: book.end_time,
+      table: book.table,
+      occupied: true,
+      is_come: book.is_come,
+    };
+  });
+
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <div className="bg-[black] relative">

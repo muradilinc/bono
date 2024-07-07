@@ -6,7 +6,6 @@ import Clients from '../../../shared/ui/clients';
 import AddTable from '../../../shared/ui/AddTable';
 import AddFloor from '../../../shared/ui/AddFloor';
 import AddClient from '../../../shared/ui/AddClient';
-import { getFilterTable } from '../../../features/tables/api/tablesThunk';
 import dayjs from 'dayjs';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
@@ -14,6 +13,9 @@ import { getFloors } from '../../../features/floors/api/floorThunk';
 import BtnTable from '../../scheduleTable/ui/BtnTable';
 import { ArrowLeft } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
+import { getSchedules } from '../../../features/shedule/api/scheduleThunk';
+import { getTables } from '../../../features/tables/api/tablesThunk';
+import useDebounce from '../../../features/useDebounce';
 
 type ValuePiece = Date | null;
 
@@ -27,8 +29,10 @@ export const AdminHeader: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
   const [client, setClient] = useState<number | null>(null);
+  const [searchText, setSearchText] = useState('');
   const floors = useAppSelector(selectFloors);
   const dispatch = useAppDispatch();
+  const debouncedSearchTerm = useDebounce(searchText, 1000);
 
   const closeModal = () => {
     setShowModal(false);
@@ -44,17 +48,35 @@ export const AdminHeader: FC = () => {
     dispatch(getFloors());
   }, [dispatch]);
 
+  console.log(currentIndex);
+
   useEffect(() => {
     if (floors.length > 0) {
       dispatch(
-        getFilterTable({
+        getSchedules({
           date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
           floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
           status: activeButton,
+          search_form: debouncedSearchTerm,
         }),
       );
     }
-  }, [activeButton, currentDate, currentIndex, dispatch, floors]);
+  }, [
+    activeButton,
+    currentDate,
+    currentIndex,
+    debouncedSearchTerm,
+    dispatch,
+    floors,
+  ]);
+
+  useEffect(() => {
+    if (floors.length > 0) {
+      dispatch(
+        getTables(floors[currentIndex].id ? floors[currentIndex].id : 0),
+      );
+    }
+  }, [currentIndex, dispatch, floors]);
 
   return (
     <div className="relative">
@@ -71,7 +93,8 @@ export const AdminHeader: FC = () => {
             setAddModal={setShowModal}
             setModal={setModal}
             modal={modal}
-            setCurrentFloor={setCurrentIndex}
+            setCurrentFloor={(floor: number) => setCurrentIndex(floor)}
+            setQueryText={(text: string) => setSearchText(text)}
           />
         </div>
         <BtnTable setActive={(index: number) => setActiveButton(index)} />
