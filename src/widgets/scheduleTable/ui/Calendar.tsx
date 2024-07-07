@@ -15,7 +15,6 @@ import {
   selectUpdateBookLoading,
 } from '../../../features/shedule/model/scheduleSlice';
 import { times } from '../constants/times';
-// import { getTables } from '../../../features/tables/api/tablesThunk';
 import { selectTables } from '../../../features/tables/model/tableSlice';
 import Loading from '../../../shared/ui/Loading';
 
@@ -38,10 +37,6 @@ const Calendar = () => {
   const clientApi = useAppSelector(selectBook);
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectSchedulesLoading);
-
-  // useEffect(() => {
-  //   dispatch(getTables());
-  // }, [dispatch]);
 
   useEffect(() => {
     if (selectClient) {
@@ -113,7 +108,7 @@ const Calendar = () => {
                   className="min-w-[124px] relative border-l-[1px] border-[#414141]"
                 >
                   {slots
-                    .filter((slot) => slot.table === table.number_table)
+                    .filter((slot) => slot.table === table.id)
                     .map((slot) => (
                       <TimeSlot
                         key={slot.id}
@@ -130,7 +125,7 @@ const Calendar = () => {
       </div>
       {modal ? (
         <div className="absolute top-[30%] w-[100%] flex justify-center rounded-[8px] z-[100]">
-          <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px] py-[15px] px-[15px] gap-y-3">
+          <div className="w-[400px] bg-black flex flex-col items-center rounded-[8px] py-[15px] px-[15px] gap-y-3">
             <div className="flex items-center justify-between w-[100%] rounded-[8px]">
               <h2 className="text-white text-[17px] font-bold">
                 Выберите одну из них
@@ -142,12 +137,14 @@ const Calendar = () => {
                 &#x2715;
               </span>
             </div>
-            <div className="text-white">
+            <div className="text-white flex flex-col">
               <p>Имя: {clientApi?.user_name}</p>
               <p>
                 Время: {clientApi?.start_time} - {clientApi?.end_time}
               </p>
+              <p>Кол-во: {clientApi?.amount_guest}</p>
               <p>Телефон: {clientApi?.phone_number}</p>
+              <p>Коммент: {clientApi?.comment}</p>
             </div>
             <div className="flex flex-col gap-y-3 w-full">
               <button

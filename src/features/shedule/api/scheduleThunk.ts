@@ -34,7 +34,7 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
   },
 );
 
-interface FilterBook {
+export interface FilterBook {
   date?: string;
   search_form?: string;
   floor?: number;

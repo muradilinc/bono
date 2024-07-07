@@ -8,6 +8,7 @@ import {
 } from '../../features/shedule/model/scheduleSlice';
 import {
   createBook,
+  FilterBook,
   getSchedules,
   getSingleBook,
   updateTableBook,
@@ -17,11 +18,12 @@ import { times } from '../../widgets/scheduleTable/constants/times';
 import { selectTables } from '../../features/tables/model/tableSlice';
 
 interface Props {
+  filter?: FilterBook;
   onClose: () => void;
   id?: number;
 }
 
-const AddClient: React.FC<Props> = ({ onClose, id }) => {
+const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: '',
@@ -83,7 +85,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       } else {
         await dispatch(createBook(form)).unwrap();
       }
-      await dispatch(getSchedules()).unwrap();
+      await dispatch(getSchedules(filter)).unwrap();
       toast.success('Забронировано!');
       onClose();
     } catch (error) {
@@ -118,7 +120,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
         >
           <option value="">select</option>
           {tables.map((table) => (
-            <option value={table.number_table}>{table.number_table}</option>
+            <option value={table.id}>{table.number_table}</option>
           ))}
         </select>
       </div>
