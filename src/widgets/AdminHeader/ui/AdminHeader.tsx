@@ -13,26 +13,36 @@ import { getFloors } from '../../../features/floors/api/floorThunk';
 import BtnTable from '../../scheduleTable/ui/BtnTable';
 import { ArrowLeft } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
-import { getSchedules } from '../../../features/shedule/api/scheduleThunk';
-import { getTables } from '../../../features/tables/api/tablesThunk';
-import useDebounce from '../../../features/useDebounce';
 
 type ValuePiece = Date | null;
 
 type Value = ValuePiece | [ValuePiece, ValuePiece];
 
-export const AdminHeader: FC = () => {
+interface Props {
+  currentDate: Value;
+  currentStatus: number;
+  currentFloor: number;
+  setCurrentDate: (date: Value) => void;
+  setCurrentStatus: (status: number) => void;
+  setCurrentFloor: (floor: number) => void;
+  setCurrentText: (text: string) => void;
+}
+
+export const AdminHeader: FC<Props> = ({
+  currentDate,
+  setCurrentDate,
+  currentStatus,
+  setCurrentStatus,
+  currentFloor,
+  setCurrentFloor,
+  setCurrentText,
+}) => {
   const [modal, setModal] = useState<boolean>(false);
-  const [currentDate, setCurrentDate] = useState<Value>(null);
-  const [activeButton, setActiveButton] = useState<number>(0);
-  const [currentIndex, setCurrentIndex] = useState<number>(0);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
   const [client, setClient] = useState<number | null>(null);
-  const [searchText, setSearchText] = useState('');
   const floors = useAppSelector(selectFloors);
   const dispatch = useAppDispatch();
-  const debouncedSearchTerm = useDebounce(searchText, 1000);
 
   const closeModal = () => {
     setShowModal(false);
@@ -47,36 +57,6 @@ export const AdminHeader: FC = () => {
   useEffect(() => {
     dispatch(getFloors());
   }, [dispatch]);
-
-  console.log(currentIndex);
-
-  useEffect(() => {
-    if (floors.length > 0) {
-      dispatch(
-        getSchedules({
-          date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
-          floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
-          status: activeButton,
-          search_form: debouncedSearchTerm,
-        }),
-      );
-    }
-  }, [
-    activeButton,
-    currentDate,
-    currentIndex,
-    debouncedSearchTerm,
-    dispatch,
-    floors,
-  ]);
-
-  useEffect(() => {
-    if (floors.length > 0) {
-      dispatch(
-        getTables(floors[currentIndex].id ? floors[currentIndex].id : 0),
-      );
-    }
-  }, [currentIndex, dispatch, floors]);
 
   return (
     <div className="relative">
@@ -93,11 +73,11 @@ export const AdminHeader: FC = () => {
             setAddModal={setShowModal}
             setModal={setModal}
             modal={modal}
-            setCurrentFloor={(floor: number) => setCurrentIndex(floor)}
-            setQueryText={(text: string) => setSearchText(text)}
+            setCurrentFloor={(floor: number) => setCurrentFloor(floor)}
+            setQueryText={(text: string) => setCurrentText(text)}
           />
         </div>
-        <BtnTable setActive={(index: number) => setActiveButton(index)} />
+        <BtnTable setActive={(index: number) => setCurrentStatus(index)} />
       </div>
       <Modal show={showModal} title="Добавить" onClose={closeModal}>
         {step === 'A' ? (
@@ -146,8 +126,8 @@ export const AdminHeader: FC = () => {
           <AddClient
             filter={{
               date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
-              floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
-              status: activeButton,
+              floor: floors.length > 0 ? floors[currentFloor].id : 0,
+              status: currentStatus,
             }}
             onClose={closeModal}
           />
@@ -155,8 +135,8 @@ export const AdminHeader: FC = () => {
           <AddClient
             filter={{
               date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
-              floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
-              status: activeButton,
+              floor: floors.length > 0 ? floors[currentFloor].id : 0,
+              status: currentStatus,
             }}
             onClose={closeModal}
             id={client!}
