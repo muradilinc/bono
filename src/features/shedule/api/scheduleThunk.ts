@@ -109,6 +109,10 @@ export const updateTableBook = createAsyncThunk<void, UpdateBook>(
   'schedule/updateTable',
   async ({ id, book }) => {
     await axiosApi.put(`/book/update/book/${id}/`, book);
+    // await axiosApi.put(`/table/update/table/${book.table}/`, {
+    //   number_table: book.table,
+    //   book: id,
+    // });
   },
 );
 
