@@ -15,6 +15,7 @@ import { ArrowLeft } from '@phosphor-icons/react';
 import { Link } from 'react-router-dom';
 import { getSchedules } from '../../../features/shedule/api/scheduleThunk';
 import { getTables } from '../../../features/tables/api/tablesThunk';
+import useDebounce from '../../../features/useDebounce';
 
 type ValuePiece = Date | null;
 
@@ -28,8 +29,10 @@ export const AdminHeader: FC = () => {
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
   const [client, setClient] = useState<number | null>(null);
+  const [searchText, setSearchText] = useState('');
   const floors = useAppSelector(selectFloors);
   const dispatch = useAppDispatch();
+  const debouncedSearchTerm = useDebounce(searchText, 1000);
 
   const closeModal = () => {
     setShowModal(false);
@@ -53,10 +56,19 @@ export const AdminHeader: FC = () => {
         getSchedules({
           date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
           floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
+          status: activeButton,
+          search_form: debouncedSearchTerm,
         }),
       );
     }
-  }, [activeButton, currentDate, currentIndex, dispatch, floors]);
+  }, [
+    activeButton,
+    currentDate,
+    currentIndex,
+    debouncedSearchTerm,
+    dispatch,
+    floors,
+  ]);
 
   useEffect(() => {
     if (floors.length > 0) {
@@ -82,6 +94,7 @@ export const AdminHeader: FC = () => {
             setModal={setModal}
             modal={modal}
             setCurrentFloor={(floor: number) => setCurrentIndex(floor)}
+            setQueryText={(text: string) => setSearchText(text)}
           />
         </div>
         <BtnTable setActive={(index: number) => setActiveButton(index)} />

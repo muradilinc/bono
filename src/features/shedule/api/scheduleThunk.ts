@@ -38,8 +38,7 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
 
 interface FilterBook {
   date?: string;
-  number?: string;
-  name?: string;
+  search_form?: string;
   floor?: number;
   status?: number;
 }
@@ -48,12 +47,33 @@ export const getSchedules = createAsyncThunk<
   Schedule[],
   FilterBook | undefined
 >('schedule/getAll', async (params) => {
-  const { date, floor, status } = params!;
-  const response = await axiosApi.get(
-    `/book/list/book?date=${date}&floor=${floor}${status ? `&status=${status}` : ''} `,
-  );
+  let url = '/book/list/book';
+  if (params) {
+    const { date, floor, status, search_form } = params;
+    const queryParams: string[] = [];
+    if (date) queryParams.push(`date=${date}`);
+    if (floor) queryParams.push(`floor=${floor}`);
+    if (status) queryParams.push(`status=${status}`);
+    if (search_form) queryParams.push(`search_form=${search_form}`);
+    if (queryParams.length > 0) {
+      url += `?${queryParams.join('&')}`;
+    }
+  }
+
+  const response = await axiosApi.get(url);
   return response.data;
 });
+
+// export const getSchedules = createAsyncThunk<
+//   Schedule[],
+//   FilterBook | undefined
+// >('schedule/getAll', async (params) => {
+//   const { date, floor, status } = params!;
+//   const response = await axiosApi.get(
+//     `/book/list/book?date=${date}&floor=${floor}${status ? `&status=${status}` : ''} `,
+//   );
+//   return response.data;
+// });
 
 // export const getSchedulesByFilter = createAsyncThunk<Schedule[], FilterBook>(
 //   'schedule/getByFilter',

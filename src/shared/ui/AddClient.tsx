@@ -8,6 +8,7 @@ import {
 } from '../../features/shedule/model/scheduleSlice';
 import {
   createBook,
+  getSchedules,
   getSingleBook,
   updateTableBook,
 } from '../../features/shedule/api/scheduleThunk';
@@ -82,7 +83,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       } else {
         await dispatch(createBook(form)).unwrap();
       }
-      // await dispatch(getSchedules()).unwrap();
+      await dispatch(getSchedules()).unwrap();
       toast.success('Забронировано!');
       onClose();
     } catch (error) {
