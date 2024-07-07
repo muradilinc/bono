@@ -1,11 +1,6 @@
+import { MenuType } from '../../../../features/AdminFilterMenu/model/types/type';
+
 export interface DataMenuCard {
-  id: number;
-  // created_at: string,
-  title: string;
-  price: number;
-  image: string;
-  description: string | null;
-  // category: number;
-  // subcategory: number;
+  item: MenuType;
   onDelete: (id: number) => void;
 }
