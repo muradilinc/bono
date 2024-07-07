@@ -1,6 +1,7 @@
-import React from 'react';
-import { useAppSelector } from '../../app/store/hooks';
+import React, { useEffect } from 'react';
+import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { selectSchedules } from '../../features/shedule/model/scheduleSlice';
+import { getSchedules } from '../../features/shedule/api/scheduleThunk';
 
 interface Props {
   currentClient: (id: number) => void;
@@ -9,6 +10,11 @@ interface Props {
 const Clients: React.FC<Props> = ({ currentClient }) => {
   const books = useAppSelector(selectSchedules);
   const filterBook = books.filter((book) => book.table === null);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getSchedules());
+  }, [dispatch]);
 
   return (
     <div className="flex flex-col gap-y-5 text-white min-w-[300px]">
