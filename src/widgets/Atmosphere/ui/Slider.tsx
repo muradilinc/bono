@@ -26,7 +26,7 @@ export const Slider = () => {
         <SwiperSlide key={item.id} className="!h-[245px] !w-full rounded">
           <img
             className="block w-full h-full object-cover rounded-[4px]"
-            src={'http://3.87.95.146/' + item.image_set[0].image}
+            src={'https://backend.bono-bar.com' + item.image_set[0].image}
             alt={item.title}
           />
         </SwiperSlide>

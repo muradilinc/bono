@@ -43,9 +43,8 @@ export const FormCome = () => {
       [name]: value,
     }));
   };
-
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
-    const allowedChars = /^[0-9+ ]*$/;
+    const allowedChars = /^[0-9+]*$/;
     if (!allowedChars.test(event.key)) {
       event.preventDefault();
     }

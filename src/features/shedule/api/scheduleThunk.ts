@@ -5,6 +5,7 @@ import {
   FormComeMutation,
 } from '../../../shared/types/Type';
 import { Schedule } from '../model/scheduleSlice';
+import { calculateEndTime } from '../calculateEndTime';
 
 // // Функция для очистки номера телефона
 // const formatPhoneNumber = (phoneNumber: string) => {
@@ -14,12 +15,6 @@ import { Schedule } from '../model/scheduleSlice';
 //   // Возвращает номер с кодом страны +996
 //   return '+996' + cleanedPhoneNumber;
 // };
-
-// Функция для вычисления end_time
-const calculateEndTime = (startTime: string, timeStamp: string) => {
-  const endTime = parseInt(startTime) + parseInt(timeStamp);
-  return endTime.toString().padStart(2, '0') + ':00'; // Форматирует время в виде "HH:00"
-};
 
 export const createBook = createAsyncThunk<void, FormComeMutation>(
   'schedule/createBook',
