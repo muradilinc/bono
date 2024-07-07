@@ -20,7 +20,7 @@ import { toast } from 'react-toastify';
 export const SubCategoryForm = () => {
   const [subCategory, setSubCategory] = useState<SubCategoryMutation>({
     name: '',
-    parent: null,
+    parent_details: null,
   });
   const categories = useAppSelector(selectCategories);
   const subCategoryApi = useAppSelector(selectSubCategory);
@@ -69,7 +69,7 @@ export const SubCategoryForm = () => {
       await dispatch(getSubCategories()).unwrap();
       setSubCategory({
         name: '',
-        parent: null,
+        parent_details: null,
       });
       navigate(-1);
     } catch (error) {
@@ -104,8 +104,8 @@ export const SubCategoryForm = () => {
             onChange={changeField}
             required
           >
-            {subCategory.parent ? (
-              <option>{subCategory.parent}</option>
+            {subCategory.parent_details ? (
+              <option>{subCategory.parent_details.name}</option>
             ) : (
               <option value="">Не выбрано</option>
             )}
