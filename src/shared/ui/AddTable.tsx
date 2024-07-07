@@ -37,7 +37,7 @@ const AddTable: React.FC<Props> = ({ onClose }) => {
     event.preventDefault();
     try {
       await dispatch(initTable(form)).unwrap();
-      await dispatch(getTables()).unwrap();
+      await dispatch(getTables(parseInt(form.floor))).unwrap();
       toast.success('Стол успешно создан!');
       onClose();
     } catch (error) {

@@ -161,9 +161,11 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
           <td>{book.phone_number}</td>
           <td className="flex flex-col items-center justify-center">
             <p>{book.will_come}</p>
-            <p>{book.time_stamp}</p>
+            <p>
+              {book.end_time} - {book.start_time}
+            </p>
           </td>
-          <td>{parseInt(book.end_time) - parseInt(book.start_time)}</td>
+          <td>{book.time_stamp}</td>
           <td>{book.amount_guest}</td>
           <td className="max-w-[100px]">{book.comment}</td>
           <td>
