@@ -1,4 +1,4 @@
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   CaretLeft,
   CaretRight,
@@ -28,16 +28,18 @@ export const FilterButton: FC<Props> = ({
   };
   const floors = useAppSelector(selectFloors);
 
+  useEffect(() => {
+    setCurrentFloor(currentIndex);
+  }, [currentIndex, setCurrentFloor]);
+
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % floors.length);
-    setCurrentFloor(currentIndex);
   };
 
   const handlePrev = () => {
     setCurrentIndex(
       (prevIndex) => (prevIndex - 1 + floors.length) % floors.length,
     );
-    setCurrentFloor(currentIndex);
   };
 
   return (

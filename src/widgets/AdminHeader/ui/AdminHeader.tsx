@@ -45,20 +45,26 @@ export const AdminHeader: FC = () => {
     dispatch(getFloors());
   }, [dispatch]);
 
+  console.log(currentIndex);
+
   useEffect(() => {
     if (floors.length > 0) {
       dispatch(
         getSchedules({
           date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
           floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
-          status: activeButton,
         }),
       );
+    }
+  }, [activeButton, currentDate, currentIndex, dispatch, floors]);
+
+  useEffect(() => {
+    if (floors.length > 0) {
       dispatch(
         getTables(floors[currentIndex].id ? floors[currentIndex].id : 0),
       );
     }
-  }, [activeButton, currentDate, currentIndex, dispatch, floors]);
+  }, [currentIndex, dispatch, floors]);
 
   return (
     <div className="relative">
@@ -75,7 +81,7 @@ export const AdminHeader: FC = () => {
             setAddModal={setShowModal}
             setModal={setModal}
             modal={modal}
-            setCurrentFloor={setCurrentIndex}
+            setCurrentFloor={(floor: number) => setCurrentIndex(floor)}
           />
         </div>
         <BtnTable setActive={(index: number) => setActiveButton(index)} />

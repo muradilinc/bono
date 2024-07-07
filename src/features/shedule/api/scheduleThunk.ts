@@ -50,7 +50,7 @@ export const getSchedules = createAsyncThunk<
 >('schedule/getAll', async (params) => {
   const { date, floor, status } = params!;
   const response = await axiosApi.get(
-    `/book/list/book?date=${date}&floor=${floor}&status=${status}`,
+    `/book/list/book?date=${date}&floor=${floor}${status ? `&status=${status}` : ''} `,
   );
   return response.data;
 });
