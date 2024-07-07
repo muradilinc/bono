@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TimeSlot from './TimeSlot';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import {
   deleteBook,
+  FilterBook,
   getSchedules,
   getSingleBook,
   updateBook,
@@ -27,7 +28,11 @@ interface Slot {
   is_come: boolean;
 }
 
-const Calendar = () => {
+interface Props {
+  filter: FilterBook;
+}
+
+const Calendar: React.FC<Props> = ({ filter }) => {
   const schedules = useAppSelector(selectSchedules);
   const [modal, setModal] = useState<boolean>(false);
   const [selectClient, setSelectClient] = useState<number>(0);
@@ -46,13 +51,13 @@ const Calendar = () => {
 
   const handleDeleteBook = async (id: number) => {
     await dispatch(deleteBook(id)).unwrap();
-    await dispatch(getSchedules()).unwrap();
+    await dispatch(getSchedules(filter)).unwrap();
     setModal(false);
   };
 
   const handleChangeStatusBook = async (id: number) => {
     await dispatch(updateBook(id)).unwrap();
-    await dispatch(getSchedules()).unwrap();
+    await dispatch(getSchedules(filter)).unwrap();
     setModal(false);
   };
 
