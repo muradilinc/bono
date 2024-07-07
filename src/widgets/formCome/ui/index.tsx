@@ -129,11 +129,15 @@ export const FormCome = () => {
                 name="start_time"
                 value={state.start_time}
                 onChange={changeField}
-                className="bg-transparent border-b w-full p-[10px] border-white"
+                className={`bg-transparent border-b w-full p-[10px] ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}
               >
-                <option value="">select</option>
+                <option className="bg-black" disabled value="">
+                  select
+                </option>
                 {times.map((time) => (
-                  <option value={time}>{time}</option>
+                  <option className="bg-black" value={time}>
+                    {time}
+                  </option>
                 ))}
               </select>
               {/*<input*/}

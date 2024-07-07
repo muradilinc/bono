@@ -61,7 +61,7 @@ export const updateBannersTopikId = createAsyncThunk<
   formData.append('img', data);
   const response = await axiosApi.patch<BannersTopik>(
     `/banner/update/banner/topik/${id}/`,
-    data,
+    formData,
   );
   return response.data;
 });

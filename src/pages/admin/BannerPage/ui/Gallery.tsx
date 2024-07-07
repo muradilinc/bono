@@ -26,8 +26,8 @@ const GalleryMain = ({ galleries }: GalleryProps) => {
     try {
       if (files && files.length > 0) {
         const file = files[0];
-        await dispatch(updateGallery({ id: id, data: file }));
-        await dispatch(getGallery());
+        await dispatch(updateGallery({ id: id, data: file })).unwrap();
+        await dispatch(getGallery()).unwrap();
         toast.success('Фото успешно обновлено!');
       }
     } catch (err) {

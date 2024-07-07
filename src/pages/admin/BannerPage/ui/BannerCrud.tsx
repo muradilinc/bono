@@ -86,8 +86,8 @@ const BannerCrud = () => {
         const file = files[0];
         await dispatch(
           updateBannersTopikId({ id: selectedImageId, data: file }),
-        );
-        dispatch(getBannersTopik());
+        ).unwrap();
+        dispatch(getBannersTopik()).unwrap();
         setSelectedImageId(null);
         toast.success('Изменение сохранены!');
       }

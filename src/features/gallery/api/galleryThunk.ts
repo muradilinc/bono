@@ -22,8 +22,8 @@ export const updateGallery = createAsyncThunk<
   formData.append('title', 'Ресторан');
   formData.append('description', 'Фото');
   const res = await axiosApi.put<GalleryId>(
-    `https://backend.bono-bar.com/api/gallery/gallery_detail/${id}/`,
-    data,
+    `/gallery/gallery_detail/${id}/`,
+    formData,
   );
   return res.data;
 });

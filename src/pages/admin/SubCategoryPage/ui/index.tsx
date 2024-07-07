@@ -22,6 +22,7 @@ export const SubCategoriesPage = () => {
   const handleDeleteCategory = async (id: number) => {
     try {
       await dispatch(deleteSubCategory(id)).unwrap();
+      await dispatch(getSubCategories()).unwrap();
       toast.success('Удалено!');
     } catch (error) {
       toast.error('Что-то пошло не так!');

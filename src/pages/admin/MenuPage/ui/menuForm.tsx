@@ -1,12 +1,17 @@
-import { ChangeEvent, useRef, useState } from 'react';
+import { ChangeEvent, useEffect, useRef, useState } from 'react';
 import dayjs from 'dayjs';
 import { filesize } from 'filesize';
 import { MenuItemMutation } from '../model/types';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import { selectCategories } from '../../../../features/category/categorySlice';
-import { createMenu } from '../../../../features/AdminFilterMenu/api/MenuThunk';
+import {
+  createMenu,
+  getMenu,
+} from '../../../../features/AdminFilterMenu/api/MenuThunk';
 import { selectSubCategories } from '../../SubCategoryPage/model/subCategorySlice';
 import { getFilterSubcategories } from '../../SubCategoryPage/api/subCategoryThunk';
+import { toast } from 'react-toastify';
+import { getCategories } from '../../../../features/category/categoryThunk';
 
 export const MenuFormPage = () => {
   const initialState: MenuItemMutation = {
@@ -24,6 +29,7 @@ export const MenuFormPage = () => {
 
   const [currentSubcategory, setCurrentSubcategory] = useState<number>(0);
   const [currentCategory, setCurrentCategory] = useState<number>(0);
+  const [imageError, setImageError] = useState(false);
 
   const categories = useAppSelector(selectCategories);
   const subcategories = useAppSelector(selectSubCategories);
@@ -71,31 +77,40 @@ export const MenuFormPage = () => {
         ...prevState,
         [name]: files[0],
       }));
+      setImageError(false);
     }
   };
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('title', state.title);
-    formData.append('price', state.price.toString());
-    formData.append('description', state.description);
-    formData.append('category', currentCategory.toString());
-    formData.append('subcategory', currentSubcategory.toString());
-    if (state.image) {
-      formData.append('image', state.image);
-    }
-    try {
-      await dispatch(createMenu(formData)).unwrap();
-      setState(initialState);
-      setImageData('');
-      setFilename('');
-      setCurrentCategory(0);
-      setCurrentSubcategory(0);
-    } catch (error) {
-      console.error('Failed to submit:', error);
+    if (!state.image) {
+      setImageError(true);
+      toast.error('Добавьте фото!');
+    } else {
+      try {
+        await dispatch(
+          createMenu({
+            ...state,
+            category: currentCategory,
+            subcategory: currentSubcategory,
+          }),
+        ).unwrap();
+        await dispatch(getMenu()).unwrap();
+        setState(initialState);
+        setImageData('');
+        setFilename('');
+        setCurrentCategory(0);
+        setCurrentSubcategory(0);
+        setImageError(false);
+        toast.success('Добавлено!');
+      } catch (error) {
+        toast.error('Что то пошло не так!');
+      }
     }
   };
+  useEffect(() => {
+    dispatch(getCategories()).unwrap();
+  }, [dispatch]);
 
   return (
     <div className="w-full h-screen bg-black text-white">
@@ -188,11 +203,12 @@ export const MenuFormPage = () => {
               </label>
               <input
                 id="price"
-                type="text"
+                type="number"
                 name="price"
+                min={0}
                 required
                 placeholder="Введите цену"
-                className="w-full bg-[#2B2B2B] outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-[#000]/70 placeholder:font-normal placeholder:text-[16px]"
+                className="w-full bg-[#2B2B2B] outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-wite/70 placeholder:font-normal placeholder:text-[16px]"
                 value={state.price}
                 onChange={changeFiled}
               />
@@ -202,7 +218,6 @@ export const MenuFormPage = () => {
             <input
               type="file"
               name="image"
-              required
               ref={imageSelect}
               onChange={changeImageFiled}
               className="hidden"
@@ -211,7 +226,7 @@ export const MenuFormPage = () => {
               <div className="flex gap-x-3 justify-between items-center">
                 <div className="flex items-center gap-x-[18px]">
                   <img
-                    className="max-w-[120px] max-h-[68px]"
+                    className="max-w-[120px] w-[120px] max-h-[68px] h-[68px]"
                     src={imageData}
                     alt="file"
                   />
@@ -227,7 +242,7 @@ export const MenuFormPage = () => {
                   </div>
                 </div>
                 <button
-                  className="bg-white text-[#000]/70 rounded-[8px] py-[10px] px-[13px]"
+                  className="bg-[#2B2B2B] text-[#000]/70 rounded-[8px] py-[10px] px-[13px] text-white"
                   onClick={selectImage}
                   type="button"
                 >
@@ -238,7 +253,7 @@ export const MenuFormPage = () => {
               <button
                 onClick={selectImage}
                 type="button"
-                className="text-white h-[68px] w-full border-dashed border-white font-semibold py-2 px-4 border rounded"
+                className={`${imageError ? 'border-[red]' : 'border-white'}  h-[68px] w-full border-dashed font-semibold py-2 px-4 border rounded`}
               >
                 Фото
               </button>

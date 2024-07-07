@@ -22,6 +22,14 @@ export interface MenuType {
   category: number;
   subcategory: number;
 }
+export interface MenuTypeThunk {
+  title: string;
+  price: number;
+  description: string;
+  category: number;
+  subcategory: number;
+  image: File | null;
+}
 
 export interface SubcategoryType {
   id: number;
@@ -35,4 +43,12 @@ export interface MenuItemMutation {
   image: File | null;
   subcategory: number;
   category: number;
+}
+
+export interface MenuUpdateType {
+  title: string;
+  price: number;
+  description: string | null;
+  category: number;
+  subcategory: number;
 }
