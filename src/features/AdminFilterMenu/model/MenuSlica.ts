@@ -40,6 +40,7 @@ export const menuSlice = createSlice({
     );
     builder.addCase(getMenuByCategoryAndSubcategory.rejected, (state) => {
       state.menuLoading = false;
+      state.menu = [];
     });
   },
 });
