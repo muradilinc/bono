@@ -6,7 +6,7 @@ interface Props {
 }
 
 const BtnTable: React.FC<Props> = ({ setActive }) => {
-  const [activeButton, setActiveButton] = useState<number | null>(0);
+  const [activeButton, setActiveButton] = useState<number | null>(9);
 
   useEffect(() => {
     setActive(activeButton!);

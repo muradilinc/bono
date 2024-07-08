@@ -26,7 +26,7 @@ const ScheduleTable = () => {
       dispatch(
         getSchedules({
           date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
-          floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
+          floor: floors[currentIndex].id ? floors[currentIndex].id : 9,
           status: activeButton,
           search_form: debouncedSearchTerm,
         }),

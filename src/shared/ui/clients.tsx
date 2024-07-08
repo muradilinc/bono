@@ -1,19 +1,19 @@
 import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
-import { selectSchedules } from '../../features/shedule/model/scheduleSlice';
-import { getSchedules } from '../../features/shedule/api/scheduleThunk';
+import { selectSchedulesIncoming } from '../../features/shedule/model/scheduleSlice';
+import { getSchedulesIncoming } from '../../features/shedule/api/scheduleThunk';
 
 interface Props {
   currentClient: (id: number) => void;
 }
 
 const Clients: React.FC<Props> = ({ currentClient }) => {
-  const books = useAppSelector(selectSchedules);
+  const books = useAppSelector(selectSchedulesIncoming);
   const filterBook = books.filter((book) => book.table === null);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getSchedules());
+    dispatch(getSchedulesIncoming());
   }, [dispatch]);
 
   return (
