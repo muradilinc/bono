@@ -56,7 +56,9 @@ export const FloorForm = () => {
     event.preventDefault();
     try {
       if (id) {
-        await dispatch(updateFloor({ id: parseInt(id), title: floor.title }));
+        await dispatch(
+          updateFloor({ id: parseInt(id), title: floor.title }),
+        ).unwrap();
         toast.success('Отдел успешно обновлен!');
       } else {
         await dispatch(initFloor(floor)).unwrap();
