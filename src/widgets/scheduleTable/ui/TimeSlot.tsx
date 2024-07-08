@@ -35,7 +35,7 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
   return (
     <div
       onClick={() => handleClickBoor(slot.id)}
-      className={`absolute ${occupied ? (is_come ? 'bg-orange-700' : 'bg-green-500') : 'hidden'} rounded-[6px] flex flex-col w-full text-center`}
+      className={`absolute ${occupied ? (is_come ? 'bg-orange-700' : 'bg-green-500') : 'hidden'} rounded-[6px] flex flex-col w-full text-center border border-black border-2`}
       style={{
         top: `${top * 2.2}rem`,
         height: `${(duration / 12.5) * 1.9}rem`,

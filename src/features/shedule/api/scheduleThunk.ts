@@ -46,7 +46,8 @@ export const getSchedules = createAsyncThunk<
     const queryParams: string[] = [];
     if (date) queryParams.push(`date=${date}`);
     if (floor) queryParams.push(`floor=${floor}`);
-    if (status) queryParams.push(`status=${status}`);
+    if (status !== 9 && (status === 0 || status))
+      queryParams.push(`status=${status}`);
     if (search_form) queryParams.push(`search_form=${search_form}`);
     if (queryParams.length > 0) {
       url += `?${queryParams.join('&')}`;
