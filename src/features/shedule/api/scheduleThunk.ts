@@ -48,7 +48,13 @@ export const getSchedules = createAsyncThunk<
     if (floor) queryParams.push(`floor=${floor}`);
     if (status !== 9 && (status === 0 || status))
       queryParams.push(`status=${status}`);
-    if (search_form) queryParams.push(`search_form=${search_form}`);
+    if (search_form) {
+      if (search_form.includes('+')) {
+        queryParams.push(`search_form=${search_form.slice(1)}`);
+      } else {
+        queryParams.push(`search_form=${search_form}`);
+      }
+    }
     if (queryParams.length > 0) {
       url += `?${queryParams.join('&')}`;
     }
