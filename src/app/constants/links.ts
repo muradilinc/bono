@@ -30,6 +30,10 @@ export const links = [
     name: 'СРМ система',
   },
   {
+    path: '/admin/common',
+    name: 'Общее',
+  },
+  {
     path: '/',
     name: 'К сайту',
   },
