@@ -1,11 +1,11 @@
 import { Check, Pen, Trash } from '@phosphor-icons/react';
 import {
   deleteBook,
-  getSchedules,
+  getSchedulesIncoming,
   updateBookIncoming,
 } from '../../../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
-import { ChangeEvent, useState } from 'react';
+import { ChangeEvent, useEffect, useState } from 'react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 import { useAppDispatch } from '../../../../app/store/hooks';
 import { AdminIncomingType } from '../../../../shared/types/Type';
@@ -34,6 +34,10 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
     is_come: book.is_come,
     created_at: book.created_at,
   });
+  useEffect(() => {
+    const newTime = parseInt(state.end_time) - parseInt(state.start_time);
+    setState((prevState) => ({ ...prevState, time_stamp: String(newTime) }));
+  }, [state.end_time, state.start_time]);
 
   const deleteId = (id: number) => {
     setId(id);
@@ -42,7 +46,7 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
   const onDelete = async () => {
     if (id) {
       await dispatch(deleteBook(id)).unwrap();
-      await dispatch(getSchedules()).unwrap();
+      await dispatch(getSchedulesIncoming()).unwrap();
       setAddModal(false);
       toast.success('Успешно удалено!');
     } else {
@@ -51,21 +55,53 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
   };
   const changeField = (event: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = event.target;
+    if (value === '24:00:00') {
+      toast.warning('Пожалуйста, укажите 00:00 вместо 24:00.');
+      setState((prevState) => ({
+        ...prevState,
+        [name]: '00:00:00',
+      }));
+      return;
+    }
     setState((prevState) => ({
       ...prevState,
       [name]: value,
     }));
   };
   const saveIncoming = async () => {
+    const newTime = parseInt(state.end_time) - parseInt(state.start_time);
+    setState({ ...state, time_stamp: String(newTime) });
     try {
       await dispatch(updateBookIncoming({ id: book.id, data: state })).unwrap();
-      await dispatch(getSchedules()).unwrap();
+      await dispatch(getSchedulesIncoming()).unwrap();
       setIsEdit(false);
       toast.success('Успешно сохранено!');
     } catch (err) {
       toast.error('Ошибка при сохранении!');
     }
   };
+  const calculateTimeDifference = (startTime: string, endTime: string) => {
+    const start = new Date(`2000-01-01T${startTime}`);
+    const end = new Date(`2000-01-01T${endTime}`);
+    let difference = end.getTime() - start.getTime();
+    const hours = Math.floor(difference / (1000 * 60 * 60));
+    difference -= hours * 1000 * 60 * 60;
+    const minutes = Math.floor(difference / (1000 * 60));
+    let timeDifference = '';
+    if (hours > 0) {
+      timeDifference = `${hours} ч`;
+      if (minutes > 0) {
+        timeDifference += ` ${minutes} мин`;
+      }
+    } else if (minutes > 0) {
+      timeDifference = `${minutes} мин`;
+    }
+    return timeDifference;
+  };
+  const timeDifference = calculateTimeDifference(
+    book.start_time,
+    book.end_time,
+  );
   return (
     <>
       {isEdit ? (
@@ -89,19 +125,12 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
               type="text"
             />
           </td>
-          <td className="flex flex-col items-center">
-            <input
-              className="bg-black text-center w-[100px]"
-              onChange={changeField}
-              name="will_come"
-              value={state.will_come}
-              type="text"
-            />
+          <td>
             <input
               className="bg-black border-b border-white text-center w-[100px]"
               onChange={changeField}
-              name="time_stamp"
-              value={state.time_stamp}
+              name="will_come"
+              value={state.will_come}
               type="text"
             />
           </td>
@@ -162,11 +191,11 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
           <td className="flex flex-col items-center justify-center">
             <p>{book.will_come}</p>
             <p>
-              {book.end_time} - {book.start_time}
+              {book.start_time} - {book.end_time}
             </p>
           </td>
-          <td>{book.time_stamp}</td>
-          <td>{book.amount_guest}</td>
+          <td>{timeDifference}</td>
+          <td>{book.amount_guest} пер.</td>
           <td className="max-w-[100px]">{book.comment}</td>
           <td>
             <button onClick={() => setIsEdit(true)}>

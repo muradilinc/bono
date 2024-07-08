@@ -1,10 +1,10 @@
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import {
-  selectSchedules,
-  selectSchedulesLoading,
+  selectSchedulesIncoming,
+  selectSchedulesIncomingLoading,
 } from '../../../../features/shedule/model/scheduleSlice';
 import { useEffect, useState } from 'react';
-import { getSchedules } from '../../../../features/shedule/api/scheduleThunk';
+import { getSchedulesIncoming } from '../../../../features/shedule/api/scheduleThunk';
 import '../style/style.css';
 import AdminIncomingTbody from './AdminIncomingTbody';
 import FormAddClient from '../../../../shared/ui/FormAddClient';
@@ -12,16 +12,14 @@ import { AdminIncomingType } from '../../../../shared/types/Type';
 import Loading from '../../../../shared/ui/Loading';
 
 export const AdminIncomingPage = () => {
-  const books = useAppSelector(selectSchedules) as AdminIncomingType[];
-  const loading = useAppSelector(selectSchedulesLoading);
+  const books = useAppSelector(selectSchedulesIncoming) as AdminIncomingType[];
+  const loading = useAppSelector(selectSchedulesIncomingLoading);
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
 
   useEffect(() => {
-    dispatch(getSchedules());
+    dispatch(getSchedulesIncoming());
   }, [dispatch]);
-
-  const filterBook = books.filter((book) => book.table === null);
 
   if (loading) {
     return <Loading />;
@@ -43,7 +41,7 @@ export const AdminIncomingPage = () => {
                 Добавить +
               </button>
             </div>
-            {filterBook.length > 0 ? (
+            {books.length > 0 ? (
               <div className="text-white font-medium mt-[30px] overflow-y-scroll max-h-[750px] bookScroll">
                 <table className="table-auto w-full text-center">
                   <thead className="border-b border-white bg-black sticky top-0">
@@ -60,7 +58,7 @@ export const AdminIncomingPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {filterBook.map((book, inx) => (
+                    {books.map((book, inx) => (
                       <AdminIncomingTbody book={book} inx={inx} key={book.id} />
                     ))}
                   </tbody>
