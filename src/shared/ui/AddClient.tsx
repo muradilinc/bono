@@ -52,6 +52,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       setForm((prevState) => ({
         ...prevState,
         ...book,
+        phone_number: '+' + book.phone_number,
       }));
     }
   }, [book, id]);
