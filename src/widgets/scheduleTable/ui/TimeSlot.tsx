@@ -24,8 +24,12 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
   const duration =
     endMinutes >= startMinutes
       ? endMinutes - startMinutes
-      : 1440 - startMinutes + endMinutes;
-  const top = ((startMinutes - 600) / 30) * 2;
+      : 1440 - startMinutes + endMinutes; // 1440 минут в сутках
+
+  // Adjust for negative top value when startMinutes is before 10:00 (600 minutes)
+  const adjustedStartMinutes =
+    startMinutes < 600 ? 1440 + startMinutes : startMinutes;
+  const top = ((adjustedStartMinutes - 600) / 30) * 2;
 
   const handleClickBoor = (id: number) => {
     client(id);
@@ -35,7 +39,7 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
   return (
     <div
       onClick={() => handleClickBoor(slot.id)}
-      className={`absolute ${occupied ? (is_come ? 'bg-orange-700' : 'bg-green-500') : 'hidden'} rounded-[6px] flex flex-col w-full text-center border border-black border-2`}
+      className={`absolute ${occupied ? (is_come ? 'bg-orange-700' : 'bg-green-500') : 'hidden'} rounded-[6px] flex flex-col w-full text-center border-black border-2`}
       style={{
         top: `${top * 2.2}rem`,
         height: `${(duration / 12.5) * 1.9}rem`,
