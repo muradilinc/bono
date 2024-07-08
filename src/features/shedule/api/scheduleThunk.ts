@@ -57,6 +57,14 @@ export const getSchedules = createAsyncThunk<
   return response.data;
 });
 
+export const getSchedulesIncoming = createAsyncThunk<Schedule[]>(
+  'schedule/getSchedulesIncoming',
+  async () => {
+    const res = await axiosApi.get(`/book/list/book/?table=1`);
+    return res.data;
+  },
+);
+
 // export const getSchedules = createAsyncThunk<
 //   Schedule[],
 //   FilterBook | undefined

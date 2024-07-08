@@ -3,6 +3,7 @@ import {
   createBook,
   deleteBook,
   getSchedules,
+  getSchedulesIncoming,
   getSingleBook,
   updateBook,
 } from '../api/scheduleThunk';
@@ -25,9 +26,11 @@ export interface Schedule {
 
 interface ScheduleState {
   schedules: Schedule[];
+  schedulesIncoming: Schedule[];
   book: FormComeMutation | null;
   bookLoading: boolean;
   schedulesLoading: boolean;
+  schedulesIncomingLoading: boolean;
   createLoading: boolean;
   updateLoading: boolean;
   deleteLoading: boolean;
@@ -35,9 +38,11 @@ interface ScheduleState {
 
 const initialState: ScheduleState = {
   schedules: [],
+  schedulesIncoming: [],
   book: null,
   bookLoading: false,
   schedulesLoading: false,
+  schedulesIncomingLoading: false,
   createLoading: false,
   updateLoading: false,
   deleteLoading: false,
@@ -67,6 +72,21 @@ const scheduleSlice = createSlice({
     builder.addCase(getSchedules.rejected, (state) => {
       state.schedulesLoading = false;
     });
+
+    builder.addCase(getSchedulesIncoming.pending, (state) => {
+      state.schedulesIncomingLoading = true;
+    });
+    builder.addCase(
+      getSchedulesIncoming.fulfilled,
+      (state, { payload: schedulesIncoming }) => {
+        state.schedulesIncomingLoading = false;
+        state.schedulesIncoming = schedulesIncoming;
+      },
+    );
+    builder.addCase(getSchedulesIncoming.rejected, (state) => {
+      state.schedulesIncomingLoading = false;
+    });
+
     builder.addCase(getSingleBook.pending, (state) => {
       state.bookLoading = false;
     });
@@ -103,9 +123,13 @@ const scheduleSlice = createSlice({
 
 export const scheduleReducer = scheduleSlice.reducer;
 export const selectSchedules = (state: RootState) => state.schedule.schedules;
+export const selectSchedulesIncoming = (state: RootState) =>
+  state.schedule.schedulesIncoming;
 export const selectBook = (state: RootState) => state.schedule.book;
 export const selectBookLoading = (state: RootState) =>
   state.schedule.bookLoading;
+export const selectSchedulesIncomingLoading = (state: RootState) =>
+  state.schedule.schedulesIncomingLoading;
 export const selectCreateBookLoading = (state: RootState) =>
   state.schedule.createLoading;
 export const selectSchedulesLoading = (state: RootState) =>

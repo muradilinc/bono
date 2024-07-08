@@ -5,7 +5,7 @@ import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { selectBook } from '../../features/shedule/model/scheduleSlice';
 import {
   createBook,
-  getSchedules,
+  getSchedulesIncoming,
 } from '../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
 import '../style/style.css';
@@ -51,7 +51,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
     event.preventDefault();
     try {
       await dispatch(createBook(form)).unwrap();
-      await dispatch(getSchedules()).unwrap();
+      await dispatch(getSchedulesIncoming()).unwrap();
       toast.success('Добавлен!');
       setForm({
         user_name: '',
