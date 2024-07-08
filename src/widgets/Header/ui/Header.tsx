@@ -13,7 +13,7 @@ export const Header: FC = () => {
   }, []);
   return (
     <div
-      className={`w-full h-[128px] text-white absolute z-10 ${isOpen && 'bg-[#070606]'} bg-[#000000b3] pb-[30px] backdrop-blur-sm`}
+      className={`w-full h-[110px] text-white absolute z-10 ${isOpen && 'bg-[#070606]'} bg-[#000000b3] pb-[30px] backdrop-blur-sm`}
     >
       <div className="w-[90%] h-full m-auto">
         <div className="hidden lg:flex h-1/2 items-center justify-end">

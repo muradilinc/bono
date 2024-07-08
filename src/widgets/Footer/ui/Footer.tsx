@@ -11,7 +11,7 @@ export const Footer: FC = () => {
     ));
   }, []);
   return (
-    <div className="w-full h-[540px] lg:h-[300px] bg-[#070606] lg:pt-[50px] text-white">
+    <div className="w-full h-[540px] lg:h-[300px] bg-black lg:pt-[50px] text-white">
       <div className="w-[90%] m-auto pt-[36px] lg:pt-[0px]">
         <div className="w-full h-full flex flex-col gap-[24px] lg:w-full lg:flex-row lg:gap-[110px]">
           <div className="flex justify-between lg:flex-col lg:h-0">

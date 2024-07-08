@@ -35,7 +35,29 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
     created_at: book.created_at,
   });
   useEffect(() => {
-    const newTime = parseInt(state.end_time) - parseInt(state.start_time);
+    const adjustTime = (time: string) => {
+      if (time.startsWith('00:')) {
+        return time.replace('00:', '24:');
+      } else if (time.startsWith('01:')) {
+        return time.replace('01:', '25:');
+      } else if (time.startsWith('02:')) {
+        return time.replace('02:', '26:');
+      } else if (time.startsWith('03:')) {
+        return time.replace('03:', '27:');
+      } else if (time.startsWith('04:')) {
+        return time.replace('04:', '28:');
+      }
+      return time;
+    };
+
+    const startTime = adjustTime(state.start_time);
+    const endTime = adjustTime(state.end_time);
+
+    const startHours = parseInt(startTime.split(':')[0], 10);
+    const endHours = parseInt(endTime.split(':')[0], 10);
+
+    const newTime = endHours - startHours;
+
     setState((prevState) => ({ ...prevState, time_stamp: String(newTime) }));
   }, [state.end_time, state.start_time]);
 
@@ -69,8 +91,6 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
     }));
   };
   const saveIncoming = async () => {
-    const newTime = parseInt(state.end_time) - parseInt(state.start_time);
-    setState({ ...state, time_stamp: String(newTime) });
     try {
       await dispatch(updateBookIncoming({ id: book.id, data: state })).unwrap();
       await dispatch(getSchedulesIncoming()).unwrap();
@@ -139,7 +159,7 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
               className="bg-black border-b border-white text-center w-[50px]"
               onChange={changeField}
               name="start_time"
-              value={state.start_time}
+              value={state.start_time.slice(0, 5)}
               type="text"
             />
             -
@@ -147,7 +167,7 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
               className="bg-black border-b border-white text-center w-[50px]"
               onChange={changeField}
               name="end_time"
-              value={state.end_time}
+              value={state.end_time.slice(0, 5)}
               type="text"
             />
           </td>
@@ -191,10 +211,12 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
           <td className="flex flex-col items-center justify-center">
             <p>{book.will_come}</p>
             <p>
-              {book.start_time} - {book.end_time}
+              {book.start_time.slice(0, 5)} - {book.end_time.slice(0, 5)}
             </p>
           </td>
-          <td>{timeDifference}</td>
+          <td>
+            {timeDifference === '' ? state.time_stamp + ' ч' : timeDifference}
+          </td>
           <td>{book.amount_guest} пер.</td>
           <td className="max-w-[100px]">{book.comment}</td>
           <td>
