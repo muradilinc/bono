@@ -19,8 +19,13 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
   const { startTime, endTime, occupied, is_come } = slot;
   const start = moment(startTime, 'HH:mm');
   const end = moment(endTime, 'HH:mm');
-  const duration = end.diff(start, 'minutes');
-  const top = ((start.hours() * 60 + start.minutes() - 600) / 30) * 2;
+  const startMinutes = start.hours() * 60 + start.minutes();
+  const endMinutes = end.hours() * 60 + end.minutes();
+  const duration =
+    endMinutes >= startMinutes
+      ? endMinutes - startMinutes
+      : 1440 - startMinutes + endMinutes;
+  const top = ((startMinutes - 600) / 30) * 2;
 
   const handleClickBoor = (id: number) => {
     client(id);
@@ -32,7 +37,7 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
       onClick={() => handleClickBoor(slot.id)}
       className={`absolute ${occupied ? (is_come ? 'bg-orange-700' : 'bg-green-500') : 'hidden'} rounded-[6px] flex flex-col w-full text-center`}
       style={{
-        top: `${top * 2.3}rem`,
+        top: `${top * 2.2}rem`,
         height: `${(duration / 12.5) * 1.9}rem`,
       }}
     >
