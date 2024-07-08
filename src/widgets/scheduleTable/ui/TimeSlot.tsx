@@ -26,7 +26,6 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
       ? endMinutes - startMinutes
       : 1440 - startMinutes + endMinutes; // 1440 минут в сутках
 
-  // Adjust for negative top value when startMinutes is before 10:00 (600 minutes)
   const adjustedStartMinutes =
     startMinutes < 600 ? 1440 + startMinutes : startMinutes;
   const top = ((adjustedStartMinutes - 600) / 30) * 2;
