@@ -49,7 +49,7 @@ const AddTable: React.FC<Props> = ({ onClose }) => {
   return (
     <form
       onSubmit={addTable}
-      className="flex flex-col gap-[20px] mt-[20px] text-white"
+      className="w-[400px] flex flex-col items-center gap-[20px] mt-[20px] text-white"
     >
       <div>
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер стола</p>
@@ -80,14 +80,14 @@ const AddTable: React.FC<Props> = ({ onClose }) => {
       </div>
       <button
         type="submit"
-        className="bg-[#2B2B2B] duration-300 text-white h-[50px] rounded-[4px] hover:bg-[#6BC678]"
+        className="w-[372px] bg-[#2B2B2B] duration-300 text-white h-[50px] rounded-[4px] hover:bg-[#6BC678]"
       >
         Добавить
       </button>
       <button
         onClick={onClose}
         type="button"
-        className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] duration-300 hover:bg-[#6BC678]"
+        className="bg-[#2B2B2B] text-white w-[372px] h-[50px] rounded-[4px] duration-300 hover:bg-[#6BC678]"
       >
         Отмена
       </button>
