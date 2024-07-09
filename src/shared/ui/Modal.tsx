@@ -14,7 +14,7 @@ const Modal: React.FC<Props> = ({ show, title, children, onClose }) => {
 
   return (
     <div
-      className="fixed top-[50%] translate-y-[-50%] left-[31.2%] max-w-[570px] bg-black flex flex-col items-center rounded-[4px] z-[100] p-[20px] border-white border-[1px]"
+      className="fixed top-[50%] translate-y-[-50%] left-[34%] max-w-[570px] bg-black flex flex-col items-center rounded-[4px] z-[100] p-[20px] border-white border-[1px]"
       style={{ display: show ? 'block' : 'none' }}
       onClick={onClose}
     >
