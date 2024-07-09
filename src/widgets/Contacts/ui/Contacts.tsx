@@ -4,7 +4,7 @@ export const Contacts = () => {
   return (
     <div
       id="contacts"
-      className="bg-[#070606] w-[90%] m-auto py-[30px] text-white flex items-center xl:justify-between flex-wrap justify-start md:justify-center gap-[30px]"
+      className="bg-black w-[90%] m-auto py-[30px] text-white flex items-center xl:justify-between flex-wrap justify-start md:justify-center gap-[30px]"
     >
       <div className="flex flex-col gap-[30px]">
         <div>
