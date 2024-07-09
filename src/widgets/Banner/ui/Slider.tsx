@@ -53,17 +53,18 @@ export const Slider = () => {
               src={el.img}
               alt="imgBanner"
             />
-            <div className="absolute z-20 left-0 bottom-0 right-0 top-0 items-center justify-center  flex flex-col gap-[52px]">
-              <div className="flex flex-col items-center">
-                <h1 className="lg:text-[90px] md:text-[80px] text-[70px] font-white font-room leading-[90px]">
+            <div className="absolute z-20 top-1/2 translate-y-[-40%] left-[50%] translate-x-[-50%] w-full sm:w-[unset] px-[16px] sm:max-w-[830px] flex flex-col gap-[42px] items-center">
+              <div className="flex flex-col items-center gap-[10px] text-center">
+                <h1 className="text-[100px] md:text-[185px] leading-[70px] md:leading-[150px] font-comfort font-white">
                   {banner.title}
                 </h1>
-                <p className="lg:text-[24px] sm:text-[21px] text-[18px] font-normal text-center">
+                <p className="text-[16px] md:text-[24px] font-normal font-comfort">
                   {banner.subtitle}
                 </p>
               </div>
-              <a href="/#reservationForm">
-                <button className="bg-transparent px-[34px] py-[17px] border-[1px] rounded-[4px] border-white w-max">
+              <a className="w-full sm:w-[unset]" href="/#reservationForm">
+                <button className="bg-transparent px-[24px] py-[16px] rounded border-[1px] border-white w-full md:w-max">
+
                   Забронировать стол
                 </button>
               </a>

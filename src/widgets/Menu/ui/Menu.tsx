@@ -25,6 +25,7 @@ export const Menu = () => {
             <Link
               to={item.name === 'Кухня' ? '/kitchen' : '/bar'}
               key={item.id}
+              className="relative flex-auto md:flex-1 h-[435px] max-h-[435px]"
             >
               <div className="relative flex-auto h-[596px] max-h-[434px]">
                 <img

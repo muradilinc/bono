@@ -108,7 +108,6 @@ const MainMenu = () => {
       ) : (
         <p>произошла ошибка</p>
       )}
-      {/*<MenuCardMob />*/}
       <KitchenHelmet />
       <script type="application/ld+json">
         {JSON.stringify(kitchenSchema)}
