@@ -26,7 +26,7 @@ export const Slider = () => {
       return (
         '<span class="' +
         className +
-        ' !mx-[8px] w-[25px] h-[5px] bg-white rounded-[5px]"></span>'
+        ' !bottom-[10vh] !left-[50%] !translate-x-[-50%] !mx-[8px] w-[8px] h-[8px] bg-white rounded-[5px]"></span>'
       );
     },
   };
@@ -53,15 +53,17 @@ export const Slider = () => {
               src={el.img}
               alt="imgBanner"
             />
-            <div className="absolute z-20 top-1/2 translate-y-[-40%] left-[5%] max-w-[830px] flex flex-col gap-[42px]">
-              <div className="flex flex-col gap-[10px]">
-                <p className="text-[24px] font-normal">{banner.subtitle}</p>
-                <h1 className="text-[64px] font-white font-room">
+            <div className="absolute z-20 top-1/2 translate-y-[-40%] left-[50%] translate-x-[-50%] w-full sm:w-[unset] px-[16px] sm:max-w-[830px] flex flex-col gap-[42px] items-center">
+              <div className="flex flex-col items-center gap-[10px] text-center">
+                <h1 className="text-[100px] md:text-[185px] leading-[70px] md:leading-[150px] font-comfort font-white">
                   {banner.title}
                 </h1>
+                <p className="text-[16px] md:text-[24px] font-normal font-comfort">
+                  {banner.subtitle}
+                </p>
               </div>
-              <a href="/#reservationForm">
-                <button className="bg-[#111111] px-[34px] py-[17px] border-[1px] border-[#D0A666] w-max">
+              <a className="w-full sm:w-[unset]" href="/#reservationForm">
+                <button className="bg-transparent px-[24px] py-[16px] rounded border-[1px] border-white w-full md:w-max">
                   Забронировать стол
                 </button>
               </a>

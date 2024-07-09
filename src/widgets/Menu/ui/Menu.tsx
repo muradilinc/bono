@@ -24,7 +24,7 @@ export const Menu = () => {
           .map((item) => (
             <div
               key={item.id}
-              className="relative flex-auto h-[435px] max-h-[435px]"
+              className="relative flex-auto md:flex-1 h-[435px] max-h-[435px]"
             >
               <img
                 className="rounded-[4px] w-full h-full object-cover"

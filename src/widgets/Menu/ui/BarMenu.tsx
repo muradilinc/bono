@@ -1,5 +1,4 @@
 import { useEffect, useState } from 'react';
-import MenuCardMob from './MenuCardMob';
 import MenuCard from './MenuCard';
 import KitchenHelmet from '../../../app/helmet/KitchenHelmet';
 import kitchenSchema from '../../../app/schema/kitchenSchema';
@@ -103,7 +102,6 @@ const BarMenu = () => {
       ) : (
         <p>произошла ошибка</p>
       )}
-      <MenuCardMob />
       <KitchenHelmet />
       <script type="application/ld+json">
         {JSON.stringify(kitchenSchema)}
