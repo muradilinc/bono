@@ -29,7 +29,7 @@ export const Menu = () => {
             >
               <div className="relative flex-auto h-[596px] max-h-[434px]">
                 <img
-                  className="rounded-[4px] w-[596px] h-[434px] object-cover"
+                  className="rounded-[4px] w-full h-full object-cover"
                   src={'https://backend.bono-bar.com' + item.image}
                   alt="no img"
                 />
