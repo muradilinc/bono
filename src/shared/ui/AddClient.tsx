@@ -8,6 +8,7 @@ import {
 } from '../../features/shedule/model/scheduleSlice';
 import {
   createBook,
+  FilterBook,
   getSchedules,
   getSingleBook,
   updateTableBook,
@@ -17,11 +18,12 @@ import { times } from '../../widgets/scheduleTable/constants/times';
 import { selectTables } from '../../features/tables/model/tableSlice';
 
 interface Props {
+  filter?: FilterBook;
   onClose: () => void;
   id?: number;
 }
 
-const AddClient: React.FC<Props> = ({ onClose, id }) => {
+const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: '',
@@ -50,6 +52,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       setForm((prevState) => ({
         ...prevState,
         ...book,
+        phone_number: '+' + book.phone_number,
       }));
     }
   }, [book, id]);
@@ -85,7 +88,7 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
       } else {
         await dispatch(createBook(form)).unwrap();
       }
-      await dispatch(getSchedules()).unwrap();
+      await dispatch(getSchedules(filter)).unwrap();
       toast.success('Забронировано!');
       onClose();
     } catch (error) {
@@ -113,14 +116,16 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер столика</p>
         <select
           onChange={changeFields}
-          value={form.table}
+          value={form.table || ''}
           name="table"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
           <option value="">select</option>
           {tables.map((table) => (
-            <option value={table.number_table}>{table.number_table}</option>
+            <option key={table.id} value={table.id}>
+              {table.number_table}
+            </option>
           ))}
         </select>
       </div>
@@ -170,12 +175,15 @@ const AddClient: React.FC<Props> = ({ onClose, id }) => {
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
-          <option value="">select</option>
           {form.start_time ? (
             <option value={form.start_time}>{form.start_time}</option>
-          ) : null}
+          ) : (
+            <option value="">select</option>
+          )}
           {times.map((time) => (
-            <option value={time}>{time}</option>
+            <option key={time} value={time}>
+              {time}
+            </option>
           ))}
         </select>
       </div>

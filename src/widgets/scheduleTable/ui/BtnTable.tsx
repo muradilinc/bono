@@ -1,16 +1,19 @@
 import { btns } from '../constants/btns';
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 
 interface Props {
   setActive: (index: number) => void;
 }
 
 const BtnTable: React.FC<Props> = ({ setActive }) => {
-  const [activeButton, setActiveButton] = useState<number | null>(0);
+  const [activeButton, setActiveButton] = useState<number | null>(9);
+
+  useEffect(() => {
+    setActive(activeButton!);
+  }, [activeButton, setActive]);
 
   const clickBtn = (index: number) => {
     setActiveButton(index);
-    setActive(index);
   };
 
   return (
@@ -19,10 +22,10 @@ const BtnTable: React.FC<Props> = ({ setActive }) => {
         {btns.map((label, inx) => (
           <button
             key={inx}
-            onClick={() => clickBtn(inx)}
-            className={`hover:border-b-2 border-white ${activeButton === inx ? 'border-b-2 border-white' : ''}`}
+            onClick={() => clickBtn(label.status)}
+            className={`hover:border-b-2 border-white ${activeButton === label.status ? 'border-b-2 border-white' : ''}`}
           >
-            {label}
+            {label.title}
           </button>
         ))}
       </div>

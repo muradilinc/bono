@@ -55,7 +55,13 @@ export const SubCategoriesPage = () => {
               >
                 <div className="flex items-center">
                   <div className="text-white ml-[15px]">
-                    <div className="flex items-center gap-x-3">
+                    <div className="flex flex-col gap-x-3">
+                      <h4>
+                        Категории:{' '}
+                        {subCategory.parent_details
+                          ? subCategory.parent_details.name
+                          : 'Нету!'}
+                      </h4>
                       <p>Название: {subCategory.name}</p>
                     </div>
                   </div>

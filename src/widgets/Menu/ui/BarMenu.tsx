@@ -65,6 +65,10 @@ const BarMenu = () => {
     setCategoryId(id ?? null);
   };
 
+  if (loading) {
+    return <Loading />;
+  }
+
   return (
     <div className="text-white pt-[170px] px-[10px] w-[90%] m-auto pb-[50px]">
       <span className="text-[14px] text-[#C1C1C1]">Main / menu</span>

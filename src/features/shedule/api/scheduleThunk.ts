@@ -29,7 +29,7 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
   },
 );
 
-interface FilterBook {
+export interface FilterBook {
   date?: string;
   search_form?: string;
   floor?: number;
@@ -46,8 +46,15 @@ export const getSchedules = createAsyncThunk<
     const queryParams: string[] = [];
     if (date) queryParams.push(`date=${date}`);
     if (floor) queryParams.push(`floor=${floor}`);
-    if (status) queryParams.push(`status=${status}`);
-    if (search_form) queryParams.push(`search_form=${search_form}`);
+    if (status !== 9 && (status === 0 || status))
+      queryParams.push(`status=${status}`);
+    if (search_form) {
+      if (search_form.includes('+')) {
+        queryParams.push(`search_form=${search_form.slice(1)}`);
+      } else {
+        queryParams.push(`search_form=${search_form}`);
+      }
+    }
     if (queryParams.length > 0) {
       url += `?${queryParams.join('&')}`;
     }
@@ -56,6 +63,14 @@ export const getSchedules = createAsyncThunk<
   const response = await axiosApi.get(url);
   return response.data;
 });
+
+export const getSchedulesIncoming = createAsyncThunk<Schedule[]>(
+  'schedule/getSchedulesIncoming',
+  async () => {
+    const res = await axiosApi.get(`/book/list/book/?table=1`);
+    return res.data;
+  },
+);
 
 // export const getSchedules = createAsyncThunk<
 //   Schedule[],

@@ -21,6 +21,7 @@ import {
 import 'react-toastify/dist/ReactToastify.css';
 import BarMenu from '../widgets/Menu/ui/BarMenu';
 import { FloorForm, FloorPanel } from '../pages/admin/FloorPage';
+import { CommonPage } from '../pages/admin/CommonPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -40,6 +41,7 @@ const App = () => {
             <Route path="/menu" element={<AdminMenuPage />} />
             <Route path="/menu-submit" element={<MenuFormPage />} />
             <Route path="/category" element={<AdminPanel />} />
+            <Route path="/common" element={<CommonPage />} />
             <Route path="/department" element={<FloorPanel />} />
             <Route path="/department-submit" element={<FloorForm />} />
             <Route path="/department-submit/:id" element={<FloorForm />} />
