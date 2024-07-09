@@ -105,7 +105,7 @@ export const FormCome = () => {
             />
             <div>
               <p className="text-[12px] text-[#9ca3af] pl-[10px]">
-                Например: 996 505 04 62 56
+                Например: +996 505 04 62 56
               </p>
               <input
                 value={state.phone_number}

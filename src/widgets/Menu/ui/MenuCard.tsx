@@ -7,7 +7,10 @@ const MenuCard: FC<{ menu: MenuType[] }> = ({ menu }) => {
     <div className="mt-[30px]">
       <div className="flex flex-wrap gap-[20px] justify-center">
         {menu?.map((item: MenuType) => (
-          <div key={item.id} className="relative max-h-[465px] flex-100">
+          <div
+            key={item.id}
+            className="relative max-h-[465px] flex-auto md:flex-100"
+          >
             <img
               className="w-full h-full object-cover"
               src={`https://backend.bono-bar.com${item.image}`}
