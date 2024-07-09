@@ -25,7 +25,8 @@ export const FormCome = () => {
   ) => {
     const { name, value } = event.target;
 
-    const phoneNumberPattern = /^(\+996\d{9}|0\d{9}|\+7\d{10}|(?!0)\d{9})$/;
+    const phoneNumberPattern =
+      /^(\+996\d{9}|996\d{9}|0\d{9}|\+7\d{10}|(?!0)\d{9})$/;
 
     if (name == 'phone_number') {
       if (value === '' || phoneNumberPattern.test(value)) {
@@ -155,8 +156,8 @@ export const FormCome = () => {
                 <option className="bg-black" disabled value="">
                   select
                 </option>
-                {times.map((time) => (
-                  <option className="bg-black" value={time}>
+                {times.map((time, inx) => (
+                  <option key={inx} className="bg-black" value={time}>
                     {time}
                   </option>
                 ))}

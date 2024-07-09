@@ -39,7 +39,7 @@ const AddFloor: React.FC<Props> = ({ onCLose }) => {
   return (
     <form
       onSubmit={addFloor}
-      className="w-[400px] h-[430px] mb-[30px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
+      className="w-[400px] h-[230px] mb-[30px] bg-black flex flex-col items-center rounded-[8px] z-[100]"
     >
       <div className="flex flex-col gap-[20px] mt-[20px] text-white">
         <div>

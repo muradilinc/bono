@@ -26,7 +26,7 @@ export const Slider = () => {
       return (
         '<span class="' +
         className +
-        ' !bottom-[10vh] !left-[50%] !translate-x-[-50%] !mx-[8px] w-[8px] h-[8px] bg-white rounded-[5px]"></span>'
+        ' !mx-[8px] w-[10px] h-[10px] bg-white rounded-[50%]"></span>'
       );
     },
   };
@@ -64,6 +64,7 @@ export const Slider = () => {
               </div>
               <a className="w-full sm:w-[unset]" href="/#reservationForm">
                 <button className="bg-transparent px-[24px] py-[16px] rounded border-[1px] border-white w-full md:w-max">
+
                   Забронировать стол
                 </button>
               </a>

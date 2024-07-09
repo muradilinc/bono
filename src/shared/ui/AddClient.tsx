@@ -101,7 +101,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       onSubmit={addClient}
       className="flex flex-col gap-[20px] mt-[20px] text-white"
     >
-      <div>
+      <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Имя клиента</p>
         <input
           onChange={changeFields}
@@ -112,7 +112,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           required
         />
       </div>
-      <div>
+      <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер столика</p>
         <select
           onChange={changeFields}
@@ -129,7 +129,8 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[#858687] text-[14px] mb-[5px]">Дата</p>
         <input
           value={form.will_come}
           onChange={changeFields}
@@ -140,7 +141,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           required
         />
       </div>
-      <div>
+      <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер клиента</p>
         <div className="relative">
           <input
@@ -151,10 +152,10 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
             type="text"
             required
           />
+          {!isValid && <p style={{ color: 'red' }}>Invalid phone number</p>}
         </div>
-        {!isValid && <p style={{ color: 'red' }}>Invalid phone number</p>}
       </div>
-      <div>
+      <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Время нахождения</p>
         <input
           onChange={changeFields}
@@ -166,7 +167,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           required
         />
       </div>
-      <div>
+      <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Время брони</p>
         <select
           onChange={changeFields}
@@ -187,7 +188,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           ))}
         </select>
       </div>
-      <div>
+      <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Количество гостей</p>
         <input
           onChange={changeFields}
@@ -206,7 +207,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           <option value="4">4 гостей</option>
         </datalist>
       </div>
-      <div>
+      <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Комментарий</p>
         <input
           onChange={changeFields}

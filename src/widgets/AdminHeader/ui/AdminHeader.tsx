@@ -59,7 +59,7 @@ export const AdminHeader: FC<Props> = ({
   }, [dispatch]);
 
   return (
-    <div className="relative">
+    <div className="w-full relative">
       <div className="flex flex-col bg-[black] p-4">
         <div className="flex gap-[30px] items-center justify-between">
           <Link
@@ -79,70 +79,74 @@ export const AdminHeader: FC<Props> = ({
         </div>
         <BtnTable setActive={(index: number) => setCurrentStatus(index)} />
       </div>
-      <Modal show={showModal} title="Добавить" onClose={closeModal}>
-        {step === 'A' ? (
-          <div className="w-[400px]  bg-black flex flex-col items-center rounded-[8px] z-[100]">
-            <button
-              onClick={() => setStep('B')}
-              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[#6BC678]"
-            >
-              Добавить клиента
-            </button>
-            <button
-              onClick={() => setStep('C')}
-              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] duration-300 mb-[10px] hover:bg-[#6BC678]"
-            >
-              Добавить стол
-            </button>
-            <button
-              onClick={() => setStep('D')}
-              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] duration-300 mb-[10px] hover:bg-[#6BC678]"
-            >
-              Добавить этаж
-            </button>
-          </div>
-        ) : step === 'B' ? (
-          <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px] z-[100]">
-            <button
-              onClick={() => setStep('M')}
-              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[#6BC678]"
-            >
-              Ручное добавление клиента
-            </button>
-            <button
-              onClick={() => setStep('E')}
-              className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] duration-300 hover:bg-[#6BC678]"
-            >
-              Автоматическое добавление клиента
-            </button>
-          </div>
-        ) : step === 'C' ? (
-          <AddTable onClose={closeModal} />
-        ) : step === 'D' ? (
-          <AddFloor onCLose={closeModal} />
-        ) : step === 'E' ? (
-          <Clients currentClient={(id: number) => selectClient(id)} />
-        ) : step === 'M' ? (
-          <AddClient
-            filter={{
-              date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
-              floor: floors.length > 0 ? floors[currentFloor].id : 0,
-              status: currentStatus,
-            }}
-            onClose={closeModal}
-          />
-        ) : step === 'K' ? (
-          <AddClient
-            filter={{
-              date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
-              floor: floors.length > 0 ? floors[currentFloor].id : 0,
-              status: currentStatus,
-            }}
-            onClose={closeModal}
-            id={client!}
-          />
-        ) : null}
-      </Modal>
+      <div>
+        <Modal show={showModal} title="Добавить" onClose={closeModal}>
+          {step === 'A' ? (
+            <div className="w-[400px]  bg-black flex flex-col items-center rounded-[8px] z-[100]">
+              <button
+                onClick={() => setStep('B')}
+                className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[#6BC678]"
+              >
+                Добавить клиента
+              </button>
+              <button
+                onClick={() => setStep('C')}
+                className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] duration-300 mb-[10px] hover:bg-[#6BC678]"
+              >
+                Добавить стол
+              </button>
+              <button
+                onClick={() => setStep('D')}
+                className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] duration-300 mb-[10px] hover:bg-[#6BC678]"
+              >
+                Добавить этаж
+              </button>
+            </div>
+          ) : step === 'B' ? (
+            <div className="w-[400px] h-[272px] bg-black flex flex-col items-center rounded-[8px] z-[100]">
+              <button
+                onClick={() => setStep('M')}
+                className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] mt-[50px] mb-[10px] duration-300 hover:bg-[#6BC678]"
+              >
+                Ручное добавление клиента
+              </button>
+              <button
+                onClick={() => setStep('E')}
+                className="bg-[#2B2B2B] text-white h-[50px] rounded-[4px] w-[80%] duration-300 hover:bg-[#6BC678]"
+              >
+                Автоматическое добавление клиента
+              </button>
+            </div>
+          ) : step === 'C' ? (
+            <AddTable onClose={closeModal} />
+          ) : step === 'D' ? (
+            <AddFloor onCLose={closeModal} />
+          ) : step === 'E' ? (
+            <Clients currentClient={(id: number) => selectClient(id)} />
+          ) : step === 'M' ? (
+            <div className="flex">
+              <AddClient
+                filter={{
+                  date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
+                  floor: floors.length > 0 ? floors[currentFloor].id : 0,
+                  status: currentStatus,
+                }}
+                onClose={closeModal}
+              />
+            </div>
+          ) : step === 'K' ? (
+            <AddClient
+              filter={{
+                date: dayjs(currentDate?.toString()).format('YYYY-MM-DD'),
+                floor: floors.length > 0 ? floors[currentFloor].id : 0,
+                status: currentStatus,
+              }}
+              onClose={closeModal}
+              id={client!}
+            />
+          ) : null}
+        </Modal>
+      </div>
     </div>
   );
 };

@@ -9,6 +9,7 @@ import {
 } from '../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
 import '../style/style.css';
+import { times } from '../../widgets/scheduleTable/constants/times';
 
 interface Props {
   onClose: () => void;
@@ -134,15 +135,22 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
             <p className="text-[12px] text-[#9ca3af] pl-[10px]">
               Время бронирования
             </p>
-            <input
+            <select
+              name="start_time"
               value={form.start_time}
               onChange={changeField}
-              type="time"
-              name="start_time"
-              placeholder="Время"
-              className="bg-transparent border-b border-white w-full p-[10px] inputIcon"
               required
-            />
+              className="bg-transparent border-b w-full p-[10px] border-white"
+            >
+              <option className="bg-black" disabled value="">
+                select
+              </option>
+              {times.map((time, inx) => (
+                <option key={inx} className="bg-black" value={time}>
+                  {time}
+                </option>
+              ))}
+            </select>
           </div>
           <div>
             <p className="text-[12px] text-[#9ca3af] pl-[10px]">
