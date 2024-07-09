@@ -12,31 +12,31 @@ export const Menu = () => {
     dispatch(getCategories());
   }, [dispatch]);
   return (
-    <div className="w-[90%] m-auto py-[30px] bg-[#070606] text-white">
+    <div className="w-[90%] m-auto py-[30px] bg-black text-white">
       <h1 className="xl:text-[36px] lg:text-[32px] md:text-[28px] text-[24px]">
         Меню
       </h1>
       <p className="text-[#C1C1C1] md:text-[15px] text-[14px]">
         Наслаждайтесь гармонией вкусов в каждом блюде
       </p>
-      <div className="flex mt-[30px] flex-wrap gap-[30px]">
+      <div className="flex mt-[30px] flex-wrap gap-[30px] min-[1358px]:justify-between justify-center">
         {categories
           .map((item) => (
-            <div
+            <Link
+              to={item.name === 'Кухня' ? '/kitchen' : '/bar'}
               key={item.id}
-              className="relative flex-auto h-[435px] max-h-[435px]"
             >
-              <img
-                className="rounded-[4px] w-full h-full object-cover"
-                src={'https://backend.bono-bar.com' + item.image}
-                alt="no img"
-              />
-              <Link to={item.name === 'Кухня' ? '/kitchen' : '/bar'}>
+              <div className="relative flex-auto h-[596px] max-h-[434px]">
+                <img
+                  className="rounded-[4px] w-[596px] h-[434px] object-cover"
+                  src={'https://backend.bono-bar.com' + item.image}
+                  alt="no img"
+                />
                 <h6 className="absolute left-0 bottom-0 right-0 bg-[rgba(23,23,23,0.6)] pl-[30px] py-[10px] sm:text-[20px] text-[16px]">
                   {item.name}
                 </h6>
-              </Link>
-            </div>
+              </div>
+            </Link>
           ))
           .slice(0, 2)}
       </div>
