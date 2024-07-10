@@ -10,6 +10,7 @@ export interface FormComeMutation {
   comment: string;
   table?: string;
   end_time?: string;
+  is_come?: string;
 }
 
 export interface FormTable {

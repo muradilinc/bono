@@ -150,6 +150,14 @@ const Calendar: React.FC<Props> = ({ filter }) => {
               <p>Кол-во: {clientApi?.amount_guest}</p>
               <p>Телефон: {clientApi?.phone_number}</p>
               <p>Коммент: {clientApi?.comment}</p>
+              <p>
+                Статус стола:{' '}
+                <span
+                  className={`${clientApi?.is_come ? 'text-red-600' : 'text-green-600'}`}
+                >
+                  {clientApi?.is_come ? 'Занят' : 'Свободен'}
+                </span>
+              </p>
             </div>
             <div className="flex flex-col gap-y-3 w-full">
               <button
