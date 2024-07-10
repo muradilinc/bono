@@ -35,12 +35,23 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
     comment: '',
     table: '',
   });
-
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
   const tables = useAppSelector(selectTables);
 
+  useEffect(() => {
+    const phoneNumberPattern =
+      /^(\+996\d{9}|996\d{9}|0\d{9}|\+7\d{10}|(?!0)\d{9})$/;
+    if (
+      form.phone_number === '' ||
+      phoneNumberPattern.test(form.phone_number)
+    ) {
+      setIsValid(
+        form.phone_number === '' || phoneNumberPattern.test(form.phone_number),
+      );
+    }
+  }, [form]);
   useEffect(() => {
     if (id) {
       dispatch(getSingleBook(id));
@@ -62,7 +73,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       setForm((prevState) => ({
         ...prevState,
         ...book,
-        phone_number: phoneNumber,
+        phone_number: book.phone_number,
       }));
       setIsValid(/^(\+996\d{9}|\+7\d{10})$/.test(phoneNumber));
     }
