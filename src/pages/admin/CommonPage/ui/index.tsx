@@ -1,12 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import {
-  selectSchedules,
-  selectSchedulesLoading,
+  selectSchedulesCommon,
+  selectSchedulesCommonLoading,
 } from '../../../../features/shedule/model/scheduleSlice';
 import {
   deleteBook,
-  getSchedules,
+  getSchedulesCommon,
 } from '../../../../features/shedule/api/scheduleThunk';
 import Loading from '../../../../shared/ui/Loading';
 import { Link } from 'react-router-dom';
@@ -16,13 +16,11 @@ import { toast } from 'react-toastify';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 
 export const CommonPage = () => {
-  const books = useAppSelector(selectSchedules);
-  const loading = useAppSelector(selectSchedulesLoading);
+  const books = useAppSelector(selectSchedulesCommon);
+  const loading = useAppSelector(selectSchedulesCommonLoading);
   const dispatch = useAppDispatch();
   const [addModal, setAddModal] = useState<boolean>(false);
   const [id, setId] = useState<number | null>(null);
-
-  const bookFilter = books.filter((book) => book.table !== null);
 
   const deleteId = (id: number) => {
     setId(id);
@@ -31,7 +29,7 @@ export const CommonPage = () => {
   const onDelete = async () => {
     if (id) {
       await dispatch(deleteBook(id)).unwrap();
-      await dispatch(getSchedules()).unwrap();
+      await dispatch(getSchedulesCommon()).unwrap();
       setAddModal(false);
       toast.success('Успешно удалено!');
     } else {
@@ -40,7 +38,7 @@ export const CommonPage = () => {
   };
 
   useEffect(() => {
-    dispatch(getSchedules());
+    dispatch(getSchedulesCommon());
   }, [dispatch]);
 
   if (loading) {
@@ -62,7 +60,7 @@ export const CommonPage = () => {
           </Link>
         </div>
       </div>
-      {bookFilter.length > 0 ? (
+      {books.length > 0 ? (
         <div className="text-white font-medium mt-[30px] overflow-y-scroll max-h-[750px] bookScroll">
           <table className="table-auto w-full text-center">
             <thead className="border-b border-white bg-black sticky top-0">
@@ -78,7 +76,7 @@ export const CommonPage = () => {
               </tr>
             </thead>
             <tbody>
-              {bookFilter.map((book, inx) => (
+              {books.map((book, inx) => (
                 <tr key={book.id}>
                   <td className="p-5">{inx + 1}</td>
                   <td>{book.user_name}</td>
@@ -86,7 +84,8 @@ export const CommonPage = () => {
                   <td className="flex flex-col items-center justify-center">
                     <p>{book.will_come}</p>
                     <p>
-                      {book.start_time} - {book.end_time}
+                      {book.start_time.slice(0, 5)} -{' '}
+                      {book.end_time.slice(0, 5)}
                     </p>
                   </td>
                   <td>{book.time_stamp}</td>

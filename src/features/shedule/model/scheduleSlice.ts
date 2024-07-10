@@ -3,6 +3,7 @@ import {
   createBook,
   deleteBook,
   getSchedules,
+  getSchedulesCommon,
   getSchedulesIncoming,
   getSingleBook,
   updateBook,
@@ -27,10 +28,12 @@ export interface Schedule {
 interface ScheduleState {
   schedules: Schedule[];
   schedulesIncoming: Schedule[];
+  schedulesCommon: Schedule[];
   book: FormComeMutation | null;
   bookLoading: boolean;
   schedulesLoading: boolean;
   schedulesIncomingLoading: boolean;
+  schedulesCommonLoading: boolean;
   createLoading: boolean;
   updateLoading: boolean;
   deleteLoading: boolean;
@@ -39,10 +42,12 @@ interface ScheduleState {
 const initialState: ScheduleState = {
   schedules: [],
   schedulesIncoming: [],
+  schedulesCommon: [],
   book: null,
   bookLoading: false,
   schedulesLoading: false,
   schedulesIncomingLoading: false,
+  schedulesCommonLoading: false,
   createLoading: false,
   updateLoading: false,
   deleteLoading: false,
@@ -72,7 +77,6 @@ const scheduleSlice = createSlice({
     builder.addCase(getSchedules.rejected, (state) => {
       state.schedulesLoading = false;
     });
-
     builder.addCase(getSchedulesIncoming.pending, (state) => {
       state.schedulesIncomingLoading = true;
     });
@@ -84,6 +88,20 @@ const scheduleSlice = createSlice({
       },
     );
     builder.addCase(getSchedulesIncoming.rejected, (state) => {
+      state.schedulesCommonLoading = false;
+    });
+
+    builder.addCase(getSchedulesCommon.pending, (state) => {
+      state.schedulesCommonLoading = true;
+    });
+    builder.addCase(
+      getSchedulesCommon.fulfilled,
+      (state, { payload: schedulesCommon }) => {
+        state.schedulesCommonLoading = false;
+        state.schedulesCommon = schedulesCommon;
+      },
+    );
+    builder.addCase(getSchedulesCommon.rejected, (state) => {
       state.schedulesIncomingLoading = false;
     });
 
@@ -125,11 +143,15 @@ export const scheduleReducer = scheduleSlice.reducer;
 export const selectSchedules = (state: RootState) => state.schedule.schedules;
 export const selectSchedulesIncoming = (state: RootState) =>
   state.schedule.schedulesIncoming;
+export const selectSchedulesCommon = (state: RootState) =>
+  state.schedule.schedulesCommon;
 export const selectBook = (state: RootState) => state.schedule.book;
 export const selectBookLoading = (state: RootState) =>
   state.schedule.bookLoading;
 export const selectSchedulesIncomingLoading = (state: RootState) =>
   state.schedule.schedulesIncomingLoading;
+export const selectSchedulesCommonLoading = (state: RootState) =>
+  state.schedule.schedulesCommonLoading;
 export const selectCreateBookLoading = (state: RootState) =>
   state.schedule.createLoading;
 export const selectSchedulesLoading = (state: RootState) =>
