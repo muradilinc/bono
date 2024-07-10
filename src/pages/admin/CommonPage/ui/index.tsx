@@ -1,18 +1,43 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import {
   selectSchedules,
   selectSchedulesLoading,
 } from '../../../../features/shedule/model/scheduleSlice';
-import { getSchedules } from '../../../../features/shedule/api/scheduleThunk';
+import {
+  deleteBook,
+  getSchedules,
+} from '../../../../features/shedule/api/scheduleThunk';
 import Loading from '../../../../shared/ui/Loading';
 import { Link } from 'react-router-dom';
 import { API_LINK } from '../../../../app/constants/links';
+import { Trash } from '@phosphor-icons/react';
+import { toast } from 'react-toastify';
+import ModalDelete from '../../../../shared/ui/ModalDelete';
 
 export const CommonPage = () => {
   const books = useAppSelector(selectSchedules);
   const loading = useAppSelector(selectSchedulesLoading);
   const dispatch = useAppDispatch();
+  const [addModal, setAddModal] = useState<boolean>(false);
+  const [id, setId] = useState<number | null>(null);
+
+  const bookFilter = books.filter((book) => book.table !== null);
+
+  const deleteId = (id: number) => {
+    setId(id);
+    setAddModal(true);
+  };
+  const onDelete = async () => {
+    if (id) {
+      await dispatch(deleteBook(id)).unwrap();
+      await dispatch(getSchedules()).unwrap();
+      setAddModal(false);
+      toast.success('Успешно удалено!');
+    } else {
+      toast.error('Что то пошло не так!');
+    }
+  };
 
   useEffect(() => {
     dispatch(getSchedules());
@@ -37,7 +62,7 @@ export const CommonPage = () => {
           </Link>
         </div>
       </div>
-      {books.length > 0 ? (
+      {bookFilter.length > 0 ? (
         <div className="text-white font-medium mt-[30px] overflow-y-scroll max-h-[750px] bookScroll">
           <table className="table-auto w-full text-center">
             <thead className="border-b border-white bg-black sticky top-0">
@@ -49,10 +74,11 @@ export const CommonPage = () => {
                 <th className="pb-[10px]">Длительность</th>
                 <th className="pb-[10px]">Кол-во</th>
                 <th className="pb-[10px]">Комментарий</th>
+                <th className="pb-[10px]">Удалить</th>
               </tr>
             </thead>
             <tbody>
-              {books.map((book, inx) => (
+              {bookFilter.map((book, inx) => (
                 <tr key={book.id}>
                   <td className="p-5">{inx + 1}</td>
                   <td>{book.user_name}</td>
@@ -66,6 +92,14 @@ export const CommonPage = () => {
                   <td>{book.time_stamp}</td>
                   <td>{book.amount_guest} пер.</td>
                   <td className="max-w-[100px]">{book.comment}</td>
+                  <td className="flex justify-center mt-[10px]">
+                    <button
+                      onClick={() => deleteId(book.id)}
+                      className="flex items-center justify-center text-white bg-[#ff0000ab] rounded-[8px] w-[40px] h-[45px]"
+                    >
+                      <Trash size={32} />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -73,6 +107,13 @@ export const CommonPage = () => {
         </div>
       ) : (
         <h4 className="text-white text-center mt-60">Нету входящих</h4>
+      )}
+      {addModal && (
+        <ModalDelete
+          addModal={addModal}
+          setAddModal={setAddModal}
+          onDelete={onDelete}
+        />
       )}
     </div>
   );

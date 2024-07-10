@@ -129,7 +129,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
         </div>
       </div>
       {modal ? (
-        <div className="absolute top-[30%] w-[100%] flex justify-center rounded-[8px] z-[100]">
+        <div className="fixed top-[30%] w-[100%] flex justify-center rounded-[8px] z-[100]">
           <div className="w-[400px] bg-black flex flex-col items-center rounded-[8px] py-[15px] px-[15px] gap-y-3">
             <div className="flex items-center justify-between w-[100%] rounded-[8px]">
               <h2 className="text-white text-[17px] font-bold">
@@ -150,6 +150,14 @@ const Calendar: React.FC<Props> = ({ filter }) => {
               <p>Кол-во: {clientApi?.amount_guest}</p>
               <p>Телефон: {clientApi?.phone_number}</p>
               <p>Коммент: {clientApi?.comment}</p>
+              <p>
+                Статус стола:{' '}
+                <span
+                  className={`${clientApi?.is_come ? 'text-red-600' : 'text-green-600'}`}
+                >
+                  {clientApi?.is_come ? 'Занят' : 'Свободен'}
+                </span>
+              </p>
             </div>
             <div className="flex flex-col gap-y-3 w-full">
               <button
