@@ -104,8 +104,14 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       await dispatch(getSchedules(filter)).unwrap();
       toast.success('Забронировано!');
       onClose();
-    } catch (error) {
-      toast.error('Что-то пошло не так!');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+    } catch (error: never) {
+      if (error.data.validate) {
+        toast.warning(error.data.validate);
+      } else {
+        toast.error('Что-то пошло не так!');
+      }
     }
   };
 

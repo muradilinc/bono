@@ -6,6 +6,7 @@ import {
 } from '../../../shared/types/Type';
 import { Schedule } from '../model/scheduleSlice';
 import { calculateEndTime } from '../calculateEndTime';
+import axios from 'axios';
 
 // // Функция для очистки номера телефона
 // const formatPhoneNumber = (phoneNumber: string) => {
@@ -71,6 +72,13 @@ export const getSchedulesIncoming = createAsyncThunk<Schedule[]>(
     return res.data;
   },
 );
+export const getSchedulesCommon = createAsyncThunk<Schedule[]>(
+  'schedule/getSchedulesCommon',
+  async () => {
+    const res = await axiosApi.get(`/book/list/book/?table=0`);
+    return res.data;
+  },
+);
 
 // export const getSchedules = createAsyncThunk<
 //   Schedule[],
@@ -115,8 +123,18 @@ interface UpdateBook {
 
 export const updateTableBook = createAsyncThunk<void, UpdateBook>(
   'schedule/updateTable',
-  async ({ id, book }) => {
-    await axiosApi.put(`/book/update/book/${id}/`, book);
+  async ({ id, book }, { rejectWithValue }) => {
+    try {
+      const response = await axiosApi.put(`/book/update/book/${id}/`, book);
+      return response.data;
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response);
+      } else {
+        throw error;
+      }
+    }
+
     // await axiosApi.put(`/table/update/table/${book.table}/`, {
     //   number_table: book.table,
     //   book: id,
