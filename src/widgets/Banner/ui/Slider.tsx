@@ -62,7 +62,10 @@ export const Slider = () => {
                   {banner.subtitle}
                 </p>
               </div>
-              <a className="w-full sm:w-[unset]" href="/#reservationForm">
+              <a
+                className="w-full sm:w-[unset] hover:bg-black transition"
+                href="/#reservationForm"
+              >
                 <button className="bg-transparent px-[24px] py-[16px] rounded border-[1px] border-white w-full md:w-max">
                   Забронировать стол
                 </button>

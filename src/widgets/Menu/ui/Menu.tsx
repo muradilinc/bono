@@ -12,7 +12,7 @@ export const Menu = () => {
     dispatch(getCategories());
   }, [dispatch]);
   return (
-    <div className="w-[90%] m-auto py-[30px] bg-black text-white">
+    <div className="w-[90%] m-auto py-[30px] bg-black text-white container">
       <h1 className="xl:text-[36px] lg:text-[32px] md:text-[28px] text-[24px]">
         Меню
       </h1>

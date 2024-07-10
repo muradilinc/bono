@@ -31,7 +31,7 @@ export const Atmosphere = () => {
           .slice(0, 4) // Сначала обрезаем массив до первых 4 элементов
           .map((img, idx: number) => (
             <div
-              className={`w-full h-auto object-cover ${idx === 0 || idx === 3 ? 'basis-[48vw]' : 'basis-[38vw]'}`}
+              className={`w-full h-auto object-cover ${idx === 0 || idx === 3 ? 'basis-[55%]' : 'basis-[40%]'}`}
               key={img.id}
             >
               <img

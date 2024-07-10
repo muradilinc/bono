@@ -139,6 +139,7 @@ export const FormCome = () => {
               type="number"
               name="amount_guest"
               placeholder="Количество персон"
+              onKeyPress={handleKeyPress}
               className="bg-transparent border-b p-[10px] border-white"
               required
               min="1"
@@ -174,13 +175,14 @@ export const FormCome = () => {
             </div>
             <div>
               <p className="text-[12px] text-[#9ca3af] pl-[10px]">
-                Например: 2 часа
+                Например: 2 (Время посещения в часах)
               </p>
               <input
                 value={state.time_stamp}
                 onChange={changeField}
                 type="number"
                 name="time_stamp"
+                onKeyPress={handleKeyPress}
                 placeholder="Длительность посещения"
                 className="bg-transparent border-b w-full p-[10px] border-white"
                 required
