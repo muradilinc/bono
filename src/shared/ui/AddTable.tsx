@@ -70,7 +70,7 @@ const AddTable: React.FC<Props> = ({ onClose }) => {
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
-          <option value="">select</option>
+          <option value="">Выбрать</option>
           {floors.map((floor) => (
             <option key={floor.id} value={floor.id}>
               {floor.title}
