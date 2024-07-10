@@ -35,7 +35,6 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
     comment: '',
     table: '',
   });
-  console.log(isValid, form);
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);

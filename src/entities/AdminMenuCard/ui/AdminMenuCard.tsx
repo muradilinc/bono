@@ -55,7 +55,6 @@ export const AdminMenuCard: FC<DataMenuCard> = ({ item, onDelete }) => {
       toast.error('Что то пошло не так!');
     }
   };
-  console.log(item);
   return (
     <div className="relative">
       <div className="w-[355px] h-[270px] rounded-[4px] text-white cursor-pointer relative overflow-hidden">
