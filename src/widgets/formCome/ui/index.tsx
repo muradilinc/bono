@@ -139,6 +139,7 @@ export const FormCome = () => {
               type="number"
               name="amount_guest"
               placeholder="Количество персон"
+              onKeyPress={handleKeyPress}
               className="bg-transparent border-b p-[10px] border-white"
               required
               min="1"
@@ -181,6 +182,7 @@ export const FormCome = () => {
                 onChange={changeField}
                 type="number"
                 name="time_stamp"
+                onKeyPress={handleKeyPress}
                 placeholder="Длительность посещения"
                 className="bg-transparent border-b w-full p-[10px] border-white"
                 required
