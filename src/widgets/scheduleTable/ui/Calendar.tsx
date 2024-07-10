@@ -129,7 +129,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
         </div>
       </div>
       {modal ? (
-        <div className="absolute top-[30%] w-[100%] flex justify-center rounded-[8px] z-[100]">
+        <div className="fixed top-[30%] w-[100%] flex justify-center rounded-[8px] z-[100]">
           <div className="w-[400px] bg-black flex flex-col items-center rounded-[8px] py-[15px] px-[15px] gap-y-3">
             <div className="flex items-center justify-between w-[100%] rounded-[8px]">
               <h2 className="text-white text-[17px] font-bold">
