@@ -118,8 +118,11 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
     } catch (error: never) {
+      console.log(error);
       if (error.data.validate) {
         toast.warning(error.data.validate);
+      } else if (error.data.occupated) {
+        toast.warning(error.data.occupated);
       } else {
         toast.error('Что-то пошло не так!');
       }

@@ -197,7 +197,6 @@ export const FormCome = () => {
               name="comment"
               placeholder="Комментарий"
               className="bg-transparent border-b p-[10px] border-white"
-              required
             />
           </div>
           <button
