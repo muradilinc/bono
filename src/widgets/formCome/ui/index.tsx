@@ -1,10 +1,10 @@
-import { ChangeEvent, FormEvent, useState } from 'react';
+import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { createBook } from '../../../features/shedule/api/scheduleThunk';
 import { useAppDispatch } from '../../../app/store/hooks';
 import { FormComeMutation } from '../../../shared/types/Type';
 import { toast } from 'react-toastify';
-import Modal from '../../../shared/ui/Modal';
 import { times } from '../../scheduleTable/constants/times';
+import { X } from '@phosphor-icons/react';
 
 export const FormCome = () => {
   const [state, setState] = useState<FormComeMutation>({
@@ -163,15 +163,6 @@ export const FormCome = () => {
                   </option>
                 ))}
               </select>
-              {/*<input*/}
-              {/*  value={state.start_time}*/}
-              {/*  onChange={changeField}*/}
-              {/*  type="time"*/}
-              {/*  name="start_time"*/}
-              {/*  placeholder="Время"*/}
-              {/*  className=`bg-transparent border-b w-full p-[10px] inputIcon ${isValid && state.start_time.trim() === '' ? 'border-[red]' : 'border-white'}`}*/}
-              {/*  required*/}
-              {/*/>*/}
             </div>
             <div>
               <p className="text-[12px] text-[#9ca3af] pl-[10px]">
@@ -207,37 +198,46 @@ export const FormCome = () => {
           </button>
         </div>
       </form>
-      <Modal
-        show={showModal}
-        title={'Спасибо за ваше бронирование!'}
-        onClose={handleCloseModal}
-      >
-        <div className="flex flex-col gap-y-3">
-          <p className="font-normal text-[14px] font-comfort">
-            Ваш столик успешно забронирован. Наши сотрудники свяжутся с вами в
-            ближайшее время для подтверждения бронирования.
-          </p>
-          <ul>
-            <li className="font-medium text-[14px] text-white">
-              <span className="text-[#C1C1C1]">Дата:</span> {state.will_come}
-            </li>
-            <li className="font-medium text-[14px] text-white">
-              <span className="text-[#C1C1C1]">Время:</span> {state.start_time}
-            </li>
-            <li className="font-medium text-[14px] text-white">
-              <span className="text-[#C1C1C1]">Количество гостей:</span>{' '}
-              {state.amount_guest}
-            </li>
-          </ul>
-          <p className="font-medium text-white text-[14px]">
-            Если у вас возникнут вопросы, пожалуйста, свяжитесь с нами по
-            телефону{' '}
-            <a className="underline" href="tel:+996 505 04 62 56">
-              +996 505 04 62 56
-            </a>
-          </p>
+      {showModal && (
+        <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[570px] sm:w-[570px] w-[90%] bg-black flex flex-col items-center rounded-[4px] z-[100] p-[20px] border-white border-[1px]">
+          <div className="flex justify-between items-center mb-[20px] w-full">
+            <h2 className="font-bold text-[16px] font-comfort text-white">
+              Спасибо за ваше бронирование!
+            </h2>
+            <X
+              size={24}
+              onClick={handleCloseModal}
+              className="cursor-pointer text-white"
+            />
+          </div>
+          <div className="flex flex-col gap-y-3">
+            <p className="font-normal text-[14px] font-comfort">
+              Ваш столик успешно забронирован. Наши сотрудники свяжутся с вами в
+              ближайшее время для подтверждения бронирования.
+            </p>
+            <ul>
+              <li className="font-medium text-[14px] text-white">
+                <span className="text-[#C1C1C1]">Дата:</span> {state.will_come}
+              </li>
+              <li className="font-medium text-[14px] text-white">
+                <span className="text-[#C1C1C1]">Время:</span>{' '}
+                {state.start_time}
+              </li>
+              <li className="font-medium text-[14px] text-white">
+                <span className="text-[#C1C1C1]">Количество гостей:</span>{' '}
+                {state.amount_guest}
+              </li>
+            </ul>
+            <p className="font-medium text-white text-[14px]">
+              Если у вас возникнут вопросы, пожалуйста, свяжитесь с нами по
+              телефону{' '}
+              <a className="underline" href="tel:+996 505 04 62 56">
+                +996 505 04 62 56
+              </a>
+            </p>
+          </div>
         </div>
-      </Modal>
+      )}
     </div>
   );
 };
