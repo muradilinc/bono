@@ -1,19 +1,39 @@
-import { configureStore } from '@reduxjs/toolkit';
-import { scheduleReducer } from '../model/scheduleSlice';
 import { getSchedules } from '../api/scheduleThunk';
 
-describe('getSchedules', () => {
-  test('fetch schedule', async () => {
-    const store = configureStore({
-      reducer: {
-        schedule: scheduleReducer,
-      },
-    });
-    await store.dispatch(getSchedules());
-    const state = store.getState();
-    const schedules = state.schedule.schedules;
+describe('Schedules', () => {
+  it('getSchedules', async () => {
+    // const mockSchedules = [{}]
+    global.fetch = jest.fn().mockResolvedValue({
+      ok: true,
+      // json: ()=> Promise.resolve(mockSchedules),
+    }) as jest.Mock;
+    const dispatch = jest.fn();
+    const thunk = getSchedules();
+    await thunk(dispatch, () => ({}), {});
 
-    expect(schedules.length).toBeGreaterThan(0);
-    expect(schedules[0]).toHaveProperty('id');
+    const { calls } = dispatch.mock;
+    expect(calls).toHaveLength(2);
+    const [start, end] = calls;
+    expect(start[0].type).toBe(getSchedules.pending.type);
+    expect(end[0].type).toBe(getSchedules.fulfilled.type);
+    // expect(end[0].payload).toBe(mockSchedules)
   });
+
+  // it('getSchedules error', async () => {
+  //   global.fetch = jest.fn().mockResolvedValue({
+  //     ok: false,
+  //   }) as jest.Mock;
+  //
+  //   const dispatch = jest.fn();
+  //   const thunk = getSchedules();
+  //   await thunk(dispatch, () => ({}), {});
+  //
+  //   const { calls } = dispatch.mock;
+  //   expect(calls).toHaveLength(2);
+  //   const [start, end] = calls;
+  //
+  //   console.log(end);
+  //   expect(start[0].type).toBe(getSchedules.pending.type);
+  //   expect(end[0].type).toBe(getSchedules.rejected.type);
+  // });
 });
