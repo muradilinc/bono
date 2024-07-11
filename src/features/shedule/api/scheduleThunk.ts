@@ -40,28 +40,32 @@ export const getSchedules = createAsyncThunk<
   Schedule[],
   FilterBook | undefined
 >('schedule/getAll', async (params) => {
-  let url = '/book/list/book';
-  if (params) {
-    const { date, floor, status, search_form } = params;
-    const queryParams: string[] = [];
-    if (date) queryParams.push(`date=${date}`);
-    if (floor) queryParams.push(`floor=${floor}`);
-    if (status !== 9 && (status === 0 || status))
-      queryParams.push(`status=${status}`);
-    if (search_form) {
-      if (search_form.includes('+')) {
-        queryParams.push(`search_form=${search_form.slice(1)}`);
-      } else {
-        queryParams.push(`search_form=${search_form}`);
+  try {
+    let url = '/book/list/book';
+    if (params) {
+      const { date, floor, status, search_form } = params;
+      const queryParams: string[] = [];
+      if (date) queryParams.push(`date=${date}`);
+      if (floor) queryParams.push(`floor=${floor}`);
+      if (status !== 9 && (status === 0 || status))
+        queryParams.push(`status=${status}`);
+      if (search_form) {
+        if (search_form.includes('+')) {
+          queryParams.push(`search_form=${search_form.slice(1)}`);
+        } else {
+          queryParams.push(`search_form=${search_form}`);
+        }
+      }
+      if (queryParams.length > 0) {
+        url += `?${queryParams.join('&')}`;
       }
     }
-    if (queryParams.length > 0) {
-      url += `?${queryParams.join('&')}`;
-    }
-  }
 
-  const response = await axiosApi.get(url);
-  return response.data;
+    const response = await axiosApi.get(url);
+    return response.data;
+  } catch (error) {
+    return error;
+  }
 });
 
 export const getSchedulesIncoming = createAsyncThunk<Schedule[]>(
