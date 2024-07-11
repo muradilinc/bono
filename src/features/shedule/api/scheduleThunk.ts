@@ -19,14 +19,25 @@ import axios from 'axios';
 
 export const createBook = createAsyncThunk<void, FormComeMutation>(
   'schedule/createBook',
-  async (book) => {
-    // const formattedPhoneNumber = formatPhoneNumber(book.phone_number);
-    const formattedEndTime = calculateEndTime(book.start_time, book.time_stamp);
-    await axiosApi.post('/book/create/book/', {
-      ...book,
-      phone_number: book.phone_number,
-      end_time: formattedEndTime,
-    });
+  async (book, { rejectWithValue }) => {
+    try {
+      // const formattedPhoneNumber = formatPhoneNumber(book.phone_number);
+      const formattedEndTime = calculateEndTime(
+        book.start_time,
+        book.time_stamp,
+      );
+      await axiosApi.post('/book/create/book/', {
+        ...book,
+        phone_number: book.phone_number,
+        end_time: formattedEndTime,
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response);
+      } else {
+        throw error;
+      }
+    }
   },
 );
 

@@ -175,7 +175,6 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
             name="comment"
             placeholder="Комментарий"
             className="bg-transparent border-b border-white p-[10px]"
-            required
           />
         </div>
         <button className="border-white border py-[10px] my-[20px]">
