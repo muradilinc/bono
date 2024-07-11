@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import { selectSchedulesIncoming } from '../../features/shedule/model/scheduleSlice';
 import { getSchedulesIncoming } from '../../features/shedule/api/scheduleThunk';
+import '../style/style.css';
 
 interface Props {
   currentClient: (id: number) => void;
@@ -17,7 +18,7 @@ const Clients: React.FC<Props> = ({ currentClient }) => {
   }, [dispatch]);
 
   return (
-    <div className="flex flex-col gap-y-5 text-white min-w-[300px]">
+    <div className="flex flex-col gap-y-5 text-white min-w-[300px] overflow-y-scroll pr-[20px] max-h-[630px] clientScroll">
       {filterBook.length > 0 ? (
         filterBook.map((client) => (
           <div

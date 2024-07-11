@@ -1,7 +1,5 @@
 import { useEffect, useState } from 'react';
 import MenuCard from './MenuCard';
-import KitchenHelmet from '../../../app/helmet/KitchenHelmet';
-import kitchenSchema from '../../../app/schema/kitchenSchema';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { getCategories } from '../../../features/category/categoryThunk';
 import { selectCategories } from '../../../features/category/categorySlice';
@@ -20,6 +18,8 @@ import {
 } from '../../../features/AdminFilterMenu/model/MenuSlica';
 import { SubCategory } from '../../../pages/admin/SubCategoryPage/model/sub-category';
 import Loading from '../../../shared/ui/Loading';
+import BarHelmet from '../../../app/helmet/BarHelmet';
+import barSchema from '../../../app/schema/BarSchema';
 
 const BarMenu = () => {
   const [btn, setBtn] = useState<number>(0);
@@ -106,10 +106,8 @@ const BarMenu = () => {
       ) : (
         <p>Еще нет позиций</p>
       )}
-      <KitchenHelmet />
-      <script type="application/ld+json">
-        {JSON.stringify(kitchenSchema)}
-      </script>
+      <BarHelmet />
+      <script type="application/ld+json">{JSON.stringify(barSchema)}</script>
     </div>
   );
 };

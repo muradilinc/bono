@@ -143,7 +143,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               className="bg-transparent border-b w-full p-[10px] border-white"
             >
               <option className="bg-black" disabled value="">
-                select
+                Выбрать
               </option>
               {times.map((time, inx) => (
                 <option key={inx} className="bg-black" value={time}>
@@ -175,7 +175,6 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
             name="comment"
             placeholder="Комментарий"
             className="bg-transparent border-b border-white p-[10px]"
-            required
           />
         </div>
         <button className="border-white border py-[10px] my-[20px]">

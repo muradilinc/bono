@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import img from '../../../public/images/pasta.png';
 
 const KitchenHelmet = () => {
   return (
@@ -40,7 +39,10 @@ const KitchenHelmet = () => {
              делового обеда или вечерней встречи с друзьями."
       />
       <meta property="og:url" content="https://bono-bar.com/kitchen" />
-      <meta property="og:image" content={img} />
+      <meta
+        property="og:image"
+        content="https://bono-bar.com/images/pasta.png"
+      />
     </Helmet>
   );
 };

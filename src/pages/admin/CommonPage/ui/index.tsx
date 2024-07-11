@@ -1,21 +1,44 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import {
-  selectSchedules,
-  selectSchedulesLoading,
+  selectSchedulesCommon,
+  selectSchedulesCommonLoading,
 } from '../../../../features/shedule/model/scheduleSlice';
-import { getSchedules } from '../../../../features/shedule/api/scheduleThunk';
+import {
+  deleteBook,
+  getSchedulesCommon,
+} from '../../../../features/shedule/api/scheduleThunk';
 import Loading from '../../../../shared/ui/Loading';
 import { Link } from 'react-router-dom';
 import { API_LINK } from '../../../../app/constants/links';
+import { Trash } from '@phosphor-icons/react';
+import { toast } from 'react-toastify';
+import ModalDelete from '../../../../shared/ui/ModalDelete';
 
 export const CommonPage = () => {
-  const books = useAppSelector(selectSchedules);
-  const loading = useAppSelector(selectSchedulesLoading);
+  const books = useAppSelector(selectSchedulesCommon);
+  const loading = useAppSelector(selectSchedulesCommonLoading);
   const dispatch = useAppDispatch();
+  const [addModal, setAddModal] = useState<boolean>(false);
+  const [id, setId] = useState<number | null>(null);
+
+  const deleteId = (id: number) => {
+    setId(id);
+    setAddModal(true);
+  };
+  const onDelete = async () => {
+    if (id) {
+      await dispatch(deleteBook(id)).unwrap();
+      await dispatch(getSchedulesCommon()).unwrap();
+      setAddModal(false);
+      toast.success('Успешно удалено!');
+    } else {
+      toast.error('Что то пошло не так!');
+    }
+  };
 
   useEffect(() => {
-    dispatch(getSchedules());
+    dispatch(getSchedulesCommon());
   }, [dispatch]);
 
   if (loading) {
@@ -49,6 +72,7 @@ export const CommonPage = () => {
                 <th className="pb-[10px]">Длительность</th>
                 <th className="pb-[10px]">Кол-во</th>
                 <th className="pb-[10px]">Комментарий</th>
+                <th className="pb-[10px]">Удалить</th>
               </tr>
             </thead>
             <tbody>
@@ -60,12 +84,21 @@ export const CommonPage = () => {
                   <td className="flex flex-col items-center justify-center">
                     <p>{book.will_come}</p>
                     <p>
-                      {book.start_time} - {book.end_time}
+                      {book.start_time.slice(0, 5)} -{' '}
+                      {book.end_time.slice(0, 5)}
                     </p>
                   </td>
                   <td>{book.time_stamp}</td>
                   <td>{book.amount_guest} пер.</td>
                   <td className="max-w-[100px]">{book.comment}</td>
+                  <td className="flex justify-center mt-[10px]">
+                    <button
+                      onClick={() => deleteId(book.id)}
+                      className="flex items-center justify-center text-white bg-[#ff0000ab] rounded-[8px] w-[40px] h-[45px]"
+                    >
+                      <Trash size={32} />
+                    </button>
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -73,6 +106,13 @@ export const CommonPage = () => {
         </div>
       ) : (
         <h4 className="text-white text-center mt-60">Нету входящих</h4>
+      )}
+      {addModal && (
+        <ModalDelete
+          addModal={addModal}
+          setAddModal={setAddModal}
+          onDelete={onDelete}
+        />
       )}
     </div>
   );

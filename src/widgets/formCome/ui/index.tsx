@@ -155,7 +155,7 @@ export const FormCome = () => {
                 className="bg-transparent border-b w-full p-[10px] border-white"
               >
                 <option className="bg-black" disabled value="">
-                  select
+                  Выбрать
                 </option>
                 {times.map((time, inx) => (
                   <option key={inx} className="bg-black" value={time}>
@@ -197,7 +197,6 @@ export const FormCome = () => {
               name="comment"
               placeholder="Комментарий"
               className="bg-transparent border-b p-[10px] border-white"
-              required
             />
           </div>
           <button

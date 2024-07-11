@@ -60,11 +60,22 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
 
   useEffect(() => {
     if (id && book) {
+      let phoneNumber = book.phone_number;
+      if (!phoneNumber.startsWith('+')) {
+        if (phoneNumber.startsWith('996')) {
+          phoneNumber = '+' + phoneNumber;
+        } else if (phoneNumber.startsWith('0')) {
+          phoneNumber = '+996' + phoneNumber.slice(1);
+        } else {
+          phoneNumber = '+996' + phoneNumber;
+        }
+      }
       setForm((prevState) => ({
         ...prevState,
         ...book,
         phone_number: book.phone_number,
       }));
+      setIsValid(/^(\+996\d{9}|\+7\d{10})$/.test(phoneNumber));
     }
   }, [book, id]);
 
@@ -72,22 +83,24 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
     const { name, value } = event.target;
-    const phoneNumberPattern = /^(\+996\d{9}|0\d{9}|\+7\d{10}|(?!0)\d{9})$/;
+    let formattedValue = value;
 
-    if (name == 'phone_number') {
-      if (value === '' || phoneNumberPattern.test(value)) {
-        setForm((prevState) => ({
-          ...prevState,
-          [name]: value,
-        }));
+    if (name === 'phone_number') {
+      if (!formattedValue.startsWith('+')) {
+        if (formattedValue.startsWith('996')) {
+          formattedValue = '+' + formattedValue;
+        } else if (formattedValue.startsWith('0')) {
+          formattedValue = '+996' + formattedValue.slice(1);
+        } else {
+          formattedValue = '+996' + formattedValue;
+        }
       }
-
-      setIsValid(value === '' || phoneNumberPattern.test(value));
+      setIsValid(/^(\+996\d{9}|\+7\d{10})$/.test(formattedValue));
     }
 
     setForm((prevState) => ({
       ...prevState,
-      [name]: value,
+      [name]: formattedValue,
     }));
   };
 
@@ -102,8 +115,17 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       await dispatch(getSchedules(filter)).unwrap();
       toast.success('Забронировано!');
       onClose();
-    } catch (error) {
-      toast.error('Что-то пошло не так!');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+    } catch (error: never) {
+      console.log(error);
+      if (error.data.validate) {
+        toast.warning(error.data.validate);
+      } else if (error.data.occupated) {
+        toast.warning(error.data.occupated);
+      } else {
+        toast.error('Что-то пошло не так!');
+      }
     }
   };
 
@@ -132,7 +154,9 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
-          <option value="">select</option>
+          <option disabled value="">
+            Выбрать
+          </option>
           {tables.map((table) => (
             <option key={table.id} value={table.id}>
               {table.number_table}
@@ -163,7 +187,9 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
             type="text"
             required
           />
-          {!isValid && <p style={{ color: 'red' }}>Invalid phone number</p>}
+          {!isValid && (
+            <p style={{ color: 'red' }}>Неправильный номер телефона</p>
+          )}
         </div>
       </div>
       <div className="flex items-center justify-between gap-3">
@@ -190,7 +216,9 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           {form.start_time ? (
             <option value={form.start_time}>{form.start_time}</option>
           ) : (
-            <option value="">select</option>
+            <option disabled value="">
+              Выбрать
+            </option>
           )}
           {times.map((time) => (
             <option key={time} value={time}>
