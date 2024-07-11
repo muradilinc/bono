@@ -104,7 +104,7 @@ const BarMenu = () => {
           <Loading />
         )
       ) : (
-        <p>произошла ошибка</p>
+        <p>Еще нет позиций</p>
       )}
       <BarHelmet />
       <script type="application/ld+json">{JSON.stringify(barSchema)}</script>
