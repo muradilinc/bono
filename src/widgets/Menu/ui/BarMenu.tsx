@@ -71,7 +71,7 @@ const BarMenu = () => {
 
   return (
     <div className="text-white pt-[170px] px-[10px] w-[90%] m-auto pb-[50px]">
-      <span className="text-[14px] text-[#C1C1C1]">Main / menu</span>
+      <span className="text-[14px] text-[#C1C1C1]">Main / bar</span>
       <div className="mt-[30px] flex items-center flex-wrap gap-[10px]">
         <button
           onClick={() => {
