@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SubCategoryPage should create sub-category with empty sub-categories 1`] = `
+<div>
+  <div
+    class="fixed flex items-center justify-center w-full h-full bg-black z-[100] flex-col"
+  >
+    <div
+      class="w-12 h-12 rounded-full border-t-3 border-r-3 border-white"
+      style="border-top-color: #212121; animation: rotation 1s linear infinite;"
+    />
+    <span
+      class="mt-[10px] text-white text-[14px]"
+    >
+      Загрузка...
+    </span>
+  </div>
+</div>
+`;

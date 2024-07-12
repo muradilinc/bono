@@ -140,7 +140,14 @@ export const updateTableBook = createAsyncThunk<void, UpdateBook>(
   'schedule/updateTable',
   async ({ id, book }, { rejectWithValue }) => {
     try {
-      const response = await axiosApi.put(`/book/update/book/${id}/`, book);
+      const formattedEndTime = calculateEndTime(
+        book.start_time,
+        book.time_stamp,
+      );
+      const response = await axiosApi.put(`/book/update/book/${id}/`, {
+        ...book,
+        end_time: formattedEndTime,
+      });
       return response.data;
     } catch (error) {
       if (axios.isAxiosError(error) && error.response) {
