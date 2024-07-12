@@ -134,19 +134,24 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
   };
 
   const handleTimeValidation = () => {
-    const [startHours, startMinutes] = form.start_time.split(':').map(Number);
-    let newHours = (startHours + Number(form.time_stamp)) % 24;
-    const newMinutes = startMinutes;
-    if (newHours < 0) {
-      newHours += 24;
+    const startTime = form.start_time;
+    const hoursToAdd = Number(form.time_stamp);
+    const [startHours, startMinutes] = startTime.split(':').map(Number);
+    let newHours = startHours + hoursToAdd;
+    // eslint-disable-next-line prefer-const
+    let newMinutes = startMinutes;
+    if (newHours >= 24) {
+      newHours %= 24;
     }
-    const newTime = `${String(newHours).padStart(2, '0')}:${String(newMinutes).padStart(2, '0')}`;
-    console.log('00:00 = ', form.start_time);
-    console.log('0 h = ', form.time_stamp);
-    console.log('New time = ', newTime);
     const newTimeInMinutes = newHours * 60 + newMinutes;
-    const fourAMInMinutes = 4 * 60;
-    if (newTimeInMinutes >= fourAMInMinutes) {
+    console.log('Время брони = ', startTime);
+    console.log('Время нахождения = ', hoursToAdd);
+    console.log('newTimeInMinutes = ', newTimeInMinutes);
+    if (
+      newTimeInMinutes !== 240 &&
+      newTimeInMinutes > 240 &&
+      newTimeInMinutes < 660
+    ) {
       toast.error('Время превышает 4:00 утра!!!');
       return false;
     }
