@@ -99,7 +99,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
             <input
               value={form.phone_number}
               onChange={changeField}
-              type="number"
+              type="text"
               min={0}
               name="phone_number"
               placeholder="Номер телефона"
