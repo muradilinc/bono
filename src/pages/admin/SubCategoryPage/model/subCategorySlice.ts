@@ -7,7 +7,7 @@ import {
 import { RootState } from '../../../../app/store/store';
 import { SubCategory } from './sub-category';
 
-interface SubCategoryState {
+export interface SubCategoryState {
   subCategories: SubCategory[];
   subCategory: SubCategory | null;
   subCategoriesLoading: boolean;

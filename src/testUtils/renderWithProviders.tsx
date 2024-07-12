@@ -3,8 +3,7 @@ import { Provider } from 'react-redux';
 import { HelmetProvider } from 'react-helmet-async';
 import { AppStore, RootState, setupStore } from '../app/store/store';
 import { render, RenderOptions } from '@testing-library/react';
-import App from '../app/App';
-import { ReactElement } from 'react';
+import { PropsWithChildren, ReactElement } from 'react';
 
 interface ExtendedRenderOptions extends Omit<RenderOptions, 'queries'> {
   preloadedState?: Partial<RootState>;
@@ -21,12 +20,10 @@ export function renderWithProviders(
     ...renderOptions
   } = extendedRenderOptions;
 
-  const Wrapper = () => (
+  const Wrapper = ({ children }: PropsWithChildren) => (
     <Provider store={store}>
       <HelmetProvider>
-        <BrowserRouter>
-          <App />
-        </BrowserRouter>
+        <BrowserRouter>{children}</BrowserRouter>
       </HelmetProvider>
     </Provider>
   );
