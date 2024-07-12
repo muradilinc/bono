@@ -1,10 +1,11 @@
 import React, { ChangeEvent, FormEvent, useState } from 'react';
 import { createBook } from '../../../features/shedule/api/scheduleThunk';
-import { useAppDispatch } from '../../../app/store/hooks';
+import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { FormComeMutation } from '../../../shared/types/Type';
 import { toast } from 'react-toastify';
 import { times } from '../../scheduleTable/constants/times';
 import { X } from '@phosphor-icons/react';
+import { selectCreateBookLoading } from '../../../features/shedule/model/scheduleSlice';
 
 export const FormCome = () => {
   const [state, setState] = useState<FormComeMutation>({
@@ -18,6 +19,7 @@ export const FormCome = () => {
   });
   const [showModal, setShowModal] = useState(false);
   const [isValid, setIsValid] = useState<boolean>(true);
+  const loading = useAppSelector(selectCreateBookLoading);
   const dispatch = useAppDispatch();
 
   const changeField = (
@@ -192,6 +194,7 @@ export const FormCome = () => {
           </div>
           <button
             onClick={() => setIsValid(true)}
+            disabled={loading || showModal}
             className="border-white border py-[10px] my-[20px]"
           >
             Забронировать стол
