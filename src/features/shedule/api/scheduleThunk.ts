@@ -24,7 +24,7 @@ export const createBook = createAsyncThunk<void, FormComeMutation>(
       // const formattedPhoneNumber = formatPhoneNumber(book.phone_number);
       const formattedEndTime = calculateEndTime(
         book.start_time,
-        book.time_stamp,
+        parseInt(book.time_stamp),
       );
       await axiosApi.post('/book/create/book/', {
         ...book,
@@ -142,7 +142,7 @@ export const updateTableBook = createAsyncThunk<void, UpdateBook>(
     try {
       const formattedEndTime = calculateEndTime(
         book.start_time,
-        book.time_stamp,
+        parseInt(book.time_stamp),
       );
       const response = await axiosApi.put(`/book/update/book/${id}/`, {
         ...book,
