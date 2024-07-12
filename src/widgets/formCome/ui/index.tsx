@@ -56,8 +56,16 @@ export const FormCome = () => {
     try {
       await dispatch(createBook(state)).unwrap();
       setShowModal(true);
-    } catch (error) {
-      toast.error('Что-то пошло не так!');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+    } catch (error: never) {
+      if (error.data.end_time) {
+        toast.warning(error.data.end_time, {
+          className: 'w-[400px] ml-[-90px]',
+        });
+      } else {
+        toast.error('Что-то пошло не так!');
+      }
     }
   };
 
