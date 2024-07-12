@@ -123,6 +123,10 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
         toast.warning(error.data.validate);
       } else if (error.data.occupated) {
         toast.warning(error.data.occupated);
+      } else if (error.data.end_time) {
+        toast.warning(error.data.end_time, {
+          className: 'w-[400px] ml-[-90px]',
+        });
       } else {
         toast.error('Что-то пошло не так!');
       }
