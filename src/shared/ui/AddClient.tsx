@@ -133,9 +133,41 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
     }
   };
 
+  const handleTimeValidation = () => {
+    const startTime = form.start_time;
+    const hoursToAdd = Number(form.time_stamp);
+    const [startHours, startMinutes] = startTime.split(':').map(Number);
+    let newHours = startHours + hoursToAdd;
+    // eslint-disable-next-line prefer-const
+    let newMinutes = startMinutes;
+    if (newHours >= 24) {
+      newHours %= 24;
+    }
+    const newTimeInMinutes = newHours * 60 + newMinutes;
+    console.log('Время брони = ', startTime);
+    console.log('Время нахождения = ', hoursToAdd);
+    console.log('newTimeInMinutes = ', newTimeInMinutes);
+    if (
+      newTimeInMinutes !== 240 &&
+      newTimeInMinutes > 240 &&
+      newTimeInMinutes < 660
+    ) {
+      toast.error('Время превышает 4:00 утра!!!');
+      return false;
+    }
+    return true;
+  };
+
+  const handleSubmit = async (event: React.FormEvent) => {
+    event.preventDefault();
+    if (handleTimeValidation()) {
+      await addClient(event);
+    }
+  };
+
   return (
     <form
-      onSubmit={addClient}
+      onSubmit={handleSubmit}
       className="flex flex-col gap-[20px] mt-[20px] text-white"
     >
       <div className="flex items-center justify-between gap-3">
