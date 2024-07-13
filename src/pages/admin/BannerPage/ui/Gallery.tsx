@@ -40,15 +40,15 @@ const GalleryMain = ({ galleries }: GalleryProps) => {
       {galleries.map((el) => (
         <div
           key={el.id}
-          className="flex items-center justify-between w-full my-[20px]"
+          className="flex items-center md:justify-between w-full my-[20px] flex-wrap justify-center"
         >
-          <div className="flex items-center">
+          <div className="flex items-center flex-wrap">
             <img
-              className="w-[120px] h-[68px] rounded-[4px]"
+              className="w-full md:w-[120px] max-h-[110px] object-cover md:object-none md:h-[68px] rounded-[4px]"
               src={API_LINK.slice(0, -4) + el.image_set[0].image}
               alt="no img"
             />
-            <div className="ml-[10px]">
+            <div className="ml-[10px] text-center">
               <p>Название: {el.title}</p>
               <p>Описание :{el.description}</p>
             </div>

@@ -29,8 +29,8 @@ export const AdminIncomingPage = () => {
     <>
       <div className="relative">
         <section className="flex">
-          <div className="w-full h-full bg-black p-8">
-            <div className="bg-black p-[16px] flex items-center justify-between">
+          <div className="w-full h-full bg-black p-4 md:p-8">
+            <div className="bg-black p-[16px] flex items-center justify-between flex-wrap">
               <h1 className="font-bold text-[20px] text-white font-comfort">
                 Входящие
               </h1>

@@ -35,7 +35,7 @@ export const SubCategoriesPage = () => {
 
   return (
     <>
-      <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
+      <header className="flex items-center justify-between flex-wrap w-full h-[60px] bg-black px-[20px] mt-[10px]">
         <h1 className="text-white font-semibold">Под Категории</h1>
         <Link
           to="/admin/sub-category-submit"
@@ -51,7 +51,7 @@ export const SubCategoriesPage = () => {
             subCategories.map((subCategory) => (
               <div
                 key={subCategory.id}
-                className="flex items-center justify-between my-[20px]"
+                className="flex items-center justify-between my-[20px] flex-wrap"
               >
                 <div className="flex items-center">
                   <div className="text-white ml-[15px]">

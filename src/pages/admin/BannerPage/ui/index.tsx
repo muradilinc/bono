@@ -34,7 +34,7 @@ export const AdminBannerPage = () => {
 
   return (
     <section className="bg-black text-white px-[30px] py-[18px] flex flex-col gap-[30px]">
-      <div className="flex items-center justify-between">
+      <div className="flex items-center justify-between flex-wrap">
         <h1 className="font-bold text-[24px] text-white font-comfort">
           Баннер
         </h1>
@@ -47,7 +47,7 @@ export const AdminBannerPage = () => {
       </div>
       {banners.length > 0 ? (
         <div>
-          <h1 className="text-[20px] font-medium mt-[10px]">
+          <h1 className="text-[16px] md:text-[20px] font-medium mt-[10px]">
             ФОТОГРАФИИ ГЛАВНОГО БАННЕРА
           </h1>
           {banners.map((banner) => (
@@ -58,7 +58,7 @@ export const AdminBannerPage = () => {
         <h1>Пусто</h1>
       )}
       <div>
-        <h1 className="text-[20px] font-medium mt-[10px]">
+        <h1 className="text-[16px] md:text-[20px] font-medium mt-[10px]">
           ФОТОГРАФИИ РЕСТОРАНА
         </h1>
         <div>

@@ -57,7 +57,7 @@ export const AdminMenuCard: FC<DataMenuCard> = ({ item, onDelete }) => {
   };
   return (
     <div className="relative">
-      <div className="w-[355px] h-[270px] rounded-[4px] text-white cursor-pointer relative overflow-hidden">
+      <div className="max-w-[355px] w-full h-[270px] rounded-[4px] text-white cursor-pointer relative overflow-hidden">
         <div onClick={() => setModal(true)} className="w-full h-full">
           <img
             className="w-full h-full object-cover"
@@ -110,15 +110,17 @@ export const AdminMenuCard: FC<DataMenuCard> = ({ item, onDelete }) => {
             className="w-full h-[81px] absolute bottom-0 bg-[#17171799] backdrop-blur-sm px-[8px] py-[8px]"
           >
             <div className="flex justify-between text-[16px] font-bold leading-7">
-              <div>{item.title}</div>
+              <div className="text-[12px] md:text-[16px]">{item.title}</div>
               <div className="flex gap-x-[10px]">
-                <div className="font-bold text-[16px]">{item.price} с</div>
+                <div className="font-bold text-[12px] md:text-[16px]">
+                  {item.price} с
+                </div>
                 <button onClick={edit}>
                   <Pen size={22} />
                 </button>
               </div>
             </div>
-            <div className="text-[12px] font-normal leading-5 text-left pb-[15px]">
+            <div className="text-[6px] md:text-[12px] font-normal leading-5 text-left pb-[15px]">
               {item.description}
             </div>
           </div>
