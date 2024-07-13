@@ -14,12 +14,9 @@ import { API_LINK } from '../../../../app/constants/links';
 import { Trash } from '@phosphor-icons/react';
 import { toast } from 'react-toastify';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
-import { selectTables } from '../../../../features/tables/model/tableSlice';
-import { getTables } from '../../../../features/tables/api/tablesThunk';
 
 export const CommonPage = () => {
   const books = useAppSelector(selectSchedulesCommon);
-  const table = useAppSelector(selectTables);
   const loading = useAppSelector(selectSchedulesCommonLoading);
   const dispatch = useAppDispatch();
   const [addModal, setAddModal] = useState<boolean>(false);
@@ -42,13 +39,12 @@ export const CommonPage = () => {
 
   useEffect(() => {
     dispatch(getSchedulesCommon());
-    dispatch(getTables());
   }, [dispatch]);
 
   if (loading) {
     return <Loading />;
   }
-  console.log(table);
+
   return (
     <div>
       <div className="w-full h-full bg-black p-8">
@@ -96,9 +92,7 @@ export const CommonPage = () => {
                   <td>{book.time_stamp}</td>
                   <td>{book.amount_guest} пер.</td>
                   <td className="max-w-[100px]">
-                    {table.map((el) =>
-                      el.id === book.table ? el.number_table : '',
-                    )}
+                    {book.table_set.number_table}
                   </td>
                   <td className="max-w-[100px]">{book.comment}</td>
                   <td className="flex justify-center mt-[10px]">
@@ -115,7 +109,7 @@ export const CommonPage = () => {
           </table>
         </div>
       ) : (
-        <h4 className="text-white text-center mt-60">Нету входящих</h4>
+        <h4 className="text-white text-center mt-60">Нету данных</h4>
       )}
       {addModal && (
         <ModalDelete
