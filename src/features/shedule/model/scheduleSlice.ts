@@ -23,6 +23,10 @@ export interface Schedule {
   comment: string;
   amount_guest: number;
   will_come: string;
+  table_set: {
+    id: number | null;
+    number_table: number | null;
+  };
 }
 
 interface ScheduleState {

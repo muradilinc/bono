@@ -61,8 +61,8 @@ export const FormCome = () => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
     } catch (error: never) {
-      if (error.data.end_time) {
-        toast.warning(error.data.end_time, {
+      if (error.data.validate) {
+        toast.warning('Время бронирования должно быть между 10:00 и 04:00.', {
           className: 'w-[400px] ml-[-90px]',
         });
       } else {
