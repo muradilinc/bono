@@ -42,6 +42,7 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
       style={{
         top: `${top * 2.2}rem`,
         height: `${(duration / 12.5) * 1.9}rem`,
+        paddingTop: 20,
       }}
     >
       <p>{`${startTime} - ${endTime}`}</p>
