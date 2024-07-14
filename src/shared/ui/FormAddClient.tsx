@@ -66,14 +66,13 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
     } catch (error: never) {
-      if (error.data.validate) {
+      if (error.data.end_time) {
         toast.warning('Время бронирования должно быть между 10:00 и 04:00.', {
           className: 'w-[400px] ml-[-90px]',
         });
       } else {
         toast.error('Что-то пошло не так!');
       }
-      console.log(error.data.validate[0]);
     }
   };
 

@@ -5,11 +5,13 @@ import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import {
   selectBook,
   selectCreateBookLoading,
+  selectSchedulesCommon,
 } from '../../features/shedule/model/scheduleSlice';
 import {
   createBook,
   FilterBook,
   getSchedules,
+  getSchedulesCommon,
   getSingleBook,
   updateTableBook,
 } from '../../features/shedule/api/scheduleThunk';
@@ -39,6 +41,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
   const tables = useAppSelector(selectTables);
+  const Common = useAppSelector(selectSchedulesCommon);
 
   useEffect(() => {
     const phoneNumberPattern =
@@ -56,6 +59,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
     if (id) {
       dispatch(getSingleBook(id));
     }
+    dispatch(getSchedulesCommon());
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -118,7 +122,6 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
       // @ts-expect-error
     } catch (error: never) {
-      console.log(error);
       if (error.data.validate) {
         toast.warning(error.data.validate);
       } else if (error.data.occupated) {
@@ -137,23 +140,55 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
     const startTime = form.start_time;
     const hoursToAdd = Number(form.time_stamp);
     const [startHours, startMinutes] = startTime.split(':').map(Number);
-    let newHours = startHours + hoursToAdd;
-    // eslint-disable-next-line prefer-const
-    let newMinutes = startMinutes;
-    if (newHours >= 24) {
-      newHours %= 24;
-    }
-    const newTimeInMinutes = newHours * 60 + newMinutes;
-    console.log('Время брони = ', startTime);
-    console.log('Время нахождения = ', hoursToAdd);
-    console.log('newTimeInMinutes = ', newTimeInMinutes);
-    if (
-      newTimeInMinutes !== 240 &&
-      newTimeInMinutes > 240 &&
-      newTimeInMinutes < 660
-    ) {
+
+    const formStartTime = new Date(0, 0, 0, startHours, startMinutes, 0);
+    const formEndTime = new Date(
+      formStartTime.getTime() + hoursToAdd * 60 * 60 * 1000,
+    );
+
+    const newTimeInMinutes =
+      formEndTime.getHours() * 60 + formEndTime.getMinutes();
+    if (newTimeInMinutes > 240 && newTimeInMinutes < 660) {
       toast.error('Время превышает 4:00 утра!!!');
       return false;
+    }
+
+    const commonTable = Common.filter((el) => el.table === Number(form.table));
+    const commonWillCome = commonTable.filter(
+      (el) => el.will_come === form.will_come,
+    );
+
+    for (const booking of commonWillCome) {
+      const [bookingStartHours, bookingStartMinutes] = booking.start_time
+        .split(':')
+        .map(Number);
+      const bookingStartTime = new Date(
+        0,
+        0,
+        0,
+        bookingStartHours,
+        bookingStartMinutes,
+        0,
+      );
+      const bookingEndTime = new Date(
+        bookingStartTime.getTime() +
+          Number(booking.time_stamp) * 60 * 60 * 1000,
+      );
+      const newEndTime = new Date(bookingEndTime);
+      const newEndTimeHours = newEndTime.getHours();
+      const newStartTime = new Date(formStartTime);
+      const newStartTimeHours = newStartTime.getHours();
+      if (newEndTimeHours < 4 && newStartTimeHours < 4) {
+        if (newStartTimeHours < newEndTimeHours) {
+          toast.warning('В это время уже есть бронирование!2');
+          return false;
+        }
+      }
+
+      if (formStartTime < bookingEndTime && formEndTime > bookingStartTime) {
+        toast.warning('В это время уже есть бронирование!');
+        return false;
+      }
     }
     return true;
   };
