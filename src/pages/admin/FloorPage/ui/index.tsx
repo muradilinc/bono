@@ -30,7 +30,7 @@ export const FloorPanel = () => {
 
   return (
     <>
-      <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
+      <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px] mt-[10px] flex-wrap">
         <h1 className="text-white font-semibold">Отделы</h1>
         <Link
           to="/admin/department-submit"
@@ -46,7 +46,7 @@ export const FloorPanel = () => {
             floors.map((floor) => (
               <div
                 key={floor.id}
-                className="flex items-center justify-between my-[20px]"
+                className="flex items-center justify-between my-[20px] flex-wrap"
               >
                 <div className="flex items-center">
                   <div className="text-white ml-[15px]">
@@ -57,14 +57,14 @@ export const FloorPanel = () => {
                 </div>
                 <div className="flex gap-x-3">
                   <Link
-                    className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
+                    className=" text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
                     to={`/admin/department-submit/${floor.id}`}
                   >
                     <Pencil size={24} />
                   </Link>
                   <button
                     onClick={() => handleDeleteFloor(floor.id)}
-                    className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
+                    className=" text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
                   >
                     <Trash size={20} />
                   </button>

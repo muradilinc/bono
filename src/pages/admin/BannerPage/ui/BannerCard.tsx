@@ -5,14 +5,14 @@ import { PencilSimple } from '@phosphor-icons/react';
 
 const BannerCard = ({ banner }: BannerCardsProps) => {
   return (
-    <div className="flex items-center justify-between my-[20px]">
-      <div className="flex items-center">
+    <div className="flex items-center justify-between my-[20px] flex-wrap">
+      <div className="flex items-center flex-wrap justify-center md:justify-start">
         <img
           className="w-[120px] h-[68px] rounded-[4px]"
           src={banner.topik_baner[0]?.img}
           alt="no img"
         />
-        <div className="ml-[10px]">
+        <div className="flex md:block flex-col text-center md:text-left ml-[10px]">
           <p>Название: {banner.title}</p>
           <p>
             Дата загрузки:{' '}

@@ -20,7 +20,7 @@ export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
 
   return (
     <>
-      <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
+      <header className="flex flex-wrap items-center justify-between w-full h-[60px] bg-black px-[20px]">
         <h1 className="font-bold text-[20px] text-white font-comfort">
           Категории
         </h1>
