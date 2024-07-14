@@ -28,10 +28,23 @@ export interface Schedule {
     number_table: number | null;
   };
 }
+export interface ScheduleIncoming {
+  id: number;
+  user_name: string;
+  phone_number: string;
+  time_stamp: string;
+  start_time: string;
+  end_time: string;
+  table: number;
+  is_come: boolean;
+  comment: string;
+  amount_guest: number;
+  will_come: string;
+}
 
 interface ScheduleState {
   schedules: Schedule[];
-  schedulesIncoming: Schedule[];
+  schedulesIncoming: ScheduleIncoming[];
   schedulesCommon: Schedule[];
   book: FormComeMutation | null;
   bookLoading: boolean;
