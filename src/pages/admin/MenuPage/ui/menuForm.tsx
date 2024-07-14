@@ -116,7 +116,7 @@ export const MenuFormPage = () => {
     <div className="w-full h-screen bg-black text-white">
       <form onSubmit={onSubmit}>
         <div className="w-full py-[10px] border-opacity-0">
-          <div className="container mx-auto flex flex-row justify-between  items-center">
+          <div className="container flex-wrap mx-auto flex flex-row justify-between  items-center">
             <h2 className="font-bold text-[20px] text-white font-comfort">
               Добавить меню
             </h2>

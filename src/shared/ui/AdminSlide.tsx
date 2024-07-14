@@ -54,13 +54,13 @@ const AdminSlider: React.FC<AdminSliderProps> = ({
         onSlideChange={(swiper) => {
           setCurrentSlide(swiper.realIndex);
         }}
-        className="mySwiper"
+        className="mySwiper h-full"
       >
         <div ref={prevRef} className="swiper-button-prev"></div>
         {items.map((item) => (
           <SwiperSlide
             key={item.id}
-            className="h-[24px] w-[184px] flex justify-center items-center gap-[40px] bg-white-200 rounded-md"
+            className="h-full w-full flex justify-center items-center gap-[40px] bg-white-200 rounded-md"
           >
             <h3>{item.name}</h3>
           </SwiperSlide>

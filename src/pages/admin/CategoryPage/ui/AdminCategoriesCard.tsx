@@ -101,10 +101,10 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
 
   return (
     <>
-      <div className="flex items-center justify-between my-[20px]">
-        <div className="flex items-center">
+      <div className="flex items-center justify-between flex-wrap my-[20px]">
+        <div className="flex items-center flex-wrap">
           <img
-            className="w-[120px] h-[68px] rounded-[4px]"
+            className="w-full md:w-[120px] h-[120px] object-cover md:object-none md:h-[68px] rounded-[4px]"
             src={
               !imageData
                 ? 'https://backend.bono-bar.com' + category.image
@@ -150,16 +150,16 @@ export const AdminCategoriesCard: React.FC<Props> = ({ category }) => {
           onChange={changeImageFiled}
           className="hidden"
         />
-        <div className="flex items-center">
+        <div className="flex items-center flex-wrap gap-[10px]">
           <button
             onClick={selectImage}
-            className="text-white bg-[#2B2B2B] rounded-[8px] w-[160px] h-[45px]"
+            className="text-white bg-[#2B2B2B] rounded-[8px] w-full md:w-[160px] h-[45px]"
           >
             Загрузить фото
           </button>
           <button
             onClick={() => setActive(true)}
-            className="flex items-center justify-center text-white bg-[#ff0000ab] rounded-[8px] w-[40px] h-[45px] ml-[10px]"
+            className="flex items-center justify-center text-white bg-[#ff0000ab] rounded-[8px] w-full md:w-[40px] h-[45px]"
           >
             <Trash size={32} />
           </button>
