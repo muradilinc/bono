@@ -180,7 +180,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       const newStartTimeHours = newStartTime.getHours();
       if (newEndTimeHours < 4 && newStartTimeHours < 4) {
         if (newStartTimeHours < newEndTimeHours) {
-          toast.warning('В это время уже есть бронирование!2');
+          toast.warning('В это время уже есть бронирование!');
           return false;
         }
       }
