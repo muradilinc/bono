@@ -1,5 +1,4 @@
 import { Helmet } from 'react-helmet-async';
-import img from '../../../public/images/placeholder.jpeg';
 
 const MainHelmet = () => {
   return (
@@ -29,7 +28,10 @@ const MainHelmet = () => {
           Откройте для себя вкус и гостеприимство в центре Бишкека."
       />
       <meta property="og:url" content="https://bono-bar.com/" />
-      <meta property="og:image" content={img} />
+      <meta
+        property="og:image"
+        content="https://bono-bar.com/images/banner.png"
+      />
     </Helmet>
   );
 };

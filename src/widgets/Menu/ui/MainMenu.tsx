@@ -21,6 +21,7 @@ import {
 } from '../../../features/AdminFilterMenu/model/MenuSlica';
 import { SubCategory } from '../../../pages/admin/SubCategoryPage/model/sub-category';
 import Loading from '../../../shared/ui/Loading';
+import { Helmet } from 'react-helmet-async';
 
 const MainMenu = () => {
   const [btn, setBtn] = useState<number>(0);
@@ -73,6 +74,12 @@ const MainMenu = () => {
 
   return (
     <div className="text-white pt-[170px] px-[10px] w-[90%] m-auto pb-[50px]">
+      <KitchenHelmet />
+      <Helmet>
+        <script type="application/ld+json">
+          {JSON.stringify(kitchenSchema)}
+        </script>
+      </Helmet>
       <span className="text-[14px] text-[#C1C1C1]">Main / menu</span>
       <div className="mt-[30px] flex items-center flex-wrap gap-[10px]">
         <button
@@ -108,10 +115,6 @@ const MainMenu = () => {
       ) : (
         <p>Еще нет позиций</p>
       )}
-      <KitchenHelmet />
-      <script type="application/ld+json">
-        {JSON.stringify(kitchenSchema)}
-      </script>
     </div>
   );
 };
