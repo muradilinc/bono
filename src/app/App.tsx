@@ -22,6 +22,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import BarMenu from '../widgets/Menu/ui/BarMenu';
 import { FloorForm, FloorPanel } from '../pages/admin/FloorPage';
 import { CommonPage } from '../pages/admin/CommonPage';
+import { HelmetProvider } from 'react-helmet-async';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -60,7 +61,7 @@ const App = () => {
   ]);
 
   return (
-    <>
+    <HelmetProvider>
       <ToastContainer />
       {pathname.includes('admin') ? (
         adminRoutes
@@ -75,7 +76,7 @@ const App = () => {
           <Footer />
         </Layout>
       )}
-    </>
+    </HelmetProvider>
   );
 };
 

@@ -20,6 +20,7 @@ import { SubCategory } from '../../../pages/admin/SubCategoryPage/model/sub-cate
 import Loading from '../../../shared/ui/Loading';
 import BarHelmet from '../../../app/helmet/BarHelmet';
 import barSchema from '../../../app/schema/BarSchema';
+import { Helmet } from 'react-helmet-async';
 
 const BarMenu = () => {
   const [btn, setBtn] = useState<number>(0);
@@ -71,6 +72,10 @@ const BarMenu = () => {
 
   return (
     <div className="text-white pt-[170px] px-[10px] w-[90%] m-auto pb-[50px]">
+      <BarHelmet />
+      <Helmet>
+        <script type="application/ld+json">{JSON.stringify(barSchema)}</script>
+      </Helmet>
       <span className="text-[14px] text-[#C1C1C1]">Main / bar</span>
       <div className="mt-[30px] flex items-center flex-wrap gap-[10px]">
         <button
@@ -106,8 +111,6 @@ const BarMenu = () => {
       ) : (
         <p>Еще нет позиций</p>
       )}
-      <BarHelmet />
-      <script type="application/ld+json">{JSON.stringify(barSchema)}</script>
     </div>
   );
 };
