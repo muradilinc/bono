@@ -1,14 +1,23 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../../app/axiosApi';
 import { FormTable } from '../../../shared/types/Type';
+import axios from 'axios';
 
 export const initTable = createAsyncThunk<void, FormTable>(
   'tables/create',
-  async ({ table, floor }) => {
-    await axiosApi.post('/table/create/table/', {
-      number_table: parseInt(table),
-      floor: parseInt(floor),
-    });
+  async ({ table, floor }, { rejectWithValue }) => {
+    try {
+      await axiosApi.post('/table/create/table/', {
+        number_table: parseInt(table),
+        floor: parseInt(floor),
+      });
+    } catch (error) {
+      if (axios.isAxiosError(error) && error.response) {
+        return rejectWithValue(error.response);
+      } else {
+        throw error;
+      }
+    }
   },
 );
 
