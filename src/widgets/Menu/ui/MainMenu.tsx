@@ -80,7 +80,7 @@ const MainMenu = () => {
           {JSON.stringify(kitchenSchema)}
         </script>
       </Helmet>
-      <span className="text-[14px] text-[#C1C1C1]">Main / menu</span>
+      <span className="text-[14px] text-[#C1C1C1]">Main / kitchen</span>
       <div className="mt-[30px] flex items-center flex-wrap gap-[10px]">
         <button
           onClick={() => {
