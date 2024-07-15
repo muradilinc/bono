@@ -5,6 +5,7 @@ export default {
       fontFamily: {
         comfort: ['"Comfortaa"', 'san-serif'],
         room: ['"Room"', 'san-serif'],
+        sans: ['Montserrat', 'sans-serif'],
       },
       flex: {
         '50': '1 1 20%',
