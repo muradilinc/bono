@@ -87,14 +87,14 @@ const MainMenu = () => {
             dispatch(getMenu());
             setBtn(0);
           }}
-          className={`ml-[10px] ${btn === 0 ? 'border-white border-b-2' : ''}`}
+          className={`ml-[10px] font-sans ${btn === 0 ? 'border-white border-b-2' : ''}`}
         >
           Все
         </button>
         {subcategories?.map((item) => (
           <button
             onClick={() => handleSubCategories(item)}
-            className={`ml-[10px] ${btn === item.id ? 'border-white border-b-2' : ''}`}
+            className={`ml-[10px] font-sans ${btn === item.id ? 'border-white border-b-2' : ''}`}
             key={item.id}
           >
             {item.name}
