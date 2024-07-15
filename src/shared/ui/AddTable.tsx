@@ -40,9 +40,14 @@ const AddTable: React.FC<Props> = ({ onClose }) => {
       await dispatch(getTables(parseInt(form.floor))).unwrap();
       toast.success('Стол успешно создан!');
       onClose();
-    } catch (error) {
-      console.log(error);
-      toast.error('Что то пошло не так!');
+      // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+      // @ts-expect-error
+    } catch (error: never) {
+      if (error.data.dublicate) {
+        toast.warning('Такой стол уже есть!');
+      } else {
+        toast.error('Что то пошло не так!');
+      }
     }
   };
 
