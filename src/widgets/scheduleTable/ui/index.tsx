@@ -50,7 +50,7 @@ const ScheduleTable = () => {
   }, [currentIndex, dispatch, floors]);
 
   return (
-    <div className="flex flex-col w-[98vw]">
+    <div className="flex flex-col min-w-[98vw]">
       <AdminHeader
         currentDate={currentDate}
         currentStatus={activeButton}

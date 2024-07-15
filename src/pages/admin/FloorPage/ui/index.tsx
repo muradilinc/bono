@@ -1,6 +1,9 @@
 import { useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
-import { selectFloors } from '../../../../features/floors/model/floorSlice';
+import {
+  selectFloors,
+  selectFloorsLoading,
+} from '../../../../features/floors/model/floorSlice';
 import {
   deleteFloor,
   getFloors,
@@ -8,9 +11,11 @@ import {
 import { Link } from 'react-router-dom';
 import { Pencil, Trash } from '@phosphor-icons/react';
 import { toast } from 'react-toastify';
+import Loading from '../../../../shared/ui/Loading';
 
 export const FloorPanel = () => {
   const floors = useAppSelector(selectFloors);
+  const loading = useAppSelector(selectFloorsLoading);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -27,6 +32,9 @@ export const FloorPanel = () => {
       toast.error('Что-то пошло не так!');
     }
   };
+  if (loading) {
+    return <Loading />;
+  }
 
   return (
     <>
