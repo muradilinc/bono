@@ -7,17 +7,6 @@
   cursor: pointer;
 }
 
-.loader {
-  width: 48px;
-  height: 48px;
-  border-radius: 50%;
-  display: inline-block;
-  border-top: 3px solid #212121;
-  border-right: 3px solid white;
-  box-sizing: border-box;
-  animation: rotation 1s linear infinite;
-}
-
 .clientScroll::-webkit-scrollbar {
   width: 5px;
   background: #2b2b2b;
@@ -25,13 +14,4 @@
 .clientScroll::-webkit-scrollbar-thumb {
   width: 5px;
   background: rgba(255, 255, 255, 0.27);
-}
-
-@keyframes rotation {
-  0% {
-    transform: rotate(0deg);
-  }
-  100% {
-    transform: rotate(360deg);
-  }
 }
