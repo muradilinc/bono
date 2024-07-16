@@ -3,11 +3,11 @@ import MenuCard from './MenuCard';
 import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { getCategories } from '../../../features/category/categoryThunk';
 import { selectCategories } from '../../../features/category/categorySlice';
-import { selectSubCategories } from '../../../pages/admin/SubCategoryPage/model/subCategorySlice';
 import {
-  getFilterSubcategories,
-  getSubCategories,
-} from '../../../pages/admin/SubCategoryPage/api/subCategoryThunk';
+  selectSubCategories,
+  selectSubCategoriesLoading,
+} from '../../../pages/admin/SubCategoryPage/model/subCategorySlice';
+import { getFilterSubcategories } from '../../../pages/admin/SubCategoryPage/api/subCategoryThunk';
 import {
   getMenu,
   getMenuByCategoryAndSubcategory,
@@ -29,13 +29,12 @@ const BarMenu = () => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectCategories);
   const subcategories = useAppSelector(selectSubCategories);
+  const isLoadingSubcategories = useAppSelector(selectSubCategoriesLoading);
   const menu = useAppSelector(selectMenu);
   const loading = useAppSelector(selectMenuLoading);
 
   useEffect(() => {
     dispatch(getCategories());
-    dispatch(getSubCategories());
-    dispatch(getMenu());
   }, [dispatch]);
 
   useEffect(() => {
@@ -47,9 +46,7 @@ const BarMenu = () => {
   }, [dispatch, categories]);
 
   useEffect(() => {
-    if (categoryId == 0) {
-      dispatch(getMenu());
-    } else if (categoryId !== null) {
+    if (categoryId !== null) {
       const subcategoryId = subcategories?.find((item) => item.id === btn)?.id;
       if (subcategoryId) {
         dispatch(
@@ -57,7 +54,7 @@ const BarMenu = () => {
         );
       }
     }
-  }, [dispatch, categoryId, subcategories, btn]);
+  }, [dispatch, categoryId, subcategories, btn, isLoadingSubcategories]);
 
   const handleSubCategories = (item: SubCategory) => {
     setBtn(item.id);
