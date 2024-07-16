@@ -23,6 +23,7 @@ import BarMenu from '../widgets/Menu/ui/BarMenu';
 import { FloorForm, FloorPanel } from '../pages/admin/FloorPage';
 import { CommonPage } from '../pages/admin/CommonPage';
 import { HelmetProvider } from 'react-helmet-async';
+import FloorTable from '../pages/admin/FloorPage/ui/floorTable';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -46,6 +47,7 @@ const App = () => {
             <Route path="/department" element={<FloorPanel />} />
             <Route path="/department-submit" element={<FloorForm />} />
             <Route path="/department-submit/:id" element={<FloorForm />} />
+            <Route path="/department-table/:id" element={<FloorTable />} />
             <Route path="/sub-category" element={<SubCategoriesPage />} />
             <Route path="/sub-category-submit" element={<SubCategoryForm />} />
             <Route

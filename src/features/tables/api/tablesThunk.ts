@@ -2,6 +2,7 @@ import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../../app/axiosApi';
 import { FormTable } from '../../../shared/types/Type';
 import axios from 'axios';
+import { TableAll, TableUpdateProps } from '../model/table';
 
 export const initTable = createAsyncThunk<void, FormTable>(
   'tables/create',
@@ -21,12 +22,28 @@ export const initTable = createAsyncThunk<void, FormTable>(
   },
 );
 
-export const getTables = createAsyncThunk<Table[], number | undefined>(
+export const getTables = createAsyncThunk<TableAll[], number | undefined>(
   'tables/getAll',
   async (floor) => {
-    const response = await axiosApi.get<Table[]>(
+    const response = await axiosApi.get<TableAll[]>(
       `/table/list/table${floor ? `?floor=${floor}` : ''}`,
     );
     return response.data;
   },
 );
+
+export const deleteTables = createAsyncThunk<void, number>(
+  'tables/delete',
+  async (id) => {
+    const response = await axiosApi.delete(`/table/delete/table/${id}/`);
+    return await response.data;
+  },
+);
+
+export const updateTables = createAsyncThunk<
+  void,
+  { id: number; data: TableUpdateProps }
+>('tables/update', async ({ id, data }) => {
+  const response = await axiosApi.put(`/table/update/table/${id}/`, data);
+  return await response.data;
+});
