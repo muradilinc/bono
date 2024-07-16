@@ -9,7 +9,7 @@ import {
   getFloors,
 } from '../../../../features/floors/api/floorThunk';
 import { Link } from 'react-router-dom';
-import { Pencil, Trash } from '@phosphor-icons/react';
+import { Pen, Pencil, Trash } from '@phosphor-icons/react';
 import { toast } from 'react-toastify';
 import Loading from '../../../../shared/ui/Loading';
 
@@ -60,13 +60,18 @@ export const FloorPanel = () => {
                   <div className="text-white ml-[15px]">
                     <div className="flex items-center gap-x-3">
                       <p>Название: {floor.title}</p>
+                      <Link to={`/admin/department-submit/${floor.id}`}>
+                        <button>
+                          <Pen size={22} />
+                        </button>
+                      </Link>
                     </div>
                   </div>
                 </div>
                 <div className="flex gap-x-3">
                   <Link
                     className=" text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
-                    to={`/admin/department-submit/${floor.id}`}
+                    to={`/admin/department-table/${floor.id}`}
                   >
                     <Pencil size={24} />
                   </Link>

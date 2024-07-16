@@ -59,7 +59,7 @@ export const Footer: FC = () => {
               <p className="text-[#C1C1C1]">6-й мк-р, Бишкек</p>
             </div>
             <div>
-              <p>С 10:00 до 02:00</p>
+              <p>С 10:00 до 04:00</p>
               <p className="text-[#C1C1C1]">каждый день без выходных</p>
             </div>
           </div>

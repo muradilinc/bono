@@ -84,7 +84,9 @@ export const FloorForm = () => {
   return (
     <form onSubmit={addSubCategoryHandle}>
       <header className="flex items-center justify-between w-full h-[60px] bg-black px-[20px]">
-        <h1 className="text-white font-semibold">Добавить отдел</h1>
+        <h1 className="text-white font-semibold">
+          {id ? 'Редактировать' : 'Добавить'} отдел
+        </h1>
         <button
           type="submit"
           className="font-semibold text-white bg-[#6BC678] rounded-[8px] w-[125px] h-[40px]"
