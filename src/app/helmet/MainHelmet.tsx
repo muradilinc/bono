@@ -32,6 +32,7 @@ const MainHelmet = () => {
         property="og:image"
         content="https://bono-bar.com/images/banner.png"
       />
+      <link rel="canonical" href="https://bono-bar.com" />
     </Helmet>
   );
 };

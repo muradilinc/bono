@@ -43,6 +43,7 @@ const KitchenHelmet = () => {
         property="og:image"
         content="https://bono-bar.com/images/pasta.png"
       />
+      <link rel="canonical" href="https://bono-bar.com/kitchen" />
     </Helmet>
   );
 };
