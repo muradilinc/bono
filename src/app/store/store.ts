@@ -7,6 +7,24 @@ import { menuReducer } from '../../features/AdminFilterMenu/model/MenuSlica';
 import { tableReducer } from '../../features/tables/model/tableSlice';
 import { floorsReducer } from '../../features/floors/model/floorSlice';
 import { subCategoryReducer } from '../../pages/admin/SubCategoryPage/model/subCategorySlice';
+import storage from 'redux-persist/lib/storage';
+import {
+  persistReducer,
+  persistStore,
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+} from 'redux-persist';
+import { usersReducer } from '../../features/auth/model/authSlice';
+
+const usersPersistConfig = {
+  key: 'store:users',
+  storage: storage,
+  whitelist: ['user'],
+};
 
 const rootReducer = combineReducers({
   banner: bannerReducer,
@@ -18,6 +36,7 @@ const rootReducer = combineReducers({
   table: tableReducer,
   floor: floorsReducer,
   subCategories: subCategoryReducer,
+  users: persistReducer(usersPersistConfig, usersReducer),
 });
 
 export const store = configureStore({
@@ -28,7 +47,15 @@ export const setupStore = (preloadedState?: Partial<RootState>) =>
   configureStore({
     reducer: rootReducer,
     preloadedState,
+    middleware: (getDefaultMiddleware) =>
+      getDefaultMiddleware({
+        serializableCheck: {
+          ignoredActions: [FLUSH, PAUSE, PERSIST, REHYDRATE, PURGE, REGISTER],
+        },
+      }),
   });
+
+export const persistor = persistStore(store);
 
 export type RootState = ReturnType<typeof store.getState>;
 export type AppStore = ReturnType<typeof setupStore>;
