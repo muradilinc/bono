@@ -24,6 +24,7 @@ import { FloorForm, FloorPanel } from '../pages/admin/FloorPage';
 import { CommonPage } from '../pages/admin/CommonPage';
 import { HelmetProvider } from 'react-helmet-async';
 import FloorTable from '../pages/admin/FloorPage/ui/floorTable';
+import { AuthPage } from '../pages/client/AuthPage';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
@@ -71,6 +72,7 @@ const App = () => {
         <Layout>
           <Header />
           <Routes>
+            <Route path="/auth" element={<AuthPage />} />
             <Route path="/" element={<HomePage />} />
             <Route path="/kitchen" element={<MainMenu />} />
             <Route path="/bar" element={<BarMenu />} />
