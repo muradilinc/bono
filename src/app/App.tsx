@@ -24,9 +24,18 @@ import { FloorForm, FloorPanel } from '../pages/admin/FloorPage';
 import { CommonPage } from '../pages/admin/CommonPage';
 import { HelmetProvider } from 'react-helmet-async';
 import FloorTable from '../pages/admin/FloorPage/ui/floorTable';
+import {
+  AuthPage,
+  ChangePasswordPage,
+  CheckCodePage,
+} from '../pages/client/AuthPage';
+import ProtectedRoute from '../shared/ProtectedRoute/ProtectedRoute';
+import { useAppSelector } from './store/hooks';
+import { selectUser } from '../features/auth/model/authSlice';
 
 const App = () => {
   const { pathname } = useLocation() as { pathname: string };
+  const user = useAppSelector(selectUser);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -36,28 +45,33 @@ const App = () => {
     {
       path: '/admin/*',
       element: (
-        <AdminLayout>
-          <Routes>
-            <Route path="/" element={<AdminBannerPage />} />
-            <Route path="/incoming" element={<AdminIncomingPage />} />
-            <Route path="/menu" element={<AdminMenuPage />} />
-            <Route path="/menu-submit" element={<MenuFormPage />} />
-            <Route path="/category" element={<AdminPanel />} />
-            <Route path="/common" element={<CommonPage />} />
-            <Route path="/department" element={<FloorPanel />} />
-            <Route path="/department-submit" element={<FloorForm />} />
-            <Route path="/department-submit/:id" element={<FloorForm />} />
-            <Route path="/department-table/:id" element={<FloorTable />} />
-            <Route path="/sub-category" element={<SubCategoriesPage />} />
-            <Route path="/sub-category-submit" element={<SubCategoryForm />} />
-            <Route
-              path="/sub-category-submit/:id"
-              element={<SubCategoryForm />}
-            />
-            <Route path="/schedule" element={<SchedulePage />} />
-            <Route path="/banner/:id" element={<BannerCrud />} />
-          </Routes>
-        </AdminLayout>
+        <ProtectedRoute isAllowed={!!user}>
+          <AdminLayout>
+            <Routes>
+              <Route path="/" element={<AdminBannerPage />} />
+              <Route path="/incoming" element={<AdminIncomingPage />} />
+              <Route path="/menu" element={<AdminMenuPage />} />
+              <Route path="/menu-submit" element={<MenuFormPage />} />
+              <Route path="/category" element={<AdminPanel />} />
+              <Route path="/common" element={<CommonPage />} />
+              <Route path="/department" element={<FloorPanel />} />
+              <Route path="/department-submit" element={<FloorForm />} />
+              <Route path="/department-submit/:id" element={<FloorForm />} />
+              <Route path="/department-table/:id" element={<FloorTable />} />
+              <Route path="/sub-category" element={<SubCategoriesPage />} />
+              <Route
+                path="/sub-category-submit"
+                element={<SubCategoryForm />}
+              />
+              <Route
+                path="/sub-category-submit/:id"
+                element={<SubCategoryForm />}
+              />
+              <Route path="/schedule" element={<SchedulePage />} />
+              <Route path="/banner/:id" element={<BannerCrud />} />
+            </Routes>
+          </AdminLayout>
+        </ProtectedRoute>
       ),
     },
   ]);
@@ -74,6 +88,9 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/kitchen" element={<MainMenu />} />
             <Route path="/bar" element={<BarMenu />} />
+            <Route path="/authorization" element={<AuthPage />} />
+            <Route path="/check-code" element={<CheckCodePage />} />
+            <Route path="/change-password" element={<ChangePasswordPage />} />
           </Routes>
           <Footer />
         </Layout>
