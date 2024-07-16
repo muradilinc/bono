@@ -11,6 +11,7 @@ export interface FormComeMutation {
   table?: string;
   end_time?: string;
   is_come?: string;
+  id?: number;
 }
 
 export interface FormTable {

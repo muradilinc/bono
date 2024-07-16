@@ -213,7 +213,7 @@ export const FormCome = () => {
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[570px] sm:w-[570px] w-[90%] bg-black flex flex-col items-center rounded-[4px] z-[100] p-[20px] border-white border-[1px]">
           <div className="flex justify-between items-center mb-[20px] w-full">
             <h2 className="font-bold text-[16px] font-comfort text-white">
-              Спасибо за ваше бронирование!
+              Запрос на резервирование отправлен!
             </h2>
             <X
               size={24}
@@ -240,8 +240,10 @@ export const FormCome = () => {
               </li>
             </ul>
             <p className="font-medium text-white text-[14px]">
-              Если у вас возникнут вопросы, пожалуйста, свяжитесь с нами по
-              телефону{' '}
+              {/*Если у вас возникнут вопросы, пожалуйста, свяжитесь с нами по*/}
+              {/*телефону{' '}*/}
+              Пожалуйста, обратите внимание, что бронь держится только в течение
+              15 минут. Если ваши планы изменились, обязательно перезвоните нам.{' '}
               <a className="underline" href="tel:+996 505 04 62 56">
                 +996 505 04 62 56
               </a>

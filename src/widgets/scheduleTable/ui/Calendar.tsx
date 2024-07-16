@@ -18,6 +18,8 @@ import {
 import { times } from '../constants/times';
 import { selectTables } from '../../../features/tables/model/tableSlice';
 import Loading from '../../../shared/ui/Loading';
+import ModalDelete from '../../../shared/ui/ModalDelete';
+import UpdateClient from '../../../shared/ui/UpdateClient';
 
 interface Slot {
   id: number;
@@ -34,7 +36,7 @@ interface Props {
 
 const Calendar: React.FC<Props> = ({ filter }) => {
   const schedules = useAppSelector(selectSchedules);
-  const [modal, setModal] = useState<boolean>(false);
+  const [modal, setModal] = useState<string>('');
   const [selectClient, setSelectClient] = useState<number>(0);
   const updateLoading = useAppSelector(selectUpdateBookLoading);
   const deleteLoading = useAppSelector(selectDeleteBookLoading);
@@ -42,6 +44,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
   const clientApi = useAppSelector(selectBook);
   const dispatch = useAppDispatch();
   const loading = useAppSelector(selectSchedulesLoading);
+  const [addModal, setAddModal] = useState<boolean>(false);
 
   useEffect(() => {
     if (selectClient) {
@@ -52,13 +55,13 @@ const Calendar: React.FC<Props> = ({ filter }) => {
   const handleDeleteBook = async (id: number) => {
     await dispatch(deleteBook(id)).unwrap();
     await dispatch(getSchedules(filter)).unwrap();
-    setModal(false);
+    setModal('');
   };
 
   const handleChangeStatusBook = async (id: number) => {
     await dispatch(updateBook(id)).unwrap();
     await dispatch(getSchedules(filter)).unwrap();
-    setModal(false);
+    setModal('');
   };
 
   const slots: Slot[] = schedules.map((book) => {
@@ -71,6 +74,14 @@ const Calendar: React.FC<Props> = ({ filter }) => {
       is_come: book.is_come,
     };
   });
+
+  useEffect(() => {
+    if (modal === 'B') {
+      setAddModal(true);
+    } else {
+      setAddModal(false);
+    }
+  }, [modal]);
 
   if (loading) {
     return <Loading />;
@@ -114,10 +125,10 @@ const Calendar: React.FC<Props> = ({ filter }) => {
                 >
                   {slots
                     .filter((slot) => slot.table === table.id)
-                    .map((slot) => (
+                    .map((slot, inx) => (
                       <TimeSlot
-                        key={slot.id}
-                        onOpen={() => setModal(true)}
+                        key={inx}
+                        onOpen={() => setModal('A')}
                         client={(id: number) => setSelectClient(id)}
                         slot={slot}
                       />
@@ -128,7 +139,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
           </div>
         </div>
       </div>
-      {modal ? (
+      {modal === 'A' && (
         <div className="fixed top-[30%] w-[100%] flex justify-center rounded-[8px] z-[100]">
           <div className="w-[400px] bg-black flex flex-col items-center rounded-[8px] py-[15px] px-[15px] gap-y-3">
             <div className="flex items-center justify-between w-[100%] rounded-[8px]">
@@ -136,7 +147,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
                 Выберите одну из них
               </h2>
               <span
-                onClick={() => setModal(false)}
+                onClick={() => setModal('')}
                 className="text-white text-[20px] cursor-pointer"
               >
                 &#x2715;
@@ -153,7 +164,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
             </div>
             <div className="flex flex-col gap-y-3 w-full">
               <button
-                onClick={() => handleDeleteBook(selectClient)}
+                onClick={() => setModal('B')}
                 className="border border-white text-white rounded-[5px] w-full py-3"
                 disabled={deleteLoading}
               >
@@ -168,10 +179,26 @@ const Calendar: React.FC<Props> = ({ filter }) => {
                   ? 'Меняется статус бронирование...'
                   : 'Гости пришли'}
               </button>
+              <button
+                onClick={() => setModal('C')}
+                className="border border-white text-white rounded-[5px] w-full py-3"
+              >
+                Редактировать
+              </button>
             </div>
           </div>
         </div>
-      ) : null}
+      )}
+      {modal === 'B' && (
+        <ModalDelete
+          addModal={addModal}
+          setAddModal={setAddModal}
+          onDelete={() => handleDeleteBook(selectClient)}
+        />
+      )}
+      {modal === 'C' && (
+        <UpdateClient client={clientApi} onClose={() => setModal('')} />
+      )}
     </div>
   );
 };

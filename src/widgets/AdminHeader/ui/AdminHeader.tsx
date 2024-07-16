@@ -11,8 +11,7 @@ import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
 import { getFloors } from '../../../features/floors/api/floorThunk';
 import BtnTable from '../../scheduleTable/ui/BtnTable';
-import { ArrowLeft } from '@phosphor-icons/react';
-import { Link } from 'react-router-dom';
+import { MagnifyingGlass, Plus } from '@phosphor-icons/react';
 
 type ValuePiece = Date | null;
 
@@ -41,6 +40,7 @@ export const AdminHeader: FC<Props> = ({
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
   const [client, setClient] = useState<number | null>(null);
+  const [text, setText] = useState('');
   const floors = useAppSelector(selectFloors);
   const dispatch = useAppDispatch();
 
@@ -53,22 +53,42 @@ export const AdminHeader: FC<Props> = ({
     setClient(id);
     setStep('K');
   };
+  const openModal = () => {
+    setShowModal(true);
+    setModal(!modal);
+  };
 
   useEffect(() => {
     dispatch(getFloors());
   }, [dispatch]);
 
+  useEffect(() => {
+    setCurrentText(text);
+  }, [setCurrentText, text]);
+
   return (
     <div className="w-full relative">
       <div className="flex flex-col bg-[black] p-4">
-        <div className="flex gap-[30px] items-center justify-between">
-          <Link
-            to={'/admin/'}
-            className="px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
-          >
-            <ArrowLeft size={24} />
-          </Link>
-          <Calendar setDate={setCurrentDate} />
+        <div className="flex gap-[30px] items-center ">
+          <div className="flex items-center justify-between w-[500px]">
+            <button
+              onClick={openModal}
+              className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
+            >
+              <Plus size={24} />
+            </button>
+            <Calendar setDate={setCurrentDate} />
+            <div className="w-[150px] h-[47px] flex rounded-[8px] bg-[#2B2B2B] items-center justify-center">
+              <MagnifyingGlass className="w-[20px] h-[20px] text-white ml-[10px]" />
+              <input
+                type="text"
+                value={text}
+                onChange={(event) => setText(event.target.value)}
+                placeholder="Поиск"
+                className="w-[90%] py-[10px] outline-none bg-[#2B2B2B] rounded-[8px] text-white pl-[5px]"
+              />
+            </div>
+          </div>
           <FilterButton
             setAddModal={setShowModal}
             setModal={setModal}
