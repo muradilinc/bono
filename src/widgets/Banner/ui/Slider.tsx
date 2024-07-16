@@ -54,8 +54,8 @@ export const Slider = () => {
               alt="imgBanner"
             />
             <div className="absolute z-20 top-1/2 translate-y-[-40%] left-[50%] translate-x-[-50%] w-full sm:w-[unset] px-[16px] sm:max-w-[830px] flex flex-col gap-[42px] items-center">
-              <div className="flex flex-col items-center gap-[10px] text-center">
-                <p className="text-[16px] md:text-[24px] font-normal font-comfort w-[550px] text-right pb-5">
+              <div className="flex w-full flex-col items-center gap-[10px] text-center">
+                <p className="text-[16px] md:text-[24px] font-normal font-comfort w-full text-right pb-5">
                   {banner.subtitle}
                 </p>
                 <h1 className="text-[100px] md:text-[185px] leading-[70px] md:leading-[150px] font-comfort font-white">
