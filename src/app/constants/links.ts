@@ -6,6 +6,10 @@ export const links = [
     name: 'Баннер',
   },
   {
+    path: '/admin/passwords',
+    name: 'Пароли',
+  },
+  {
     path: '/admin/menu',
     name: 'Меню',
   },

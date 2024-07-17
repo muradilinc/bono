@@ -1,19 +1,16 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
-import { useNavigate, useSearchParams } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../../app/store/hooks';
-import {
-  changeCrmPassword,
-  changePassword,
-} from '../../../../features/auth/api/authThunk';
+import { register } from '../../../../features/auth/api/authThunk';
+import { RegisterMutation } from '../../../../features/auth/model/authTypes';
 
-export const ChangePasswordPage = () => {
-  const [state, setState] = useState({
+export const RegisterPage = () => {
+  const [state, setState] = useState<RegisterMutation>({
     email: '',
     password: '',
   });
   const dispatch = useAppDispatch();
-  const [searchParams, _setSearchParams] = useSearchParams();
   const navigate = useNavigate();
 
   const changeFields = (event: ChangeEvent<HTMLInputElement>) => {
@@ -24,20 +21,16 @@ export const ChangePasswordPage = () => {
     }));
   };
 
-  const loginHandle = async (event: FormEvent) => {
+  const registerHandle = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      if (searchParams.get('type') === 'admin') {
-        await dispatch(changePassword(state)).unwrap();
-      } else {
-        await dispatch(changeCrmPassword(state)).unwrap();
-      }
+      await dispatch(register(state)).unwrap();
       setState({
         email: '',
         password: '',
       });
-      toast.success('Пароль успешно обновлен!');
-      navigate('/authorization');
+      toast.success('Аккаунт успешно создан!');
+      navigate('/admin');
     } catch (error) {
       console.log(error);
       toast.error('Что пошло не так!');
@@ -47,11 +40,11 @@ export const ChangePasswordPage = () => {
   return (
     <div className="h-svh flex justify-center items-center px-[10px]">
       <form
-        onSubmit={loginHandle}
+        onSubmit={registerHandle}
         className="flex flex-col justify-center w-full sm:w-[500px] p-[20px] bg-black border border-white gap-[20px]"
       >
         <h2 className="text-white text-center text-[20px] sm:text-[32px]">
-          Авторизация
+          Регистрация
         </h2>
         <input
           className="border-b bg-transparent px-[8px] py-[12px] text-white"
@@ -75,7 +68,7 @@ export const ChangePasswordPage = () => {
           className="w-full text-white py-[16px] px-[24px] border border-white rounded"
           type="submit"
         >
-          Изменить
+          Зарегистрироваться
         </button>
       </form>
     </div>
