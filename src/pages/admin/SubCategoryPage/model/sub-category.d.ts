@@ -14,3 +14,8 @@ export interface SubCategoryMutation {
     name: string;
   } | null;
 }
+
+export interface OrderSubCategory {
+  id: number;
+  order: number;
+}
