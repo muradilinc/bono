@@ -11,7 +11,7 @@
 
 @font-face {
   font-family: 'Gotham Pro';
-  src: url('../public/fonts/Gotham Pro/gothampro_bold.ttf') format('truetype');
+  src: url('../public/fonts/Gotham Pro/gothampro_medium.ttf') format('truetype');
   font-weight: bold;
   font-style: normal;
 }
