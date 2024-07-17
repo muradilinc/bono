@@ -91,7 +91,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
     <div className="bg-[black] relative">
       <div className="ml-[20px] bg-[#2B2B2B] px-[10px] rounded-[4px]">
         <div className="flex flex-col relative">
-          <div className="flex  items-center sticky top-0 z-10 bg-[#2B2B2B]">
+          <div className="flex items-center sticky top-0 z-10 bg-[#2B2B2B]">
             <div className="w-[85px] text-wrap">
               <h4 className="font-comfort text-white font-medium text-[14px]">
                 Столы / время
