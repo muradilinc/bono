@@ -213,7 +213,6 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           name="user_name"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
-          required
         />
       </div>
       <div className="flex items-center justify-between gap-3">
@@ -256,24 +255,11 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
             name="phone_number"
             className={`w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black ${isValid ? '' : 'border-red-500'}`}
             type="text"
-            required
           />
           {!isValid && (
             <p style={{ color: 'red' }}>Неправильный номер телефона</p>
           )}
         </div>
-      </div>
-      <div className="flex items-center justify-between gap-3">
-        <p className="text-[#858687] text-[14px] mb-[5px]">Время нахождения</p>
-        <input
-          onChange={changeFields}
-          name="time_stamp"
-          value={form.time_stamp}
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
-          type="number"
-          min="1"
-          required
-        />
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Время брони</p>
@@ -297,6 +283,18 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
             </option>
           ))}
         </select>
+      </div>
+      <div className="flex items-center justify-between gap-3">
+        <p className="text-[#858687] text-[14px] mb-[5px]">Время нахождения</p>
+        <input
+          onChange={changeFields}
+          name="time_stamp"
+          value={form.time_stamp}
+          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+          type="number"
+          min="1"
+          required
+        />
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Количество гостей</p>
