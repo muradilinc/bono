@@ -1,6 +1,10 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axiosApi from '../../../../app/axiosApi';
-import { SubCategory, SubCategoryMutation } from '../model/sub-category';
+import {
+  OrderSubCategory,
+  SubCategory,
+  SubCategoryMutation,
+} from '../model/sub-category';
 
 export const createSubCategory = createAsyncThunk<void, SubCategoryMutation>(
   'subCategory/create',
@@ -55,5 +59,18 @@ export const deleteSubCategory = createAsyncThunk<void, number>(
   'subCategory/delete',
   async (id) => {
     await axiosApi.delete(`/category/subcategories/${id}/`);
+  },
+);
+
+export const orderSubCategory = createAsyncThunk<void, OrderSubCategory>(
+  'orderSubCategory/order',
+  async ({ id, order }) => {
+    const data = [
+      {
+        id: id,
+        order: order,
+      },
+    ];
+    await axiosApi.post(`/category/subcategories/order/`, data);
   },
 );

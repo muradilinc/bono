@@ -214,7 +214,6 @@ const UpdateClient: React.FC<Props> = ({ client, onClose }) => {
           name="user_name"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
-          required
         />
       </div>
       <div className="flex items-center justify-between gap-3">
@@ -257,7 +256,6 @@ const UpdateClient: React.FC<Props> = ({ client, onClose }) => {
             name="phone_number"
             className={`w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black ${isValid ? '' : 'border-red-500'}`}
             type="text"
-            required
           />
           {!isValid && (
             <p style={{ color: 'red' }}>Неправильный номер телефона</p>
