@@ -25,7 +25,7 @@ export const Contacts = () => {
         <div>
           <h1 className="md:text-[20px] text-[17px] font-medium">ГРАФИК:</h1>
           <h4 className="mt-[5px] md:text-[16px] text-[15px]">
-            С 10:00 до 02:00
+            С 10:00 до 04:00
           </h4>
           <p className="text-[#C1C1C1] md:text-[16px] text-[15px]">
             каждый день без выходных

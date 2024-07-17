@@ -3,9 +3,9 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        comfort: ['"Comfortaa"', 'san-serif'],
-        room: ['"Room"', 'san-serif'],
-        sans: ['Montserrat', 'sans-serif'],
+        comfort: ['"Gotham Pro"', 'san-serif'],
+        room: ['"Gotham Pro"', 'san-serif'],
+        sans: ['Gotham Pro', 'sans-serif'],
       },
       flex: {
         '50': '1 1 20%',

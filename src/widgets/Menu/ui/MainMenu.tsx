@@ -87,7 +87,7 @@ const MainMenu = () => {
             dispatch(getMenu());
             setBtn(0);
           }}
-          className={`ml-[10px] font-sans ${btn === 0 ? 'border-white border-b-2' : ''}`}
+          className={`ml-[10px] ${btn === 0 ? 'border-white border-b-2' : ''}`}
         >
           Все
         </button>
