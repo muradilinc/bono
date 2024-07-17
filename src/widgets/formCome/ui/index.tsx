@@ -212,7 +212,7 @@ export const FormCome = () => {
       {showModal && (
         <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-w-[570px] sm:w-[570px] w-[90%] bg-black flex flex-col items-center rounded-[4px] z-[100] p-[20px] border-white border-[1px]">
           <div className="flex justify-between items-center mb-[20px] w-full">
-            <h2 className="font-bold text-[16px] font-comfort text-white">
+            <h2 className="font-bold text-[16px] font-sans text-white">
               Запрос на резервирование отправлен!
             </h2>
             <X
@@ -222,29 +222,29 @@ export const FormCome = () => {
             />
           </div>
           <div className="flex flex-col gap-y-3">
-            <p className="font-normal text-[14px] font-comfort">
+            <p className="font-normal text-[14px] font-sans">
               Ваш столик успешно забронирован. Наши сотрудники свяжутся с вами в
               ближайшее время для подтверждения бронирования.
             </p>
             <ul>
-              <li className="font-medium text-[14px] text-white">
+              <li className="font-sans text-[14px] text-white">
                 <span className="text-[#C1C1C1]">Дата:</span> {state.will_come}
               </li>
-              <li className="font-medium text-[14px] text-white">
+              <li className="font-sans text-[14px] text-white">
                 <span className="text-[#C1C1C1]">Время:</span>{' '}
                 {state.start_time}
               </li>
-              <li className="font-medium text-[14px] text-white">
+              <li className="font-sans text-[14px] text-white">
                 <span className="text-[#C1C1C1]">Количество гостей:</span>{' '}
                 {state.amount_guest}
               </li>
             </ul>
-            <p className="font-medium text-white text-[14px]">
+            <p className="font-medium text-[14px] text-red-400 font-sans">
               {/*Если у вас возникнут вопросы, пожалуйста, свяжитесь с нами по*/}
               {/*телефону{' '}*/}
               Пожалуйста, обратите внимание, что бронь держится только в течение
               15 минут. Если ваши планы изменились, обязательно перезвоните нам.{' '}
-              <a className="underline" href="tel:+996 505 04 62 56">
+              <a className="underline text-white" href="tel:+996 505 04 62 56">
                 +996 505 04 62 56
               </a>
             </p>
