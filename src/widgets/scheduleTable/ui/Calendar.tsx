@@ -23,8 +23,10 @@ import UpdateClient from '../../../shared/ui/UpdateClient';
 
 interface Slot {
   id: number;
+  name: string;
   startTime: string;
   endTime: string;
+  phone: string;
   table: number;
   occupied: boolean;
   is_come: boolean;
@@ -67,6 +69,8 @@ const Calendar: React.FC<Props> = ({ filter }) => {
   const slots: Slot[] = schedules.map((book) => {
     return {
       id: book.id,
+      name: book.user_name,
+      phone: book.phone_number,
       startTime: book.start_time,
       endTime: book.end_time,
       table: book.table,
