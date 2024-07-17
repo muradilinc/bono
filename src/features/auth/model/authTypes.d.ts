@@ -25,6 +25,11 @@ export interface GlobalError {
   error: string;
 }
 
+export interface RegisterMutation {
+  email: string;
+  password: string;
+}
+
 export interface LoginMutation {
   email: string;
   password: string;

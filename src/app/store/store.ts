@@ -23,7 +23,7 @@ import { usersReducer } from '../../features/auth/model/authSlice';
 const usersPersistConfig = {
   key: 'store:users',
   storage: storage,
-  whitelist: ['user'],
+  whitelist: ['user', 'userCrm'],
 };
 
 const rootReducer = combineReducers({
