@@ -48,7 +48,7 @@ export const CheckCodePage = () => {
         className="flex flex-col justify-center w-full sm:w-[500px] p-[20px] bg-black border border-white gap-[20px]"
       >
         <h2 className="text-white text-center text-[20px] sm:text-[32px]">
-          Восстановление пароля
+          {searchParams.get('type') ? 'Изменения' : 'Восстановление'} пароля
         </h2>
         <input
           className="border-b bg-transparent px-[8px] py-[12px] text-white"
