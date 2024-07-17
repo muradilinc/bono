@@ -28,6 +28,9 @@ export const usersSlice = createSlice({
     logoutState: (state) => {
       state.user = null;
     },
+    logoutCrmState: (state) => {
+      state.userCrm = null;
+    },
   },
   extraReducers: (builder) => {
     builder.addCase(register.pending, (state) => {
@@ -71,7 +74,7 @@ export const usersSlice = createSlice({
 
 export const usersReducer = usersSlice.reducer;
 
-export const { logoutState } = usersSlice.actions;
+export const { logoutState, logoutCrmState } = usersSlice.actions;
 
 export const selectUser = (state: RootState) => state.users.user;
 export const selectUserCrm = (state: RootState) => state.users.userCrm;

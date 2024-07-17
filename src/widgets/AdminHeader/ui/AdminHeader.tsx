@@ -11,7 +11,9 @@ import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
 import { getFloors } from '../../../features/floors/api/floorThunk';
 import BtnTable from '../../scheduleTable/ui/BtnTable';
-import { MagnifyingGlass, Plus } from '@phosphor-icons/react';
+import { ArrowLeft, MagnifyingGlass, Plus } from '@phosphor-icons/react';
+import { selectUserCrm } from '../../../features/auth/model/authSlice';
+import { logoutCrm } from '../../../features/auth/api/authThunk';
 
 type ValuePiece = Date | null;
 
@@ -41,8 +43,17 @@ export const AdminHeader: FC<Props> = ({
   const [step, setStep] = useState('A');
   const [client, setClient] = useState<number | null>(null);
   const [text, setText] = useState('');
+  const userCrm = useAppSelector(selectUserCrm);
   const floors = useAppSelector(selectFloors);
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getFloors());
+  }, [dispatch]);
+
+  useEffect(() => {
+    setCurrentText(text);
+  }, [setCurrentText, text]);
 
   const closeModal = () => {
     setShowModal(false);
@@ -58,19 +69,27 @@ export const AdminHeader: FC<Props> = ({
     setModal(!modal);
   };
 
-  useEffect(() => {
-    dispatch(getFloors());
-  }, [dispatch]);
-
-  useEffect(() => {
-    setCurrentText(text);
-  }, [setCurrentText, text]);
+  const logoutHandle = async () => {
+    try {
+      await dispatch(logoutCrm());
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div className="w-full relative">
       <div className="flex flex-col bg-[black] p-4">
         <div className="flex gap-[30px] items-center ">
-          <div className="flex items-center justify-between w-[500px]">
+          <div className="flex items-center gap-x-3 justify-between w-[500px]">
+            {userCrm ? (
+              <button
+                onClick={logoutHandle}
+                className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
+              >
+                <ArrowLeft size={24} />
+              </button>
+            ) : null}
             <button
               onClick={openModal}
               className="h-[47px] px-[32px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"

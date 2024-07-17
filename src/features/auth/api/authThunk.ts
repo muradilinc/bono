@@ -8,7 +8,7 @@ import {
   ValidationError,
 } from '../model/authTypes';
 import { RootState } from '../../../app/store/store';
-import { logoutState } from '../model/authSlice';
+import { logoutCrmState, logoutState } from '../model/authSlice';
 
 export const register = createAsyncThunk<
   AuthResponse,
@@ -247,3 +247,12 @@ export const logout = createAsyncThunk<void, undefined, { state: RootState }>(
     dispatch(logoutState());
   },
 );
+
+export const logoutCrm = createAsyncThunk<
+  void,
+  undefined,
+  { state: RootState }
+>('users/logout', async (_, { dispatch }) => {
+  await axios.delete('https://bono-bar.com/auth/usersCrm/sessions');
+  dispatch(logoutCrmState());
+});
