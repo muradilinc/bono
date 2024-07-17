@@ -11,7 +11,7 @@ import BannerCrud from '../pages/admin/BannerPage/ui/BannerCrud';
 import MainMenu from '../widgets/Menu/ui/MainMenu';
 import { Header } from '../widgets/Header';
 import { Footer } from '../widgets/Footer';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { ToastContainer } from 'react-toastify';
 import {
   SubCategoriesPage,
@@ -28,14 +28,25 @@ import {
   AuthPage,
   ChangePasswordPage,
   CheckCodePage,
+  PasswordPage,
+  RegisterPage,
+  SendCodePage,
 } from '../pages/client/AuthPage';
 import ProtectedRoute from '../shared/ProtectedRoute/ProtectedRoute';
 import { useAppSelector } from './store/hooks';
-import { selectUser } from '../features/auth/model/authSlice';
+import { selectUser, selectUserCrm } from '../features/auth/model/authSlice';
 
 const App = () => {
+  const [state, setState] = useState(false);
   const { pathname } = useLocation() as { pathname: string };
   const user = useAppSelector(selectUser);
+  const userCrm = useAppSelector(selectUserCrm);
+
+  useEffect(() => {
+    if (pathname.includes('schedule')) {
+      setState((prevState) => !prevState);
+    }
+  }, [pathname]);
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -49,6 +60,7 @@ const App = () => {
           <AdminLayout>
             <Routes>
               <Route path="/" element={<AdminBannerPage />} />
+              <Route path="/passwords" element={<PasswordPage />} />
               <Route path="/incoming" element={<AdminIncomingPage />} />
               <Route path="/menu" element={<AdminMenuPage />} />
               <Route path="/menu-submit" element={<MenuFormPage />} />
@@ -83,16 +95,26 @@ const App = () => {
         adminRoutes
       ) : (
         <Layout>
-          <Header />
+          {pathname === '/schedule' ? null : <Header />}
           <Routes>
             <Route path="/" element={<HomePage />} />
             <Route path="/kitchen" element={<MainMenu />} />
             <Route path="/bar" element={<BarMenu />} />
-            <Route path="/authorization" element={<AuthPage />} />
+            <Route path="/authorization" element={<AuthPage crm={state} />} />
+            <Route path="/register" element={<RegisterPage />} />
             <Route path="/check-code" element={<CheckCodePage />} />
+            <Route path="/check-code-crm" element={<SendCodePage />} />
             <Route path="/change-password" element={<ChangePasswordPage />} />
+            <Route
+              path="/schedule"
+              element={
+                <ProtectedRoute isAllowed={!!userCrm}>
+                  <SchedulePage />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
-          <Footer />
+          {pathname === '/schedule' ? null : <Footer />}
         </Layout>
       )}
     </HelmetProvider>

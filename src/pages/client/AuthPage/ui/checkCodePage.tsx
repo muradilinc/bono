@@ -1,14 +1,15 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { toast } from 'react-toastify';
 import { useAppDispatch } from '../../../../app/store/hooks';
-import { sendOtp } from '../../../../features/auth/api/authThunk';
-import { useNavigate } from 'react-router-dom';
+import { sendCrmOtp, sendOtp } from '../../../../features/auth/api/authThunk';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 export const CheckCodePage = () => {
   const [state, setState] = useState({
     email: '',
     otp: '',
   });
+  const [searchParams, _setSearchParams] = useSearchParams();
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
@@ -23,13 +24,17 @@ export const CheckCodePage = () => {
   const sendCodeHandle = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      await dispatch(sendOtp(state)).unwrap();
+      if (searchParams.get('type') === 'admin') {
+        await dispatch(sendOtp(state)).unwrap();
+      } else {
+        await dispatch(sendCrmOtp(state)).unwrap();
+      }
       setState({
         email: '',
         otp: '',
       });
       toast.success('Код действителен!');
-      navigate('/change-password');
+      navigate(`/change-password?type=${searchParams.get('type')}`);
     } catch (error) {
       toast.error('Что то пошло не так!');
       console.log(error);

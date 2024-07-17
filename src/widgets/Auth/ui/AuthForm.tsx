@@ -1,15 +1,16 @@
 import { ChangeEvent, FormEvent, useState } from 'react';
 import { useAppDispatch } from '../../../app/store/hooks';
-import { login } from '../../../features/auth/api/authThunk';
+import { login, loginCrm } from '../../../features/auth/api/authThunk';
 import { LoginMutation } from '../../../features/auth/model/authTypes';
 import { toast } from 'react-toastify';
 import { useNavigate } from 'react-router-dom';
 
 interface AuthFormProps {
+  crm: boolean;
   setChange: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
-export const AuthForm: React.FC<AuthFormProps> = ({ setChange }) => {
+export const AuthForm: React.FC<AuthFormProps> = ({ crm, setChange }) => {
   const [state, setState] = useState<LoginMutation>({
     email: '',
     password: '',
@@ -28,13 +29,17 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setChange }) => {
   const loginHandle = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      await dispatch(login(state)).unwrap();
+      if (crm) {
+        await dispatch(loginCrm(state)).unwrap();
+      } else {
+        await dispatch(login(state)).unwrap();
+      }
       setState({
         email: '',
         password: '',
       });
       toast.success('Добро пожаловать!');
-      navigate('/admin');
+      navigate(crm ? '/schedule' : '/admin');
     } catch (error) {
       console.log(error);
       toast.error('Что пошло не так!');
@@ -67,18 +72,27 @@ export const AuthForm: React.FC<AuthFormProps> = ({ setChange }) => {
         required
         placeholder="Пароль"
       />
-      <button
-        onClick={() => setChange(true)}
-        className="text-gray-500 text-right"
-      >
-        Забыли пароль?
-      </button>
+      {crm ? null : (
+        <button
+          onClick={() => setChange(true)}
+          className="text-gray-500 text-right"
+          type="button"
+        >
+          Забыли пароль?
+        </button>
+      )}
       <button
         className="w-full text-white py-[16px] px-[24px] border border-white rounded"
         type="submit"
       >
         Войти
       </button>
+      {/*<Link*/}
+      {/*  to="/register"*/}
+      {/*  className="w-full text-white text-center py-[16px] px-[24px] border border-white rounded"*/}
+      {/*>*/}
+      {/*  Зарегистрироваться*/}
+      {/*</Link>*/}
     </form>
   );
 };
