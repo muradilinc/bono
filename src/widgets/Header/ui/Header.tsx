@@ -7,7 +7,9 @@ export const Header: FC = () => {
   const renderTitle = useMemo(() => {
     return HEADER_DATA.map((item) => (
       <div key={item.title}>
-        <a href={item.link}>{item.title}</a>
+        <a className="font-sans" href={item.link}>
+          {item.title}
+        </a>
       </div>
     ));
   }, []);
