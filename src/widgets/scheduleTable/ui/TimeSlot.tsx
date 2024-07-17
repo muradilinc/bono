@@ -4,6 +4,8 @@ import { UsersThree } from '@phosphor-icons/react';
 
 interface Props {
   slot: {
+    name: string;
+    phone: string;
     id: number;
     startTime: string;
     endTime: string;
@@ -46,6 +48,10 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
       }}
     >
       <p>{`${startTime} - ${endTime}`}</p>
+      <p className="text-white font-comfort font-medium">{slot.name}</p>
+      <p className="text-white font-comfort font-medium break-words">
+        {slot.phone}
+      </p>
       <div className="flex items-center justify-center h-full">
         <UsersThree size={32} color="#fff" />
       </div>

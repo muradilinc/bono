@@ -51,7 +51,7 @@ export const ChangePasswordPage = () => {
         className="flex flex-col justify-center w-full sm:w-[500px] p-[20px] bg-black border border-white gap-[20px]"
       >
         <h2 className="text-white text-center text-[20px] sm:text-[32px]">
-          Авторизация
+          {searchParams.get('type') ? 'Изменения пароля' : 'Авторизация'}
         </h2>
         <input
           className="border-b bg-transparent px-[8px] py-[12px] text-white"
