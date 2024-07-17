@@ -30,7 +30,7 @@ export const Calendar: React.FC<Props> = ({ setDate }) => {
           <div className="w-[220px] py-[5px] flex justify-center items-center bg-[#2B2B2B] rounded-[8px] text-white">
             <div
               onClick={() => setCalendar(!calendar)}
-              className="font-comfortaa text-2xl font-bold leading-[26.76px] text-center px-[22px] pb-[6px] m-auto cursor-pointer"
+              className="font-comfortaa text-2xl font-semibold leading-[26.76px] text-center px-[22px] pb-[6px] m-auto cursor-pointer"
             >
               <h1 className="text-[16px] uppercase">
                 {format(currentDate.toString(), 'EEEE', { locale: ru })}
