@@ -53,7 +53,7 @@ export const Slider = () => {
               src={el.img}
               alt="imgBanner"
             />
-            <div className="absolute z-20 top-1/2 translate-y-[-40%] left-[50%] translate-x-[-50%] w-full sm:w-[unset] px-[16px] sm:max-w-[830px] flex flex-col gap-[42px] items-center">
+            <div className="absolute z-20 top-1/2 translate-y-[-40%] left-[50%] translate-x-[-50%] w-full sm:w-[unset] px-[30px] sm:max-w-[830px] flex flex-col gap-[42px] items-center">
               <div className="flex w-full flex-col items-center gap-[10px] text-center">
                 <p className="text-[16px] md:text-[24px] font-sans w-full text-right pr-11 lg:text-right lg:pr-1 pb-[10px]">
                   {/* {banner.subtitle} */}
