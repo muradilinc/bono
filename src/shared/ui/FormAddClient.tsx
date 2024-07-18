@@ -10,6 +10,7 @@ import {
 import { toast } from 'react-toastify';
 import '../style/style.css';
 import { times } from '../../widgets/scheduleTable/constants/times';
+import { SendData } from '../../app/axiosApi';
 
 interface Props {
   onClose: () => void;
@@ -51,6 +52,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
+      SendData(form);
       await dispatch(createBook(form)).unwrap();
       await dispatch(getSchedulesIncoming()).unwrap();
       toast.success('Добавлен!');
