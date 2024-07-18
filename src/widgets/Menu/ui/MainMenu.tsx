@@ -81,20 +81,20 @@ const MainMenu = () => {
         </script>
       </Helmet>
       <span className="text-[14px] text-[#C1C1C1]">Main / kitchen</span>
-      <div className="mt-[30px] flex items-center flex-wrap gap-[10px]">
+      <div className="mt-[30px] flex items-center flex-wrap gap-y-[10px] gap-x-[15px]">
         <button
           onClick={() => {
             dispatch(getMenu());
             setBtn(0);
           }}
-          className={`ml-[10px] ${btn === 0 ? 'border-white border-b-2' : ''}`}
+          className={`${btn === 0 ? 'border-white border-b-2' : ''}`}
         >
           Все
         </button>
         {subcategories?.map((item) => (
           <button
             onClick={() => handleSubCategories(item)}
-            className={`ml-[10px] font-sans ${btn === item.id ? 'border-white border-b-2' : ''}`}
+            className={`font-sans ${btn === item.id ? 'border-white border-b-2' : ''}`}
             key={item.id}
           >
             {item.name}
