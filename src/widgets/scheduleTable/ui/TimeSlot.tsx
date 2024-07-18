@@ -1,6 +1,5 @@
 import React from 'react';
 import moment from 'moment';
-import { UsersThree } from '@phosphor-icons/react';
 
 interface Props {
   slot: {
@@ -52,9 +51,9 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
       <p className="text-white font-comfort font-medium break-words">
         {slot.phone}
       </p>
-      <div className="flex items-center justify-center h-full">
-        <UsersThree size={32} color="#fff" />
-      </div>
+      {/*<div className="flex items-center justify-center h-full">*/}
+      {/*  <UsersThree size={32} color="#fff" />*/}
+      {/*</div>*/}
     </div>
   );
 };

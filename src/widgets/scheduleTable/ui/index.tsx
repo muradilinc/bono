@@ -49,6 +49,22 @@ const ScheduleTable = () => {
     }
   }, [currentIndex, dispatch, floors]);
 
+  useEffect(() => {
+    const mediaQuery = window.matchMedia(
+      '(min-width: 768px) and (max-width: 1024px)',
+    );
+    if (mediaQuery.matches) {
+      if (currentIndex === 0) {
+        document.body.style.setProperty('zoom', '38.5%');
+      } else if (currentIndex === 1) {
+        document.body.style.setProperty('zoom', '41%');
+      } else if (currentIndex === 2 || currentIndex === 3) {
+        document.body.style.setProperty('zoom', '29.3%');
+      }
+    } else {
+      document.body.style.setProperty('zoom', '100%');
+    }
+  }, [currentIndex]);
   return (
     <div className="flex flex-col min-w-[98vw]">
       <AdminHeader
