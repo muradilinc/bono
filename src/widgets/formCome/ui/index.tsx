@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { times } from '../../scheduleTable/constants/times';
 import { X } from '@phosphor-icons/react';
 import { selectCreateBookLoading } from '../../../features/shedule/model/scheduleSlice';
+import { SendData } from '../../../app/axiosApi';
 
 export const FormCome = () => {
   const [state, setState] = useState<FormComeMutation>({
@@ -56,6 +57,7 @@ export const FormCome = () => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
+      await SendData(state);
       await dispatch(createBook(state)).unwrap();
       setShowModal(true);
       // eslint-disable-next-line @typescript-eslint/ban-ts-comment
