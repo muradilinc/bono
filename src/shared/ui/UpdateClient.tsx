@@ -11,6 +11,7 @@ import { toast } from 'react-toastify';
 import { times } from '../../widgets/scheduleTable/constants/times';
 import { selectTables } from '../../features/tables/model/tableSlice';
 import {
+  FilterBook,
   getSchedules,
   getSchedulesCommon,
   getSingleBook,
@@ -20,9 +21,10 @@ import {
 interface Props {
   client?: FormComeMutation | null;
   onClose: () => void;
+  filter: FilterBook;
 }
 
-const UpdateClient: React.FC<Props> = ({ client, onClose }) => {
+const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: client?.user_name || '',
@@ -110,7 +112,7 @@ const UpdateClient: React.FC<Props> = ({ client, onClose }) => {
     try {
       if (client?.id) {
         await dispatch(updateTableBook({ id: client.id, book: form })).unwrap();
-        await dispatch(getSchedules()).unwrap();
+        await dispatch(getSchedules(filter)).unwrap();
         toast.success('Изменено!');
         onClose();
       }

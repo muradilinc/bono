@@ -201,7 +201,11 @@ const Calendar: React.FC<Props> = ({ filter }) => {
         />
       )}
       {modal === 'C' && (
-        <UpdateClient client={clientApi} onClose={() => setModal('')} />
+        <UpdateClient
+          client={clientApi}
+          filter={filter}
+          onClose={() => setModal('')}
+        />
       )}
     </div>
   );
