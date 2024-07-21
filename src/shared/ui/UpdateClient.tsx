@@ -24,9 +24,15 @@ interface Props {
   client?: FormComeMutation | null;
   onClose: () => void;
   filter: FilterBook;
+  setCurrentFloor: (floor: number) => void;
 }
 
-const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
+const UpdateClient: React.FC<Props> = ({
+  client,
+  onClose,
+  filter,
+  setCurrentFloor,
+}) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: client?.user_name || '',
@@ -126,6 +132,8 @@ const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
         toast.warning(error.data.validate);
       } else if (error.data.occupated) {
         toast.warning(error.data.occupated);
+      } else if (error.data.date) {
+        toast.error(error.data.date);
       } else if (error.data.end_time) {
         toast.warning(error.data.end_time, {
           className: 'w-[400px] ml-[-90px]',
@@ -207,9 +215,13 @@ const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
   };
   const handleFloor = async (e: ChangeEvent<HTMLSelectElement>) => {
     const floorId = Number(e.target.value);
-    await dispatch(getTables(floorId));
+    const floorIndex = floors.findIndex((i) => i.id === floorId);
+    setCurrentFloor(floorIndex);
+    await dispatch(getTables(floorId)).unwrap();
   };
-
+  const filteredFloors = floors.filter(
+    (el) => el.title !== tables[0].floor.title,
+  );
   return (
     <form
       onSubmit={handleSubmit}
@@ -229,16 +241,14 @@ const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
         <p className="text-[#858687] text-[14px] mb-[5px]">Этаж</p>
         <select
           onChange={handleFloor}
-          name="table"
+          name="floor"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
-          <option disabled value="">
-            Выбрать
-          </option>
-          {floors.map((fl) => (
-            <option key={fl.id} value={fl.id}>
-              {fl.title}
+          <option value={tables[0].floor.id}>{tables[0].floor.title}</option>
+          {filteredFloors.map((floor) => (
+            <option key={floor.id} value={floor.id}>
+              {floor.title}
             </option>
           ))}
         </select>
@@ -252,9 +262,7 @@ const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
-          <option disabled value="">
-            Выбрать
-          </option>
+          <option value="">Выбрать</option>
           {tables.map((table) => (
             <option key={table.id} value={table.id}>
               {table.number_table}
