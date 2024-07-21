@@ -17,6 +17,8 @@ import {
   getSingleBook,
   updateTableBook,
 } from '../../features/shedule/api/scheduleThunk';
+import { getTables } from '../../features/tables/api/tablesThunk';
+import { selectFloors } from '../../features/floors/model/floorSlice';
 
 interface Props {
   client?: FormComeMutation | null;
@@ -41,6 +43,7 @@ const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
   const book = useAppSelector(selectBook);
   const tables = useAppSelector(selectTables);
   const Common = useAppSelector(selectSchedulesCommon);
+  const floors = useAppSelector(selectFloors);
 
   useEffect(() => {
     const phoneNumberPattern =
@@ -202,6 +205,10 @@ const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
       await addClient(event);
     }
   };
+  const handleFloor = async (e: ChangeEvent<HTMLSelectElement>) => {
+    const floorId = Number(e.target.value);
+    await dispatch(getTables(floorId));
+  };
 
   return (
     <form
@@ -217,6 +224,24 @@ const UpdateClient: React.FC<Props> = ({ client, onClose, filter }) => {
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="text"
         />
+      </div>
+      <div className="flex items-center justify-between gap-3 relative">
+        <p className="text-[#858687] text-[14px] mb-[5px]">Этаж</p>
+        <select
+          onChange={handleFloor}
+          name="table"
+          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+          required
+        >
+          <option disabled value="">
+            Выбрать
+          </option>
+          {floors.map((fl) => (
+            <option key={fl.id} value={fl.id}>
+              {fl.title}
+            </option>
+          ))}
+        </select>
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер столика</p>
