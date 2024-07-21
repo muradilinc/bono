@@ -18,6 +18,8 @@ import {
 import { toast } from 'react-toastify';
 import { times } from '../../widgets/scheduleTable/constants/times';
 import { selectTables } from '../../features/tables/model/tableSlice';
+import { selectFloors } from '../../features/floors/model/floorSlice';
+import { getTables } from '../../features/tables/api/tablesThunk';
 
 interface Props {
   filter?: FilterBook;
@@ -42,6 +44,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
   const book = useAppSelector(selectBook);
   const tables = useAppSelector(selectTables);
   const Common = useAppSelector(selectSchedulesCommon);
+  const floors = useAppSelector(selectFloors);
 
   useEffect(() => {
     const phoneNumberPattern =
@@ -199,7 +202,23 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
       await addClient(event);
     }
   };
-
+  // const [showTableDropdown, setShowTableDropdown] = useState<boolean>(false);
+  // const handleTableSelection = (tableId: number) => {
+  //   setForm((prevState) => {
+  //     const updatedTables = prevState.table.includes(tableId)
+  //       ? prevState.table.filter(id => id !== tableId)
+  //       : [...prevState.table, tableId];
+  //     return {
+  //       ...prevState,
+  //       table: updatedTables,
+  //     };
+  //   });
+  //   // setShowTableDropdown(false);
+  // };
+  const handleFloor = async (e: ChangeEvent<HTMLSelectElement>) => {
+    const floorId = Number(e.target.value);
+    await dispatch(getTables(floorId));
+  };
   return (
     <form
       onSubmit={handleSubmit}
@@ -215,7 +234,25 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           type="text"
         />
       </div>
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3 relative">
+        <p className="text-[#858687] text-[14px] mb-[5px]">Этаж</p>
+        <select
+          onChange={handleFloor}
+          name="table"
+          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
+          required
+        >
+          <option disabled value="">
+            Выбрать
+          </option>
+          {floors.map((fl) => (
+            <option key={fl.id} value={fl.id}>
+              {fl.title}
+            </option>
+          ))}
+        </select>
+      </div>
+      <div className="flex items-center justify-between gap-3 relative">
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер столика</p>
         <select
           onChange={changeFields}
@@ -233,6 +270,28 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
             </option>
           ))}
         </select>
+        {/*<div*/}
+        {/*  onClick={() => setShowTableDropdown(!showTableDropdown)}*/}
+        {/*  className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black flex items-center justify-between cursor-pointer"*/}
+        {/*>*/}
+        {/*  <span>*/}
+        {/*    {form.table.length > 0 ? form.table.join(', ') : 'Выбрать'}*/}
+        {/*  </span>*/}
+        {/*  <span>&#9660;</span>*/}
+        {/*</div>*/}
+        {/*{showTableDropdown && (*/}
+        {/*  <ul className="absolute bg-black w-[340px] right-0 h-[300px] overflow-y-scroll z-[2] flex flex-col gap-[5px] mt-[335px]">*/}
+        {/*    {tables.map((table) => (*/}
+        {/*      <li*/}
+        {/*        key={table.id}*/}
+        {/*        className={`pl-[10px] cursor-pointer hover:bg-[#ffffff2b] ${form.table.includes(table.id) ? 'bg-[#6BC678]' : 'bg-black'}`}*/}
+        {/*        onClick={() => handleTableSelection(table.id)}*/}
+        {/*      >*/}
+        {/*        {table.number_table}*/}
+        {/*      </li>*/}
+        {/*    ))}*/}
+        {/*  </ul>*/}
+        {/*)}*/}
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Дата</p>
