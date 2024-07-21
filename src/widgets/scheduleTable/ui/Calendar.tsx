@@ -34,9 +34,10 @@ interface Slot {
 
 interface Props {
   filter: FilterBook;
+  setCurrentFloor: (floor: number) => void;
 }
 
-const Calendar: React.FC<Props> = ({ filter }) => {
+const Calendar: React.FC<Props> = ({ filter, setCurrentFloor }) => {
   const schedules = useAppSelector(selectSchedules);
   const [modal, setModal] = useState<string>('');
   const [selectClient, setSelectClient] = useState<number>(0);
@@ -205,6 +206,7 @@ const Calendar: React.FC<Props> = ({ filter }) => {
           client={clientApi}
           filter={filter}
           onClose={() => setModal('')}
+          setCurrentFloor={setCurrentFloor}
         />
       )}
     </div>

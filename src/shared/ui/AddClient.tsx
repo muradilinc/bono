@@ -25,9 +25,15 @@ interface Props {
   filter?: FilterBook;
   onClose: () => void;
   id?: number;
+  setCurrentFloor: (floor: number) => void;
 }
 
-const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
+const AddClient: React.FC<Props> = ({
+  onClose,
+  id,
+  filter,
+  setCurrentFloor,
+}) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: '',
@@ -129,6 +135,8 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
         toast.warning(error.data.validate);
       } else if (error.data.occupated) {
         toast.warning(error.data.occupated);
+      } else if (error.data.date) {
+        toast.error(error.data.date);
       } else if (error.data.end_time) {
         toast.warning(error.data.end_time, {
           className: 'w-[400px] ml-[-90px]',
@@ -216,8 +224,12 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
   //   // setShowTableDropdown(false);
   // };
   const handleFloor = async (e: ChangeEvent<HTMLSelectElement>) => {
-    const floorId = Number(e.target.value);
-    await dispatch(getTables(floorId));
+    if (e.target.value !== '') {
+      const floorId = Number(e.target.value);
+      const floorIndex = floors.findIndex((i) => i.id === floorId);
+      setCurrentFloor(floorIndex);
+      await dispatch(getTables(floorId));
+    }
   };
   return (
     <form
@@ -238,13 +250,11 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
         <p className="text-[#858687] text-[14px] mb-[5px]">Этаж</p>
         <select
           onChange={handleFloor}
-          name="table"
+          name="floor"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
-          <option disabled value="">
-            Выбрать
-          </option>
+          <option value="">Выбрать</option>
           {floors.map((fl) => (
             <option key={fl.id} value={fl.id}>
               {fl.title}
@@ -261,9 +271,7 @@ const AddClient: React.FC<Props> = ({ onClose, id, filter }) => {
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           required
         >
-          <option disabled value="">
-            Выбрать
-          </option>
+          <option value="">Выбрать</option>
           {tables.map((table) => (
             <option key={table.id} value={table.id}>
               {table.number_table}
