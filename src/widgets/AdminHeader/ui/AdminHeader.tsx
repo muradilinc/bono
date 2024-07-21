@@ -113,6 +113,7 @@ export const AdminHeader: FC<Props> = ({
             setModal={setModal}
             modal={modal}
             setCurrentFloor={(floor: number) => setCurrentFloor(floor)}
+            currentFloor={currentFloor}
             setQueryText={(text: string) => setCurrentText(text)}
           />
         </div>
@@ -170,6 +171,7 @@ export const AdminHeader: FC<Props> = ({
                   floor: floors.length > 0 ? floors[currentFloor].id : 0,
                   status: currentStatus,
                 }}
+                setCurrentFloor={setCurrentFloor}
                 onClose={closeModal}
               />
             </div>
@@ -180,6 +182,7 @@ export const AdminHeader: FC<Props> = ({
                 floor: floors.length > 0 ? floors[currentFloor].id : 0,
                 status: currentStatus,
               }}
+              setCurrentFloor={setCurrentFloor}
               onClose={closeModal}
               id={client!}
             />

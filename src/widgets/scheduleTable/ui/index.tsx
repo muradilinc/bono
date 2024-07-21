@@ -83,6 +83,7 @@ const ScheduleTable = () => {
             floor: floors[currentIndex].id ? floors[currentIndex].id : 0,
             status: activeButton,
           }}
+          setCurrentFloor={setCurrentIndex}
         />
       ) : (
         <h2 className="text-white text-center text-2xl">Добавьте отделы!</h2>
