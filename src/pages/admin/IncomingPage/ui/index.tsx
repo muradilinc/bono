@@ -8,11 +8,10 @@ import { getSchedulesIncoming } from '../../../../features/shedule/api/scheduleT
 import '../style/style.css';
 import AdminIncomingTbody from './AdminIncomingTbody';
 import FormAddClient from '../../../../shared/ui/FormAddClient';
-import { AdminIncomingType } from '../../../../shared/types/Type';
 import Loading from '../../../../shared/ui/Loading';
 
 export const AdminIncomingPage = () => {
-  const books = useAppSelector(selectSchedulesIncoming) as AdminIncomingType[];
+  const books = useAppSelector(selectSchedulesIncoming);
   const loading = useAppSelector(selectSchedulesIncomingLoading);
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);

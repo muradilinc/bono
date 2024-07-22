@@ -38,11 +38,15 @@ export interface ScheduleIncoming {
   time_stamp: string;
   start_time: string;
   end_time: string;
-  table: number;
+  table_set: {
+    id: number | null;
+    number_table: number | null;
+  }[];
   is_come: boolean;
   comment: string;
   amount_guest: number;
   will_come: string;
+  created_at?: string;
 }
 
 interface ScheduleState {

@@ -110,8 +110,8 @@ export interface AdminIncomingType {
   start_time: string;
   end_time: string;
   amount_guest: number;
-  table: number | null;
+  table: (number | null)[];
   comment: string;
   is_come: boolean;
-  created_at: string;
+  created_at?: string;
 }
