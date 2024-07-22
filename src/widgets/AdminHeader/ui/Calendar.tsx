@@ -17,10 +17,25 @@ export const Calendar: React.FC<Props> = ({ setDate }) => {
   const [currentDate, setCurrentDate] = useState<Value>(null);
   const [calendar, setCalendar] = useState<boolean>(false);
 
+  // useEffect(() => {
+  //   const bishkekTime = moment().tz('Asia/Bishkek').toDate();
+  //   setCurrentDate(bishkekTime);
+  //   setDate(bishkekTime);
+  // }, [setDate]);
   useEffect(() => {
-    const bishkekTime = moment().tz('Asia/Bishkek').toDate();
-    setCurrentDate(bishkekTime);
-    setDate(bishkekTime);
+    const bishkekTime = moment().tz('Asia/Bishkek');
+    let currentDate = bishkekTime.toDate();
+
+    // Get the current hour
+    const currentHour = bishkekTime.hour();
+
+    // If current time is before 04:00, set the date to the previous day
+    if (currentHour < 4) {
+      currentDate = bishkekTime.subtract(1, 'day').toDate();
+    }
+
+    setCurrentDate(currentDate);
+    setDate(currentDate);
   }, [setDate]);
 
   return (

@@ -1,6 +1,6 @@
 import React, { ChangeEvent, FormEvent, useEffect, useState } from 'react';
 import '../style/style.css';
-import { FormComeMutation } from '../types/Type';
+import { FormComeMutation, FormComeMutationGet } from '../types/Type';
 import { useAppDispatch, useAppSelector } from '../../app/store/hooks';
 import {
   selectBook,
@@ -21,7 +21,7 @@ import { getTables } from '../../features/tables/api/tablesThunk';
 import { selectFloors } from '../../features/floors/model/floorSlice';
 
 interface Props {
-  client?: FormComeMutation | null;
+  client?: FormComeMutationGet | null;
   onClose: () => void;
   filter: FilterBook;
   setCurrentFloor: (floor: number) => void;
@@ -34,6 +34,7 @@ const UpdateClient: React.FC<Props> = ({
   setCurrentFloor,
 }) => {
   const [isValid, setIsValid] = useState<boolean>(false);
+  const [showTableDropdown, setShowTableDropdown] = useState<boolean>(false);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: client?.user_name || '',
     phone_number: client?.phone_number || '',
@@ -42,7 +43,9 @@ const UpdateClient: React.FC<Props> = ({
     start_time: client?.start_time || '',
     time_stamp: client?.time_stamp || '',
     comment: client?.comment || '',
-    table: client?.table || '',
+    tables: client?.table_set
+      ?.map((el) => el.id)
+      .filter((id) => id !== null) as number[],
   });
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateBookLoading);
@@ -161,7 +164,7 @@ const UpdateClient: React.FC<Props> = ({
       return false;
     }
 
-    const commonTable = Common.filter((el) => el.table === Number(form.table));
+    const commonTable = Common.filter((el) => el.table === Number(form.tables));
     const commonWillCome = commonTable.filter(
       (el) => el.will_come === form.will_come,
     );
@@ -222,6 +225,18 @@ const UpdateClient: React.FC<Props> = ({
   const filteredFloors = floors.filter(
     (el) => el.title !== tables[0].floor.title,
   );
+  const handleTableSelection = (tableId: number) => {
+    setForm((prevState) => {
+      const updatedTables = prevState.tables?.includes(tableId)
+        ? prevState.tables.filter((id) => id !== tableId)
+        : [...(prevState.tables || []), tableId];
+      return {
+        ...prevState,
+        tables: updatedTables,
+      };
+    });
+  };
+  useEffect(() => {}, [form.tables]);
   return (
     <form
       onSubmit={handleSubmit}
@@ -253,22 +268,53 @@ const UpdateClient: React.FC<Props> = ({
           ))}
         </select>
       </div>
-      <div className="flex items-center justify-between gap-3">
+      <div className="flex items-center justify-between gap-3 relative">
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер столика</p>
-        <select
-          onChange={changeFields}
-          value={form.table || ''}
-          name="table"
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
-          required
+        {/*<select*/}
+        {/*  onChange={changeFields}*/}
+        {/*  value={form.tables || ''}*/}
+        {/*  name="table"*/}
+        {/*  className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"*/}
+        {/*  required*/}
+        {/*>*/}
+        {/*  <option value="">Выбрать</option>*/}
+        {/*  {tables.map((table) => (*/}
+        {/*    <option key={table.id} value={table.id}>*/}
+        {/*      {table.number_table}*/}
+        {/*    </option>*/}
+        {/*  ))}*/}
+        {/*</select>*/}
+        <div
+          onClick={() => setShowTableDropdown(!showTableDropdown)}
+          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black gap-[3px] flex items-center cursor-pointer"
         >
-          <option value="">Выбрать</option>
-          {tables.map((table) => (
-            <option key={table.id} value={table.id}>
-              {table.number_table}
-            </option>
-          ))}
-        </select>
+          {form.tables?.length === 0 ? (
+            <span>Выбрать</span>
+          ) : (
+            form.tables?.map((tableId, index) => {
+              const table = tables.find((t) => t.id === tableId);
+              return table ? (
+                <React.Fragment key={tableId}>
+                  <span>{table.number_table}</span>
+                  {index < (form.tables || []).length - 1 && <span>,</span>}
+                </React.Fragment>
+              ) : null;
+            })
+          )}
+        </div>
+        {showTableDropdown && (
+          <ul className="absolute bg-black w-[340px] right-0 h-[300px] overflow-y-scroll z-[2] flex flex-col gap-[5px] mt-[335px]">
+            {tables.map((table) => (
+              <li
+                key={table.id}
+                className={`pl-[10px] cursor-pointer hover:bg-[#ffffff2b] ${(form.tables || []).includes(table.id) ? 'bg-[#6BC678]' : 'bg-black'}`}
+                onClick={() => handleTableSelection(table.id)}
+              >
+                {table.number_table}
+              </li>
+            ))}
+          </ul>
+        )}
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Дата</p>
