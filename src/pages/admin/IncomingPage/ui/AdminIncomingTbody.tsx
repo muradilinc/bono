@@ -8,10 +8,11 @@ import { toast } from 'react-toastify';
 import { ChangeEvent, useEffect, useState } from 'react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 import { useAppDispatch } from '../../../../app/store/hooks';
+import { ScheduleIncoming } from '../../../../features/shedule/model/scheduleSlice';
 import { AdminIncomingType } from '../../../../shared/types/Type';
 
 interface Props {
-  book: AdminIncomingType;
+  book: ScheduleIncoming;
   inx: number;
 }
 
@@ -29,7 +30,7 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
     start_time: book.start_time,
     end_time: book.end_time,
     amount_guest: book.amount_guest,
-    table: book.table,
+    table: book.table_set.map((item) => item.number_table),
     comment: book.comment,
     is_come: book.is_come,
     created_at: book.created_at,

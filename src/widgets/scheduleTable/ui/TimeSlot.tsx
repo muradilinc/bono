@@ -49,8 +49,10 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
         paddingTop: 20,
       }}
     >
-      <p>{`${startTime} - ${endTime}`}</p>
-      <p className="text-white font-comfort font-medium">{slot.name}</p>
+      <p>{`${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}`}</p>
+      <p className="text-white font-comfort font-medium text-wrap">
+        {slot.name}
+      </p>
       <p className="text-white font-comfort font-medium break-words">
         {slot.phone}
       </p>

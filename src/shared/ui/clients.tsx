@@ -10,7 +10,7 @@ interface Props {
 
 const Clients: React.FC<Props> = ({ currentClient }) => {
   const books = useAppSelector(selectSchedulesIncoming);
-  const filterBook = books.filter((book) => book.table === null);
+  const filterBook = books.filter((book) => book.table_set.length === 0);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
