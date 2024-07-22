@@ -9,7 +9,10 @@ import {
   updateBook,
 } from '../api/scheduleThunk';
 import { RootState } from '../../../app/store/store';
-import { FormComeMutation } from '../../../shared/types/Type';
+import {
+  FormComeMutation,
+  FormComeMutationGet,
+} from '../../../shared/types/Type';
 
 export interface Schedule {
   id: number;
@@ -26,7 +29,7 @@ export interface Schedule {
   table_set: {
     id: number | null;
     number_table: number | null;
-  };
+  }[];
 }
 export interface ScheduleIncoming {
   id: number;
@@ -46,7 +49,7 @@ interface ScheduleState {
   schedules: Schedule[];
   schedulesIncoming: ScheduleIncoming[];
   schedulesCommon: Schedule[];
-  book: FormComeMutation | null;
+  book: FormComeMutationGet | null;
   bookLoading: boolean;
   schedulesLoading: boolean;
   schedulesIncomingLoading: boolean;

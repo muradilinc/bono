@@ -92,7 +92,7 @@ export const CommonPage = () => {
                   <td>{book.time_stamp}</td>
                   <td>{book.amount_guest} пер.</td>
                   <td className="max-w-[100px]">
-                    {book.table_set.number_table}
+                    {book.table_set.map((item) => item.number_table + ', ')}
                   </td>
                   <td className="max-w-[100px]">{book.comment}</td>
                   <td className="flex justify-center mt-[10px]">
