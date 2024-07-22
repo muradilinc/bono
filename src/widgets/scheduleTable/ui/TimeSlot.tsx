@@ -8,7 +8,10 @@ interface Props {
     id: number;
     startTime: string;
     endTime: string;
-    table: number;
+    table_set: {
+      id: number | null;
+      number_table: number | null;
+    }[];
     occupied: boolean;
     is_come: boolean;
   };

@@ -8,7 +8,23 @@ export interface FormComeMutation {
   start_time: string;
   time_stamp: string;
   comment: string;
-  table?: string;
+  tables?: number[];
+  end_time?: string;
+  is_come?: string;
+  id?: number;
+}
+export interface FormComeMutationGet {
+  user_name: string;
+  phone_number: string;
+  will_come: string;
+  amount_guest: string;
+  start_time: string;
+  time_stamp: string;
+  comment: string;
+  table_set?: {
+    id: number | null;
+    number_table: number | null;
+  }[];
   end_time?: string;
   is_come?: string;
   id?: number;

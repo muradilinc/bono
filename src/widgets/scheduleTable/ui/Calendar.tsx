@@ -27,7 +27,10 @@ interface Slot {
   startTime: string;
   endTime: string;
   phone: string;
-  table: number;
+  table_set: {
+    id: number | null;
+    number_table: number | null;
+  }[];
   occupied: boolean;
   is_come: boolean;
 }
@@ -74,7 +77,10 @@ const Calendar: React.FC<Props> = ({ filter, setCurrentFloor }) => {
       phone: book.phone_number,
       startTime: book.start_time,
       endTime: book.end_time,
-      table: book.table,
+      table_set: book.table_set.map((t) => ({
+        id: t.id,
+        number_table: t.number_table,
+      })),
       occupied: true,
       is_come: book.is_come,
     };
@@ -91,7 +97,6 @@ const Calendar: React.FC<Props> = ({ filter, setCurrentFloor }) => {
   if (loading) {
     return <Loading />;
   }
-
   return (
     <div className="bg-[black] relative">
       <div className="ml-[20px] bg-[#2B2B2B] px-[10px] rounded-[4px]">
@@ -129,7 +134,9 @@ const Calendar: React.FC<Props> = ({ filter, setCurrentFloor }) => {
                   className="min-w-[124px] relative border-l-[1px] border-[#414141]"
                 >
                   {slots
-                    .filter((slot) => slot.table === table.id)
+                    .filter((slot) =>
+                      slot.table_set.some((t) => t.id === table.id),
+                    )
                     .map((slot, inx) => (
                       <TimeSlot
                         key={inx}
