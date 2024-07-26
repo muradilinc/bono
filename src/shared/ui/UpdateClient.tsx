@@ -19,6 +19,8 @@ import {
 } from '../../features/shedule/api/scheduleThunk';
 import { getTables } from '../../features/tables/api/tablesThunk';
 import { selectFloors } from '../../features/floors/model/floorSlice';
+import DatePicker from 'react-datepicker';
+import { CalendarDots } from '@phosphor-icons/react';
 
 interface Props {
   client?: FormComeMutationGet | null;
@@ -35,6 +37,7 @@ const UpdateClient: React.FC<Props> = ({
 }) => {
   const [isValid, setIsValid] = useState<boolean>(false);
   const [showTableDropdown, setShowTableDropdown] = useState<boolean>(false);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const [form, setForm] = useState<FormComeMutation>({
     user_name: client?.user_name || '',
     phone_number: client?.phone_number || '',
@@ -55,6 +58,16 @@ const UpdateClient: React.FC<Props> = ({
   const floors = useAppSelector(selectFloors);
 
   useEffect(() => {
+    // Устанавливаем сегодняшнюю дату по умолчанию
+    const today = new Date();
+    setForm((prevState) => ({
+      ...prevState,
+      will_come: today.toISOString().split('T')[0],
+    }));
+    setSelectedDate(today);
+  }, []);
+
+  useEffect(() => {
     const phoneNumberPattern =
       /^(\+996\d{9}|996\d{9}|0\d{9}|\+7\d{10}|(?!0)\d{9})$/;
     if (
@@ -73,6 +86,15 @@ const UpdateClient: React.FC<Props> = ({
     dispatch(getSchedulesCommon());
   }, [dispatch, client?.id]);
 
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setSelectedDate(date);
+      setForm((prevState) => ({
+        ...prevState,
+        will_come: date.toISOString().split('T')[0],
+      }));
+    }
+  };
   useEffect(() => {
     if (client?.id && book) {
       let phoneNumber = book.phone_number;
@@ -150,6 +172,7 @@ const UpdateClient: React.FC<Props> = ({
   const handleTimeValidation = () => {
     const startTime = form.start_time;
     const hoursToAdd = Number(form.time_stamp);
+
     const [startHours, startMinutes] = startTime.split(':').map(Number);
 
     const formStartTime = new Date(0, 0, 0, startHours, startMinutes, 0);
@@ -318,15 +341,21 @@ const UpdateClient: React.FC<Props> = ({
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Дата</p>
-        <input
-          value={form.will_come}
-          onChange={changeFields}
-          type="date"
-          name="will_come"
-          placeholder="Дата"
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black inputIcon"
-          required
-        />
+        <div className="relative">
+          <label className="relative cursor-pointer border-white border-b block w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black">
+            <DatePicker
+              selected={selectedDate}
+              onChange={handleDateChange}
+              minDate={new Date()}
+              dateFormat="yyyy-MM-dd"
+              className="bg-transparent p-[10px] w-full cursor-pointer outline-none"
+            />
+            <CalendarDots
+              size={24}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
+            />
+          </label>
+        </div>
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер клиента</p>

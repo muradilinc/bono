@@ -169,7 +169,7 @@ export const FormCome = () => {
                   selected={selectedDate}
                   onChange={handleDateChange}
                   minDate={new Date()}
-                  dateFormat="MM-dd-yyyy"
+                  dateFormat="yyyy-MM-dd"
                   className="bg-transparent outline-none p-[10px] w-full"
                   required
                   // readOnly

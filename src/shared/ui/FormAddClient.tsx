@@ -9,8 +9,11 @@ import {
 } from '../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
 import '../style/style.css';
+import { CalendarDots } from '@phosphor-icons/react';
 import { times } from '../../widgets/scheduleTable/constants/times';
 import { SendData } from '../../app/axiosApi';
+import DatePicker from 'react-datepicker';
+// import 'react-datepicker/dist/react-datepicker.css';
 
 interface Props {
   onClose: () => void;
@@ -27,6 +30,8 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
     time_stamp: '',
     comment: '',
   });
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  // const datepickerRef = useRef<any>(null);
   const dispatch = useAppDispatch();
   const book = useAppSelector(selectBook);
 
@@ -39,6 +44,16 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
     }
   }, [book, id]);
 
+  useEffect(() => {
+    // Устанавливаем сегодняшнюю дату по умолчанию
+    const today = new Date();
+    setForm((prevState) => ({
+      ...prevState,
+      will_come: today.toISOString().split('T')[0],
+    }));
+    setSelectedDate(today);
+  }, []);
+
   const changeField = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -47,6 +62,16 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
       ...prevState,
       [name]: value,
     }));
+  };
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setSelectedDate(date);
+      setForm((prevState) => ({
+        ...prevState,
+        will_come: date.toISOString().split('T')[0],
+      }));
+    }
   };
 
   const handleSubmit = async (event: FormEvent) => {
@@ -117,19 +142,23 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
               required
             />
           </div>
-          <div>
+          <div className="relative">
             <p className="text-[12px] text-[#9ca3af] pl-[10px]">
               Дата бронирования
             </p>
-            <input
-              value={form.will_come}
-              onChange={changeField}
-              type="date"
-              name="will_come"
-              placeholder="Дата"
-              className="bg-transparent border-b border-white p-[10px] w-full inputIcon"
-              required
-            />
+            <label className="relative cursor-pointer border-white border-b block w-full">
+              <DatePicker
+                selected={selectedDate}
+                onChange={handleDateChange}
+                minDate={new Date()}
+                dateFormat="yyyy-MM-dd"
+                className="bg-transparent p-[10px] w-full cursor-pointer outline-none"
+              />
+              <CalendarDots
+                size={24}
+                className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
+              />
+            </label>
           </div>
           <input
             value={form.amount_guest}
