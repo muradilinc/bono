@@ -322,7 +322,7 @@ const AddClient: React.FC<Props> = ({
             {tables.map((table) => (
               <li
                 key={table.id}
-                className={`pl-[10px] cursor-pointer hover:bg-[#ffffff2b] ${(form.tables || []).includes(table.id) ? 'bg-[#6BC678]' : 'bg-black'}`}
+                className={`pl-[10px] cursor-pointer ${(form.tables || []).includes(table.id) ? 'bg-[#6BC678]' : 'bg-black'}`}
                 onClick={() => handleTableSelection(table.id)}
               >
                 {table.number_table}

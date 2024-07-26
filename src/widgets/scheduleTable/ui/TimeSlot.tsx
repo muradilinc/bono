@@ -1,5 +1,6 @@
 import React from 'react';
 import moment from 'moment';
+import { UsersThree } from '@phosphor-icons/react';
 
 interface Props {
   slot: {
@@ -43,7 +44,7 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
   return (
     <div
       onClick={() => handleClickBoor(slot.id)}
-      className={`absolute ${occupied ? (is_come ? 'bg-orange-700' : 'bg-green-500') : 'hidden'} rounded-[6px] flex flex-col w-full text-center border-black border-2`}
+      className={`absolute ${occupied ? (is_come ? 'bg-orange-700' : slot.table_set.length > 1 ? 'bg-[green]' : 'bg-green-500') : 'hidden'} rounded-[6px] flex flex-col w-full text-center border-black border-2`}
       style={{
         top: `${top * 2.2}rem`,
         height: `${(duration / 12.5) * 1.9}rem`,
@@ -57,9 +58,9 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
       <p className="text-white font-comfort font-medium break-words">
         {slot.phone}
       </p>
-      {/*<div className="flex items-center justify-center h-full">*/}
-      {/*  <UsersThree size={32} color="#fff" />*/}
-      {/*</div>*/}
+      {slot.table_set.length > 1 && (
+        <UsersThree className="ml-[46px]" size={27} />
+      )}
     </div>
   );
 };
