@@ -27,6 +27,7 @@ interface Slot {
   startTime: string;
   endTime: string;
   phone: string;
+  guests: number;
   table_set: {
     id: number | null;
     number_table: number | null;
@@ -77,6 +78,7 @@ const Calendar: React.FC<Props> = ({ filter, setCurrentFloor }) => {
       phone: book.phone_number,
       startTime: book.start_time,
       endTime: book.end_time,
+      guests: book.amount_guest,
       table_set: book.table_set.map((t) => ({
         id: t.id,
         number_table: t.number_table,

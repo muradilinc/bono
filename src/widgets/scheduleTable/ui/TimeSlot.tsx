@@ -8,6 +8,7 @@ interface Props {
     id: number;
     startTime: string;
     endTime: string;
+    guests: number;
     table_set: {
       id: number | null;
       number_table: number | null;
@@ -51,7 +52,7 @@ const TimeSlot: React.FC<Props> = ({ slot, onOpen, client }) => {
     >
       <p>{`${startTime.slice(0, 5)} - ${endTime.slice(0, 5)}`}</p>
       <p className="text-white font-comfort font-medium text-wrap">
-        {slot.name}
+        {slot.name} - {slot.guests}
       </p>
       <p className="text-white font-comfort font-medium break-words">
         {slot.phone}
