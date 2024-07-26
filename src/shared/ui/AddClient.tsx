@@ -20,6 +20,8 @@ import { times } from '../../widgets/scheduleTable/constants/times';
 import { selectTables } from '../../features/tables/model/tableSlice';
 import { selectFloors } from '../../features/floors/model/floorSlice';
 import { getTables } from '../../features/tables/api/tablesThunk';
+import DatePicker from 'react-datepicker';
+import { CalendarDots } from '@phosphor-icons/react';
 
 interface Props {
   filter?: FilterBook;
@@ -46,12 +48,23 @@ const AddClient: React.FC<Props> = ({
     comment: '',
     tables: [],
   });
+  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
   const tables = useAppSelector(selectTables);
   const Common = useAppSelector(selectSchedulesCommon);
   const floors = useAppSelector(selectFloors);
+
+  useEffect(() => {
+    // Устанавливаем сегодняшнюю дату по умолчанию
+    const today = new Date();
+    setForm((prevState) => ({
+      ...prevState,
+      will_come: today.toISOString().split('T')[0],
+    }));
+    setSelectedDate(today);
+  }, []);
 
   useEffect(() => {
     const phoneNumberPattern =
@@ -93,6 +106,15 @@ const AddClient: React.FC<Props> = ({
     }
   }, [book, id]);
 
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setSelectedDate(date);
+      setForm((prevState) => ({
+        ...prevState,
+        will_come: date.toISOString().split('T')[0],
+      }));
+    }
+  };
   const changeFields = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -311,15 +333,21 @@ const AddClient: React.FC<Props> = ({
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Дата</p>
-        <input
-          value={form.will_come}
-          onChange={changeFields}
-          type="date"
-          name="will_come"
-          placeholder="Дата"
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black inputIcon"
-          required
-        />
+        <div className="relative">
+          <label className="relative cursor-pointer border-white border-b block w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black">
+            <DatePicker
+              selected={selectedDate}
+              onChange={handleDateChange}
+              minDate={new Date()}
+              dateFormat="yyyy-MM-dd"
+              className="bg-transparent p-[10px] w-full cursor-pointer outline-none"
+            />
+            <CalendarDots
+              size={24}
+              className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
+            />
+          </label>
+        </div>
       </div>
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Номер клиента</p>
