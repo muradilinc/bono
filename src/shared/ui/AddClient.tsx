@@ -42,7 +42,7 @@ const AddClient: React.FC<Props> = ({
     will_come: '',
     amount_guest: '',
     start_time: '',
-    time_stamp: '',
+    time_stamp: '2',
     comment: '',
     tables: [],
   });
