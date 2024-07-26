@@ -54,12 +54,11 @@ export const FormCome = () => {
       }
 
       setIsValid(value === '' || phoneNumberPattern.test(value));
-    } else {
-      setState((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
     }
+    setState((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
 
   const handleKeyPress = (event: React.KeyboardEvent<HTMLInputElement>) => {
@@ -170,13 +169,13 @@ export const FormCome = () => {
                   selected={selectedDate}
                   onChange={handleDateChange}
                   minDate={new Date()}
-                  dateFormat="yyyy-MM-dd"
+                  dateFormat="MM-dd-yyyy"
                   className="bg-transparent outline-none p-[10px] w-full"
                   required
                   // readOnly
                 />
                 <CalendarDots
-                  size={32}
+                  size={24}
                   className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
                 />
               </label>
