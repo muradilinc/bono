@@ -20,7 +20,10 @@ import { times } from '../../widgets/scheduleTable/constants/times';
 import { selectTables } from '../../features/tables/model/tableSlice';
 import { selectFloors } from '../../features/floors/model/floorSlice';
 import { getTables } from '../../features/tables/api/tablesThunk';
-import DatePicker from 'react-datepicker';
+// import DatePicker from 'react-datepicker';
+import Calendar from 'react-calendar';
+import { format } from 'date-fns';
+import moment from 'moment-timezone';
 import { CalendarDots } from '@phosphor-icons/react';
 
 interface Props {
@@ -48,7 +51,10 @@ const AddClient: React.FC<Props> = ({
     comment: '',
     tables: [],
   });
-  const [selectedDate, setSelectedDate] = useState<Date | null>(null);
+  const [selectedDate, setSelectedDate] = useState<Date | null>(
+    moment().tz('Asia/Bishkek').toDate(),
+  );
+  const [isCalendar, setCalendar] = useState<boolean>(false);
   const dispatch = useAppDispatch();
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
@@ -106,15 +112,44 @@ const AddClient: React.FC<Props> = ({
     }
   }, [book, id]);
 
-  const handleDateChange = (date: Date | null) => {
-    if (date) {
-      setSelectedDate(date);
-      setForm((prevState) => ({
-        ...prevState,
-        will_come: date.toISOString().split('T')[0],
-      }));
-    }
+  // const handleDateChange = (value: Date | Date[] | null) => {
+  //   if (value instanceof Date) {
+  //     setSelectedDate(value);
+  //     setForm((prevState) => ({
+  //       ...prevState,
+  //       will_come: format(value, 'yyyy-MM-dd'),
+  //     }));
+  //   } else if (
+  //     Array.isArray(value) &&
+  //     value.length > 0 &&
+  //     value[0] instanceof Date
+  //   ) {
+  //     const date = value[0];
+  //     setSelectedDate(date);
+  //     setForm((prevState) => ({
+  //       ...prevState,
+  //       will_come: format(date, 'yyyy-MM-dd'),
+  //     }));
+  //   } else {
+  //     setSelectedDate(null);
+  //     setForm((prevState) => ({
+  //       ...prevState,
+  //       will_come: '',
+  //     }));
+  //   }
+  //   console.log(selectedDate);
+
+  // };
+
+  const handleDateChange = (value: Date) => {
+    setSelectedDate(value);
+    setForm((prevState) => ({
+      ...prevState,
+      will_come: format(value, 'yyyy-MM-dd HH:mm:ss'),
+    }));
+    setCalendar(false);
   };
+
   const changeFields = (
     event: ChangeEvent<HTMLInputElement | HTMLSelectElement>,
   ) => {
@@ -334,16 +369,30 @@ const AddClient: React.FC<Props> = ({
       <div className="flex items-center justify-between gap-3">
         <p className="text-[#858687] text-[14px] mb-[5px]">Дата</p>
         <div className="relative">
-          <label className="relative cursor-pointer border-white border-b block w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black">
-            <DatePicker
+          <label className="relative cursor-pointer border-white border-b block w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black pt-2">
+            <span>
+              {selectedDate
+                ? format(selectedDate, 'yyyy-MM-dd')
+                : 'Выберите дату'}
+            </span>
+            {isCalendar ? (
+              <Calendar
+                value={selectedDate}
+                // minDate={new Date()}
+                onClickDay={handleDateChange}
+                className="absolute z-40 top-10 right-0 bg-black p-[10px] w-full cursor-pointer outline-none text-white"
+              />
+            ) : null}
+            {/* <DatePicker
               selected={selectedDate}
               onChange={handleDateChange}
               minDate={new Date()}
               dateFormat="yyyy-MM-dd"
               className="bg-transparent p-[10px] w-full cursor-pointer outline-none"
-            />
+            /> */}
             <CalendarDots
               size={24}
+              onClick={() => setCalendar(!isCalendar)}
               className="absolute right-3 top-1/2 transform -translate-y-1/2 text-white"
             />
           </label>
