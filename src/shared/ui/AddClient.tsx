@@ -378,7 +378,7 @@ const AddClient: React.FC<Props> = ({
             {isCalendar ? (
               <Calendar
                 value={selectedDate}
-                // minDate={new Date()}
+                activeStartDate={new Date()}
                 onClickDay={handleDateChange}
                 className="absolute z-40 top-10 right-0 bg-black p-[10px] w-full cursor-pointer outline-none text-white"
               />
