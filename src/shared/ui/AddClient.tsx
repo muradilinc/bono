@@ -145,7 +145,7 @@ const AddClient: React.FC<Props> = ({
     setSelectedDate(value);
     setForm((prevState) => ({
       ...prevState,
-      will_come: format(value, 'yyyy-MM-dd HH:mm:ss'),
+      will_come: format(value, 'yyyy-MM-dd'),
     }));
     setCalendar(false);
   };
