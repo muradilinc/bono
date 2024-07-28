@@ -261,8 +261,8 @@ export const FormCome = () => {
           </div>
           <div className="flex flex-col gap-y-3">
             <p className="font-normal text-[14px] font-sans">
-              Наши сотрудники свяжутся с вами в
-              ближайшее время для подтверждения бронирования.
+              Наши сотрудники свяжутся с вами в ближайшее время для
+              подтверждения бронирования.
             </p>
             <ul>
               <li className="font-sans text-[14px] text-white">
