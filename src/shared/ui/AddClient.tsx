@@ -20,7 +20,6 @@ import { times } from '../../widgets/scheduleTable/constants/times';
 import { selectTables } from '../../features/tables/model/tableSlice';
 import { selectFloors } from '../../features/floors/model/floorSlice';
 import { getTables } from '../../features/tables/api/tablesThunk';
-// import DatePicker from 'react-datepicker';
 import Calendar from 'react-calendar';
 import { format } from 'date-fns';
 import moment from 'moment-timezone';
@@ -111,35 +110,6 @@ const AddClient: React.FC<Props> = ({
       setIsValid(/^(\+996\d{9}|\+7\d{10})$/.test(phoneNumber));
     }
   }, [book, id]);
-
-  // const handleDateChange = (value: Date | Date[] | null) => {
-  //   if (value instanceof Date) {
-  //     setSelectedDate(value);
-  //     setForm((prevState) => ({
-  //       ...prevState,
-  //       will_come: format(value, 'yyyy-MM-dd'),
-  //     }));
-  //   } else if (
-  //     Array.isArray(value) &&
-  //     value.length > 0 &&
-  //     value[0] instanceof Date
-  //   ) {
-  //     const date = value[0];
-  //     setSelectedDate(date);
-  //     setForm((prevState) => ({
-  //       ...prevState,
-  //       will_come: format(date, 'yyyy-MM-dd'),
-  //     }));
-  //   } else {
-  //     setSelectedDate(null);
-  //     setForm((prevState) => ({
-  //       ...prevState,
-  //       will_come: '',
-  //     }));
-  //   }
-  //   console.log(selectedDate);
-
-  // };
 
   const handleDateChange = (value: Date) => {
     setSelectedDate(value);
@@ -378,18 +348,11 @@ const AddClient: React.FC<Props> = ({
             {isCalendar ? (
               <Calendar
                 value={selectedDate}
-                activeStartDate={new Date()}
+                minDate={new Date()}
                 onClickDay={handleDateChange}
-                className="absolute z-40 top-10 right-0 bg-black p-[10px] w-full cursor-pointer outline-none text-white"
+                className="absolute z-40 top-10 right-0 !bg-black p-[10px] w-full cursor-pointer outline-none !text-white"
               />
             ) : null}
-            {/* <DatePicker
-              selected={selectedDate}
-              onChange={handleDateChange}
-              minDate={new Date()}
-              dateFormat="yyyy-MM-dd"
-              className="bg-transparent p-[10px] w-full cursor-pointer outline-none"
-            /> */}
             <CalendarDots
               size={24}
               onClick={() => setCalendar(!isCalendar)}
