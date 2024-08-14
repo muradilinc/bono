@@ -77,7 +77,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
   const handleSubmit = async (event: FormEvent) => {
     event.preventDefault();
     try {
-      SendData(form);
+      await SendData(form);
       await dispatch(createBook(form)).unwrap();
       await dispatch(getSchedulesIncoming()).unwrap();
       toast.success('Добавлен!');
