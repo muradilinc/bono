@@ -74,6 +74,7 @@ export const AdminMenuCard: FC<DataMenuCard> = ({ item, onDelete }) => {
                   className="bg-transparent border-b border-white max-w-[200px]"
                   type="text"
                   name="title"
+                  placeholder="Наз-е"
                   value={state.title}
                 />
               </div>
@@ -84,6 +85,7 @@ export const AdminMenuCard: FC<DataMenuCard> = ({ item, onDelete }) => {
                     onChange={changeField}
                     type="text"
                     name="price"
+                    placeholder="Цена"
                     value={state.price}
                   />
                 </div>
@@ -93,15 +95,14 @@ export const AdminMenuCard: FC<DataMenuCard> = ({ item, onDelete }) => {
               </div>
             </div>
             <div className="text-[12px] font-normal leading-5 text-left pb-[15px]">
-              {item?.description ? (
-                <input
-                  onChange={changeField}
-                  className="bg-transparent border-b border-white w-full mt-[10px]"
-                  type="text"
-                  name="description"
-                  value={state.description}
-                />
-              ) : null}
+              <input
+                onChange={changeField}
+                className="bg-transparent border-b border-white w-full mt-[10px]"
+                type="text"
+                name="description"
+                placeholder="Описание"
+                value={state.description}
+              />
             </div>
           </div>
         ) : (
