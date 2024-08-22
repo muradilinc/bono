@@ -42,7 +42,7 @@ const UpdateClient: React.FC<Props> = ({
     user_name: client?.user_name || '',
     phone_number: client?.phone_number || '',
     will_come: client?.will_come || '',
-    amount_guest: client?.amount_guest || '',
+    amount_guest: client?.amount_guest || null,
     start_time: client?.start_time || '',
     time_stamp: client?.time_stamp || '',
     comment: client?.comment || '',
@@ -411,7 +411,7 @@ const UpdateClient: React.FC<Props> = ({
         <p className="text-[#858687] text-[14px] mb-[5px]">Количество гостей</p>
         <input
           onChange={changeFields}
-          value={form.amount_guest}
+          value={form.amount_guest ?? ''}
           name="amount_guest"
           className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black"
           type="number"

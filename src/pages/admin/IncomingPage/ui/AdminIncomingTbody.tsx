@@ -1,27 +1,32 @@
 import { Check, Pen, Trash } from '@phosphor-icons/react';
 import {
   deleteBook,
+  getSchedulesCommon,
   getSchedulesIncoming,
   updateBookIncoming,
+  updateTableBook,
 } from '../../../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
 import { ChangeEvent, useEffect, useState } from 'react';
 import ModalDelete from '../../../../shared/ui/ModalDelete';
 import { useAppDispatch } from '../../../../app/store/hooks';
-import { ScheduleIncoming } from '../../../../features/shedule/model/scheduleSlice';
-import { AdminIncomingType } from '../../../../shared/types/Type';
+import {
+  Schedule,
+  ScheduleIncoming,
+} from '../../../../features/shedule/model/scheduleSlice';
 
 interface Props {
   book: ScheduleIncoming;
   inx: number;
+  filterBook?: Schedule[];
 }
 
-const AdminIncomingTbody = ({ book, inx }: Props) => {
+const AdminIncomingTbody = ({ book, inx, filterBook }: Props) => {
   const [addModal, setAddModal] = useState<boolean>(false);
   const [id, setId] = useState<number | null>(null);
   const dispatch = useAppDispatch();
   const [isEdit, setIsEdit] = useState(false);
-  const [state, setState] = useState<AdminIncomingType>({
+  const [state, setState] = useState({
     id: book.id,
     user_name: book.user_name,
     phone_number: book.phone_number,
@@ -69,9 +74,14 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
   const onDelete = async () => {
     if (id) {
       await dispatch(deleteBook(id)).unwrap();
-      await dispatch(getSchedulesIncoming()).unwrap();
-      setAddModal(false);
+      if (filterBook) {
+        await dispatch(getSchedulesCommon()).unwrap();
+        window.location.reload();
+      } else {
+        await dispatch(getSchedulesIncoming()).unwrap();
+      }
       toast.success('Успешно удалено!');
+      setAddModal(false);
     } else {
       toast.error('Что то пошло не так!');
     }
@@ -93,8 +103,16 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
   };
   const saveIncoming = async () => {
     try {
-      await dispatch(updateBookIncoming({ id: book.id, data: state })).unwrap();
-      await dispatch(getSchedulesIncoming()).unwrap();
+      if (filterBook) {
+        await dispatch(updateTableBook({ id: book.id, book: state })).unwrap();
+        window.location.reload();
+      } else {
+        await dispatch(
+          updateBookIncoming({ id: book.id, data: state }),
+        ).unwrap();
+        await dispatch(getSchedulesIncoming()).unwrap();
+      }
+
       setIsEdit(false);
       toast.success('Успешно сохранено!');
     } catch (err) {
@@ -127,7 +145,11 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
     <>
       {isEdit ? (
         <tr>
-          <td className="p-5">{inx + 1}</td>
+          <td className="p-5">
+            {book.table_set.map((t) => t.number_table)
+              ? book.table_set.map((t) => t.number_table).join(', ')
+              : inx + 1}
+          </td>
           <td>
             <input
               className="bg-black border-b border-white text-center w-[100px]"
@@ -206,7 +228,11 @@ const AdminIncomingTbody = ({ book, inx }: Props) => {
         </tr>
       ) : (
         <tr key={book.id}>
-          <td className="p-5">{inx + 1}</td>
+          <td className="p-5">
+            {book.table_set.map((t) => t.number_table)
+              ? book.table_set.map((t) => t.number_table).join(', ')
+              : inx + 1}
+          </td>
           <td>{book.user_name}</td>
           <td>{book.phone_number}</td>
           <td className="flex flex-col items-center justify-center">
