@@ -25,7 +25,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
     user_name: '',
     phone_number: '',
     will_come: '',
-    amount_guest: '',
+    amount_guest: null,
     start_time: '',
     time_stamp: '',
     comment: '',
@@ -85,7 +85,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
         user_name: '',
         phone_number: '',
         will_come: '',
-        amount_guest: '',
+        amount_guest: null,
         start_time: '',
         time_stamp: '',
         comment: '',
@@ -161,7 +161,7 @@ const FormAddClient: React.FC<Props> = ({ onClose, id }) => {
             </label>
           </div>
           <input
-            value={form.amount_guest}
+            value={form.amount_guest ?? ''}
             onChange={changeField}
             type="number"
             name="amount_guest"

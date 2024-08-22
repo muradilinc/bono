@@ -1,18 +1,27 @@
 import { useAppDispatch, useAppSelector } from '../../../../app/store/hooks';
 import {
+  Schedule,
+  selectSchedulesCommonLoading,
   selectSchedulesIncoming,
   selectSchedulesIncomingLoading,
 } from '../../../../features/shedule/model/scheduleSlice';
-import { useEffect, useState } from 'react';
+import React, { SetStateAction, useEffect, useState } from 'react';
 import { getSchedulesIncoming } from '../../../../features/shedule/api/scheduleThunk';
 import '../style/style.css';
 import AdminIncomingTbody from './AdminIncomingTbody';
 import FormAddClient from '../../../../shared/ui/FormAddClient';
 import Loading from '../../../../shared/ui/Loading';
+import { X } from '@phosphor-icons/react';
 
-export const AdminIncomingPage = () => {
+interface Props {
+  filterBook?: Schedule[];
+  setModalToday?: React.Dispatch<SetStateAction<boolean>>;
+}
+
+export const AdminIncomingPage = ({ filterBook, setModalToday }: Props) => {
   const books = useAppSelector(selectSchedulesIncoming);
   const loading = useAppSelector(selectSchedulesIncomingLoading);
+  const loadingToday = useAppSelector(selectSchedulesCommonLoading);
   const dispatch = useAppDispatch();
   const [showModal, setShowModal] = useState<boolean>(false);
 
@@ -23,6 +32,13 @@ export const AdminIncomingPage = () => {
   if (loading) {
     return <Loading />;
   }
+  const dataToDisplay =
+    filterBook && filterBook.length > 0 ? filterBook : books;
+  const onClose = () => {
+    if (setModalToday) {
+      setModalToday(false);
+    }
+  };
 
   return (
     <>
@@ -31,17 +47,27 @@ export const AdminIncomingPage = () => {
           <div className="w-full h-full bg-black p-4 md:p-8">
             <div className="bg-black p-[16px] flex items-center justify-between flex-wrap">
               <h1 className="font-bold text-[20px] text-white font-comfort">
-                Входящие
+                {filterBook ? 'Сегодня' : 'Входящие'}
               </h1>
-              <button
-                onClick={() => setShowModal(true)}
-                className="bg-[#6BC678] text-white px-[36px] py-[12px] rounded-[4px]"
-              >
-                Добавить +
-              </button>
+              {filterBook ? (
+                <X
+                  size={24}
+                  onClick={onClose}
+                  className="cursor-pointer text-white"
+                />
+              ) : (
+                <button
+                  onClick={() => setShowModal(true)}
+                  className="bg-[#6BC678] text-white px-[36px] py-[12px] rounded-[4px]"
+                >
+                  Добавить +
+                </button>
+              )}
             </div>
-            {books.length > 0 ? (
-              <div className="text-white font-medium mt-[30px] overflow-y-scroll max-h-[750px] bookScroll">
+            {loadingToday ? (
+              <Loading />
+            ) : dataToDisplay.length > 0 ? (
+              <div className="text-white font-medium mt-[30px] overflow-y-scroll max-h-[750px] pb-[200px] bookScroll">
                 <table className="table-auto w-full text-center">
                   <thead className="border-b border-white bg-black sticky top-0">
                     <tr>
@@ -57,8 +83,13 @@ export const AdminIncomingPage = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    {books.map((book, inx) => (
-                      <AdminIncomingTbody book={book} inx={inx} key={book.id} />
+                    {dataToDisplay.map((book, inx) => (
+                      <AdminIncomingTbody
+                        book={book}
+                        inx={inx}
+                        key={book.id}
+                        filterBook={filterBook}
+                      />
                     ))}
                   </tbody>
                 </table>

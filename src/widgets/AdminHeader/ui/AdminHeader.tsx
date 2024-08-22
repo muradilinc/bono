@@ -11,9 +11,15 @@ import { useAppDispatch, useAppSelector } from '../../../app/store/hooks';
 import { selectFloors } from '../../../features/floors/model/floorSlice';
 import { getFloors } from '../../../features/floors/api/floorThunk';
 import BtnTable from '../../scheduleTable/ui/BtnTable';
-import { ArrowLeft, MagnifyingGlass, Plus } from '@phosphor-icons/react';
+import {
+  ArrowLeft,
+  MagnifyingGlass,
+  Plus,
+  UsersThree,
+} from '@phosphor-icons/react';
 import { selectUserCrm } from '../../../features/auth/model/authSlice';
 import { logoutCrm } from '../../../features/auth/api/authThunk';
+import TodayTable from '../../../shared/ui/TodayTable';
 
 type ValuePiece = Date | null;
 
@@ -39,6 +45,7 @@ export const AdminHeader: FC<Props> = ({
   setCurrentText,
 }) => {
   const [modal, setModal] = useState<boolean>(false);
+  const [modalToday, setModalToday] = useState<boolean>(false);
   const [showModal, setShowModal] = useState<boolean>(false);
   const [step, setStep] = useState('A');
   const [client, setClient] = useState<number | null>(null);
@@ -108,6 +115,13 @@ export const AdminHeader: FC<Props> = ({
               />
             </div>
           </div>
+          <button
+            onClick={() => setModalToday(true)}
+            className="px-[18px] py-[12px] rounded-[8px] bg-[#6BC678] text-white"
+          >
+            <UsersThree size={27} />
+          </button>
+
           <FilterButton
             setAddModal={setShowModal}
             setModal={setModal}
@@ -188,6 +202,7 @@ export const AdminHeader: FC<Props> = ({
             />
           ) : null}
         </Modal>
+        {modalToday && <TodayTable setModalToday={setModalToday} />}
       </div>
     </div>
   );
