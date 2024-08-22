@@ -4,20 +4,20 @@ export interface FormComeMutation {
   user_name: string;
   phone_number: string;
   will_come: string;
-  amount_guest: string;
+  amount_guest: number | null;
   start_time: string;
   time_stamp: string;
   comment: string;
   tables?: number[];
   end_time?: string;
-  is_come?: string;
+  is_come?: boolean;
   id?: number;
 }
 export interface FormComeMutationGet {
   user_name: string;
   phone_number: string;
   will_come: string;
-  amount_guest: string;
+  amount_guest: number | null;
   start_time: string;
   time_stamp: string;
   comment: string;
@@ -26,7 +26,7 @@ export interface FormComeMutationGet {
     number_table: number | null;
   }[];
   end_time?: string;
-  is_come?: string;
+  is_come?: boolean;
   id?: number;
 }
 

@@ -53,10 +53,9 @@ const Clients: React.FC<Props> = ({ currentClient }) => {
                 <p>{client.user_name}</p>
                 <p>{client.phone_number}</p>
                 <p>{client.will_come}</p>
-                <p>{client.start_time}</p>
-                <p>{client.end_time}</p>
+                <p>{client.start_time.slice(0, 5)}</p>
+                <p>{client.end_time.slice(0, 5)}</p>
                 <p>{client.time_stamp}</p>
-                <p>{client.id}</p>
               </div>
               <button onClick={() => deleteId(client.id)}>
                 <Trash

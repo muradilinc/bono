@@ -15,7 +15,7 @@ export const FormCome = () => {
     user_name: '',
     phone_number: '',
     will_come: '',
-    amount_guest: '',
+    amount_guest: null,
     start_time: '',
     time_stamp: '2',
     comment: '',
@@ -108,7 +108,7 @@ export const FormCome = () => {
       user_name: '',
       phone_number: '',
       will_come: '',
-      amount_guest: '',
+      amount_guest: null,
       start_time: '',
       time_stamp: '',
       comment: '',
@@ -181,7 +181,7 @@ export const FormCome = () => {
               </label>
             </div>
             <input
-              value={state.amount_guest}
+              value={state.amount_guest ?? ''}
               onChange={changeField}
               type="number"
               name="amount_guest"

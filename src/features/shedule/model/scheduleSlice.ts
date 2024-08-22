@@ -16,6 +16,7 @@ import {
 
 export interface Schedule {
   id: number;
+  created_at: string;
   user_name: string;
   phone_number: string;
   time_stamp: string;
