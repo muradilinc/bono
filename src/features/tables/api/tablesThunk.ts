@@ -31,6 +31,13 @@ export const getTables = createAsyncThunk<TableAll[], number | undefined>(
     return response.data;
   },
 );
+export const getTablesAll = createAsyncThunk<TableAll[], number | undefined>(
+  'tables/getAlls',
+  async () => {
+    const response = await axiosApi.get<TableAll[]>(`/table/list/table`);
+    return response.data;
+  },
+);
 
 export const deleteTables = createAsyncThunk<void, number>(
   'tables/delete',

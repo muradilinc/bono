@@ -17,9 +17,13 @@ import {
 } from '../../features/shedule/api/scheduleThunk';
 import { toast } from 'react-toastify';
 import { times } from '../../widgets/scheduleTable/constants/times';
-import { selectTables } from '../../features/tables/model/tableSlice';
+import {
+  selectTables,
+  selectTablesAll,
+  selectTablesAllLoading,
+} from '../../features/tables/model/tableSlice';
 import { selectFloors } from '../../features/floors/model/floorSlice';
-import { getTables } from '../../features/tables/api/tablesThunk';
+import { getTables, getTablesAll } from '../../features/tables/api/tablesThunk';
 import Calendar from 'react-calendar';
 import { format } from 'date-fns';
 import moment from 'moment-timezone';
@@ -58,6 +62,8 @@ const AddClient: React.FC<Props> = ({
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
   const tables = useAppSelector(selectTables);
+  const tablesAll = useAppSelector(selectTablesAll);
+  const tLoading = useAppSelector(selectTablesAllLoading);
   const Common = useAppSelector(selectSchedulesCommon);
   const floors = useAppSelector(selectFloors);
 
@@ -88,6 +94,7 @@ const AddClient: React.FC<Props> = ({
       dispatch(getSingleBook(id));
     }
     dispatch(getSchedulesCommon());
+    dispatch(getTablesAll());
   }, [dispatch, id]);
 
   useEffect(() => {
@@ -306,18 +313,37 @@ const AddClient: React.FC<Props> = ({
         {/*</select>*/}
         <div
           onClick={() => setShowTableDropdown(!showTableDropdown)}
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black gap-[3px] flex items-center cursor-pointer"
+          className="tableScroll w-[340px] py-[7px] px-[10px] rounded-[4px] border-2 bg-black gap-[5px] flex items-center cursor-pointer overflow-x-scroll"
         >
-          {form.tables?.length === 0 ? (
+          {tLoading ? (
+            'Загрузка...'
+          ) : form.tables?.length === 0 ? (
             <span>Выбрать</span>
           ) : (
-            form.tables?.map((tableId, index) => {
-              const table = tables.find((t) => t.id === tableId);
+            form.tables?.map((tableId) => {
+              const table = tablesAll.find((t) => t.id === tableId);
               return table ? (
-                <React.Fragment key={tableId}>
+                <div
+                  key={tableId}
+                  className="bg-[#2B2B2B] px-[5px] gap-[5px] flex items-center justify-center rounded-[5px]"
+                >
                   <span>{table.number_table}</span>
-                  {index < (form.tables || []).length - 1 && <span>,</span>}
-                </React.Fragment>
+                  <button
+                    type="button"
+                    className={'text-white'}
+                    onClick={() => {
+                      setForm((prevState) => ({
+                        ...prevState,
+                        tables: prevState.tables?.filter(
+                          (id) => id !== tableId,
+                        ),
+                      }));
+                    }}
+                  >
+                    &times;
+                  </button>
+                  {/*{index < (form.tables || []).length - 1 && <span>,</span>}*/}
+                </div>
               ) : null;
             })
           )}

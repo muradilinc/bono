@@ -9,7 +9,11 @@ import {
 } from '../../features/shedule/model/scheduleSlice';
 import { toast } from 'react-toastify';
 import { times } from '../../widgets/scheduleTable/constants/times';
-import { selectTables } from '../../features/tables/model/tableSlice';
+import {
+  selectTables,
+  selectTablesAll,
+  selectTablesAllLoading,
+} from '../../features/tables/model/tableSlice';
 import {
   FilterBook,
   getSchedules,
@@ -17,7 +21,7 @@ import {
   getSingleBook,
   updateTableBook,
 } from '../../features/shedule/api/scheduleThunk';
-import { getTables } from '../../features/tables/api/tablesThunk';
+import { getTables, getTablesAll } from '../../features/tables/api/tablesThunk';
 import { selectFloors } from '../../features/floors/model/floorSlice';
 import DatePicker from 'react-datepicker';
 import { CalendarDots } from '@phosphor-icons/react';
@@ -54,6 +58,8 @@ const UpdateClient: React.FC<Props> = ({
   const createLoading = useAppSelector(selectCreateBookLoading);
   const book = useAppSelector(selectBook);
   const tables = useAppSelector(selectTables);
+  const tablesAll = useAppSelector(selectTablesAll);
+  const tLoading = useAppSelector(selectTablesAllLoading);
   const Common = useAppSelector(selectSchedulesCommon);
   const floors = useAppSelector(selectFloors);
 
@@ -84,6 +90,7 @@ const UpdateClient: React.FC<Props> = ({
       dispatch(getSingleBook(client?.id));
     }
     dispatch(getSchedulesCommon());
+    dispatch(getTablesAll());
   }, [dispatch, client?.id]);
 
   const handleDateChange = (date: Date | null) => {
@@ -309,18 +316,37 @@ const UpdateClient: React.FC<Props> = ({
         {/*</select>*/}
         <div
           onClick={() => setShowTableDropdown(!showTableDropdown)}
-          className="w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black gap-[3px] flex items-center cursor-pointer"
+          className="tableScroll w-[340px] h-[40px] px-[10px] rounded-[4px] border-2 bg-black gap-[5px] flex items-center cursor-pointer overflow-x-scroll"
         >
-          {form.tables?.length === 0 ? (
+          {tLoading ? (
+            'Загрузка...'
+          ) : form.tables?.length === 0 ? (
             <span>Выбрать</span>
           ) : (
-            form.tables?.map((tableId, index) => {
-              const table = tables.find((t) => t.id === tableId);
+            form.tables?.map((tableId) => {
+              const table = tablesAll.find((t) => t.id === tableId);
               return table ? (
-                <React.Fragment key={tableId}>
+                <div
+                  key={tableId}
+                  className="bg-[#2B2B2B] px-[5px] gap-[5px] flex items-center justify-center rounded-[5px]"
+                >
                   <span>{table.number_table}</span>
-                  {index < (form.tables || []).length - 1 && <span>,</span>}
-                </React.Fragment>
+                  <button
+                    type="button"
+                    className={'text-white'}
+                    onClick={() => {
+                      setForm((prevState) => ({
+                        ...prevState,
+                        tables: prevState.tables?.filter(
+                          (id) => id !== tableId,
+                        ),
+                      }));
+                    }}
+                  >
+                    &times;
+                  </button>
+                  {/*{index < (form.tables || []).length - 1 && <span>,</span>}*/}
+                </div>
               ) : null;
             })
           )}
@@ -330,7 +356,7 @@ const UpdateClient: React.FC<Props> = ({
             {tables.map((table) => (
               <li
                 key={table.id}
-                className={`pl-[10px] cursor-pointer hover:bg-[#ffffff2b] ${(form.tables || []).includes(table.id) ? 'bg-[#6BC678]' : 'bg-black'}`}
+                className={`pl-[10px] cursor-pointer ${(form.tables || []).includes(table.id) ? 'bg-[#6BC678]' : 'bg-black'}`}
                 onClick={() => handleTableSelection(table.id)}
               >
                 {table.number_table}
