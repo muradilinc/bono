@@ -206,7 +206,6 @@ export const MenuFormPage = () => {
                 type="number"
                 name="price"
                 min={0}
-                required
                 placeholder="Введите цену"
                 className="w-full bg-[#2B2B2B] outline-0 px-[24px] py-[10px] rounded-[8px] placeholder:text-wite/70 placeholder:font-normal placeholder:text-[16px]"
                 value={state.price}

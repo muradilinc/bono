@@ -47,27 +47,22 @@ export const AdminAddCategories = ({ setActiveBtn }: ICategoryProp) => {
 
   const addCategoryHandle = async (event: FormEvent) => {
     event.preventDefault();
-    if (!category.image) {
-      setImageError(true);
-      toast.error('Добавьте фото!');
-    } else {
-      try {
-        await dispatch(createCategory(category)).unwrap();
-        await dispatch(getCategories()).unwrap();
-        toast.success('Добавлен!');
-        setCategory({
-          name: '',
-          image: null,
-        });
-        setImageData('');
-        if (imageSelect.current) {
-          imageSelect.current.value = '';
-        }
-        setActiveBtn('Категории');
-        setImageError(false);
-      } catch (err) {
-        toast.error('Что-то пошло не так!');
+    try {
+      await dispatch(createCategory(category)).unwrap();
+      await dispatch(getCategories()).unwrap();
+      toast.success('Добавлен!');
+      setCategory({
+        name: '',
+        image: null,
+      });
+      setImageData('');
+      if (imageSelect.current) {
+        imageSelect.current.value = '';
       }
+      setActiveBtn('Категории');
+      setImageError(false);
+    } catch (err) {
+      toast.error('Что-то пошло не так!');
     }
   };
 
