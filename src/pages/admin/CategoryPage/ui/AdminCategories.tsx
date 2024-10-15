@@ -8,15 +8,10 @@ import { selectCategories } from '../../../../features/category/categorySlice';
 export const AdminCategories = ({ setActiveBtn }: ICategoryProp) => {
   const dispatch = useAppDispatch();
   const categories = useAppSelector(selectCategories);
-  // const loading = useAppSelector(selectCategoriesLoading);
 
   useEffect(() => {
     dispatch(getCategories());
   }, [dispatch]);
-
-  // if (loading) {
-  //   return <Loading />;
-  // }
 
   return (
     <>
