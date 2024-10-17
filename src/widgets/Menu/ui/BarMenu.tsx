@@ -100,6 +100,7 @@ const BarMenu = () => {
       {menu.length > 0 ? (
         !loading ? (
           <MenuCard
+            type="bar"
             menu={menu.filter((item) => item.category === categoryId)}
           />
         ) : (
