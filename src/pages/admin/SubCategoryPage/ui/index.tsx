@@ -4,9 +4,9 @@ import {
   selectSubCategories,
   selectSubCategoriesLoading,
 } from '../model/subCategorySlice';
-import { deleteSubCategory, getSubCategories } from '../api/subCategoryThunk';
+import { getSubCategories } from '../api/subCategoryThunk';
 import { Link } from 'react-router-dom';
-import { DotsSixVertical, Pen, Trash } from '@phosphor-icons/react';
+import { DotsSixVertical, Pen } from '@phosphor-icons/react';
 import { toast } from 'react-toastify';
 import Loading from '../../../../shared/ui/Loading';
 import {
@@ -31,15 +31,15 @@ export const SubCategoriesPage = () => {
     dispatch(getSubCategories());
   }, [dispatch]);
 
-  const handleDeleteCategory = async (id: number) => {
-    try {
-      await dispatch(deleteSubCategory(id)).unwrap();
-      await dispatch(getSubCategories()).unwrap();
-      toast.success('Удалено!');
-    } catch (error) {
-      toast.error('Что-то пошло не так!');
-    }
-  };
+  // const handleDeleteCategory = async (id: number) => {
+  //   try {
+  //     await dispatch(deleteSubCategory(id)).unwrap();
+  //     await dispatch(getSubCategories()).unwrap();
+  //     toast.success('Удалено!');
+  //   } catch (error) {
+  //     toast.error('Что-то пошло не так!');
+  //   }
+  // };
 
   const handleOrderSubCategory = async (id: number, order: number) => {
     const data = [
@@ -143,14 +143,14 @@ export const SubCategoriesPage = () => {
                             >
                               <Pen size={24} />
                             </Link>
-                            <button
-                              onClick={() =>
-                                handleDeleteCategory(subCategory.id)
-                              }
-                              className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
-                            >
-                              <Trash size={20} />
-                            </button>
+                            {/*<button*/}
+                            {/*  onClick={() =>*/}
+                            {/*    handleDeleteCategory(subCategory.id)*/}
+                            {/*  }*/}
+                            {/*  className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"*/}
+                            {/*>*/}
+                            {/*  <Trash size={20} />*/}
+                            {/*</button>*/}
                           </div>
                         </div>
                       )}
@@ -205,14 +205,14 @@ export const SubCategoriesPage = () => {
                             >
                               <Pen size={24} />
                             </Link>
-                            <button
-                              onClick={() =>
-                                handleDeleteCategory(subCategory.id)
-                              }
-                              className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"
-                            >
-                              <Trash size={20} />
-                            </button>
+                            {/*<button*/}
+                            {/*  onClick={() =>*/}
+                            {/*    handleDeleteCategory(subCategory.id)*/}
+                            {/*  }*/}
+                            {/*  className="text-white bg-red-500 py-[5px] px-[10px] rounded-[5px]"*/}
+                            {/*>*/}
+                            {/*  <Trash size={20} />*/}
+                            {/*</button>*/}
                           </div>
                         </div>
                       )}
