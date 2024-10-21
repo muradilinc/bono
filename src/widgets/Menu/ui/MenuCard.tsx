@@ -44,7 +44,7 @@ const Card: FC<{ item: MenuType; variants: Variants; type?: string }> = ({
           }}
           onMouseEnter={() => setIsActive(true)}
           onMouseLeave={() => setIsActive(false)}
-          className="relative max-h-[465px] flex-auto md:flex-100"
+          className="relative min-w-[250px] max-h-[465px] flex-auto md:flex-100"
         >
           <img
             className="w-full h-full object-cover"
@@ -74,7 +74,7 @@ const Card: FC<{ item: MenuType; variants: Variants; type?: string }> = ({
         </motion.div>
       ) : (
         <div
-          className={`relative min-h-[465px] flex-auto md:flex-100 ${item.image ? '' : 'bg-black border border-white'}`}
+          className={`relative min-w-[250px] min-h-[465px] flex-auto md:flex-100 ${item.image ? '' : 'bg-black border border-white'}`}
         >
           {item.image ? (
             <img
